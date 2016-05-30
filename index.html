@@ -75,143 +75,43 @@
     <div id="container">
       <div id="main">
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/05/30/PHP制作验证码/" title="PHP制作验证码" itemprop="url">PHP制作验证码</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
-		
-  <p class="article-time">
-    <time datetime="2016-05-30T10:12:41.000Z" itemprop="datePublished"> Published 2016-05-30</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>学习目的：<br>屏蔽机器请求，保证业务不受机器提交请求干扰。<br>为什么要屏蔽：<br>一般服务端业务，<strong>写请求</strong>产生的消耗要远远大于<strong>读请求</strong>。<br>技术点：<br>1.底图的实现，并且添加干扰元素<br>2.生成验证内容<br>3.验证内容保存在服务端<br>4.验证内容的效验<br><img src="http://img.blog.csdn.net/20160510190523799" alt="这里写图片描述"></p>
-<p>实现底图：<br><img src="http://img.blog.csdn.net/20160510193102397" alt="这里写图片描述"><br>代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$img = imagecreatetruecolor(100,30);//大小</span><br><span class="line">$bgColor = imagecolorallocate($img,0x00,0x00,0x00);//背景颜色</span><br><span class="line">imagefill($img,0,0,$bgColor);//填充颜色</span><br><span class="line">header(&apos;content-type: image/png&apos;);</span><br><span class="line">imagepng($img);</span><br><span class="line">//销毁</span><br><span class="line">imagedestroy($img);</span><br></pre></td></tr></table></figure>
-<p>增加点干扰和线干扰：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$img = imagecreatetruecolor(100,30);//大小</span><br><span class="line">$bgColor = imagecolorallocate($img,0xff,0xff,0xff);//背景颜色</span><br><span class="line">imagefill($img,0,0,$bgColor);//填充颜色</span><br><span class="line">//增加随机数字</span><br><span class="line">for($i=0;$i&lt;4;$i++)&#123;</span><br><span class="line">    $numberSize = 6;</span><br><span class="line">    $numberColor = imagecolorallocate($img,rand(0,120),rand(0,120),rand(0,120));//深色区间</span><br><span class="line">    //位置不能重合</span><br><span class="line">    $x = ($i*100/4)+rand(0,5);</span><br><span class="line">    $y = rand(5,10);</span><br><span class="line">    imagestring($img,$numberSize,$x,$y,rand(0,9),$numberColor);</span><br><span class="line">&#125;</span><br><span class="line">//增加点干扰</span><br><span class="line">for ($i=0;$i&lt;200;$i++)&#123;</span><br><span class="line">    //干扰颜色</span><br><span class="line">    $pointColor = imagecolorallocate($img,rand(50,200),rand(50,200),rand(50,200));</span><br><span class="line">    imagesetpixel($img,rand(0,100),rand(0,30),$pointColor);</span><br><span class="line">&#125;</span><br><span class="line">//增加线干扰</span><br><span class="line">for ($i=0;$i&lt;4;$i++)&#123;</span><br><span class="line">    //干扰颜色</span><br><span class="line">    $lineColor = imagecolorallocate($img,rand(80,200),rand(80,200),rand(80,200));</span><br><span class="line">    imageline($img,rand(0,100),rand(0,30),rand(0,100),rand(0,30),$lineColor);</span><br><span class="line">&#125;</span><br><span class="line">header(&apos;content-type: image/png&apos;);</span><br><span class="line">imagepng($img);</span><br><span class="line">//销毁</span><br><span class="line">imagedestroy($img);</span><br></pre></td></tr></table></figure>
-<p>注意事项：<br>干扰信息一定要控制好颜色，不要“喧宾夺主”。</p>
-<p><strong>通过SESSION存储验证信息</strong></p>
-<p>目标:<br>在服务端记录验证码信息，便于用户输入后做效验<br>方法：<br>session_start()<br>注意事项：<br>1.session_start<strong>必须处于脚本最顶部</strong><br>2.多服务器情况，需要考虑集中管理session信息</p>
-<p>自己解决乱码问题：转换为UTF-8无BOM格式编码。</p>
-<p><img src="http://img.blog.csdn.net/20160510205601401" alt="这里写图片描述"></p>
-<p>图片和视频验证原理是一样的，只是维护了一个图片物料库和其对应session的关系而已。</p>
-<p><strong>中文验证码的实现</strong>：<br>实现：<br>依赖GD库的imagettftext()方法<br>注意：<br>1.GBK编码时，需要将中文通过iconv()转为UTF-8<br>2.选用的TTF文件需要支持中文</p>
-<p>在utf-8中，中文字体占3个字节？（不确定）。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/后端开发/">后端开发</a>
-</div>
-
-
-  <div class="article-tags">
   
-  <span></span> <a href="/tags/后端开发/">后端开发</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/05/30/PHP制作验证码/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/30/PHP制作验证码/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/05/30/关于JSON/" title="关于JSON" itemprop="url">关于JSON</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
-		
-  <p class="article-time">
-    <time datetime="2016-05-30T04:23:39.000Z" itemprop="datePublished"> Published 2016-05-30</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>理解JSON数据格式和serialize序列化，XML以及数组的区别。<br>JSON的四个基本规则：<br>1.并列的数据之间用<strong>逗号</strong>分隔<br>2.映射用<strong>冒号</strong>表示<br>3.并列数据的集合（数组）用<strong>方括号</strong>表示<br>4.映射的集合（对象）用<strong>大括号</strong>表示</p>
-<p>JSON的优点：<br>1.数据格式简单，易于读写，格式都是压缩的，占用带宽小<br>2.支持多种语言</p>
-<p>JSON的缺点：<br>1.要求字符集必须是unicode，受约束性强<br>2.语法过于严谨，必须遵循JSON语法的四个原则</p>
-<p>比较：<br><img src="http://img.blog.csdn.net/20160510214724064" alt=""></p>
-<p><img src="http://img.blog.csdn.net/20160510215056585" alt=""></p>
-<p>掌握：<br><img src="http://img.blog.csdn.net/20160510220503790" alt=""></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/后端开发/">后端开发</a>
-</div>
-
-
-  <div class="article-tags">
+<section class="post" itemscope itemprop="blogitem">
   
-  <span></span> <a href="/tags/后端开发/">后端开发</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/05/30/关于JSON/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/30/关于JSON/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
+    <a href="/2016/05/30/PHP制作验证码/" title="PHP制作验证码" itemprop="url">
+  
+    <h1 itemprop="name">PHP制作验证码</h1>
+    
+     
+           <p itemprop="description" >学习目的：屏蔽机器请求，保证业务不受机器提交请求干扰。为什么要屏蔽：一般服务端业务，写请求产生的消耗要远远大于读请求。技术点：1.底图的实现，并且添加干扰元素2.生成验证内容3.验证内容保存在服务端4.验证内容的效验
+实现底图：代码：
+12345678&amp;lt;?php$img =</p>
+        
+    
+    <time datetime="2016-05-30T10:12:41.000Z" itemprop="datePublished">2016-05-30</time>
+  </a>
+</section>
 
 
-    </article>
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/30/关于JSON/" title="关于JSON" itemprop="url">
+  
+    <h1 itemprop="name">关于JSON</h1>
+    
+     
+           <p itemprop="description" >理解JSON数据格式和serialize序列化，XML以及数组的区别。JSON的四个基本规则：1.并列的数据之间用逗号分隔2.映射用冒号表示3.并列数据的集合（数组）用方括号表示4.映射的集合（对象）用大括号表示
+JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，占用带</p>
+        
+    
+    <time datetime="2016-05-30T04:23:39.000Z" itemprop="datePublished">2016-05-30</time>
+  </a>
+</section>
 
 
 
