@@ -4,33 +4,29 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>关于JSON | 曾先生&#39;s Blog</title>
+    <title>5.隐藏实现细目 | 曾先生&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="曾奇">
     
 
     
-    <meta name="description" content="理解JSON数据格式和serialize序列化，XML以及数组的区别。JSON的四个基本规则：1.并列的数据之间用逗号分隔2.映射用冒号表示3.并列数据的集合（数组）用方括号表示4.映射的集合（对象）用大括号表示
-JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，占用带宽小2.支持多种语言
-JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过于严谨，必须遵循JSON语">
+    <meta name="description" content="五、隐藏实现细目
+Package（程序库单元）：每个编译单元只能有一个public class，否则编译器不接受。Package之外的世界无法看见该编译单元内的其余classes，这些classes主要用来为那个主要的public class提供支持。应该明白，关键字package和import所提供的，乃是将单一全局命名空间加以切割。
+如果想出货时取消调试的assertions功能，可以开发第二">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于JSON">
-<meta property="og:url" content="http://yoursite.com/2016/05/10/关于JSON/index.html">
+<meta property="og:title" content="5.隐藏实现细目">
+<meta property="og:url" content="http://yoursite.com/2015/12/03/5-隐藏实现细目/index.html">
 <meta property="og:site_name" content="曾先生's Blog">
-<meta property="og:description" content="理解JSON数据格式和serialize序列化，XML以及数组的区别。JSON的四个基本规则：1.并列的数据之间用逗号分隔2.映射用冒号表示3.并列数据的集合（数组）用方括号表示4.映射的集合（对象）用大括号表示
-JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，占用带宽小2.支持多种语言
-JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过于严谨，必须遵循JSON语">
-<meta property="og:image" content="http://img.blog.csdn.net/20160510214724064">
-<meta property="og:image" content="http://img.blog.csdn.net/20160510215056585">
-<meta property="og:image" content="http://img.blog.csdn.net/20160510220503790">
-<meta property="og:updated_time" content="2016-06-01T03:59:17.992Z">
+<meta property="og:description" content="五、隐藏实现细目
+Package（程序库单元）：每个编译单元只能有一个public class，否则编译器不接受。Package之外的世界无法看见该编译单元内的其余classes，这些classes主要用来为那个主要的public class提供支持。应该明白，关键字package和import所提供的，乃是将单一全局命名空间加以切割。
+如果想出货时取消调试的assertions功能，可以开发第二">
+<meta property="og:updated_time" content="2016-06-01T04:26:47.490Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于JSON">
-<meta name="twitter:description" content="理解JSON数据格式和serialize序列化，XML以及数组的区别。JSON的四个基本规则：1.并列的数据之间用逗号分隔2.映射用冒号表示3.并列数据的集合（数组）用方括号表示4.映射的集合（对象）用大括号表示
-JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，占用带宽小2.支持多种语言
-JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过于严谨，必须遵循JSON语">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20160510214724064">
+<meta name="twitter:title" content="5.隐藏实现细目">
+<meta name="twitter:description" content="五、隐藏实现细目
+Package（程序库单元）：每个编译单元只能有一个public class，否则编译器不接受。Package之外的世界无法看见该编译单元内的其余classes，这些classes主要用来为那个主要的public class提供支持。应该明白，关键字package和import所提供的，乃是将单一全局命名空间加以切割。
+如果想出货时取消调试的assertions功能，可以开发第二">
 
     
     <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
@@ -90,14 +86,14 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/05/10/关于JSON/" title="关于JSON" itemprop="url">关于JSON</a>
+      <a href="/2015/12/03/5-隐藏实现细目/" title="5.隐藏实现细目" itemprop="url">5.隐藏实现细目</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
 		
   <p class="article-time">
-    <time datetime="2016-05-10T04:23:39.000Z" itemprop="datePublished"> Published 2016-05-10</time>
+    <time datetime="2015-12-03T04:25:15.000Z" itemprop="datePublished"> Published 2015-12-03</time>
     
   </p>
 </header>
@@ -110,12 +106,20 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 		
 		</div>
 		
-		<p>理解JSON数据格式和serialize序列化，XML以及数组的区别。<br>JSON的四个基本规则：<br>1.并列的数据之间用<strong>逗号</strong>分隔<br>2.映射用<strong>冒号</strong>表示<br>3.并列数据的集合（数组）用<strong>方括号</strong>表示<br>4.映射的集合（对象）用<strong>大括号</strong>表示</p>
-<p>JSON的优点：<br>1.数据格式简单，易于读写，格式都是压缩的，占用带宽小<br>2.支持多种语言</p>
-<p>JSON的缺点：<br>1.要求字符集必须是unicode，受约束性强<br>2.语法过于严谨，必须遵循JSON语法的四个原则</p>
-<p>比较：<br><img src="http://img.blog.csdn.net/20160510214724064" alt=""></p>
-<p><img src="http://img.blog.csdn.net/20160510215056585" alt=""></p>
-<p>掌握：<br><img src="http://img.blog.csdn.net/20160510220503790" alt=""></p>
+		<p>五、隐藏实现细目</p>
+<p>Package（程序库单元）：每个编译单元只能有一个public class，否则编译器不接受。Package之外的世界无法看见该编译单元内的其余classes，这些classes主要用来为那个主要的public class提供支持。<br>应该明白，关键字package和import所提供的，乃是将单一全局命名空间加以切割。</p>
+<p>如果想出货时取消调试的assertions功能，可以开发第二个assert class，并将它置于另一个不同的package中，这样，通过导入不同的package，便可以使程序代码从调试版变为出货版，这个技巧可用于任何类型的条件编译程序代码上。</p>
+<p>接口与实现：<br>我们需要控制访问权限，在数据型别中建立界限的两个理由：</p>
+<ol>
+<li>建立起一道界限，指明哪些是客户端程序员可以使用的，哪些是他们不能使用的。</li>
+<li>将接口和实现分离。<br>Class的访问权限：为classes 而设的访问权限，可以控制客户端程序员是否有权利产生某个class的对象。</li>
+</ol>
+<p>虽然通常不这样做，但是编译单元内的确可以不含任何public class。<br>注意：class不能是private（这么做会使得除了他自己没有任何class可以取用）或者protected，当然有特例，事实上，inner class可以是private或者protected。所以对于class的访问权限，只有friendly或者public，如果你不希望其他任何人取用某个class，请将其构造函数声明为private，这样就不能通过new来产生一个对象。</p>
+<p>不同通过new的常规方法来产生对象，那么我们怎么产生对象呢？方法两种：</p>
+<p>代码演示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class Soup&#123;</span><br><span class="line">	//private且空的构造函数</span><br><span class="line">	private Soup()&#123;</span><br><span class="line">	&#125;</span><br><span class="line">	//通过static函数来产生新的Soup对象并返回其reference。</span><br><span class="line">	public static Soup makeSoup()&#123;</span><br><span class="line">		return new Soup();</span><br><span class="line">	&#125;</span><br><span class="line">	//使用“singleton”的设计模式，因为它让整个程序面对某个class时只能产生唯一一个对象。</span><br><span class="line">	private static Soup ps1 = new Soup();</span><br><span class="line">	public static Soup access()&#123;</span><br><span class="line">		return ps1;</span><br><span class="line">	&#125;</span><br><span class="line">	public void f()&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Mian&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">//		Soup pr = new Soup();不能通过构造函数构造</span><br><span class="line">		Soup pr1 = Soup.makeSoup();</span><br><span class="line">		Soup pr2 = Soup.access();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法一适用：在执行Soup之前先进行某些额外处理，或者希望记录（或限制）究竟有多少个Soup对象被产生出来，非常适用。</p>
+<p>方法二适用：只产生唯一的一个对象。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -124,7 +128,7 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/后端开发/">后端开发</a>
+  <span></span> <a href="/tags/Java编程思想读书笔记/">Java编程思想读书笔记</a>
   </div>
 
 </div>
@@ -133,7 +137,7 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/05/10/关于JSON/" data-title="关于JSON | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/12/03/5-隐藏实现细目/" data-title="5.隐藏实现细目 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -147,18 +151,18 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/05/10/PHP制作验证码/" title="PHP制作验证码">
+ <a href="/2015/12/03/6-重复使用classes/" title="6.重复使用classes">
   <strong>上一篇：</strong><br/>
   <span>
-  PHP制作验证码</span>
+  6.重复使用classes</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/12/06/7-多态/"  title="7.多态">
+<a href="/2015/12/02/4-初始化和清理/"  title="4.初始化和清理">
  <strong>下一篇：</strong><br/> 
- <span>7.多态
+ <span>4.初始化和清理
 </span>
 </a>
 </div>
@@ -167,7 +171,7 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/05/10/关于JSON/" data-title="关于JSON" data-url="http://yoursite.com/2016/05/10/关于JSON/"></div>
+	<div class="ds-thread" data-thread-key="2015/12/03/5-隐藏实现细目/" data-title="5.隐藏实现细目" data-url="http://yoursite.com/2015/12/03/5-隐藏实现细目/"></div>
 </section>
 
 

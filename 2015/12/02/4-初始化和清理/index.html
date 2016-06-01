@@ -4,33 +4,32 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>关于JSON | 曾先生&#39;s Blog</title>
+    <title>4.初始化和清理 | 曾先生&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="曾奇">
     
 
     
-    <meta name="description" content="理解JSON数据格式和serialize序列化，XML以及数组的区别。JSON的四个基本规则：1.并列的数据之间用逗号分隔2.映射用冒号表示3.并列数据的集合（数组）用方括号表示4.映射的集合（对象）用大括号表示
-JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，占用带宽小2.支持多种语言
-JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过于严谨，必须遵循JSON语">
+    <meta name="description" content="四、初始化和清理
+初始化和清理时众多安全议题中的两个。区分重载函数：每个重载函数都需要具备独一无二的引数列。
+关键字this，编译器暗自做手脚，将调用者的reference传入到对象方法中来取代this。这个关键字仅用于函数之内，能取得“唤起此一函数”的那个object reference。
+关于构造函数中this的用法：虽然能够由this调用一个构造函数，却不能以相同方法调用两个或更多。此外，对">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于JSON">
-<meta property="og:url" content="http://yoursite.com/2016/05/10/关于JSON/index.html">
+<meta property="og:title" content="4.初始化和清理">
+<meta property="og:url" content="http://yoursite.com/2015/12/02/4-初始化和清理/index.html">
 <meta property="og:site_name" content="曾先生's Blog">
-<meta property="og:description" content="理解JSON数据格式和serialize序列化，XML以及数组的区别。JSON的四个基本规则：1.并列的数据之间用逗号分隔2.映射用冒号表示3.并列数据的集合（数组）用方括号表示4.映射的集合（对象）用大括号表示
-JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，占用带宽小2.支持多种语言
-JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过于严谨，必须遵循JSON语">
-<meta property="og:image" content="http://img.blog.csdn.net/20160510214724064">
-<meta property="og:image" content="http://img.blog.csdn.net/20160510215056585">
-<meta property="og:image" content="http://img.blog.csdn.net/20160510220503790">
-<meta property="og:updated_time" content="2016-06-01T03:59:17.992Z">
+<meta property="og:description" content="四、初始化和清理
+初始化和清理时众多安全议题中的两个。区分重载函数：每个重载函数都需要具备独一无二的引数列。
+关键字this，编译器暗自做手脚，将调用者的reference传入到对象方法中来取代this。这个关键字仅用于函数之内，能取得“唤起此一函数”的那个object reference。
+关于构造函数中this的用法：虽然能够由this调用一个构造函数，却不能以相同方法调用两个或更多。此外，对">
+<meta property="og:updated_time" content="2016-06-01T04:24:38.082Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于JSON">
-<meta name="twitter:description" content="理解JSON数据格式和serialize序列化，XML以及数组的区别。JSON的四个基本规则：1.并列的数据之间用逗号分隔2.映射用冒号表示3.并列数据的集合（数组）用方括号表示4.映射的集合（对象）用大括号表示
-JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，占用带宽小2.支持多种语言
-JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过于严谨，必须遵循JSON语">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20160510214724064">
+<meta name="twitter:title" content="4.初始化和清理">
+<meta name="twitter:description" content="四、初始化和清理
+初始化和清理时众多安全议题中的两个。区分重载函数：每个重载函数都需要具备独一无二的引数列。
+关键字this，编译器暗自做手脚，将调用者的reference传入到对象方法中来取代this。这个关键字仅用于函数之内，能取得“唤起此一函数”的那个object reference。
+关于构造函数中this的用法：虽然能够由this调用一个构造函数，却不能以相同方法调用两个或更多。此外，对">
 
     
     <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
@@ -90,14 +89,14 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/05/10/关于JSON/" title="关于JSON" itemprop="url">关于JSON</a>
+      <a href="/2015/12/02/4-初始化和清理/" title="4.初始化和清理" itemprop="url">4.初始化和清理</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
 		
   <p class="article-time">
-    <time datetime="2016-05-10T04:23:39.000Z" itemprop="datePublished"> Published 2016-05-10</time>
+    <time datetime="2015-12-02T04:22:51.000Z" itemprop="datePublished"> Published 2015-12-02</time>
     
   </p>
 </header>
@@ -110,12 +109,29 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 		
 		</div>
 		
-		<p>理解JSON数据格式和serialize序列化，XML以及数组的区别。<br>JSON的四个基本规则：<br>1.并列的数据之间用<strong>逗号</strong>分隔<br>2.映射用<strong>冒号</strong>表示<br>3.并列数据的集合（数组）用<strong>方括号</strong>表示<br>4.映射的集合（对象）用<strong>大括号</strong>表示</p>
-<p>JSON的优点：<br>1.数据格式简单，易于读写，格式都是压缩的，占用带宽小<br>2.支持多种语言</p>
-<p>JSON的缺点：<br>1.要求字符集必须是unicode，受约束性强<br>2.语法过于严谨，必须遵循JSON语法的四个原则</p>
-<p>比较：<br><img src="http://img.blog.csdn.net/20160510214724064" alt=""></p>
-<p><img src="http://img.blog.csdn.net/20160510215056585" alt=""></p>
-<p>掌握：<br><img src="http://img.blog.csdn.net/20160510220503790" alt=""></p>
+		<p>四、初始化和清理</p>
+<p>初始化和清理时众多安全议题中的两个。<br>区分重载函数：每个重载函数都需要具备独一无二的引数列。</p>
+<p>关键字this，编译器暗自做手脚，将调用者的reference传入到对象方法中来取代this。这个关键字仅用于函数之内，能取得“唤起此一函数”的那个object reference。</p>
+<p>关于构造函数中this的用法：虽然能够由this调用一个构造函数，却不能以相同方法调用两个或更多。此外，对另一构造函数的调用必须是在最起始位置，否则编译器会报错。同时，编译器不允许在构造函数之外的任何函数内调用构造函数。</p>
+<p>清理：关于终结（finalization）和回收（gc）：假设你的对象并非由new获得某种“特殊”内存。垃圾回收器只知道释放那些经由new分配出来的内存，因此它并不知道如何释放你这个对象占用的“特殊”内存。为了回应这种情况，java提供一个finalize（）函数，你可以为自己的class定义这一函数。</p>
+<p>关于垃圾回收器（gc）：</p>
+<ol>
+<li>垃圾回收不等于解构</li>
+<li>你的对象可能不会被回收，正是因为这样，所以在finalize（）中完成你必要的清理动作不合适。所以不应该使用finalize（）做一般用途的清理工作。</li>
+<li>垃圾回收动作只回收内存。垃圾回收器存在的唯一理由，就是要回收那些在你程序中再也用不着的内存空间。似乎只有在你通过java的非正常管道来分配内存，打算做一些类似C会做的事情时，才是使用finalize（）的适当时机。</li>
+<li>无论是垃圾回收动作或者是终结动作，都不保证一定能发生。如果java虚拟机（JVM）并未面临内存耗尽的情境，它不会浪费时间与垃圾回收上。<br>初始化：你无法杜绝发生于构造函数执行之前的自动初始化动作。</li>
+</ol>
+<p>初始化次序：class中的初始化次序取决于变量中class中定义次序。变量定义可以散落在各处，而且有可能介于各个函数定义之间，但所有变量一定会在任何一个函数（甚至是构造函数）被调用之前完成初始化。Static的初始化动作只在必要时刻才会发生，如果你没有产生Table对象，也没有调用Table.b1或b2等static变量，那么static变量就永远不会被产生。如果static变量并未因为早先的对象生成过程而被初始化，那么初始化次序会以static为优先，然后才是non-static对象。</p>
+<p>对象生成过程摘要：</p>
+<ol>
+<li>当某个型别为Dog的对象首次被产生出来，或者是当class Dog的static函数或static数据成员被首次调用时，java直译器必须查找环境变量classpath所指定的位置，找出Dog.class。</li>
+<li>一旦Dog.class被装载（这样就产生一个class对象）。它的所有static初始动作会被执行起来，因此static初始化动作仅会发生一次，就是class对象被首次装载时。</li>
+<li>当new Dog（）时，建构过程会先为Dog对象在heap上分配足够的存储空间。</li>
+<li>这块存储空间会先被清零，并自动将Dog对象内所有属于基本型别的数据设为缺省值，并将reference设为null.</li>
+<li>执行所有的数据定义处的初始化动作。</li>
+<li>执行构造函数。这中间将牵扯极多动作，尤其是当继承关系卷入时。<br>Array的初始化：当定义一个array，“int[] a;”。上述编译器并不允许告诉他array有多大。此刻你所拥有的，只是一个reference，代表某个array，但是并没有对应的空间。如果想为该array产生必要的存储空间，必须撰写初始化表达式。Array的生成发生在执行期。<br>“Integer[] a = new Integer[20];”以new产生array之后，这还是个referencearray。只有在“生成新的integer对象以初始化reference”之后，初始化动作才算完成，即”a[i] = new Integer(50);”。如果忘记生成对象，当你企图读取空的array位置时，会获得一个异常。</li>
+</ol>
+<p>多维数组：array之中形成整个矩阵的那些向量可以是任意长度的。（举例，二维矩阵不一定是矩形，可以是三角形等）。对于基本类型，没有明确给定array的元素值的话，它们会被自动初始化为0或false。对于非基本型别，它们会被初始化为null。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -124,7 +140,7 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/后端开发/">后端开发</a>
+  <span></span> <a href="/tags/Java编程思想读书笔记/">Java编程思想读书笔记</a>
   </div>
 
 </div>
@@ -133,7 +149,7 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/05/10/关于JSON/" data-title="关于JSON | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/12/02/4-初始化和清理/" data-title="4.初始化和清理 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -147,18 +163,18 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/05/10/PHP制作验证码/" title="PHP制作验证码">
+ <a href="/2015/12/03/5-隐藏实现细目/" title="5.隐藏实现细目">
   <strong>上一篇：</strong><br/>
   <span>
-  PHP制作验证码</span>
+  5.隐藏实现细目</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/12/06/7-多态/"  title="7.多态">
+<a href="/2015/12/02/3-控制程序流程/"  title="3.控制程序流程">
  <strong>下一篇：</strong><br/> 
- <span>7.多态
+ <span>3.控制程序流程
 </span>
 </a>
 </div>
@@ -167,7 +183,7 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/05/10/关于JSON/" data-title="关于JSON" data-url="http://yoursite.com/2016/05/10/关于JSON/"></div>
+	<div class="ds-thread" data-thread-key="2015/12/02/4-初始化和清理/" data-title="4.初始化和清理" data-url="http://yoursite.com/2015/12/02/4-初始化和清理/"></div>
 </section>
 
 

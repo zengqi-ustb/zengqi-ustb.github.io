@@ -4,33 +4,35 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>关于JSON | 曾先生&#39;s Blog</title>
+    <title>6.重复使用classes | 曾先生&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="曾奇">
     
 
     
-    <meta name="description" content="理解JSON数据格式和serialize序列化，XML以及数组的区别。JSON的四个基本规则：1.并列的数据之间用逗号分隔2.映射用冒号表示3.并列数据的集合（数组）用方括号表示4.映射的集合（对象）用大括号表示
-JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，占用带宽小2.支持多种语言
-JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过于严谨，必须遵循JSON语">
+    <meta name="description" content="六、重复运用classes
+两种方法：1.组合2.继承
+“为每个class提供main()”的技巧，可以使每个class的单元测试更为容易。
+关于继承的小tip：一般为了继承着想，一般将所有数据成员声明为private，将所有函数声明为public，当然并不是这么绝对，针对具体情况作出调整，但确实是个实用原则。
+继承初始化的顺序：构建动作会由baseclass“向外”扩散，所以base class">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于JSON">
-<meta property="og:url" content="http://yoursite.com/2016/05/10/关于JSON/index.html">
+<meta property="og:title" content="6.重复使用classes">
+<meta property="og:url" content="http://yoursite.com/2015/12/03/6-重复使用classes/index.html">
 <meta property="og:site_name" content="曾先生's Blog">
-<meta property="og:description" content="理解JSON数据格式和serialize序列化，XML以及数组的区别。JSON的四个基本规则：1.并列的数据之间用逗号分隔2.映射用冒号表示3.并列数据的集合（数组）用方括号表示4.映射的集合（对象）用大括号表示
-JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，占用带宽小2.支持多种语言
-JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过于严谨，必须遵循JSON语">
-<meta property="og:image" content="http://img.blog.csdn.net/20160510214724064">
-<meta property="og:image" content="http://img.blog.csdn.net/20160510215056585">
-<meta property="og:image" content="http://img.blog.csdn.net/20160510220503790">
-<meta property="og:updated_time" content="2016-06-01T03:59:17.992Z">
+<meta property="og:description" content="六、重复运用classes
+两种方法：1.组合2.继承
+“为每个class提供main()”的技巧，可以使每个class的单元测试更为容易。
+关于继承的小tip：一般为了继承着想，一般将所有数据成员声明为private，将所有函数声明为public，当然并不是这么绝对，针对具体情况作出调整，但确实是个实用原则。
+继承初始化的顺序：构建动作会由baseclass“向外”扩散，所以base class">
+<meta property="og:updated_time" content="2016-06-01T04:30:01.819Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于JSON">
-<meta name="twitter:description" content="理解JSON数据格式和serialize序列化，XML以及数组的区别。JSON的四个基本规则：1.并列的数据之间用逗号分隔2.映射用冒号表示3.并列数据的集合（数组）用方括号表示4.映射的集合（对象）用大括号表示
-JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，占用带宽小2.支持多种语言
-JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过于严谨，必须遵循JSON语">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20160510214724064">
+<meta name="twitter:title" content="6.重复使用classes">
+<meta name="twitter:description" content="六、重复运用classes
+两种方法：1.组合2.继承
+“为每个class提供main()”的技巧，可以使每个class的单元测试更为容易。
+关于继承的小tip：一般为了继承着想，一般将所有数据成员声明为private，将所有函数声明为public，当然并不是这么绝对，针对具体情况作出调整，但确实是个实用原则。
+继承初始化的顺序：构建动作会由baseclass“向外”扩散，所以base class">
 
     
     <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
@@ -90,14 +92,14 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/05/10/关于JSON/" title="关于JSON" itemprop="url">关于JSON</a>
+      <a href="/2015/12/03/6-重复使用classes/" title="6.重复使用classes" itemprop="url">6.重复使用classes</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
 		
   <p class="article-time">
-    <time datetime="2016-05-10T04:23:39.000Z" itemprop="datePublished"> Published 2016-05-10</time>
+    <time datetime="2015-12-03T04:27:41.000Z" itemprop="datePublished"> Published 2015-12-03</time>
     
   </p>
 </header>
@@ -110,12 +112,29 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 		
 		</div>
 		
-		<p>理解JSON数据格式和serialize序列化，XML以及数组的区别。<br>JSON的四个基本规则：<br>1.并列的数据之间用<strong>逗号</strong>分隔<br>2.映射用<strong>冒号</strong>表示<br>3.并列数据的集合（数组）用<strong>方括号</strong>表示<br>4.映射的集合（对象）用<strong>大括号</strong>表示</p>
-<p>JSON的优点：<br>1.数据格式简单，易于读写，格式都是压缩的，占用带宽小<br>2.支持多种语言</p>
-<p>JSON的缺点：<br>1.要求字符集必须是unicode，受约束性强<br>2.语法过于严谨，必须遵循JSON语法的四个原则</p>
-<p>比较：<br><img src="http://img.blog.csdn.net/20160510214724064" alt=""></p>
-<p><img src="http://img.blog.csdn.net/20160510215056585" alt=""></p>
-<p>掌握：<br><img src="http://img.blog.csdn.net/20160510220503790" alt=""></p>
+		<p>六、重复运用classes</p>
+<p>两种方法：1.组合2.继承</p>
+<p>“为每个class提供main()”的技巧，可以使每个class的单元测试更为容易。</p>
+<p>关于继承的小tip：一般为了继承着想，一般将所有数据成员声明为private，将所有函数声明为public，当然并不是这么绝对，针对具体情况作出调整，但确实是个实用原则。</p>
+<p>继承初始化的顺序：构建动作会由baseclass“向外”扩散，所以base class会在derived class构造函数取用它之前，先完成自身的初始化动作。此外，对base class构造函数的调用，必须是derived class构造函数所做的第一件事。</p>
+<p>关于继承中“清理”的问题：首先执行你的class的所有的特定清理动作（其次序和生成次序相反），这必须“base class元素”尚且存活才行，然后调用base class的“清理”函数。</p>
+<p>组合与继承之间的选择：当你想要在新的class中使用既有class的功能，而非其接口，通常可以采用组合技术。实施继承技术时，你会使用某个既有的class，然后开发他的一个特化版本。举例，以“交通工具”来“合成”一部“车”没有任何意义，车子并非包含交通工具，车子是一种交通工具。这种“is–a”（是一个）的关系便以继承来表达，“has–a”（有一个，功能性）则以组合来表达。</p>
+<p>关键字protected：代表着“就此class的使用者来说，这是private”。但继承自此一class的derivedclass，或位于同一个package内的其他classes，却可以访问。即，java的protected天生具有“friendly”权限。<br>继承的优点之一：支持渐进式开发模式。在此模式下，你可以加入新的程序代码，而且绝不会在既有程序代码身上产生bug。</p>
+<p>再看组合和继承的选择：尽量使用“组合”。对于“继承”应该谨慎使用，如果确实需要“向上转型”（便于使用多态），那么就用继承。其他情况，慎选。</p>
+<p>Final关键字：</p>
+<ol>
+<li><p>final data<br>可以是永不改变的“编译期常量”，可以是执行期被初始化，而你却不想再改变它。编译期常量，编译器可以将这个常量包进任何一个用到它的计算表达式中，编译期间就能够执行一些计算，减少了执行期的负担。Final用于object reference时，final会让reference保持不变，某个reference一旦被初始化用以代表某个对象以后，便再也不能更改而指向另一个对象，但此时对象本身的内容是可以变动的。<br>Blank finals：java允许产生所谓的“留白的finals”，就是允许我们将数据成员声明为final，但不给赋初值。给我们了更多的弹性，我们可以在构造函数中通过“引数”为其初始化，这样一来，class中的数据成员便在每个对象中有所不同，但依旧保持着“恒长不变”的特性。<br>Final arguments：在引数列中声明即可，意味着你无法在此函数中令该引数改指他处。</p>
+</li>
+<li><p>final methods<br>原因有二：</p>
+</li>
+<li><p>锁住这个函数，使derived class无法改变其意义。这是设计上的考量：也许你希望确保某个函数在继承的过程中保持不变，无法被重写。</p>
+</li>
+<li><p>效率。如果函数被声明为final，等于允许编译器将所有对此函数的调用动作转化为inline（行内）调用。但是，不要过度相信编译器，最好是在某个函数真的体积很小或者你真的不希望它被重写的时候才使用final。class中的private函数自然都是final，因为你无法取用private函数。</p>
+</li>
+<li><p>final classes<br>当声明某个class为final时，等于声明你并不想继承此一class，也不允许别人这样做。注意，class是否定义为final，不影响数据成员，final data的原则仍然适用。将class定义为final，只是为了杜绝继承。但由于阻止了继承，使得final class中的所有函数也是final，因为没人能够加以重写。</p>
+</li>
+</ol>
+<p>我们努力的目标：让阶层架构中的每个class各自具有特定的用途，而且既不太大（包含太多功能，难以重复使用），也不太小（无法在不加入其他功能的情况下单独使用之）。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -124,7 +143,7 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/后端开发/">后端开发</a>
+  <span></span> <a href="/tags/Java编程思想读书笔记/">Java编程思想读书笔记</a>
   </div>
 
 </div>
@@ -133,7 +152,7 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/05/10/关于JSON/" data-title="关于JSON | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/12/03/6-重复使用classes/" data-title="6.重复使用classes | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -147,18 +166,18 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/05/10/PHP制作验证码/" title="PHP制作验证码">
+ <a href="/2015/12/06/7-多态/" title="7.多态">
   <strong>上一篇：</strong><br/>
   <span>
-  PHP制作验证码</span>
+  7.多态</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2015/12/06/7-多态/"  title="7.多态">
+<a href="/2015/12/03/5-隐藏实现细目/"  title="5.隐藏实现细目">
  <strong>下一篇：</strong><br/> 
- <span>7.多态
+ <span>5.隐藏实现细目
 </span>
 </a>
 </div>
@@ -167,7 +186,7 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/05/10/关于JSON/" data-title="关于JSON" data-url="http://yoursite.com/2016/05/10/关于JSON/"></div>
+	<div class="ds-thread" data-thread-key="2015/12/03/6-重复使用classes/" data-title="6.重复使用classes" data-url="http://yoursite.com/2015/12/03/6-重复使用classes/"></div>
 </section>
 
 

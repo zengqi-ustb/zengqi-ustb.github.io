@@ -4,33 +4,29 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>关于JSON | 曾先生&#39;s Blog</title>
+    <title>1.对象导论 | 曾先生&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="曾奇">
     
 
     
-    <meta name="description" content="理解JSON数据格式和serialize序列化，XML以及数组的区别。JSON的四个基本规则：1.并列的数据之间用逗号分隔2.映射用冒号表示3.并列数据的集合（数组）用方括号表示4.映射的集合（对象）用大括号表示
-JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，占用带宽小2.支持多种语言
-JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过于严谨，必须遵循JSON语">
+    <meta name="description" content="一、对象导论程序设计，就是对复杂度的管控。复杂度包括：待解决问题的复杂度和底层机器的复杂度。Java之所以让人感动，是因为把“为程序员降低复杂度”作为一个坚定的目标。
+我们所能解决的问题的复杂度，取决于抽象化的类型和质量。OOP提供了以问题描述问题的能力，而不再是以解答执行之所在（电脑）的形式来描述问题。
+Class的创造者的目标是打造classes，并且只暴露客户端程序员应该知道的事物，隐藏其他">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于JSON">
-<meta property="og:url" content="http://yoursite.com/2016/05/10/关于JSON/index.html">
+<meta property="og:title" content="1.对象导论">
+<meta property="og:url" content="http://yoursite.com/2015/12/01/1-对象导论/index.html">
 <meta property="og:site_name" content="曾先生's Blog">
-<meta property="og:description" content="理解JSON数据格式和serialize序列化，XML以及数组的区别。JSON的四个基本规则：1.并列的数据之间用逗号分隔2.映射用冒号表示3.并列数据的集合（数组）用方括号表示4.映射的集合（对象）用大括号表示
-JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，占用带宽小2.支持多种语言
-JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过于严谨，必须遵循JSON语">
-<meta property="og:image" content="http://img.blog.csdn.net/20160510214724064">
-<meta property="og:image" content="http://img.blog.csdn.net/20160510215056585">
-<meta property="og:image" content="http://img.blog.csdn.net/20160510220503790">
-<meta property="og:updated_time" content="2016-06-01T03:59:17.992Z">
+<meta property="og:description" content="一、对象导论程序设计，就是对复杂度的管控。复杂度包括：待解决问题的复杂度和底层机器的复杂度。Java之所以让人感动，是因为把“为程序员降低复杂度”作为一个坚定的目标。
+我们所能解决的问题的复杂度，取决于抽象化的类型和质量。OOP提供了以问题描述问题的能力，而不再是以解答执行之所在（电脑）的形式来描述问题。
+Class的创造者的目标是打造classes，并且只暴露客户端程序员应该知道的事物，隐藏其他">
+<meta property="og:updated_time" content="2016-06-01T04:13:42.947Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于JSON">
-<meta name="twitter:description" content="理解JSON数据格式和serialize序列化，XML以及数组的区别。JSON的四个基本规则：1.并列的数据之间用逗号分隔2.映射用冒号表示3.并列数据的集合（数组）用方括号表示4.映射的集合（对象）用大括号表示
-JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，占用带宽小2.支持多种语言
-JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过于严谨，必须遵循JSON语">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20160510214724064">
+<meta name="twitter:title" content="1.对象导论">
+<meta name="twitter:description" content="一、对象导论程序设计，就是对复杂度的管控。复杂度包括：待解决问题的复杂度和底层机器的复杂度。Java之所以让人感动，是因为把“为程序员降低复杂度”作为一个坚定的目标。
+我们所能解决的问题的复杂度，取决于抽象化的类型和质量。OOP提供了以问题描述问题的能力，而不再是以解答执行之所在（电脑）的形式来描述问题。
+Class的创造者的目标是打造classes，并且只暴露客户端程序员应该知道的事物，隐藏其他">
 
     
     <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
@@ -90,14 +86,14 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/05/10/关于JSON/" title="关于JSON" itemprop="url">关于JSON</a>
+      <a href="/2015/12/01/1-对象导论/" title="1.对象导论" itemprop="url">1.对象导论</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
 		
   <p class="article-time">
-    <time datetime="2016-05-10T04:23:39.000Z" itemprop="datePublished"> Published 2016-05-10</time>
+    <time datetime="2015-12-01T03:51:13.000Z" itemprop="datePublished"> Published 2015-12-01</time>
     
   </p>
 </header>
@@ -110,12 +106,21 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 		
 		</div>
 		
-		<p>理解JSON数据格式和serialize序列化，XML以及数组的区别。<br>JSON的四个基本规则：<br>1.并列的数据之间用<strong>逗号</strong>分隔<br>2.映射用<strong>冒号</strong>表示<br>3.并列数据的集合（数组）用<strong>方括号</strong>表示<br>4.映射的集合（对象）用<strong>大括号</strong>表示</p>
-<p>JSON的优点：<br>1.数据格式简单，易于读写，格式都是压缩的，占用带宽小<br>2.支持多种语言</p>
-<p>JSON的缺点：<br>1.要求字符集必须是unicode，受约束性强<br>2.语法过于严谨，必须遵循JSON语法的四个原则</p>
-<p>比较：<br><img src="http://img.blog.csdn.net/20160510214724064" alt=""></p>
-<p><img src="http://img.blog.csdn.net/20160510215056585" alt=""></p>
-<p>掌握：<br><img src="http://img.blog.csdn.net/20160510220503790" alt=""></p>
+		<p>一、对象导论<br>程序设计，就是对复杂度的管控。复杂度包括：待解决问题的复杂度和底层机器的复杂度。Java之所以让人感动，是因为把“为程序员降低复杂度”作为一个坚定的目标。</p>
+<p>我们所能解决的问题的复杂度，取决于抽象化的类型和质量。OOP提供了以问题描述问题的能力，而不再是以解答执行之所在（电脑）的形式来描述问题。</p>
+<p>Class的创造者的目标是打造classes，并且只暴露客户端程序员应该知道的事物，隐藏其他所有事物，因为如果加以隐藏，客户端程序员便无法使用，意味着class创造者可以改变隐藏的部分，不必担心对其他人造成冲击，即所谓的“接口与实现相分离”。</p>
+<p>“以既有的class合成新的class”，这种观念被称为“组合”，组合通常被视为“has-a”（拥有）的关系，好像说“车子拥有引擎”。事实上，在创建新的class时，应该优先考虑组合的，因为它够简单又具有弹性。</p>
+<p>处理type阶层体系内的对象时，我们往往希望能够不以他们所属的特定type看待之，而以其base type视之，多态的思想。多态实现的核心：后期绑定。</p>
+<p>抽象函数仅能存在于抽象class中，当class被继承，抽象函数必须被实现，否则新的class仍然是抽象class。<br>在设计阶段，也许你一开始采用linkedlist，然后为了调教系统效能，转而采用arraylist，迭代器（iterator）所带来的抽象化，使我们在进行诸如此类的转换时，得以将冲击降到最低。</p>
+<p>如果缺乏“单根继承体系”和“完全通过reference来操作对象”的系统特性，垃圾回收器的实现将会非常困难。</p>
+<p>“异常处理机制”，被抛出的异常，函数返回的错误值，函数为表示错误发生而设定的旗标值，三者之间有着本质的区别—后两者可以被有意的忽略，而异常则无法被忽略，保证一定会在某处被处理。Java强迫你使用，因此如果没有撰写可适当处理异常的代码，便会发生编译错误。</p>
+<p>Java-Web：“客户端程序开发”所指的，便是利用web浏览器来执行某些它能够执行的工作，让网站使用者觉得运行更迅速，操作接口更具互动性。客户端电脑可以快速绘出数据，不必等待服务器完成图形绘制后将图形返回，因此，我们获得的不光是高速度和高回应能力，还可以降低网络流量和服务器负载。</p>
+<p>项目考量：<br>1.所用对象是什么？（如何将项目切割成众多组成部分）<br>2.对象的接口是什么？（你将发送什么样的消息给每个对象）</p>
+<p>完成设计：CRC原则。必须描述classes的长相，classes之间的互动。</p>
+<p>1.class的名称，反应出class的行为精髓，望文生义。</p>
+<p>2.class的责任，它应该做的事情。</p>
+<p>3.classes的“协同合作”关系：哪些class会和这个class互动。</p>
+<p>外覆类：int是java的一个基本类型，而Integer是java的一个类，对应 int。因为在某些地方不可以用int而要用Integer。int 是变量的基本类型，Integer 是int的外覆类型。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -124,7 +129,7 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/后端开发/">后端开发</a>
+  <span></span> <a href="/tags/Java编程思想读书笔记/">Java编程思想读书笔记</a>
   </div>
 
 </div>
@@ -133,7 +138,7 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/05/10/关于JSON/" data-title="关于JSON | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/12/01/1-对象导论/" data-title="1.对象导论 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -147,27 +152,19 @@ JSON的缺点：1.要求字符集必须是unicode，受约束性强2.语法过�
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/05/10/PHP制作验证码/" title="PHP制作验证码">
+ <a href="/2015/12/02/2-万事万物皆对象/" title="2.万事万物皆对象">
   <strong>上一篇：</strong><br/>
   <span>
-  PHP制作验证码</span>
+  2.万事万物皆对象</span>
 </a>
 </div>
 
-
-<div class="next">
-<a href="/2015/12/06/7-多态/"  title="7.多态">
- <strong>下一篇：</strong><br/> 
- <span>7.多态
-</span>
-</a>
-</div>
 
 </nav>
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/05/10/关于JSON/" data-title="关于JSON" data-url="http://yoursite.com/2016/05/10/关于JSON/"></div>
+	<div class="ds-thread" data-thread-key="2015/12/01/1-对象导论/" data-title="1.对象导论" data-url="http://yoursite.com/2015/12/01/1-对象导论/"></div>
 </section>
 
 
