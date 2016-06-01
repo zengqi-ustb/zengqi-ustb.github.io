@@ -1,0 +1,584 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>2.4优先队列 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="问题来源：
+电脑或手机，通过为每个应用程序的事件分配一个优先级，并总是处理下一个优先级最高的事件来实现系统的调度。这种情况下，合适的数据结构应该支持：
+1.删除最大元素2.插入元素
+这种数据类型叫优先队列。优先队列和队列（删除最老的元素）以及栈（删除最新的元素）类似。
+基于此的排序：通过插入一列元素然后一个个地删掉其中最小的元素，我们可以用优先队列实现排序。
+堆排序：来自于基于堆的优先队列的实现。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.4优先队列">
+<meta property="og:url" content="http://yoursite.com/2016/04/11/2-4优先队列/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="问题来源：
+电脑或手机，通过为每个应用程序的事件分配一个优先级，并总是处理下一个优先级最高的事件来实现系统的调度。这种情况下，合适的数据结构应该支持：
+1.删除最大元素2.插入元素
+这种数据类型叫优先队列。优先队列和队列（删除最老的元素）以及栈（删除最新的元素）类似。
+基于此的排序：通过插入一列元素然后一个个地删掉其中最小的元素，我们可以用优先队列实现排序。
+堆排序：来自于基于堆的优先队列的实现。">
+<meta property="og:image" content="http://img.blog.csdn.net/20160411202034911">
+<meta property="og:image" content="http://img.blog.csdn.net/20160411204351233">
+<meta property="og:image" content="http://img.blog.csdn.net/20160411224229499">
+<meta property="og:updated_time" content="2016-06-01T07:50:00.471Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2.4优先队列">
+<meta name="twitter:description" content="问题来源：
+电脑或手机，通过为每个应用程序的事件分配一个优先级，并总是处理下一个优先级最高的事件来实现系统的调度。这种情况下，合适的数据结构应该支持：
+1.删除最大元素2.插入元素
+这种数据类型叫优先队列。优先队列和队列（删除最老的元素）以及栈（删除最新的元素）类似。
+基于此的排序：通过插入一列元素然后一个个地删掉其中最小的元素，我们可以用优先队列实现排序。
+堆排序：来自于基于堆的优先队列的实现。">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160411202034911">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/11/2-4优先队列/" title="2.4优先队列" itemprop="url">2.4优先队列</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-11T07:48:42.000Z" itemprop="datePublished"> Published 2016-04-11</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#优先队列"><span class="toc-number">1.</span> <span class="toc-text">优先队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#堆排序"><span class="toc-number">2.</span> <span class="toc-text">堆排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#排序应用总结"><span class="toc-number">3.</span> <span class="toc-text">排序应用总结</span></a></li></ol>
+		
+		</div>
+		
+		<p>问题来源：</p>
+<p>电脑或手机，通过为每个应用程序的事件分配一个优先级，并总是处理下一个优先级最高的事件来实现系统的调度。<br>这种情况下，合适的数据结构应该支持：</p>
+<p>1.删除最大元素<br>2.插入元素</p>
+<p>这种数据类型叫<strong>优先队列</strong>。<br>优先队列和队列（删除最老的元素）以及栈（删除最新的元素）类似。</p>
+<p>基于此的排序：<br>通过插入一列元素然后一个个地删掉其中最小的元素，我们可以用优先队列实现排序。</p>
+<p><strong>堆排序</strong>：<br>来自于基于堆的优先队列的实现。</p>
+<p>API：<br>优先队列是抽象数据类型，表示一组值和对这些值的操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">abstract class MaxPQ&lt;Key extends Comparable&lt;Key&gt;&gt;&#123;</span><br><span class="line">	MaxPQ()&#123;</span><br><span class="line">	&#125;//创建一个优先队列</span><br><span class="line">	MaxPQ(int max) &#123;</span><br><span class="line">	&#125;//创建一个优先队列,初始容量为max</span><br><span class="line">	MaxPQ(Key[] a) &#123;</span><br><span class="line">	&#125;//用a[]中元素创建一个优先队列</span><br><span class="line">	void Insert(Key v) &#123;</span><br><span class="line">	&#125;//插入一个元素</span><br><span class="line">	Key max() &#123;</span><br><span class="line">		return null;</span><br><span class="line">	&#125;//返回最大元素</span><br><span class="line">	Key delMax() &#123;</span><br><span class="line">		return null;</span><br><span class="line">	&#125;//删除并返回最大元素</span><br><span class="line">	boolean isEmpty() &#123;</span><br><span class="line">		return false;</span><br><span class="line">	&#125;//返回优先队列是否为空</span><br><span class="line">	int size() &#123;</span><br><span class="line">		return 0;</span><br><span class="line">	&#125;//返回优先队列中元素的个数</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="优先队列"><a href="#优先队列" class="headerlink" title="优先队列"></a>优先队列</h2><p>应用场景：<br>输入N个字符串，每个字符串都对应着一个整数，从中找出最大的M个整数（及其关联的字符串）。在某些场景中，输入量巨大，可认为是无限的。<br>解决办法：<br>1.将输入排序然后从中找出M个最大元素。但已经说明输入非常大，这不可能。<br>2.将每个新的输入和已知的M个最大元素比较，但是除非M较小，否则这种比较的代价非常大。</p>
+<p>考虑优先队列。只要维护有M个元素的优先队列，然后高效的实现<strong>insert</strong>和<strong>delMin</strong>方法就可以了！<br><img src="http://img.blog.csdn.net/20160411202034911" alt=""><br>从上图可以看出，优先队列只是<strong>抽象数据结构</strong>，真正怎样去实现，实现好坏直接跟性能挂钩。</p>
+<p>优先队列的<strong>初级实现</strong>：<br>1.数组实现（无序）：<br>实现优先队列最简单方法是基于2.1节中<strong>下压栈</strong>的代码。insert方法的代码和栈的push完全一样。实现删除最大元素，可以添加一段类似于选择排序的内循环代码，将最大元素和边界元素交换然后删除它，和我们对栈的pop方法实现一样。<br>2.数组实现（有序）：<br>使数组保持有序。这样，最大的元素总会在数组的一边，优先队列的delMax就和栈的pop一样了。<br>3.链表表示法</p>
+<p>使用无序序列是解决问题的<strong>惰性</strong>方法，只在必要的时候才会采取行动（找最大元素）。使用有序就比较<strong>积极</strong>，使后续更高效。<br><img src="http://img.blog.csdn.net/20160411204351233" alt=""></p>
+<p>堆的定义：<br>数据结构<strong>二叉堆</strong>能够很好地实现优先队列的基本操作。</p>
+<p>定义：当一颗二叉树的每个结点都大于等于它的两个子结点时，它被称为<strong>堆有序</strong>。<br>命题O：根结点是堆有序的二叉树中的最大结点。</p>
+<p>二叉堆表示法：<br>若用<strong>指针</strong>来表示堆有序的二叉树，每个元素都需要三个指针（一个父结点，两个子结点）。<br>若使用<strong>完全二叉树</strong>，表达就会更简单。<strong>完全二叉树</strong>只用<strong>数组</strong>而<strong>不需要用指针</strong>就能表示。<br>具体做法：将二叉树的结点按照<strong>层级顺序</strong>放入数组中。根结点在位置1（完全是为了计算方便），它的子结点在2,3，以此类推。</p>
+<p>定义：<strong>二叉堆</strong>是一组能够用堆有序的<strong>完全二叉树</strong>排序的元素，并在数组中按照层级存储（不使用数组的第一个位置，即0位）。<br>二叉堆是跟完全二叉树挂钩的。记住。</p>
+<p>难点：在有序化过程中有两种情况：<br>1.当某个结点的优先级上升，需要<strong>上浮swim()</strong>。<br>2.当某个结点的优先级下降，需要<strong>下沉sink()</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//上浮实现</span><br><span class="line">private void swim(int k)&#123;</span><br><span class="line">		while(k&gt;1&amp;&amp;less(k/2,k))&#123;</span><br><span class="line">			exch(k/2,k);</span><br><span class="line">			k=k/2;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">//下沉实现</span><br><span class="line">private void sink(int k)&#123;</span><br><span class="line">		while(2*k&lt;=N)&#123;</span><br><span class="line">			int j = 2*k;</span><br><span class="line">			if(j&lt;N&amp;&amp;less(j,j+1)) j++;//判断两个子结点哪个更大</span><br><span class="line">			if(!less(k,j)) break;//若k优先级更大，不需要下沉</span><br><span class="line">			exch(k,j);</span><br><span class="line">			k=j;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>sink()和swim()方法是高效实现优先队列API的基础。</p>
+<p>思想：<br>1.<strong>插入元素</strong>。我们将新元素加到数组末尾，增加堆的大小，并让这个新元素上浮到合适的位置。<br>2.<strong>删除最大元素</strong>。我们从数组顶端删除最大元素并将数组的最后一个元素放到顶端，减小堆的大小并让这个元素下沉到合适的位置。（其实是两部，1删除，2维护堆有序性）</p>
+<p>这里注意删除最大元素算法的<strong>思想</strong>。通过简单的将最后一个元素放在顶端维护了堆结构的完整性。</p>
+<p><strong>基于堆的优先队列的实现</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">//省略了动态调整数组大小的代码</span><br><span class="line">class MaxPQ&lt;Key extends Comparable&lt;Key&gt;&gt;&#123;</span><br><span class="line">	private Key[] pq;//基于堆的完全二叉树</span><br><span class="line">	private int N = 0;//数据存储于pa[1...N]中，pq[0]没有使用</span><br><span class="line">	MaxPQ(int max) &#123;</span><br><span class="line">		pq = (Key[]) new Comparable[max+1];</span><br><span class="line">		N = max;</span><br><span class="line">	&#125;//创建一个优先队列,初始容量为max</span><br><span class="line">	void Insert(Key v) &#123;</span><br><span class="line">		pq[++N]=v;</span><br><span class="line">		swim(N);</span><br><span class="line">	&#125;//插入一个元素</span><br><span class="line">	Key max() &#123;</span><br><span class="line">		return pq[1];</span><br><span class="line">	&#125;//返回最大元素</span><br><span class="line">	Key delMax() &#123;</span><br><span class="line">		Key max = pq[1];//从根结点得到最大元素</span><br><span class="line">		exch(1,N--);//将其和最后一个结点交换</span><br><span class="line">		pq[N+1]=null;//防止对象游离</span><br><span class="line">		sink(1);//恢复堆有序</span><br><span class="line">		return max;</span><br><span class="line">	&#125;//删除并返回最大元素</span><br><span class="line">	boolean isEmpty() &#123;</span><br><span class="line">		return N==0;</span><br><span class="line">	&#125;//返回优先队列是否为空</span><br><span class="line">	int size() &#123;</span><br><span class="line">		return N;</span><br><span class="line">	&#125;//返回优先队列中元素的个数</span><br><span class="line">	</span><br><span class="line">	private void swim(int k)&#123;</span><br><span class="line">		//循环，直到位置对了为止</span><br><span class="line">		while(k&gt;1&amp;&amp;less(k/2,k))&#123;</span><br><span class="line">			exch(k/2,k);</span><br><span class="line">			k=k/2;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	private void sink(int k)&#123;</span><br><span class="line">		//循环，直到位置对了为止</span><br><span class="line">		while(2*k&lt;=N)&#123;</span><br><span class="line">			int j = 2*k;</span><br><span class="line">			if(j&lt;N&amp;&amp;less(j,j+1)) j++;//判断两个子结点哪个更大</span><br><span class="line">			if(!less(k,j)) break;//若k优先级更大，不需要下沉</span><br><span class="line">			exch(k,j);</span><br><span class="line">			k=j;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	private void exch(int i,int j)&#123;</span><br><span class="line">		Key v = pq[i];</span><br><span class="line">		pq[i] = pq[j];</span><br><span class="line">		pq[j] = v;</span><br><span class="line">	&#125;</span><br><span class="line">	private boolean less(int i,int j)&#123;</span><br><span class="line">		return pq[i].compareTo(pq[j])&lt;0;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>多叉堆：我们需要在树高(logdN)和在每个结点的d个子结点找到最大者的代价间折中，这取决于实现的细节以及不同的操作的<strong>预期相对频繁程度</strong>。</p>
+<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p>堆排序分为两个阶段：<br>1.<strong>堆的构造阶段</strong>。将原始数组重新组织安排进一个堆中。<br>2.<strong>下沉排序阶段</strong>，我们从堆中按递减顺序取出所有元素并得到排序结果。</p>
+<p>堆的构造：<br>由N个给定的元素构造一个堆。只需从左至右遍历数组，用swim保证扫描指针左侧的所有元素已经是一颗堆有序的完全数即可，就像连续向优先队列中插入元素一样。<br>但是，一个更聪明高效的方法是：<strong>从右至左用sink函数构造子堆</strong>。开始时，我们只需要扫描数组中的一半元素，因为我们可以跳过大小为1的子堆。<br>我们的目标是构造一个堆有序的数组并使最大元素位于数组的开头。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//堆排序，将堆中最大元素删除，然后放入堆缩小后数组空出的位置（也就是最后）</span><br><span class="line">public void sort(Comparable[] a)&#123;</span><br><span class="line">		//注意此时sink要传入N的值作为参数，因为N不变化的话，sink过程有可能又将数组末尾元素置换了</span><br><span class="line">		int N = a.length;</span><br><span class="line">		//有序堆的构造</span><br><span class="line">		for (int i =N/2; i &gt;=1; i--) &#123;//从N的一半开始sink，因为下面的大小为1的堆不需要sink</span><br><span class="line">			sink(i,N);</span><br><span class="line">		&#125;</span><br><span class="line">		//完成数组的排序,使得数组递增，因为下面的逻辑是将最大值不断取出，放在数组末尾</span><br><span class="line">		while(N&gt;1)&#123;</span><br><span class="line">			exch(1,N--);</span><br><span class="line">			sink(1,N);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>可视化：<br>一开始算法的行为似乎杂乱无章。因为随着堆的构建较大元素都被移动到了数组的开头，当接下来的算法的行为看起来和选择排序一模一样（除了它比较的次数比较少）。</p>
+<p><strong>堆排序在排序复杂性的研究中有着重要地位</strong>。<br>因为他是我们所知的唯一能够同时最优地利用<strong>空间和时间</strong>的方法—在最坏的情况下它也能保证使用2NlogN次比较和恒定的额外空间。</p>
+<p>缺点：<strong>无法利用缓存</strong>！数组元素很少和相邻的其他元素进行比较，因此缓存未命中的次数要远远高于大多数比较都在相邻元素间进行的算法，如快排，归并排序，甚至是希尔排序。</p>
+<p>另一方面，用<strong>堆实现的优先队列</strong>在现代应用中越来越重要，因为他能在插入操作和删除最大元素操作混合的动态场景中保证对数级别的运行时间。</p>
+<h2 id="排序应用总结"><a href="#排序应用总结" class="headerlink" title="排序应用总结"></a>排序应用总结</h2><p><img src="http://img.blog.csdn.net/20160411224229499" alt=""></p>
+<p>排序如此有用的原因：在一个有序的数组中查找一个元素要比在一个无序的数组中查找简单的多。比如电话簿。</p>
+<p>我们使用的方法在经典教材中被称为<strong>指针排序</strong>，因为我们只处理元素的引用而不移动数据本身。<br>在java中，指针操作是隐式的。除了原始数据类型，我们操作的总是数据的引用（指针），而非数据本身。</p>
+<p>多种排序方法：<br>在许多应用中，我们都希望根据情况将一组对象<strong>按照不同的方式排序</strong>。java的<strong>Comparator接口</strong>允许我们在一个类中实现多种排序方法。</p>
+<p>Comparator接口允许我们为任意的数据类型定义任意多种排序方法。用Comparator接口来代替Comparable接口能够更好地将<strong>数据类型的定义</strong>和<strong>两个该类型的对象如何比较的定义</strong>区分开来，<strong>实现最大化的解耦</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">//sort方法在每次比较中都会回调Transaction类中用例指定的compare方法。</span><br><span class="line">	public static void sort(...,Comparator c)&#123;</span><br><span class="line">		...less(Comparator c,Object v,Object w);</span><br><span class="line">	&#125;</span><br><span class="line">	private static boolean less(Comparator c,Object v,Object w)&#123;</span><br><span class="line">		return c.compare(v, w)&lt;0;</span><br><span class="line">	&#125;</span><br><span class="line">class Transaction&#123;</span><br><span class="line">	private final String who;</span><br><span class="line">	private final double amount;</span><br><span class="line">	//不同的比较策略</span><br><span class="line">	public static class WhoOrder implements Comparator&lt;Transaction&gt;&#123;</span><br><span class="line">		@Override</span><br><span class="line">		public int compare(Transaction v, Transaction w) &#123;</span><br><span class="line">			return v.who.compareToIgnoreCase(w.who);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public static class HowMuchOrder implements Comparator&lt;Transaction&gt;&#123;</span><br><span class="line">		@Override</span><br><span class="line">		public int compare(Transaction v, Transaction w) &#123;</span><br><span class="line">			if(v.amount&lt;w.amount) return -1;</span><br><span class="line">			if(v.amount&gt;w.amount) return +1;</span><br><span class="line">			return 0;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>稳定性：如果一个排序算法能够保留数组中<strong>重复元素的相对位置</strong>则可以被称为<strong>稳定的</strong>。但一般只有在稳定性是必要的情况下稳定的排序算法才有优势。</p>
+<p><strong>应该使用哪种排序算法</strong>：<br>排序算法的好坏很大程度上取决于它的应用场景和具体实现，但我们也学习了一些通用的算法，他们能在很多情况下达到和最佳算法接近的性能。</p>
+<p>性质T：<strong>快排是最快的通用排序算法</strong>。<br>在使用了三向切分以后，快排对于实际应用中可能出现的某些分布的输入变成<strong>线性级别</strong>的了，而其他的排序算法仍然需要<strong>线性对数</strong>级别。</p>
+<p><strong>java系统库的排序算法</strong>：<br>java系统程序员选择对原始数据类型使用（三向切分的）快速排序，对引用类型使用归并排序。这些选择是上暗示着速度和空间（对于原始数据类型）来换取稳定性（对于引用类型）。</p>
+<p>问题的规约：<br>很多情况下如果先将数据排序，那么解决剩下的问题就只需要线性级别的时间了，这样规约后的运行时间的增长数量级就有平方级别降低到了线性对数级别。</p>
+<p>课后问答：<br>问：java系统库中有优先队列这种数据类型吗？<br>答：有，见java.util.PriorityQueue。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/算法4读书笔记/">算法4读书笔记</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/04/11/2-4优先队列/" data-title="2.4优先队列 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/05/10/关于JSON/" title="关于JSON">
+  <strong>上一篇：</strong><br/>
+  <span>
+  关于JSON</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/04/08/2-排序/"  title="2.排序">
+ <strong>下一篇：</strong><br/> 
+ <span>2.排序
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/04/11/2-4优先队列/" data-title="2.4优先队列" data-url="http://yoursite.com/2016/04/11/2-4优先队列/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#优先队列"><span class="toc-number">1.</span> <span class="toc-text">优先队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#堆排序"><span class="toc-number">2.</span> <span class="toc-text">堆排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#排序应用总结"><span class="toc-number">3.</span> <span class="toc-text">排序应用总结</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zeng Qi,a Android developer. <br/>
+			This is my blog,hope you will enjoy it.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ZengQi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

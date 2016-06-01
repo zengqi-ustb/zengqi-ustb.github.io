@@ -1,0 +1,555 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>自己动手实现音乐播放器app | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="MainActivity实现：
+1.调用TabHost绑定不同的tags，图标，和content。
+123456789101112131415mTabHost = (TabHost) findViewById(R.id.mTabHost);        mTabHost.setup();        for (int i = 0; i &amp;lt; titles.length; i++) &amp;#12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自己动手实现音乐播放器app">
+<meta property="og:url" content="http://yoursite.com/2016/01/15/自己动手实现音乐播放器app/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="MainActivity实现：
+1.调用TabHost绑定不同的tags，图标，和content。
+123456789101112131415mTabHost = (TabHost) findViewById(R.id.mTabHost);        mTabHost.setup();        for (int i = 0; i &amp;lt; titles.length; i++) &amp;#12">
+<meta property="og:image" content="http://img.blog.csdn.net/20160115155514153">
+<meta property="og:updated_time" content="2016-06-01T07:25:00.503Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自己动手实现音乐播放器app">
+<meta name="twitter:description" content="MainActivity实现：
+1.调用TabHost绑定不同的tags，图标，和content。
+123456789101112131415mTabHost = (TabHost) findViewById(R.id.mTabHost);        mTabHost.setup();        for (int i = 0; i &amp;lt; titles.length; i++) &amp;#12">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160115155514153">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/01/15/自己动手实现音乐播放器app/" title="自己动手实现音乐播放器app" itemprop="url">自己动手实现音乐播放器app</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-15T07:23:05.000Z" itemprop="datePublished"> Published 2016-01-15</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>MainActivity实现：</p>
+<p>1.调用TabHost绑定不同的tags，图标，和content。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mTabHost = (TabHost) findViewById(R.id.mTabHost);</span><br><span class="line">        mTabHost.setup();</span><br><span class="line">        for (int i = 0; i &lt; titles.length; i++) &#123;//循环添加选项卡</span><br><span class="line">            TabHost.TabSpec tabSpec = mTabHost.newTabSpec(tags[i]);//创建一个选项，并指定其标记</span><br><span class="line">            View view = getLayoutInflater().inflate(R.layout.tab, null);</span><br><span class="line">            TextView titleView = (TextView) view.findViewById(R.id.title);</span><br><span class="line">            ImageView iconView = (ImageView) view.findViewById(R.id.icon);</span><br><span class="line">            titleView.setText(titles[i]);//设置标题</span><br><span class="line">            iconView.setImageResource(icons[i]);//设置图标</span><br><span class="line">            tabSpec.setIndicator(view);//为选项设置标题和图标</span><br><span class="line">            tabSpec.setContent(R.id.realContent);//为每个选项设置内容</span><br><span class="line">            mTabHost.addTab(tabSpec);//将选项添加到选项卡中</span><br><span class="line">        &#125;</span><br><span class="line">        mTabHost.setOnTabChangedListener(new MyTabChangedListener());//添加选项改变事件处理</span><br><span class="line">        mTabHost.setCurrentTab(1);//默认显示第二个</span><br></pre></td></tr></table></figure>
+<p>2.切换至不同的按钮时，用新创建的fragment替换之前设置的content，但是我始终没有解决切换fragment后，再回到原fragment状态依然不改变。我初步认定是切换不同tab时，系统会强制将当前创建的fragment销毁。<br>点击不同tab，显示不同fragemnt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public void onTabChanged(String tabTag)&#123;</span><br><span class="line">fragmentTransaction = getFragemntManager().begingTransaction();</span><br><span class="line">if(tabTag.equalsIgnoreCase(&quot;artist&quot;))&#123;//切换到艺术家列表</span><br><span class="line">fragmentTransaction.replace(R.id.realContent,new ArtistFragemnt());</span><br><span class="line">&#125;</span><br><span class="line">fragmentTracsaction.commit();//提交事务</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.重写ondestroy方法，在退出前保存playlist中的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">    protected void onDestroy() &#123;//关闭的时候将播放列表中的数据保存到数据库</span><br><span class="line">        mDatabase.execSQL(&quot;delete from music_tb&quot;);//删除已有的所有数据</span><br><span class="line">        for (int i = 0; i &lt; Constants.playlist.size(); i++) &#123;//循环遍历播放列表中的音乐</span><br><span class="line">            Music music = Constants.playlist.get(i);</span><br><span class="line">            mDatabase.execSQL(&quot;insert into music_tb(title,artist,album,album_id,time,url)values(?,?,?,?,?,?)&quot;, new String[]&#123;music.getTitle(), music.getSinger(), music.getAlbum(), music.getAlbum_id() + &quot;&quot;, music.getTime() + &quot;&quot;, music.getUrl()&#125;);</span><br><span class="line">            //将音乐信息保存到数据库</span><br><span class="line">        &#125;</span><br><span class="line">        super.onDestroy();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>定义一些常量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">package com.example.zengqi.musicplayer;</span><br><span class="line"></span><br><span class="line">import android.net.Uri;</span><br><span class="line"></span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class Constants &#123;</span><br><span class="line">    public static List&lt;Music&gt; musicList = new ArrayList&lt;&gt;();//所有音乐的集合</span><br><span class="line">    public static List&lt;Music&gt; playlist = new ArrayList&lt;&gt;();//音乐播放列表</span><br><span class="line">    public static final String CONTROL_ACTION = &quot;com.example.zengqi.control&quot;;//控制音乐播放动作，即播放或暂停</span><br><span class="line">    public static final String SEEKBAR_ACTION = &quot;com.example.zengqi.seekbar&quot;;//音乐进度发送变化动作</span><br><span class="line">    public static final String COMPLETE_ACTION = &quot;com.example.zengqi.complete&quot;;//音乐播放结束动作</span><br><span class="line">    public static final String UPDATE_ACTION = &quot;com.example.zengqi.update&quot;;//更新进度条</span><br><span class="line">    public static final String UPDATE_STYLE = &quot;com.example.zengqi.style&quot;;//更新播放形式</span><br><span class="line"></span><br><span class="line">    public static final Uri ALBUM_URI = Uri.parse(&quot;content://media/external/audio/albumart&quot;);</span><br><span class="line">    public static final String LIST_LOOP = &quot;列表循环&quot;;</span><br><span class="line">    public static final String SINGLE_LOOP = &quot;单曲循环&quot;;</span><br><span class="line">    public static final String OVER_FINISH = &quot;结束后暂停&quot;;</span><br><span class="line">    public static final String RANDOM_PLAY = &quot;随机播放&quot;;</span><br><span class="line"></span><br><span class="line">    public static final int NEW = 6;//开始一首新的音乐</span><br><span class="line">    public static final int PLAY = 1;//播放</span><br><span class="line">    public static final int PAUSE = 2;//暂停</span><br><span class="line">    public static final int ALL_MUSIC = 0x11;//播放所有的音乐</span><br><span class="line">    public static final int PLAY_LIST_MUSIC = 0x12;//播放播放列表中的音乐</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重点是这里使用的musicList和playList,他们是全局状态下的变量，单例模式，用于在不同fragment间通信，所有fragment将值存入其中，同时也从中取值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public static List&lt;Music&gt; getDataFromDB(SQLiteDatabase db) &#123;</span><br><span class="line">        //数据库中未存入size，name的信息</span><br><span class="line">        //从数据库中获取播放列表的内容</span><br><span class="line"></span><br><span class="line">        List&lt;Music&gt; musics = new ArrayList&lt;&gt;();</span><br><span class="line">        Cursor cursor = db.rawQuery(&quot;select * from music_tb&quot;, null);</span><br><span class="line">        if (cursor == null || cursor.getCount() == 0) &#123;</span><br><span class="line">			return null;</span><br><span class="line">        &#125;</span><br><span class="line">        while (cursor.moveToNext()) &#123;</span><br><span class="line">            Music music = new Music();</span><br><span class="line">            music.setTitle(cursor.getString(cursor.getColumnIndex(&quot;title&quot;)));</span><br><span class="line">            music.setSinger(cursor.getString(cursor.getColumnIndex(&quot;artist&quot;)));</span><br><span class="line">            music.setAlbum(cursor.getString(cursor.getColumnIndex(&quot;album&quot;)));</span><br><span class="line">            music.setAlbum_id(cursor.getInt(cursor.getColumnIndex(&quot;album_id&quot;)));</span><br><span class="line">            music.setUrl(cursor.getString(cursor.getColumnIndex(&quot;url&quot;)));</span><br><span class="line">            music.setTime(cursor.getInt(cursor.getColumnIndex(&quot;time&quot;)));</span><br><span class="line">            musics.add(music);</span><br><span class="line">        &#125;</span><br><span class="line">        return musics;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这里注意在每次调用该函数时，都应该检察其值是否为null，例如下面：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if(MusicUtils.getDataFromDB(mDatabase)==null)&#123;</span><br><span class="line">            Constants.playlist = new ArrayList&lt;&gt;();</span><br><span class="line">        &#125;else&#123;//if与else语法！！！小心！！！</span><br><span class="line">            Constants.playlist = MusicUtils.getDataFromDB(mDatabase);//初始化播放列表</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>这样playlist就被合理的初始化了，这样接下来就可以安心调用其方法了，而不会空指针异常。这里需要注意，if与else，我刚开始不够心细，只写了if，导致在从数据库中读取不到playlist的情况下，playlist永远不能够被初始化！</p>
+<p>关于MusicService:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line">package com.example.zengqi.musicplayer;</span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.Random;</span><br><span class="line">import java.util.Timer;</span><br><span class="line">import java.util.TimerTask;</span><br><span class="line"></span><br><span class="line">import android.app.Notification;</span><br><span class="line">import android.app.Notification.Builder;</span><br><span class="line">import android.app.NotificationManager;</span><br><span class="line">import android.app.PendingIntent;</span><br><span class="line">import android.app.Service;</span><br><span class="line">import android.content.BroadcastReceiver;</span><br><span class="line">import android.content.Context;</span><br><span class="line">import android.content.Intent;</span><br><span class="line">import android.content.IntentFilter;</span><br><span class="line">import android.content.SharedPreferences;</span><br><span class="line">import android.content.SharedPreferences.Editor;</span><br><span class="line">import android.graphics.BitmapFactory;</span><br><span class="line">import android.media.MediaPlayer;</span><br><span class="line">import android.media.MediaPlayer.OnCompletionListener;</span><br><span class="line">import android.os.IBinder;</span><br><span class="line">public class MusicService extends Service &#123;</span><br><span class="line">    private List&lt;Music&gt; musicList;//音乐列表</span><br><span class="line">    private int position;//当前音乐的序号</span><br><span class="line">    private MediaPlayer mediaPlayer;//媒体播放器</span><br><span class="line">    private ActivityReceiver activityReceiver;//广播接收器</span><br><span class="line">    private Music currentMusic;//当前播放的音乐</span><br><span class="line">    private Timer timer;//定时器</span><br><span class="line">    private int listType;//列表的类型</span><br><span class="line">    private String styleString=Constants.LIST_LOOP;//音乐播放形式,默认列表循环</span><br><span class="line">    public void onCreate() &#123;//启动服务</span><br><span class="line">        mediaPlayer=new MediaPlayer();</span><br><span class="line">        activityReceiver=new ActivityReceiver();</span><br><span class="line">        IntentFilter filter=new IntentFilter();//创建Intent过滤器</span><br><span class="line">        filter.addAction(Constants.CONTROL_ACTION);//控制音乐播放的动作，包括播放和暂停</span><br><span class="line">        filter.addAction(Constants.SEEKBAR_ACTION);//改变音乐播放进度</span><br><span class="line">        filter.addAction(Constants.UPDATE_STYLE);//改变音乐播放样式</span><br><span class="line">        registerReceiver(activityReceiver, filter);//注册广播接收器</span><br><span class="line">        super.onCreate();</span><br><span class="line">    &#125;</span><br><span class="line">    public IBinder onBind(Intent intent) &#123;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">    private class ActivityReceiver extends BroadcastReceiver&#123;//获取前台发送的广播</span><br><span class="line">        public void onReceive(Context context, Intent intent) &#123;</span><br><span class="line">            if(intent.getAction()==Constants.CONTROL_ACTION)&#123;//接收到控制播放的广播（开始新音乐、暂停、播放）</span><br><span class="line">                int isNew=intent.getIntExtra(&quot;new&quot;, -1);</span><br><span class="line">                if(isNew!=-1)&#123;//播放一首新音乐</span><br><span class="line">                    listType=intent.getIntExtra(&quot;listType&quot;,Constants.ALL_MUSIC);</span><br><span class="line">                    if(listType==Constants.ALL_MUSIC)&#123;//如果是所有的音乐</span><br><span class="line">                        musicList=Constants.musicList;</span><br><span class="line">                    &#125;else&#123;//如果是播放列表</span><br><span class="line">                        musicList=Constants.playlist;</span><br><span class="line">                    &#125;</span><br><span class="line">                    position=intent.getIntExtra(&quot;position&quot;, 0);</span><br><span class="line">                    currentMusic=musicList.get(position);//获取当前需要播放的音乐</span><br><span class="line">                    preparedAndPlay(currentMusic);//准备并播放音乐</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    int control=intent.getIntExtra(&quot;control&quot;,-1);</span><br><span class="line">                    if(control==Constants.PAUSE)&#123;//表示要暂停音乐</span><br><span class="line">                        mediaPlayer.pause();//音乐暂停</span><br><span class="line">                        timer.cancel();//取消定时器</span><br><span class="line">                    &#125;else if(control==Constants.PLAY)&#123;//表示继续播放音乐</span><br><span class="line">                        mediaPlayer.start();</span><br><span class="line">                        startTimer();//启动定时器</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;else if(intent.getAction()==Constants.SEEKBAR_ACTION)&#123;</span><br><span class="line">                int progress=intent.getIntExtra(&quot;progress&quot;,0);//获取传递的进度</span><br><span class="line">                int position=(int)(currentMusic.getTime()*progress*1.0/100);//将进度转换成相应的时间位置</span><br><span class="line">                mediaPlayer.seekTo(position);//音乐跳转到指定位置继续播放</span><br><span class="line">            &#125;else if(intent.getAction()==Constants.UPDATE_STYLE)&#123;</span><br><span class="line">                styleString=intent.getStringExtra(&quot;style&quot;);</span><br><span class="line">                SharedPreferences musicPreferences=getSharedPreferences(&quot;music&quot;, Context.MODE_PRIVATE);</span><br><span class="line">                Editor editor=musicPreferences.edit();//获取参数编辑器</span><br><span class="line">                editor.putString(&quot;style&quot;, styleString);</span><br><span class="line">                editor.commit();//提交数据</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public void preparedAndPlay(Music music)&#123;// 准备并播放音乐</span><br><span class="line">        try&#123;</span><br><span class="line">            mediaPlayer.reset();//重置媒体播放器</span><br><span class="line">            mediaPlayer.setDataSource(music.getUrl());//设置音乐播放的路径</span><br><span class="line">            mediaPlayer.prepare();// 准备播放音乐</span><br><span class="line">            mediaPlayer.start();// 播放音乐</span><br><span class="line">            startTimer();//启动定时器</span><br><span class="line">            sendNotification();//发送广播</span><br><span class="line">            saveInfo();//保存数据</span><br><span class="line">            mediaPlayer.setOnCompletionListener(new OnCompletionListener() &#123;//音乐播放结束事件监听器</span><br><span class="line">                public void onCompletion(MediaPlayer mp) &#123;//音乐播放完成后，根据设置的播放类型进行播放，并通知前台改变</span><br><span class="line">                    if(!Constants.OVER_FINISH.equalsIgnoreCase(styleString))&#123;//如果不是播放结束停止</span><br><span class="line">                        if(Constants.LIST_LOOP.equalsIgnoreCase(styleString))&#123;</span><br><span class="line">                            position=(position+1)%musicList.size();//自动播放下一首</span><br><span class="line">                        &#125;else if(Constants.RANDOM_PLAY.equalsIgnoreCase(styleString))&#123;</span><br><span class="line">                            position=new Random().nextInt(musicList.size());</span><br><span class="line">                        &#125;</span><br><span class="line">                        currentMusic=musicList.get(position);//获取当前的音乐</span><br><span class="line">                        preparedAndPlay(currentMusic);//准备并播放音乐</span><br><span class="line">                        Intent intent=new Intent(Constants.COMPLETE_ACTION);</span><br><span class="line">                        intent.putExtra(&quot;position&quot;, position);</span><br><span class="line">                        sendBroadcast(intent);//发送广播</span><br><span class="line">                    &#125;else&#123;</span><br><span class="line">                        stopSelf();//结束</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;catch(Exception ex)&#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public void saveInfo()&#123;//保存信息</span><br><span class="line">        SharedPreferences musicPreferences=getSharedPreferences(&quot;music&quot;, Context.MODE_PRIVATE);</span><br><span class="line">        Editor editor=musicPreferences.edit();//获取参数编辑器</span><br><span class="line">        editor.putInt(&quot;listType&quot;,listType);//保存音乐列表类型</span><br><span class="line">        editor.putInt(&quot;position&quot;,position);//保存音乐的位置</span><br><span class="line">        editor.commit();//提交数据</span><br><span class="line">    &#125;</span><br><span class="line">    public void sendNotification()&#123;//后台发送通知</span><br><span class="line">        NotificationManager notificationManager=(NotificationManager)getSystemService(Service.NOTIFICATION_SERVICE);//获取通知服务器</span><br><span class="line">        Builder builder=new Notification.Builder(this);//通知构建器</span><br><span class="line">        builder.setAutoCancel(false);//打开通知后自动消除为false</span><br><span class="line">        builder.setTicker(&quot;音乐播放&quot;);//第一次出现时，显示在状态栏的通知提示信息</span><br><span class="line">        builder.setSmallIcon(R.drawable.music);//设置通知的小图标</span><br><span class="line">        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.largeicon));//设置通知的大图标</span><br><span class="line">        builder.setContentTitle(&quot;正在播放音乐&quot;);//设置通知内容的标题</span><br><span class="line">        builder.setContentText(currentMusic.getTitle()+&quot;  &quot;+currentMusic.getSinger());//设置通知的内容</span><br><span class="line">        Intent intent=new Intent(&quot;com.example.zengqi.music_play&quot;);//通知启动的页面</span><br><span class="line">        PendingIntent pIntent=PendingIntent.getActivity(this,0, intent, 0);</span><br><span class="line">        builder.setContentIntent(pIntent);//设置通知启动的程序</span><br><span class="line">        notificationManager.notify(0x11, builder.build());//发送通知</span><br><span class="line">    &#125;</span><br><span class="line">    public void startTimer()&#123;//启动定时器</span><br><span class="line">        timer=new Timer();//创建定时器对象</span><br><span class="line">        timer.schedule(new TimerTask() &#123;//定时执行的任务</span><br><span class="line">            public void run() &#123;//发送广播，通知更新前台进度条</span><br><span class="line">                Intent updateIntent=new Intent(Constants.UPDATE_ACTION);</span><br><span class="line">                updateIntent.putExtra(&quot;position&quot;, mediaPlayer.getCurrentPosition());</span><br><span class="line">                sendBroadcast(updateIntent);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, 0,1000);//每隔1秒发一次</span><br><span class="line">    &#125;</span><br><span class="line">    public void onDestroy() &#123;//服务销毁时调用该方法</span><br><span class="line">        if(mediaPlayer!=null)&#123;//重置音乐播放器</span><br><span class="line">            mediaPlayer.reset();</span><br><span class="line">        &#125;</span><br><span class="line">        if(activityReceiver!=null)&#123;//取消广播接收器</span><br><span class="line">            unregisterReceiver(activityReceiver);</span><br><span class="line">        &#125;</span><br><span class="line">        super.onDestroy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于MusicPlayActivity:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br></pre></td><td class="code"><pre><span class="line">//package com.example.zengqi.musicplayer;</span><br><span class="line">//</span><br><span class="line">//import android.app.Activity;</span><br><span class="line">//import android.content.BroadcastReceiver;</span><br><span class="line">//import android.content.Context;</span><br><span class="line">//import android.content.Intent;</span><br><span class="line">//import android.content.IntentFilter;</span><br><span class="line">//import android.content.SharedPreferences;</span><br><span class="line">//import android.graphics.Bitmap;</span><br><span class="line">//import android.os.Bundle;</span><br><span class="line">//import android.os.PersistableBundle;</span><br><span class="line">//import android.view.View;</span><br><span class="line">//import android.view.Window;</span><br><span class="line">//import android.view.WindowManager;</span><br><span class="line">//import android.widget.AdapterView;</span><br><span class="line">//import android.widget.ArrayAdapter;</span><br><span class="line">//import android.widget.ImageButton;</span><br><span class="line">//import android.widget.ImageView;</span><br><span class="line">//import android.widget.SeekBar;</span><br><span class="line">//import android.widget.Spinner;</span><br><span class="line">//import android.widget.TextView;</span><br><span class="line">//</span><br><span class="line">//import java.util.List;</span><br><span class="line">//</span><br><span class="line">///**</span><br><span class="line">// * Created by Administrator on 2015/10/23.</span><br><span class="line">// */</span><br><span class="line">//public class MusicPlayActivity extends Activity&#123;</span><br><span class="line">//    //音乐的播放主界面，可控制音乐的播放</span><br><span class="line">//    private List&lt;Music&gt; musicList;//记录音乐列表</span><br><span class="line">//    //显示当前歌曲名，作者信息，当前播放时间，总时间的文本框</span><br><span class="line">//    private TextView titleView,singerView,currentTimeView,totalTimeView;</span><br><span class="line">//    private SeekBar playProgress;//拖动条</span><br><span class="line">//    private Spinner styleSpinner;//选择播放形式的下拉列表</span><br><span class="line">//    private ImageButton control;//播放和暂停按钮</span><br><span class="line">//    private ImageView picView;//显示图片</span><br><span class="line">//    private ServerReceiver serverReceiver;//接受后台服务发送的广播的广播接收器</span><br><span class="line">//    private Music currentMusic;//记录当前播放的音乐</span><br><span class="line">//    private boolean isPause = false;//是否暂停</span><br><span class="line">//    private int currentPosition;//当前音乐的索引</span><br><span class="line">//    private int listType;//音乐列表的类型，是播放所有音乐还是播放列表中的音乐</span><br><span class="line">//    private String[]styles = new String[]&#123;Constants.LIST_LOOP,Constants.SINGLE_LOOP,Constants.RANDOM_PLAY,Constants.OVER_FINISH&#125;;</span><br><span class="line">//</span><br><span class="line">//    @Override</span><br><span class="line">//    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) &#123;</span><br><span class="line">//        super.onCreate(savedInstanceState, persistentState);</span><br><span class="line">//        requestWindowFeature(Window.FEATURE_NO_TITLE);//去除标题</span><br><span class="line">//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//全屏显示</span><br><span class="line">//        setContentView(R.layout.play_item);</span><br><span class="line">//        initView();//初始化界面</span><br><span class="line">//    &#125;</span><br><span class="line">//</span><br><span class="line">//    private void initView() &#123;</span><br><span class="line">//        styleSpinner = (Spinner) findViewById(R.id.styleSpinner);</span><br><span class="line">//        styleSpinner.setAdapter(new ArrayAdapter&lt;String&gt;(this, R.layout.spinner_text, styles));</span><br><span class="line">//        styleSpinner.setOnItemSelectedListener(new SpinnerItemClickListener());</span><br><span class="line">//        picView = (ImageView) findViewById(R.id.picView);</span><br><span class="line">//        //显示当前音乐播放的时间进度</span><br><span class="line">//        currentTimeView = (TextView) findViewById(R.id.currentTime);</span><br><span class="line">//        totalTimeView = (TextView) findViewById(R.id.totalTime);</span><br><span class="line">//        titleView = (TextView) findViewById(R.id.title);</span><br><span class="line">//        singerView = (TextView) findViewById(R.id.singer);</span><br><span class="line">//        playProgress = (SeekBar) findViewById(R.id.playProgress);</span><br><span class="line">//        control = (ImageButton) findViewById(R.id.control);</span><br><span class="line">//        playProgress.setOnSeekBarChangeListener(new MyseekBarChangeListener());</span><br><span class="line">//        serverReceiver = new ServerReceiver();//创建广播接收器</span><br><span class="line">//        IntentFilter filter = new IntentFilter();//可以接受到的广播类型</span><br><span class="line">//        filter.addAction(Constants.COMPLETE_ACTION);//音乐播放结束的事件</span><br><span class="line">//        filter.addAction(Constants.UPDATE_ACTION);//更新进度的动作</span><br><span class="line">//        registerReceiver(serverReceiver,filter);//注册广播接收器</span><br><span class="line">//        currentMusic = (Music)getIntent().getSerializableExtra(&quot;music&quot;);//获取当前播放的音乐</span><br><span class="line">//        if(currentMusic==null)&#123;</span><br><span class="line">//            SharedPreferences musicPreferences = getSharedPreferences(&quot;music&quot;, Context.MODE_PRIVATE);</span><br><span class="line">//            currentPosition = musicPreferences.getInt(&quot;position&quot;,0);</span><br><span class="line">//            listType = musicPreferences.getInt(&quot;listType&quot;, Constants.ALL_MUSIC);</span><br><span class="line">//            if(listType==Constants.ALL_MUSIC)&#123;//若是所有的音乐</span><br><span class="line">//                musicList = Constants.musicList;</span><br><span class="line">//            &#125;else&#123;//若是列表音乐</span><br><span class="line">//                musicList = Constants.playlist;</span><br><span class="line">//            &#125;</span><br><span class="line">//            currentMusic = musicList.get(currentPosition);//获取当前的音乐</span><br><span class="line">//            String styleString = musicPreferences.getString(&quot;style&quot;,Constants.LIST_LOOP);</span><br><span class="line">//            for (int i = 0; i &lt; styles.length; i++) &#123;</span><br><span class="line">//                if(styles[i].equalsIgnoreCase(styleString))&#123;</span><br><span class="line">//                    styleSpinner.setSelection(i);</span><br><span class="line">//                    break;</span><br><span class="line">//                &#125;</span><br><span class="line">//            &#125;</span><br><span class="line">//            showInfo();//显示音乐信息</span><br><span class="line">//            isPause = true;//继续播放</span><br><span class="line">//            control(null);</span><br><span class="line">//        &#125;else&#123;//直接播放音乐</span><br><span class="line">//            currentPosition = getIntent().getIntExtra(&quot;position&quot;,0);//默认为第一首</span><br><span class="line">//            listType = getIntent().getIntExtra(&quot;listType&quot;,Constants.ALL_MUSIC);//获取播放的列表类型</span><br><span class="line">//            playNewMusic();//播放音乐</span><br><span class="line">//            if(listType==Constants.ALL_MUSIC)&#123;</span><br><span class="line">//                musicList = Constants.musicList;//所有音乐</span><br><span class="line">//            &#125;else&#123;</span><br><span class="line">//                musicList = Constants.playlist;//播放列表</span><br><span class="line">//            &#125;</span><br><span class="line">//        &#125;</span><br><span class="line">//    &#125;</span><br><span class="line">//</span><br><span class="line">//    public void showInfo()&#123;</span><br><span class="line">//        totalTimeView.setText(MusicUtils.timeToString(currentMusic.getTime()));//显示音乐的总时长</span><br><span class="line">//        titleView.setText(&quot;   &quot;+currentMusic.getTitle()+&quot;   &quot;);//显示歌曲名</span><br><span class="line">//        singerView.setText(currentMusic.getSinger());//显示演唱者</span><br><span class="line">//        Bitmap bitmap = MusicUtils.getAlbumPic(this,currentMusic);</span><br><span class="line">//        if(bitmap!=null)&#123;</span><br><span class="line">//            picView.setImageBitmap(bitmap);</span><br><span class="line">//        &#125;else&#123;</span><br><span class="line">//            picView.setImageResource(R.drawable.background);</span><br><span class="line">//        &#125;</span><br><span class="line">//    &#125;</span><br><span class="line">//</span><br><span class="line">//    public void playNewMusic()&#123;</span><br><span class="line">//        currentTimeView.setText(MusicUtils.timeToString(0));//显示当前播放的时间，默认为0</span><br><span class="line">//        showInfo();</span><br><span class="line">//        playProgress.setProgress(0);//设置进度为0</span><br><span class="line">//        control.setImageResource(R.drawable.pause);//显示暂停的按钮</span><br><span class="line">//        //发送广播，通知后台播放音乐</span><br><span class="line">//        Intent controlIntent = new Intent(Constants.CONTROL_ACTION);</span><br><span class="line">//        controlIntent.putExtra(&quot;new&quot;,Constants.NEW);//这是一首新音乐</span><br><span class="line">//        controlIntent.putExtra(&quot;position&quot;,currentPosition);//传递当前音乐序号</span><br><span class="line">//        controlIntent.putExtra(&quot;listType&quot;,listType);//音乐列表的类型</span><br><span class="line">//        sendBroadcast(controlIntent);//发送广播</span><br><span class="line">//        isPause = false;//是否暂停为false</span><br><span class="line">//    &#125;</span><br><span class="line">//</span><br><span class="line">//    private class MyseekBarChangeListener implements SeekBar.OnSeekBarChangeListener &#123;</span><br><span class="line">//        @Override</span><br><span class="line">//        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) &#123;</span><br><span class="line">//          //进度变动时调用该方法</span><br><span class="line">//</span><br><span class="line">//        &#125;</span><br><span class="line">//</span><br><span class="line">//        @Override</span><br><span class="line">//        public void onStartTrackingTouch(SeekBar seekBar) &#123;</span><br><span class="line">//            //开始拖动时调用</span><br><span class="line">//        &#125;</span><br><span class="line">//</span><br><span class="line">//        @Override</span><br><span class="line">//        public void onStopTrackingTouch(SeekBar seekBar) &#123;</span><br><span class="line">//            //结束拖动时调用，拖动条未设置最大值时，默认为100</span><br><span class="line">//            Intent seekIntent = new Intent(Constants.SEEKBAR_ACTION);//发送广播通知拖动条变化</span><br><span class="line">//            seekIntent.putExtra(&quot;progress&quot;,seekBar.getProgress());</span><br><span class="line">//            sendBroadcast(seekIntent);//发送广播</span><br><span class="line">//        &#125;</span><br><span class="line">//    &#125;</span><br><span class="line">//</span><br><span class="line">//    private class ServerReceiver extends BroadcastReceiver&#123;</span><br><span class="line">//        //广播接受器，用于接收后台服务器</span><br><span class="line">//        @Override</span><br><span class="line">//        public void onReceive(Context context, Intent intent) &#123;</span><br><span class="line">//            if(intent.getAction()==Constants.UPDATE_ACTION)&#123;</span><br><span class="line">//                //更新进度的广播处理</span><br><span class="line">//                int position = intent.getIntExtra(&quot;position&quot;,0);//获取音乐播放的位置</span><br><span class="line">//                //????</span><br><span class="line">//                currentTimeView.setText(MusicUtils.timeToString(position));</span><br><span class="line">//                playProgress.setProgress((int)(position*1.0/currentMusic.getTime()*100));//根据位置计算进度条的进度</span><br><span class="line">//            &#125;else if(intent.getAction()==Constants.COMPLETE_ACTION)&#123;</span><br><span class="line">//                //音乐播放完成的事件处理</span><br><span class="line">//                currentPosition = intent.getIntExtra(&quot;position&quot;,0);//当前音乐播放序号</span><br><span class="line">//                currentMusic = musicList.get(currentPosition);</span><br><span class="line">//                showInfo();</span><br><span class="line">//            &#125;</span><br><span class="line">//        &#125;</span><br><span class="line">//    &#125;</span><br><span class="line">//</span><br><span class="line">//</span><br><span class="line">//    private class SpinnerItemClickListener implements android.widget.AdapterView.OnItemSelectedListener &#123;</span><br><span class="line">//        @Override</span><br><span class="line">//        public void onItemSelected(AdapterView&lt;?&gt; parent, View view, int position, long id) &#123;</span><br><span class="line">//            Intent styleIntent = new Intent(Constants.UPDATE_STYLE);</span><br><span class="line">//            styleIntent.putExtra(&quot;style&quot;,styles[position]);</span><br><span class="line">//            sendBroadcast(styleIntent);</span><br><span class="line">//        &#125;</span><br><span class="line">//</span><br><span class="line">//        @Override</span><br><span class="line">//        public void onNothingSelected(AdapterView&lt;?&gt; parent) &#123;</span><br><span class="line">//</span><br><span class="line">//        &#125;</span><br><span class="line">//    &#125;</span><br><span class="line">//</span><br><span class="line">//</span><br><span class="line">//    //对单击事件的处理</span><br><span class="line">//    public void chooseMusic(View view)&#123;</span><br><span class="line">//        //选择歌曲</span><br><span class="line">//        Intent intent = new Intent(this,MainActivity.class);</span><br><span class="line">//        startActivity(intent);</span><br><span class="line">//        this.finish();</span><br><span class="line">//    &#125;</span><br><span class="line">//</span><br><span class="line">//    public void first(View view)&#123;</span><br><span class="line">//        //第一首按钮</span><br><span class="line">//        currentPosition = 0;</span><br><span class="line">//        currentMusic = musicList.get(currentPosition);</span><br><span class="line">//        playNewMusic();</span><br><span class="line">//    &#125;</span><br><span class="line">//</span><br><span class="line">//    public void pre(View view)&#123;</span><br><span class="line">//        //前一首</span><br><span class="line">//        currentPosition = (currentPosition-1+musicList.size())%musicList.size();</span><br><span class="line">//        currentMusic = musicList.get(currentPosition);</span><br><span class="line">//        playNewMusic();</span><br><span class="line">//    &#125;</span><br><span class="line">//</span><br><span class="line">//    public void control(View view)&#123;</span><br><span class="line">//        //播放和暂停的事件处理</span><br><span class="line">//        Intent controlIntent = new Intent(Constants.CONTROL_ACTION);</span><br><span class="line">//        //控制音乐的播放和暂停</span><br><span class="line">//        if(!isPause)&#123;//未暂停,处于播放状态,发送广播通知暂停</span><br><span class="line">//            controlIntent.putExtra(&quot;control&quot;,Constants.PAUSE);</span><br><span class="line">//            control.setImageResource(R.drawable.play);</span><br><span class="line">//        &#125;else&#123;</span><br><span class="line">//            controlIntent.putExtra(&quot;control&quot;,Constants.PLAY);</span><br><span class="line">//            control.setImageResource(R.drawable.pause);</span><br><span class="line">//        &#125;</span><br><span class="line">//        isPause = !isPause;</span><br><span class="line">//        sendBroadcast(controlIntent);</span><br><span class="line">//    &#125;</span><br><span class="line">//</span><br><span class="line">//    public void next(View view)&#123;</span><br><span class="line">//        //下一首</span><br><span class="line">//        currentPosition = ((currentPosition+1)%musicList.size());</span><br><span class="line">//        currentMusic = musicList.get(currentPosition);</span><br><span class="line">//        playNewMusic();</span><br><span class="line">//    &#125;</span><br><span class="line">//</span><br><span class="line">//    public void last(View view)&#123;</span><br><span class="line">//        //最后一首</span><br><span class="line">//        currentPosition = musicList.size()-1;</span><br><span class="line">//        currentMusic = musicList.get(currentPosition);</span><br><span class="line">//        playNewMusic();</span><br><span class="line">//    &#125;</span><br><span class="line">//</span><br><span class="line">//    @Override</span><br><span class="line">//    protected void onDestroy() &#123;</span><br><span class="line">//        if(serverReceiver!=null)&#123;//服务销毁时取消广播接收器的注册</span><br><span class="line">//            unregisterReceiver(serverReceiver);//activity销毁时取消注册</span><br><span class="line">//        &#125;</span><br><span class="line">//        super.onDestroy();</span><br><span class="line">//    &#125;</span><br><span class="line">//&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">package com.example.zengqi.musicplayer;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">import android.app.Activity;</span><br><span class="line">import android.content.BroadcastReceiver;</span><br><span class="line">import android.content.Context;</span><br><span class="line">import android.content.Intent;</span><br><span class="line">import android.content.IntentFilter;</span><br><span class="line">import android.content.SharedPreferences;</span><br><span class="line">import android.graphics.Bitmap;</span><br><span class="line">import android.os.Bundle;</span><br><span class="line">import android.view.View;</span><br><span class="line">import android.view.Window;</span><br><span class="line">import android.view.WindowManager;</span><br><span class="line">import android.widget.AdapterView;</span><br><span class="line">import android.widget.AdapterView.OnItemSelectedListener;</span><br><span class="line">import android.widget.ArrayAdapter;</span><br><span class="line">import android.widget.ImageButton;</span><br><span class="line">import android.widget.ImageView;</span><br><span class="line">import android.widget.SeekBar;</span><br><span class="line">import android.widget.SeekBar.OnSeekBarChangeListener;</span><br><span class="line">import android.widget.Spinner;</span><br><span class="line">import android.widget.TextView;</span><br><span class="line"></span><br><span class="line">public class MusicPlayActivity extends Activity &#123;// 音乐播放主界面，可控制音乐的播放</span><br><span class="line">    private List&lt;Music&gt; musicList;//记录音乐列表</span><br><span class="line">    private TextView titleView, singerView, currentTimeView, totalTimeView;// 显示歌曲名、作者信息、当前播放时间、总时间的文本显示框</span><br><span class="line">    private SeekBar playProgress;// 拖动条</span><br><span class="line">    private Spinner styleSpinner;//选择播放形式的下拉列表</span><br><span class="line">    private ImageButton control;// 播放/暂停按钮</span><br><span class="line">    private ImageView picView;//显示图片</span><br><span class="line">    private ServerReceiver serverReceiver;// 接收后台服务发送的广播的广播接收器</span><br><span class="line">    private Music currentMusic;//记录当前播放的音乐</span><br><span class="line">    private boolean isPause=false;//是否暂停</span><br><span class="line">    private int currentPosition;//当前音乐的索引</span><br><span class="line">    private int listType;//音乐列表类型：所有音乐还是播放列表中的音乐</span><br><span class="line">    private String[] styles=new String[]&#123;Constants.LIST_LOOP,Constants.SINGLE_LOOP,Constants.RANDOM_PLAY,Constants.OVER_FINISH&#125;;</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        requestWindowFeature(Window.FEATURE_NO_TITLE);//去除标题</span><br><span class="line">        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,</span><br><span class="line">                WindowManager.LayoutParams.FLAG_FULLSCREEN);//全屏显示</span><br><span class="line">        setContentView(R.layout.play_item);//加载主界面</span><br><span class="line">        initView();// 初始化界面</span><br><span class="line">    &#125;</span><br><span class="line">    public void initView() &#123;//执行初始化操作</span><br><span class="line">        styleSpinner=(Spinner)findViewById(R.id.styleSpinner);</span><br><span class="line">        styleSpinner.setAdapter(new ArrayAdapter&lt;String&gt;(this,R.layout.spinner_text,styles));</span><br><span class="line">        styleSpinner.setOnItemSelectedListener(new SpinnerItemClickListener());</span><br><span class="line">        picView=(ImageView)findViewById(R.id.picView);</span><br><span class="line">        currentTimeView = (TextView) findViewById(R.id.currentTime);// 显示音乐当前播放的时间的文本控件</span><br><span class="line">        totalTimeView = (TextView) findViewById(R.id.totalTime);// 显示音乐的总时长的文本控件</span><br><span class="line">        titleView = (TextView) findViewById(R.id.title);// 显示音乐标题的文本控件</span><br><span class="line">        singerView = (TextView) findViewById(R.id.singer);// 显示音乐演唱者的文本控件</span><br><span class="line">        playProgress = (SeekBar) findViewById(R.id.playProgress);// 显示当前音乐播放进度的控件</span><br><span class="line">        control = (ImageButton) findViewById(R.id.control);// 控制播放或暂停的控件</span><br><span class="line">        playProgress.setOnSeekBarChangeListener(new MySeekBarChangeListener());// 为拖动条添加事件处理</span><br><span class="line">        serverReceiver = new ServerReceiver();//创建广播接收器</span><br><span class="line">        IntentFilter filter = new IntentFilter();//可以接收到的广播类型</span><br><span class="line">        filter.addAction(Constants.COMPLETE_ACTION);// 音乐播放结束的事件</span><br><span class="line">        filter.addAction(Constants.UPDATE_ACTION);// 更新进度的动作</span><br><span class="line">        registerReceiver(serverReceiver, filter);//注册广播接收器</span><br><span class="line">        currentMusic = (Music) getIntent().getSerializableExtra(&quot;music&quot;);// 获取当前播放的音乐</span><br><span class="line">        if(currentMusic==null)&#123;//如果当前音乐为空</span><br><span class="line">            SharedPreferences musicPreferences=getSharedPreferences(&quot;music&quot;, Context.MODE_PRIVATE);</span><br><span class="line">            currentPosition=musicPreferences.getInt(&quot;position&quot;, 0);</span><br><span class="line">            listType=musicPreferences.getInt(&quot;listType&quot;, Constants.ALL_MUSIC);</span><br><span class="line">            if(listType==Constants.ALL_MUSIC)&#123;//如果是所有的音乐</span><br><span class="line">                musicList=Constants.musicList;</span><br><span class="line">            &#125;else&#123;//如果是播放列表</span><br><span class="line">                musicList=Constants.playlist;</span><br><span class="line">            &#125;</span><br><span class="line">            currentMusic=musicList.get(currentPosition);//获取当前的音乐</span><br><span class="line">            String styleString=musicPreferences.getString(&quot;style&quot;, Constants.LIST_LOOP);</span><br><span class="line">            for(int i=0;i&lt;styles.length;i++)&#123;</span><br><span class="line">                if(styles[i].equalsIgnoreCase(styleString))&#123;</span><br><span class="line">                    styleSpinner.setSelection(i);</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            showInfo();//显示音乐信息</span><br><span class="line">            isPause=true;//继续播放</span><br><span class="line">            control(null);</span><br><span class="line">        &#125;else&#123;//直接播放音乐</span><br><span class="line">            currentPosition=getIntent().getIntExtra(&quot;position&quot;,0);//默认为第一首</span><br><span class="line">            listType=getIntent().getIntExtra(&quot;listType&quot;, Constants.ALL_MUSIC);//获取列表的类型，是从所有的音乐还是播放列表中播放</span><br><span class="line">            playNewMusic();//播放音乐</span><br><span class="line">            if(listType==Constants.ALL_MUSIC)&#123;//如果是所有的音乐</span><br><span class="line">                musicList=Constants.musicList;</span><br><span class="line">            &#125;else&#123;//如果是播放列表</span><br><span class="line">                musicList=Constants.playlist;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    public void showInfo()&#123;</span><br><span class="line">        totalTimeView.setText(MusicUtils.timeToString(currentMusic.getTime()));//显示音乐的总时长</span><br><span class="line">//        titleView.setText(&quot;        &quot; + currentMusic.getTitle() + &quot;        &quot;);// 显示歌曲名</span><br><span class="line">        singerView.setText(currentMusic.getSinger());// 显示演唱者</span><br><span class="line">        Bitmap bitmap=MusicUtils.getAlbumPic(this, currentMusic);</span><br><span class="line">        if(bitmap!=null)&#123;</span><br><span class="line">            picView.setImageBitmap(bitmap);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            picView.setImageResource(R.drawable.background);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public void playNewMusic() &#123;</span><br><span class="line">        currentTimeView.setText(MusicUtils.timeToString(0));//显示当前播放的时间，默认为0</span><br><span class="line">        showInfo();</span><br><span class="line">        playProgress.setProgress(0);//进度为0</span><br><span class="line">        control.setImageResource(R.drawable.pause);//显示暂停的按钮</span><br><span class="line">        // 发送广播，通知后台播放音乐</span><br><span class="line">        Intent controlIntent = new Intent(Constants.CONTROL_ACTION);</span><br><span class="line">        controlIntent.putExtra(&quot;new&quot;, Constants.NEW);//这是一首新音乐</span><br><span class="line">        controlIntent.putExtra(&quot;position&quot;,currentPosition);//传递当前音乐的序号</span><br><span class="line">        controlIntent.putExtra(&quot;listType&quot;,listType);//传递音乐列表的类型</span><br><span class="line">        sendBroadcast(controlIntent);//发送广播</span><br><span class="line">        isPause=false;//是否暂停为false</span><br><span class="line">    &#125;</span><br><span class="line">    private class MySeekBarChangeListener implements OnSeekBarChangeListener &#123;</span><br><span class="line">        public void onProgressChanged(SeekBar seekBar, int progress,</span><br><span class="line">                                      boolean fromUser) &#123; // 进度发送变化时调用该方法</span><br><span class="line">        &#125;</span><br><span class="line">        public void onStartTrackingTouch(SeekBar seekBar) &#123;// 开始拖动时调用</span><br><span class="line">        &#125;</span><br><span class="line">        public void onStopTrackingTouch(SeekBar seekBar) &#123;// 结束拖动时调用</span><br><span class="line">            Intent seekIntent = new Intent(Constants.SEEKBAR_ACTION);//发送广播通知拖动条变化</span><br><span class="line">            seekIntent.putExtra(&quot;progress&quot;, seekBar.getProgress());//将当前的进度传递进去</span><br><span class="line">            sendBroadcast(seekIntent);// 发送广播</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    private class ServerReceiver extends BroadcastReceiver &#123;// 广播接收器，用于接收后台服务发送的广播</span><br><span class="line">        public void onReceive(Context context, Intent intent) &#123;</span><br><span class="line">            if(intent.getAction()==Constants.UPDATE_ACTION)&#123;//更新进度的广播处理</span><br><span class="line">                int position=intent.getIntExtra(&quot;position&quot;,0);//获取音乐播放的位置</span><br><span class="line">                currentTimeView.setText(MusicUtils.timeToString(position));//显示当前的播放时长</span><br><span class="line">                playProgress.setProgress((int)(position*1.0/currentMusic.getTime()*100));//根据位置计算进度条的进度</span><br><span class="line">            &#125;else if(intent.getAction()==Constants.COMPLETE_ACTION)&#123;//音乐播放完成的事件处理</span><br><span class="line">                currentPosition=intent.getIntExtra(&quot;position&quot;, 0);//获取当前播放的音乐的序号</span><br><span class="line">                currentMusic=musicList.get(currentPosition);//获取当前的音乐</span><br><span class="line">                showInfo();//显示当前音乐的信息</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    private class SpinnerItemClickListener implements OnItemSelectedListener&#123;</span><br><span class="line">        public void onItemSelected(AdapterView&lt;?&gt; parent, View view,</span><br><span class="line">                                   int position, long id) &#123;</span><br><span class="line">            Intent styleIntent=new Intent(Constants.UPDATE_STYLE);</span><br><span class="line">            styleIntent.putExtra(&quot;style&quot;,styles[position]);</span><br><span class="line">            sendBroadcast(styleIntent);</span><br><span class="line">        &#125;</span><br><span class="line">        public void onNothingSelected(AdapterView&lt;?&gt; parent) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public void chooseMusic(View view)&#123;//选择歌曲按钮的事件处理</span><br><span class="line">        Intent intent=new Intent(this,MainActivity.class);</span><br><span class="line">        startActivity(intent);</span><br><span class="line">        this.finish();</span><br><span class="line">    &#125;</span><br><span class="line">    public void first(View view) &#123;// 第一首按钮的事件处理</span><br><span class="line">        currentPosition=0;</span><br><span class="line">        currentMusic=musicList.get(currentPosition);</span><br><span class="line">        playNewMusic();</span><br><span class="line">    &#125;</span><br><span class="line">    public void pre(View view) &#123;// 前一首按钮的事件处理</span><br><span class="line">        currentPosition=(currentPosition-1+musicList.size())%musicList.size();</span><br><span class="line">        currentMusic=musicList.get(currentPosition);</span><br><span class="line">        playNewMusic();</span><br><span class="line">    &#125;</span><br><span class="line">    public void control(View view) &#123;// 播放和暂停按钮的事件处理</span><br><span class="line">        Intent controlIntent=new Intent(Constants.CONTROL_ACTION);//控制音乐播放和暂停</span><br><span class="line">        if(!isPause)&#123;//如果处于播放状态，发送广播通知暂停</span><br><span class="line">            controlIntent.putExtra(&quot;control&quot;,Constants.PAUSE);</span><br><span class="line">            control.setImageResource(R.drawable.play);//改变图标</span><br><span class="line">        &#125;else&#123;//如果处于暂停状态，发送广播通知播放</span><br><span class="line">            controlIntent.putExtra(&quot;control&quot;,Constants.PLAY);</span><br><span class="line">            control.setImageResource(R.drawable.pause);//改变图标</span><br><span class="line">        &#125;</span><br><span class="line">        isPause=!isPause;</span><br><span class="line">        sendBroadcast(controlIntent);//发送广播</span><br><span class="line">    &#125;</span><br><span class="line">    public void next(View view) &#123;// 下一首按钮的事件处理</span><br><span class="line">        currentPosition=(currentPosition+1)%musicList.size();</span><br><span class="line">        currentMusic=musicList.get(currentPosition);</span><br><span class="line">        playNewMusic();</span><br><span class="line">    &#125;</span><br><span class="line">    public void last(View view) &#123;// 最后一首按钮的事件处理</span><br><span class="line">        currentPosition=musicList.size()-1;</span><br><span class="line">        currentMusic=musicList.get(currentPosition);</span><br><span class="line">        playNewMusic();</span><br><span class="line">    &#125;</span><br><span class="line">    protected void onDestroy() &#123;//服务销毁时，取消广播接收器的注册</span><br><span class="line">        if (serverReceiver != null) &#123;</span><br><span class="line">            unregisterReceiver(serverReceiver);// Activity销毁时，取消注册</span><br><span class="line">        &#125;</span><br><span class="line">        super.onDestroy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>整个项目的结构：<br><img src="http://img.blog.csdn.net/20160115155514153" alt=""></p>
+<p>ContentProvider是不同程序之间进行数据交换的标准API，为存储和读取数据提供了统一的接口。通过ContentProvider，应用程序可以实现数据共享。android内置的很多应用都使用ContentProvider向外提供数据，供开发者调用（如视频，音频，图片，通讯录等）。ContentProvider以某种URI的形式向外提供数据，数据以类似数据库中表的方式暴露，允许其他应用访问或修改数据，其他应用程序使用ContentResolver根据URI去访问操作指定的数据。</p>
+<p>ContentProvider基类的常用方法有：onCreate,query,update,insert,getType,delete.以上几个方法都是抽象方法，用户在开发自己的contentProvider时必须重写这些方法。然后在AndroidManifest.xml文件中进行配置。<br>调用其他应用程序通过ContentProvider暴露的数据主要是下面3个步骤：</p>
+<p>1.获取暴露数据对应的URI</p>
+<p>2.调用当前的Context对象的getContentResolver()方法获取ContentProvider对象</p>
+<p>3.调用ContentProvider对象的增，删，查，改方法对暴露的数据进行操作。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/01/15/自己动手实现音乐播放器app/" data-title="自己动手实现音乐播放器app | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/01/19/Java中的强，软，弱，虚引用-及利用软引用实现高速缓存/" title="Java中的强，软，弱，虚引用(及利用软引用实现高速缓存)">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Java中的强，软，弱，虚引用(及利用软引用实现高速缓存)</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/12/31/安卓中的开发框架/"  title="安卓中的开发框架">
+ <strong>下一篇：</strong><br/> 
+ <span>安卓中的开发框架
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/01/15/自己动手实现音乐播放器app/" data-title="自己动手实现音乐播放器app" data-url="http://yoursite.com/2016/01/15/自己动手实现音乐播放器app/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zeng Qi,a Android developer. <br/>
+			This is my blog,hope you will enjoy it.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ZengQi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,587 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>高效看源代码网络汇总 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="问题：怎样高效阅读别人编写的源代码？
+一：
+首先熟悉写这个源码的语言是基本的要求。了解源码的整体功能和模块划分，不要去考虑具体实现，只要明白怎么组织的结构。选择你感兴趣的模块，功能，类，方法，函数。层层击破。
+二：
+1 借助一些对代码静态分析的工具。
+2 利用链接器的功能在代码 模块之间跳转，搞清楚我感兴趣的程序的脉络。
+3 设断点和写单元测试进行调试。这些方法其实都很简单，也没有什么心得可言。但">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高效看源代码网络汇总">
+<meta property="og:url" content="http://yoursite.com/2015/12/31/高效看源代码网络汇总/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="问题：怎样高效阅读别人编写的源代码？
+一：
+首先熟悉写这个源码的语言是基本的要求。了解源码的整体功能和模块划分，不要去考虑具体实现，只要明白怎么组织的结构。选择你感兴趣的模块，功能，类，方法，函数。层层击破。
+二：
+1 借助一些对代码静态分析的工具。
+2 利用链接器的功能在代码 模块之间跳转，搞清楚我感兴趣的程序的脉络。
+3 设断点和写单元测试进行调试。这些方法其实都很简单，也没有什么心得可言。但">
+<meta property="og:image" content="http://img.blog.csdn.net/20151231211537814">
+<meta property="og:updated_time" content="2016-06-01T07:15:43.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高效看源代码网络汇总">
+<meta name="twitter:description" content="问题：怎样高效阅读别人编写的源代码？
+一：
+首先熟悉写这个源码的语言是基本的要求。了解源码的整体功能和模块划分，不要去考虑具体实现，只要明白怎么组织的结构。选择你感兴趣的模块，功能，类，方法，函数。层层击破。
+二：
+1 借助一些对代码静态分析的工具。
+2 利用链接器的功能在代码 模块之间跳转，搞清楚我感兴趣的程序的脉络。
+3 设断点和写单元测试进行调试。这些方法其实都很简单，也没有什么心得可言。但">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20151231211537814">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/31/高效看源代码网络汇总/" title="高效看源代码网络汇总" itemprop="url">高效看源代码网络汇总</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-31T07:10:01.000Z" itemprop="datePublished"> Published 2015-12-31</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p><strong>问题：怎样高效阅读别人编写的源代码？</strong></p>
+<p>一：</p>
+<p>首先熟悉写这个源码的语言是基本的要求。了解源码的整体功能和模块划分，不要去考虑具体实现，只要明白怎么组织的结构。选择你感兴趣的模块，功能，类，方法，函数。层层击破。</p>
+<p>二：</p>
+<p>1 借助一些对代码静态分析的工具。</p>
+<p>2 利用链接器的功能在代码 模块之间跳转，搞清楚我感兴趣的程序的脉络。</p>
+<p>3 设断点和写单元测试进行调试。这些方法其实都很简单，也没有什么心得可言。但实际上代码的种种玄机（特别是你找藏得很深的bug的时候），就必须要借助工具的高级调试和分析功能，非如此不足以破解疑难。从这一点上看，光靠读代码来收获一些东西，其实都是很肤浅的。</p>
+<p>三：</p>
+<p>1.代码只是软件工程中不大不小的一部分    对于开发人员来说，更重要的是《需求分析》和《详细设计》。因此在阅读他人代码之前，首先理解此代码是满足什么需求、解决什么问题，使用了什么关键技术、选择了什么样的实现方式等。    有此基础，看代码时，布局了然于胸，有的放矢。    反之直接深入（特别是复杂的）代码，枝繁交错、伏线千里，很容易所谓”出不来了”，事倍功半。</p>
+<p>2.(如果有可能)拒绝阅读烂代码    好的代码，思路清晰、（同样的复杂度下）更易厘清；健壮性好、受益匪浅；风格良好（如注释、排版）、赏心悦目；技巧丰富、常有拾缀。    反之亦然..</p>
+<p>3.流程、功能、细节    先理解函数功能，组织起整个流程；    再阅读函数内部的逻辑；    如有强烈的需求，才去深入每一条语句。</p>
+<p>4.画图    无论是随手草图，还是漂亮的思维导图，对于理解流程都非常有益。人的内存有限，若不画图，易出现刚理解函数D、已忘了函数A的情况。</p>
+<p>5.笔记 本地代码是可以为所欲为的。不要吝啬在代码中记任何 疑问、注解、顿悟。一个小技巧：以不同的格式记录不同类型的笔记，以便与日后搜索。    比如以//yourname? xxx 代表此处有疑问，//yourname!! xxx代表此处有顿悟。</p>
+<p>6.动手    修改代码并调试，特别是当出现预期结果时的美妙..所谓读码十遍不如动手一遍。据称实践时活跃的脑区、和阅读时活跃的脑区是不同的，阅读再多也无法替代实践。</p>
+<p>7.严待自己代码    为后来的维护者留下优良的代码，是行善、更是树立个人形象。    为半年后的自己留下优良的代码，以前挖的坑最后往往还是自己跳、且代价更大。</p>
+<p>四：</p>
+<p>分享自己总结的一些阅读源码的方法，需要注意的几个点可以注意下留备份,构造可运行的环境　　</p>
+<p>代码拿到手之后的第一件事情是先做备份，最好是刻在一个光盘上，在代码阅读的时候一点不动代码是很困难的一件事情，特别是你要做一些修改性或增强性维护的时候。而一旦做修改就可能发生问题，到时候要恢复是经常发生的事情，如果你不能很好的使用版本控制软件那么先留一个备份是一个最起码的要求了。　　</p>
+<p>在做完备份之后最好给自己构造一个可运行的环境，当然可能会很麻烦，但可运行代码和不可运行的代码阅读起来难度会差很多的。所以多用一点时间搭建一个环境是很值得的，而且我们阅读代码主要是为了修改其中的问题或做移植操作。不能运行的代码除了可以学到一些技术以外，用处有限。　　</p>
+<p>找开始的地方　　做什么事情都要知道从那里开始，读程序也不例外。在c语言里,首先要找到main()函数，然后逐层去阅读，其他的程序无论是vb、delphi都要首先找到程序头，否则你是很难分析清楚程序的层次关系。　　</p>
+<p>分层次阅读　　在阅读代码的时候不要一头就扎下去，这样往往容易只见树木不见森林，阅读代码比较好的方法有一点象二叉树的广度优先的遍历。在程序主体一般会比较简 单，调用的函数会比较少，根据函数的名字以及层次关系一般可以确定每一个函数的大致用途，将你的理解作为注解写在这些函数的边上。当然很难一次就将全部注 解都写正确，有时候甚至可能是你猜测的结果，不过没有关系这些注解在阅读过程是不断修正的，直到你全部理解了代码为止。一般来说采用逐层阅读的方法可以是 你系统的理解保持在一个正确的方向上。避免一下子扎入到细节的问题上。在分层次阅读的时候要注意一个问题，就是将系统的函数和开发人员编写代码区分开。在 c, c++，java ,delphi中都有自己的系统函数，不要去阅读这些系统函数，除非你要学习他们的编程方法，否则只会浪费你的时间。将系统函数表示出来，注明它们的作用 即可，区分系统函数和自编函数有几个方法，一个是系统函数的编程风格一般会比较好，而自编的函数的编程风格一般比较会比较差。从变量名、行之间的缩进、注 解等方面一般可以分辨出来，另外一个是象ms c6++会在你编程的时候给你生成一大堆文件出来，其中有很多文件是你用不到了，可以根据文件名来区分一下时候是系统函数，最后如果你实在确定不了，那就 用开发系统的帮助系统去查一下函数名，对一下参数等来确定即可。</p>
+<p>写注解　　写注解是在阅读代码中最重要的一个步骤，在我们阅读的源代码一般来说是我们不熟悉的系统,阅读别人的代码一般会有几个问题，</p>
+<p>1搞明白别人的编程思想不 是一件很容易的事情，即使你知道这段程序的思路的时候也是一样。<br>2阅读代码的时候代码量一般会比较大，如果不及时写注解往往会造成读明白了后边忘了前边的 现象。<br>3阅读代码的时候难免会出现理解错误，如果没有及时的写注解很难及时的发现这些错误。<br>4不写注解有时候你发生你很难确定一个函数你时候阅读过，它的功能是什么，经常会发生重复阅读、理解的现象。　　</p>
+<p>好了，说一些写注解的基本方法：</p>
+<p>1.猜测的去写，刚开始阅读一个代码的时候，你很难一下子就确定所有的函数的功能，不妨采用采用猜测的方法去写注解，根 据函数的名字、位置写一个大致的注解，当然一般会有错误，但你的注解实际是不但调整的，直到最后你理解了全部代码。</p>
+<p>2.按功能去写，别把注解写成语法说明 书，千万别看到fopen就写打开文件，看到fread就写读数据，这样的注解一点用处都没有，而应该写在此处开发参数配置文件(<em>**</em>。dat)读出 系统初始化参数。。。。。，这样才是有用的注解。</p>
+<p>3.在写注解的使用另外要注意的一个问题是分清楚系统自动生成的代码和用户自 己开发的代码，一般来说没有必要写系统自动生成的代码。象delphi的代码，我们往往要自己编写一些自己的代码段，还要对一些系统自动生成的代码段进行 修改，这些代码在阅读过程是要写注解的，但有一些没有修改过的自动生成的代码就没有必要写注解了。</p>
+<p>4.在主要代码段要写较为详细的注解。有一些函数或类在程 序中起关键的作用，那么要写比较详细的注解。这样对你理解代码有很大的帮助。</p>
+<p>5.对你理解起来比较困难的地方要写详细的注解，在这些地方往往会有一些编程的技巧。不理解这些编程技巧对你以后的理解或移植会有问题。</p>
+<p>6.写中文注解。如果你的英文足够的好，不用看这条了，但很多的人英文实在不怎么样，那就写中文注解吧，我们写注解是为了加快自己的理解速度。中文在大多数的时候比英文更适应中国人。与其写一些谁也看不懂的英文注解还不如不写。　</p>
+<p>重复阅读　　一次就可以将所有的代码都阅读明白的人是没有的。至少我还没有遇到过。反复的去阅读同一段代码有助于得代码的理解。一般来说，在第一次阅读代码的时候 你可以跳过很多一时不明白的代码段，只写一些简单的注解，在以后的重复阅读过程用，你对代码的理解会比上一次理解的更深刻，这样你可以修改那些注解错误的 地方和上一次没有理解的对方。一般来说，对代码阅读3，4次基本可以理解代码的含义和作用。　　</p>
+<p>运行并修改代码　　如果你的代码是可运行的，那么先让它运行起来，用单步跟踪的方法来阅读代码，会提高你的代码速度。代码通过看中间变量了解代码的含义,而且对 以后的修改会提供很大的帮助　　</p>
+<p>用自己的代码代替原有代码，看效果，但在之前要保留源代码　　600行的一个函数，阅读起来很困难，编程的人不是一个好的习惯。在阅读这个代码的时候将代码进行修改，变成了14个函数。每一个大约是40-50 行左右.</p>
+<p><strong>关于阅读android系统源码的建议</strong>（虽然我现在的功力只能在application层混一混，但梦想还是要有的）：</p>
+<p>一：</p>
+<p>由于工作需要大量修改framework代码, 在AOSP(Android Open Source Project)源码上花费了不少功夫, Application端和Services端都看和改了不少.如果只是想看看一些常用类的实现, 在Android包管理器里把源码下载下来, 随便一个IDE配好Source Code的path看就行. 但如果想深入的了解Android系统, 那么可以看下我的一些简单的总结. 知识JavaJava是AOSP的主要语言之一. 没得说, 必需熟练掌握.熟练的Android App开发LinuxAndroid基于Linux的, 并且AOSP的推荐编译环境是Ubuntu 12.04. 所以熟练的使用并了解Linux这个系统是必不可少的. 如果你想了解偏底层的代码, 那么必需了解基本的Linux环境下的程序开发. 如果再深入到驱动层, 那么Kernel相关的知识也要具备.MakeAOSP使用Make系统进行编译. 了解基本的Makefile编写会让你更清晰了解AOSP这个庞大的项目是如何构建起来的.GitAOSP使用git+repo进行源码管理. 这应该是程序员必备技能吧.C++Android系统的一些性能敏感模块及第三方库是用C++实现的, 比如: Input系统, Chromium项目(WebView的底层实现). 硬件流畅的国际网络AOSP代码下载需要你拥有一个流畅的国际网络. 如果在下载代码这一步就失去耐心的话, 那你肯定没有耐心去看那乱糟糟的AOSP代码. 另外, 好程序员应该都会需要一个流畅的Google.一台运行Ubuntu 12.04的PC. 如果只是阅读源码而不做太多修改的话, 其实不需要太高的配置.一台Nexus设备AOSP项目默认只支持Nexus系列设备. 没有也没关系, 你依然可以读代码. 但如果你想在大牛之路走的更远, 还是改改代码, 然后刷机调试看看吧.高品质USB线要刷机时线坏了, 没有更窝心的事儿了.软件Ubuntu 12.04官方推荐, 没得选.Oracle Java 1.6注意不要用OpenJDK. 这是个坑, 官方文档虽然有写, 但还是单独提一下.安装:sudo apt-get install python-software-properties<br>sudo add-apt-repository ppa:webupd8team/java<br>sudo apt-get update<br>sudo apt-get install oracle-java6-installer<br>sudo apt-get install oracle-java6-set-default<br>Eclipse估计会有不少人吐槽, 为什么要用这个老古董. 其实原因很简单, 合适. 刚开始搞AOSP时, 为了找到效率最优的工具, 我尝试过Eclipse, IntelliJ IDEA, Vim+Ctags, Sublime Text+Ctags. 最终结果还是Eclipse. 主要优点有: 有语法分析 (快速准确的类, 方法跳转).支持C++ (IntelliJ的C++支持做的太慢了).嵌入了DDMS, View Hierarchy等调试工具.为了提高效率, 花5分钟背下常用快捷键非常非常值得.调整好你的classpath, 不要导入无用的代码. 因为AOSP项目代码实在是太多了. 当你还不需要看C++代码时, 不要为项目添加C++支持, 建索引过程会让你崩溃.Intellij IDEA开发App必备. 当你要调试系统的某个功能是, 常常需要迅速写出一个调试用App, 这个时候老旧的Eclipse就不好用了. Itellij IDEA的xml自动补全非常给力.巨人的肩膀AOSP项目官方: <a href="https://source.android.com/source/index.html这个一定要先读" target="_blank" rel="external">https://source.android.com/source/index.html这个一定要先读</a>. 项目介绍, 代码下载, 环境搭建, 刷机方法, Eclipse配置都在这里. 这是一切的基础.Android官方Training: <a href="https://developer.android.com/training/index.html这个其实是给App开发者看的" target="_blank" rel="external">https://developer.android.com/training/index.html这个其实是给App开发者看的</a>. 但是里面也有不少关于系统机制的介绍, 值得细读.老罗的Android之旅: <a href="http://blog.csdn.net/luoshengyang此老罗非彼老罗" target="_blank" rel="external">http://blog.csdn.net/luoshengyang此老罗非彼老罗</a>. 罗升阳老师的博客非常有营养, 基本可以作为指引你开始阅读AOSP源码的教程. 你可以按照博客的时间顺序一篇篇挑需要的看.但这个系列的博客有些问题: 早期的博客是基于旧版本的Android; 大量的代码流程追踪. 读文章时你一定要清楚你在看的东西在整个系统处于什么样的位置.Innost的专栏: <a href="http://blog.csdn.net/innost邓凡平老师也是为Android大牛" target="_blank" rel="external">http://blog.csdn.net/innost邓凡平老师也是为Android大牛</a>, 博客同样很有营养. 但是不像罗升阳老师的那么系统. 更多的是一些技术点的深入探讨.Android Issues: <a href="http://code.google.com/p/android/issues/listAndroid官方Issue列表" target="_blank" rel="external">http://code.google.com/p/android/issues/listAndroid官方Issue列表</a>. 我在开发过程中发现过一些奇怪的bug, 最后发现这里基本都有记录. 当然你可以提一些新的, 有没有人改就是另外一回事了.Google: <a href="https://www.google.com一定要能流畅的使用这个工具" target="_blank" rel="external">https://www.google.com一定要能流畅的使用这个工具</a>. 大量的相关知识是没有人系统的总结的, 你需要自己搞定.其它代码组织AOSP的编译单元不是和git项目一一对应的, 而是和Android.mk文件一一对应的. 善用mmm命令进行模块编译将节省你大量的时间.Binder这是Android最基础的进程间通讯. 在Application和System services之间大量使用. 你不仅要知道AIDL如何使用, 也要知道如何手写Binder接口. 这对你理解Android的Application和System services如何交互有非常重要的作用. Binder如何实现的倒不必着急看.HAL除非你对硬件特别感兴趣或者想去方案公司上班, 否则别花太多时间在这一层.CyanogenMod这是一个基于AOSP的第三方Rom. 从这个项目的wiki里你能学到很多AOSP官方没有告诉你的东西. 比如如何支持Nexus以外的设备.DIA这是一个Linux下画UML的工具, 能够帮你梳理看过的代码.XDA<a href="http://www.xda-developers.com/这里有最新资讯和最有趣的论坛" target="_blank" rel="external">http://www.xda-developers.com/这里有最新资讯和最有趣的论坛</a>.</p>
+<p>二：</p>
+<p>在Android系统源码上摸索4年，说说我的看法：显然Eclipse不是阅读Android源码的好工具，不流畅，搜索低效，继承性关系/调用关系都无法有效查看。推荐Source Insight，在这个工具帮助下，你才可以驾驭巨大数量的Android 源码，你可以从容在Java，C++,C代码间遨游，你可以很快找到你需要的继承和调用关系。顺便，现在东家是Linux+Samba+Windows的工作模式，Linux+Samba用于代码的同步/编译/管理，Windows做代码编辑。你需要先理解下这个图：Application层就是一个个应用程序，很好理解。Framework提供一个java的运行环境以及对功能实现的封装，简单点说，你家装修总要留很多水电之类的接口吧！Runtime/ART是一个java虚拟机，因为Android上层不是java吗，需要再编译一次成为低级一点的语言识别。从Libraries那些名字也可以看出来，这里有很多高端大气库，它是功能实现区，多媒体编解码，浏览器渲染啊，数据库实现啦，很多很多。Kernel部分负责陪硬件大哥玩，你那些功能实现的区域最终都要调硬件吧，Kernel这家伙已经和硬件很熟了，你就直接通过它来和冷冰冰硬件大哥打交道吧！</p>
+<p><img src="http://img.blog.csdn.net/20151231211537814" alt=""></p>
+<p>好了，上面这些内容很好理解对不对，现在的问题是：当你拿到一份几G的源码，该从哪里开始呢？经过上面的前言的洗礼，你应该能够很好理解下面这部分了——————————————————————————————————————-</p>
+<p>1.宏观上看，Android源码分为功能实现上的纵向，和功能拓展上的横向。在阅读源码时需要把握好着两个思路。譬如你需要研究音频系统的实现原理，纵向：你需要从一个音乐的开始播放追踪，一路下来，你发现解码库的调用，共享内存的创建和使用，路由的切换，音频输入设备的开启，音频流的开始。譬如你要看音频系统包括哪些内容，横向：通过Framework的接口，你会发现，音频系统主要包括：放音，录音，路由切换，音效处理等。</p>
+<p>2.Android的功能模块绝大部分是C/S架构你心里一定需要有这个层级关系，你需要思路清晰地找到Server的位置，它才是你需要攻破的城，上面的libraries是不是很亲切的样子？看完它长成啥样后，然后你才能发现HAL和Kernel一层层地剥离。很多研究源码的同学兜兜转转，始终在JAVA层上，这是不科学的，要知道libraries才是它的精髓啊。</p>
+<p>3.Android的底层是Linux Kernel。在理解1,2后，还是需要对Kernel部分有个简单的理解，起码你要熟悉kernel的基础协议吧！你要能看懂电路图吧！你要熟悉设备的开启和关闭吧！你要熟悉调寄存器了吧！这方面的书太多了，我建议根据实例去阅读，它并不复杂，不需要一本本厚书来铺垫。在libraries和kernel间，可能还会有个HAL的东东，其实它是对kernel层的封装，方便各个硬件的接口统一。这样，如果我换个硬件，不用跑了长得很复杂的libraries里面改了，kernel调试好了后，改改HAL就好了。——————————————————————————————————————–</p>
+<p>好了，你现在是不是跃跃欲试准备去找个突破口准备进攻了，但是好像每个宝库的入口都挺难找了我大概在三个月前阅读完Android UI系统的源码，这是Android最复杂的部分，我要简单说下过程。我需要先找宝库入口，我要研究UI，首先要找什么和UI有亲戚关系吧！View大神跳出来了，沿着它往下找找看，发现它在贴图在画各种形状，但是它在哪里画呢，马良也要纸吧？很明显它就是某个宝藏，但是世人只是向我们描述了它有多美，却无人知在哪里？我们需要找一张地图罗。开发Android的同学逃不掉Activity吧！它有个setcontentview的方法，从这个名字看好像它是把view和activity结合的地方。赶紧看它的实现和被调用。，然后我们就发现了Window，ViewRoot和WindowManager的身影，沿着WM和WMS我们就惊喜会发现了Surface，以及draw的函数，它居然在一个DeCorView上画东西哈。借助Source Insight， UI Java层的横向静态图呼之欲出了。完成这个静态UML，我觉得我可以开始功能实现上追踪了，这部分主要是C++的代码（这也是我坚定劝阻的放弃Eclipse的原因），我沿着draw函数，看到了各个层级的关系，SurfaceSession的控制和事务处理，SharedBuffer读写控制，彪悍的SurfaceFlinger主宰一切，OpenGL ES的神笔马良。FrameBuffer和FrameBufferDevice的图像输出，LCD设备打开后，开始接收FBD发过来的一帧帧图像，神奇吧。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2015/12/31/高效看源代码网络汇总/" data-title="高效看源代码网络汇总 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/12/31/状态栏高度和标题栏高度/" title="状态栏高度和标题栏高度">
+  <strong>上一篇：</strong><br/>
+  <span>
+  状态栏高度和标题栏高度</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/12/24/关于控件getWidth和getHeight方法都为0的解释及解决方法/"  title="关于控件getWidth和getHeight方法都为0的解释及解决方法">
+ <strong>下一篇：</strong><br/> 
+ <span>关于控件getWidth和getHeight方法都为0的解释及解决方法
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/12/31/高效看源代码网络汇总/" data-title="高效看源代码网络汇总" data-url="http://yoursite.com/2015/12/31/高效看源代码网络汇总/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zeng Qi,a Android developer. <br/>
+			This is my blog,hope you will enjoy it.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ZengQi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

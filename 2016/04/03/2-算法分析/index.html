@@ -1,0 +1,563 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>2.算法分析 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="数学基础：
+定义：
+
+如果只是小量输入的情况，那么花费大量时间去努力设计聪明的算法恐怕并不值得。因此，好的算法应该是因地制宜的，不能盲目。算法分析的基本策略是从内部（或最深层部分）向外展开的。正常的用递归解法求解Fib的算法之所以缓慢，是因为有大量的多余的工作量，重复计算较多，可以通过保留一个简单的数组并使用一个for循环将运行时间降下来。
+接下来，我们比较四种不同的求解最大子序列和问题的算法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.算法分析">
+<meta property="og:url" content="http://yoursite.com/2016/04/03/2-算法分析/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="数学基础：
+定义：
+
+如果只是小量输入的情况，那么花费大量时间去努力设计聪明的算法恐怕并不值得。因此，好的算法应该是因地制宜的，不能盲目。算法分析的基本策略是从内部（或最深层部分）向外展开的。正常的用递归解法求解Fib的算法之所以缓慢，是因为有大量的多余的工作量，重复计算较多，可以通过保留一个简单的数组并使用一个for循环将运行时间降下来。
+接下来，我们比较四种不同的求解最大子序列和问题的算法。">
+<meta property="og:image" content="http://img.blog.csdn.net/20160403194909625">
+<meta property="og:updated_time" content="2016-06-01T07:46:08.639Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2.算法分析">
+<meta name="twitter:description" content="数学基础：
+定义：
+
+如果只是小量输入的情况，那么花费大量时间去努力设计聪明的算法恐怕并不值得。因此，好的算法应该是因地制宜的，不能盲目。算法分析的基本策略是从内部（或最深层部分）向外展开的。正常的用递归解法求解Fib的算法之所以缓慢，是因为有大量的多余的工作量，重复计算较多，可以通过保留一个简单的数组并使用一个for循环将运行时间降下来。
+接下来，我们比较四种不同的求解最大子序列和问题的算法。">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160403194909625">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/03/2-算法分析/" title="2.算法分析" itemprop="url">2.算法分析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-03T07:37:49.000Z" itemprop="datePublished"> Published 2016-04-03</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>数学基础：</p>
+<p>定义：</p>
+<p><img src="http://img.blog.csdn.net/20160403194909625" alt=""></p>
+<p>如果只是小量输入的情况，那么花费大量时间去努力设计聪明的算法恐怕并不值得。因此，好的算法应该是因地制宜的，不能盲目。<br>算法分析的基本策略是从内部（或最深层部分）向外展开的。<br>正常的用递归解法求解Fib的算法之所以缓慢，是因为有大量的多余的工作量，重复计算较多，可以通过保留一个简单的数组并使用一个for循环将运行时间降下来。</p>
+<p>接下来，我们比较四种不同的求解最大子序列和问题的算法。</p>
+<p>算法1。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public static int maxSubSum1(int[] a)&#123;</span><br><span class="line">			int maxSum = 0;</span><br><span class="line">			for (int i = 0; i &lt; a.length; i++) &#123;</span><br><span class="line">				for (int j = i; j &lt; a.length; j++) &#123;</span><br><span class="line">					int thisSum = 0;</span><br><span class="line">					for (int k = i;  k&lt;= j; k++) &#123;</span><br><span class="line">						thisSum+=a[k];</span><br><span class="line">					&#125;</span><br><span class="line">					if(thisSum&gt;maxSum)&#123;</span><br><span class="line">						maxSum = thisSum;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			return maxSum;</span><br><span class="line">		&#125;</span><br><span class="line">//该算法的思想比较直接。i从0到length，j从i到length，再用k（位于i与j之间）将i与j之间的sum计算出来。这样取最大的sum即为所求。</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为N的3次方。</p>
+<p>算法2.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public static int maxSubSum2(int[] a)&#123;</span><br><span class="line">			int maxSum = 0;</span><br><span class="line">			for (int i = 0; i &lt; a.length; i++) &#123;</span><br><span class="line">				int thisSum = 0;</span><br><span class="line">				for (int j = i; j &lt; a.length; j++) &#123;</span><br><span class="line">						thisSum+=a[j];</span><br><span class="line">					if(thisSum&gt;maxSum)&#123;</span><br><span class="line">						maxSum = thisSum;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			return maxSum;</span><br><span class="line">		&#125;</span><br><span class="line">	//这里的算法2只是1的一个小改动，将原来的：</span><br><span class="line">	for (int k = i;  k&lt;= j; k++) &#123;</span><br><span class="line">						thisSum+=a[k];</span><br><span class="line">					&#125;</span><br><span class="line">	换成了：</span><br><span class="line">	thisSum+=a[j];并将thisSum提出（显然的）</span><br><span class="line">	//事实上也应该是这样。最大子序列和问题的本质，就是每个子序列的首与尾的位置不固定，那么我们只需要循环两次，每次得到确定首尾的sum值，然后取最大就可以了</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为N的2次方。</p>
+<p>“分治”策略：</p>
+<p>把问题分成两个大致相等的子问题，然后<strong>递归</strong>地对他们求解，这是分。<br>“治”是将两个子问题的解合到一起，并可能做些少量的附加工作，最后得到整个问题的解。<br>在我们的例子中，最大子序列只可能在3处出现。1.整个出现在输入数据的左半部2.整个出现在输入数据的右半部。针对这两种情况都可以用递归求解。<br>3.最大和可以通过求出前半部分最大和（包含前半部分最后一个元素）以及后半部分的最大和（包含后半部分的第一个元素）而得到，然后将这两个和加在一起。</p>
+<p>算法3.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public static int maxSubSum3(int[] a,int left,int right)&#123;</span><br><span class="line">			//基本情况</span><br><span class="line">			if(left==right)&#123;</span><br><span class="line">				if(a[left]&gt;0)&#123;</span><br><span class="line">					return a[left];//最大子序列</span><br><span class="line">				&#125;else&#123;</span><br><span class="line">					return 0;//不选取该值作为最大子序列的一部分，所以应该返回0</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			//分治</span><br><span class="line">			int center = (left+right)/2;</span><br><span class="line">			int leftMaxSum = maxSubSum3(a, left, center);</span><br><span class="line">			int rightMaxSum = maxSubSum3(a, center+1, right);</span><br><span class="line">			</span><br><span class="line">			int leftBorderSum = 0,leftBorderMaxSum=0;</span><br><span class="line">			//固定一端center，达到前面的最大子序列</span><br><span class="line">			for (int i = center; i &gt;= left; i--) &#123;</span><br><span class="line">				leftBorderSum+=a[i];</span><br><span class="line">				if(leftBorderSum&gt;leftBorderMaxSum)&#123;</span><br><span class="line">					leftBorderMaxSum = leftBorderSum;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			int rightBorderSum = 0,rightBorderMaxSum=0;</span><br><span class="line">			//固定一端center，达到后面的最大子序列</span><br><span class="line">			for (int i = center+1; i &lt;= right; i++) &#123;</span><br><span class="line">				rightBorderSum+=a[i];</span><br><span class="line">				if(rightBorderSum&gt;rightBorderMaxSum)&#123;</span><br><span class="line">					rightBorderMaxSum = rightBorderSum;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			int twoBorderMaxSum = leftBorderMaxSum+rightBorderMaxSum;</span><br><span class="line">			int maxSum1 = Math.max(leftMaxSum,rightMaxSum);</span><br><span class="line">			int maxSum = Math.max(maxSum1, twoBorderMaxSum);</span><br><span class="line">			return maxSum;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为NlogN.都是用递归，Fib低效而本例却比较高效，是因为每次递归降低问题的维度不一样，前者维度下降慢，后者则是对半的下降。</p>
+<p>算法4.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public static int maxSubSum4(int[] a)&#123;</span><br><span class="line">			int maxSum =0,thisSum = 0;</span><br><span class="line">			for (int i = 0; i &lt; a.length; i++) &#123;</span><br><span class="line">				thisSum+=a[i];</span><br><span class="line">				if(thisSum&gt;maxSum)&#123;</span><br><span class="line">					maxSum = thisSum;</span><br><span class="line">				&#125;</span><br><span class="line">				if(thisSum&lt;0)&#123;</span><br><span class="line">					thisSum = 0;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			return maxSum;</span><br><span class="line">		&#125;</span><br><span class="line">//分析原因，注意，像算法1和算法2一样，j代表当前序列的终点，而i代表当前序列的起点。碰巧的是，如果我们确实不需要知道最佳的子序列在哪里，那么i的使用可以脱离程序进行优化，我们要改进算法2。</span><br><span class="line">//一个重要结论是，如果a[i]是负的，那么它不可能代表最优序列的起点。类似的，任何负的子序列不可能是最优子序列的前缀。</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为N。<br>该算法的一个附带优点是，它只对数据进行一次扫描，一旦a[i]被读入并被处理，他就不再需要被记忆。因此，如果数组在磁盘上，他就可以被顺序读入，在主存中不必存储数组的任何部分。不仅如此，在任意时刻，算法都能对它已经读入的数据给出子序列问题的正确答案（其他算法不具有这种特性）。具有这种特性的算法叫做<strong>联机算法（on-line algorithm）</strong>。仅需要常量空间并以线性时间运行的联机算法几乎是完美的算法。</p>
+<p>运行时间中的对数：</p>
+<p>分析算法最混乱的方面集中在对数上，我们已经看到某些分治算法将以NlogN时间运行。除分治算法外，对数最常出现的规律概括为下列一般法则：<br>如果一个算法用常数时间将问题的大小削减为其一部分（通常是一半），那么该算法就是logN。<br>另一方面，如果使用常数时间只是把问题减少一个常数（如将问题减少1），那么这种算法就是N的。</p>
+<p>具有对数特点的三个例子：</p>
+<p>1.对分查找（Binary Search）,在数据稳定（即不允许插入操作和删除操作）的应用中，Binary Search非常有用。此时输入数据需要一次排序（<strong>前提</strong>），但是此后访问就很快了。</p>
+<p>2.计算最大公因数的欧几里得算法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public static long gcd(long M,long N)&#123;</span><br><span class="line">			while(N!=0)&#123;</span><br><span class="line">				long rem = M%N;</span><br><span class="line">				M = N;</span><br><span class="line">				N = rem;</span><br><span class="line">			&#125;</span><br><span class="line">			return M;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+<p>3.幂运算</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/数据结构与算法分析/">数据结构与算法分析</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/04/03/2-算法分析/" data-title="2.算法分析 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/04/08/2-排序/" title="2.排序">
+  <strong>上一篇：</strong><br/>
+  <span>
+  2.排序</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/04/03/1-引论/"  title="1.引论">
+ <strong>下一篇：</strong><br/> 
+ <span>1.引论
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/04/03/2-算法分析/" data-title="2.算法分析" data-url="http://yoursite.com/2016/04/03/2-算法分析/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zeng Qi,a Android developer. <br/>
+			This is my blog,hope you will enjoy it.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ZengQi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

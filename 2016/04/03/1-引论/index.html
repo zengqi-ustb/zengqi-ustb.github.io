@@ -1,0 +1,591 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>1.引论 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="写出一个可以工作的程序并不够。
+对于大量输入我们要：
+
+估计运行时间
+改进程序速度与确定瓶颈的方法。
+
+如果N整除A-B，那么我们说A与B模N同余。记为A B（mod N）,如81 61 1（mod 10）.（看不见的符号为恒等号）
+数据结构分析中，两个经常证明结论的常用方法：1.归纳法2. 反证法
+当一个函数用它自己来定义时就称为是递归的。注意：对于数值计算使用递归不是好主意。
+递归：跟踪挂起的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1.引论">
+<meta property="og:url" content="http://yoursite.com/2016/04/03/1-引论/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="写出一个可以工作的程序并不够。
+对于大量输入我们要：
+
+估计运行时间
+改进程序速度与确定瓶颈的方法。
+
+如果N整除A-B，那么我们说A与B模N同余。记为A B（mod N）,如81 61 1（mod 10）.（看不见的符号为恒等号）
+数据结构分析中，两个经常证明结论的常用方法：1.归纳法2. 反证法
+当一个函数用它自己来定义时就称为是递归的。注意：对于数值计算使用递归不是好主意。
+递归：跟踪挂起的">
+<meta property="og:updated_time" content="2016-06-01T07:36:57.333Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1.引论">
+<meta name="twitter:description" content="写出一个可以工作的程序并不够。
+对于大量输入我们要：
+
+估计运行时间
+改进程序速度与确定瓶颈的方法。
+
+如果N整除A-B，那么我们说A与B模N同余。记为A B（mod N）,如81 61 1（mod 10）.（看不见的符号为恒等号）
+数据结构分析中，两个经常证明结论的常用方法：1.归纳法2. 反证法
+当一个函数用它自己来定义时就称为是递归的。注意：对于数值计算使用递归不是好主意。
+递归：跟踪挂起的">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/03/1-引论/" title="1.引论" itemprop="url">1.引论</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-03T07:34:54.000Z" itemprop="datePublished"> Published 2016-04-03</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>写出一个可以工作的程序并不够。</p>
+<p>对于大量输入我们要：</p>
+<ol>
+<li>估计运行时间</li>
+<li>改进程序速度与确定瓶颈的方法。</li>
+</ol>
+<p>如果N整除A-B，那么我们说A与B模N同余。记为A B（mod N）,如81 61 1（mod 10）.（看不见的符号为恒等号）</p>
+<p>数据结构分析中，两个经常证明结论的常用方法：1.归纳法2. 反证法</p>
+<p>当一个函数用它自己来定义时就称为是递归的。<br>注意：对于数值计算使用递归不是好主意。</p>
+<p>递归：跟踪挂起的函数调用（这些调用已经开始但是正等待着递归调用来完成）及其变量的记录工作都是由计算机自动完成的。</p>
+<p>递归的基本原则：</p>
+<ol>
+<li><strong>基准情形</strong>。要有基准情形，不用递归就能求解知道答案。</li>
+<li><strong>不断推进</strong>。对于需要递归求解的情形，递归调用必须朝着基准情形的方向推进。</li>
+<li><strong>设计法则</strong>。假设所有的递归调用都能运行。</li>
+<li><strong>合成效益法则</strong>。在求解问题的同一个实例中，切勿在不同的递归调用中做重复性工作。（原始的Fib求解过程中就有很多重复工作）</li>
+</ol>
+<p>关于try，catch语句，当try中有异常时，直接跳到catch中，即try中异常后的语句不执行。执行完try，catch语句后，继续往下执行，即向下执行catch外的语句。</p>
+<p>Java异常：</p>
+<ol>
+<li><strong>标准异常</strong>。标准run-time异常包含诸如整数除以0和无效的数组访问这样的事件。由于这些事件在任何地方都可能发生，要求对他们每个都进行异常处理，负担就太重了。所以也就不在代码中强制要求你catch。但是，如果提供了catch，那么就捕获。如果没有提供的话，则按照常规 被传递，很可能传过main方法。这种情况下，就会产生一个非正常程度终止，并显示错误信息。</li>
+<li><strong>检验的异常</strong>。必须提供一个catch语句块，或者明确指出这个异常要使用方法声明中的throws子句向上传递。</li>
+</ol>
+<p>考虑这样一个设计问题：</p>
+<p>有我们称之为盒子（box）的抽象的集合。盒子允许访问或删除集合中的任意项，他们是getAny和removeAny操作。设该集合是空集，那么如何处理删除呢？</p>
+<p>几种可能处理方法：</p>
+<ol>
+<li>什么都不做，在一个空的容器中进行删除就是不操作。</li>
+<li>让removeAny返回一个boolean量指出删除是否成功</li>
+<li>抛出一个异常。</li>
+<li>补充使用异常知识：</li>
+</ol>
+<p>优点：可以简化实现数据结构的代码</p>
+<p>缺点：它潜在地使得使用数据结构的代码复杂化，因为程序必须准备处理异常。</p>
+<p>当异常发生时，其代价是非常昂贵的。只要异常用于个别的和很少发生的情况，那么这个代价就是合理的。不过，当异常代替返回语句时，则可能出现严重的性能上的问题。<br>因此，尽量避免在各种容器类中乱用异常。<br>一般地，访问数据结构的操作都返回项。removeAny，不仅删除一个任意项，而且还返回这个被删除的项。如果盒子是空的，那么就返回null。<br>这个方法缺点：错误现在是可选的。运行时，引用null，程序将生成异常，优点是程序运行可能更快，它避免引入不必要的try，catch语句块。</p>
+<p>从终端读取输入的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//从终端读取</span><br><span class="line">public static void readFromConsole()&#123;</span><br><span class="line">			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));</span><br><span class="line">			String oneLine;</span><br><span class="line">			StringTokenizer str;</span><br><span class="line">			int x,y;</span><br><span class="line">			System.out.println(&quot;enter 2 ints on one line:\n&quot;);</span><br><span class="line">			try&#123;</span><br><span class="line">				oneLine = in.readLine();</span><br><span class="line">				str = new StringTokenizer(oneLine);</span><br><span class="line">				if(str.countTokens()!=2)&#123;</span><br><span class="line">					throw new NumberFormatException();</span><br><span class="line">				&#125;</span><br><span class="line">				x = Integer.parseInt(str.nextToken());</span><br><span class="line">				y = Integer.parseInt(str.nextToken());</span><br><span class="line">				System.out.println(&quot;max: &quot;+Math.max(x, y));</span><br><span class="line">			&#125;catch(Exception e)&#123;</span><br><span class="line">				System.out.println(&quot;error: need two ints&quot;);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+<p>java基本法则之一是对终端I/O有效的操作对文件也有效。为了处理文件，不是从InputStreamReader对象构造BufferedReader对象，而是从FileReader对象构造它，FileReader对象本身可以通过提供文件名来构造。</p>
+<p>从文件读取</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//改动</span><br><span class="line">BufferedReader in = new BufferedReader(new FileReader(stringName));</span><br><span class="line">//最后必要忘了关闭流</span><br><span class="line">in.close();</span><br></pre></td></tr></table></figure>
+<p>关于为什么要记得关闭流的解答：<br><a href="http://www.javapractices.com/topic/TopicAction.do?Id=8" target="_blank" rel="external">http://www.javapractices.com/topic/TopicAction.do?Id=8</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/数据结构与算法分析/">数据结构与算法分析</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/04/03/1-引论/" data-title="1.引论 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/04/03/2-算法分析/" title="2.算法分析">
+  <strong>上一篇：</strong><br/>
+  <span>
+  2.算法分析</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/03/09/Android各阶段目标及要求/"  title="Android各阶段目标及要求">
+ <strong>下一篇：</strong><br/> 
+ <span>Android各阶段目标及要求
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/04/03/1-引论/" data-title="1.引论" data-url="http://yoursite.com/2016/04/03/1-引论/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zeng Qi,a Android developer. <br/>
+			This is my blog,hope you will enjoy it.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ZengQi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

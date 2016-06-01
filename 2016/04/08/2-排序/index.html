@@ -1,0 +1,590 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>2.排序 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051//排序算法类的模板public class Example &amp;#123;	public static void sort(Comparable[] a)&amp;#123;		//具体算法	&amp;#125;		private">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.排序">
+<meta property="og:url" content="http://yoursite.com/2016/04/08/2-排序/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051//排序算法类的模板public class Example &amp;#123;	public static void sort(Comparable[] a)&amp;#123;		//具体算法	&amp;#125;		private">
+<meta property="og:updated_time" content="2016-06-01T07:48:14.613Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2.排序">
+<meta name="twitter:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051//排序算法类的模板public class Example &amp;#123;	public static void sort(Comparable[] a)&amp;#123;		//具体算法	&amp;#125;		private">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/08/2-排序/" title="2.排序" itemprop="url">2.排序</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-08T07:46:46.000Z" itemprop="datePublished"> Published 2016-04-08</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#排序算法"><span class="toc-number">1.</span> <span class="toc-text">排序算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-选择排序"><span class="toc-number">2.</span> <span class="toc-text">1.选择排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-插入排序"><span class="toc-number">3.</span> <span class="toc-text">2.插入排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-希尔排序"><span class="toc-number">4.</span> <span class="toc-text">3.希尔排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-归并排序（自顶向下）"><span class="toc-number">5.</span> <span class="toc-text">4.归并排序（自顶向下）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-归并排序（自底向上）"><span class="toc-number">6.</span> <span class="toc-text">5.归并排序（自底向上）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-快速排序："><span class="toc-number">7.</span> <span class="toc-text">6.快速排序：</span></a></li></ol>
+		
+		</div>
+		
+		<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">//排序算法类的模板</span><br><span class="line">public class Example &#123;</span><br><span class="line">	public static void sort(Comparable[] a)&#123;</span><br><span class="line">		//具体算法</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	private static boolean less(Comparable v,Comparable w)&#123;</span><br><span class="line">		return v.compareTo(w)&lt;0;</span><br><span class="line">	&#125;</span><br><span class="line">	private static void exch(Comparable[] a,int i,int j)&#123;</span><br><span class="line">		Comparable t = a[i];</span><br><span class="line">		a[i] = a[j];</span><br><span class="line">		a[j] = t;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	private static void show(Comparable[] a)&#123;</span><br><span class="line">		//在单行中打印数组</span><br><span class="line">		for(int i=0;i&lt;a.length;i++)&#123;</span><br><span class="line">			System.out.print(a[i]+&quot;&quot;);</span><br><span class="line">			System.out.println();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public static boolean isSorted(Comparable[] a)&#123;</span><br><span class="line">		//测试数组元素是否有序</span><br><span class="line">		for (int i = 1; i &lt; a.length; i++) &#123;</span><br><span class="line">			if(less(a[i],a[i-1]))&#123;</span><br><span class="line">				return false;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return true;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) throws Exception &#123;</span><br><span class="line">		//从标准输入读取字符串，将它们排序并输出</span><br><span class="line">		BufferedReader reader;</span><br><span class="line">		StringTokenizer strToken=null;</span><br><span class="line">		Integer[] str;</span><br><span class="line">		reader = new BufferedReader(new InputStreamReader(System.in));</span><br><span class="line">		strToken = new StringTokenizer(reader.readLine());</span><br><span class="line">		str = new Integer[strToken.countTokens()];</span><br><span class="line">		for (int i = 0; i &lt; str.length; i++) &#123;</span><br><span class="line">			 str[i] = Integer.parseInt(strToken.nextToken());</span><br><span class="line">			&#125;</span><br><span class="line">		show(str);</span><br><span class="line">		sort(str);</span><br><span class="line">		//断言</span><br><span class="line">		assert isSorted(str);</span><br><span class="line">		show(str);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们的排序方法适用于任意实现了Comparable接口的数据类型。<br>同时，我们还在代码中增添了assert断言进行是否正确排序的验证。</p>
+<p>运行时间相关：<br>排序<strong>成本模型</strong>：在研究排序算法时，我们需要计算<strong>比较</strong>和<strong>交换</strong>的数量。对于不交换元素的算法，我们会计算<strong>访问数组</strong>的次数。</p>
+<p>额外的内存使用：<br>排序算法的额外内存开销和运行时间是同等重要的。排序算法以此分类：1.除了函数调用所需的栈和固定数目的实例变量之外无需额外内存的<strong>原地排序算法</strong>，2.需要额外内存来存储另一份数组副本的其他排序算法。</p>
+<h2 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h2><h2 id="1-选择排序"><a href="#1-选择排序" class="headerlink" title="1.选择排序"></a>1.<strong>选择排序</strong></h2><p><strong>思想</strong>：首先，找到数组中最小的那个元素，其次，将它和数组的第一个元素交换位置（如果比它小的话）。再次，在剩下元素中找到最小元素，将它和第二个元素交换。如此往复，直到将整个数组排好序。</p>
+<p>命题A：对于长度为N的数组，选择排序需要大约N平方的1/2次比较和N次交换。</p>
+<p>特点：<br>1.<strong>运行时间和输入无关</strong>。为了找出最小元素而扫描一遍数组并不能为下一遍扫描提供什么信息。而其他一些算法会更加利用输入的初始状态。（比如已经有序的数组）<br>2.<strong>数据移动是最少的</strong>。排序用了N次交换，交换次数和数组大小是线性关系。</p>
+<p>选择排序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public static void sort(Comparable[] a)&#123;</span><br><span class="line">		//选择排序</span><br><span class="line">		int N = a.length;</span><br><span class="line">		for (int i = 0; i &lt; N; i++) &#123;</span><br><span class="line">			int min = i;</span><br><span class="line">			for (int j = i+1; j &lt; N; j++) &#123;</span><br><span class="line">				if(less(a[j],a[min]))&#123;</span><br><span class="line">				min = j;	</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			exch(a,i,min);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-插入排序"><a href="#2-插入排序" class="headerlink" title="2.插入排序"></a>2.<strong>插入排序</strong></h2><p>与选择排序不同的是，插入排序所需的时间取决于输入中元素的<strong>初始顺序</strong>。<br>插入排序对于实际应用中的某些类型的<strong>非随机数组</strong>很有效。对于一个有序数组进行排序时，对比与比较排序，插入排序能够立即发现每个元素都已经在合适的位置之上，它的运行时间也是线性的。</p>
+<p>插入排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//插入排序</span><br><span class="line">		int N = a.length;</span><br><span class="line">		for (int i = 1; i &lt; N; i++) &#123;</span><br><span class="line">			for (int j = i; j&gt;0&amp;&amp;less(a[j],a[j-1]); j--) &#123;</span><br><span class="line">				exch(a,j,j-1);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+<p>我们考虑一般的情况是<strong>部分有序</strong>的数组。如果数组中<strong>倒置</strong>的数量小于数组大小的某个倍数，那么我们说这个数组是部分有序的。</p>
+<p>几种典型的部分<strong>有序的数组</strong>：<br>1.数组中每个元素距离它的最终位置都不远<br>2.一个有序的大数组接一个小数组<br>3.数组中只有几个元素的位置不正确。<br>插入排序对于这样的数组很有效，而选择排序则不然。事实上，<strong>当倒置的数量很少时，插入排序很可能比本章中（基于比较的排序中）所有算法都要快</strong>。</p>
+<p>命题C：插入排序需要的<strong>交换操作</strong>和数组中<strong>倒置</strong>的数量相同，需要的<strong>比较次数</strong>大于等于倒置的数量，小于等于倒置的数量加上数组的大小再减一。</p>
+<p><strong>自我感悟</strong>：我们研究算法时往往研究其数据输入为最差情况下的表现，之所以这样是因为能够对算法的最差运行时间得出一个评估和保证，不会高于某个值。但是，对于具体的输入数据，如果能够掌握他们输入的部分信息（比如部分有序），那么就应该选择合适的算法来使用。不要神话时间复杂度这个东东！</p>
+<p> 插入排序不会访问索引右侧的的元素，选择排序不会访问索引左侧的元素。</p>
+<p>比较两种排序<br>比较两种算法的常用的科学的步骤：<br>1.实现并调试他们<br>2.分析他们的基本性质<br>3.对他们的相对性能做出猜想<br>4.用实验验证我们的猜想。</p>
+<p>性质D：对于<strong>随机</strong>排序的<strong>无重复主键</strong>的数组，插入排序和选择排序的运行时间是平方级别的，两者之间之比应该是一个较小的常数。</p>
+<h2 id="3-希尔排序"><a href="#3-希尔排序" class="headerlink" title="3.希尔排序"></a>3.<strong>希尔排序</strong></h2><p>希尔排序是改进了的插入排序的算法。希尔排序为了加快速度简单地改进了插入排序，交换不相邻的元素以及对数组的局部进行排序，并最终用插入排序将局部有序的数组排序。</p>
+<p>希尔排序的思想是使数据中任意间隔为h的元素都是有序的。这样的数组被称为<strong>h有序数组</strong>。<br>换句话说，一个h有序数组就是h个互相独立的有序数组编织在一起的一个数组。<br>在进行排序时，如果h很大，我们就能将元素移动到很远的地方，为实现更小的h有序创造方便。用这种方式，对于任意以1结尾的h序列，我们都能够将数组排序。</p>
+<p>希尔排序更高效的原因是它权衡了子数组的<strong>规模</strong>和<strong>有序性</strong>。排序之初，各个子数组都很短，排序之后子数组都是部分有序的，这两种情况都适合插入排序。</p>
+<p>其实，希尔排序内部就是一个插入排序，只是他动态的<strong>更新h的值</strong>而已。</p>
+<p>希尔排序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//希尔排序</span><br><span class="line">		int N = a.length;</span><br><span class="line">		int h = 1;</span><br><span class="line">		while(h&lt;N/3)&#123;</span><br><span class="line">			h=3*h+1;</span><br><span class="line">		&#125;</span><br><span class="line">		while(h&gt;=1)&#123;</span><br><span class="line">			for (int i = h; i &lt; N; i++) &#123;</span><br><span class="line">				for (int j = i; j&gt;=h&amp;&amp;less(a[j],a[j-h]);j=j-h) &#123;</span><br><span class="line">					exch(a,j,j-h);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			//动态更新h</span><br><span class="line">			h=h/3;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出，希尔排序比插入排序和选择排序要快得多，并且数组越大，优势越大。</p>
+<p><strong>重要理念</strong>：通过提升速度来解决其他方式无法解决的问题是研究算法的设计和性能的主要原因之一。</p>
+<p>性质E：使用递增序列1,4,13,40，……的希尔序列所需的比较次数不会超过N的若干倍乘以递增序列的长度。</p>
+<p>课后问答：<br>问：为什么有这么多排序算法？<br>答：原因之一是，许多排序算法的性能都和输入有很大的关系，因此不同的算法适用于不同的应用场景中的不同输入。例如，对于部分有序和小规模的数组应该选择插入排序。其他限制条件，例如<strong>空间</strong>和<strong>重复的主键</strong>，也都是需要考虑的因素。</p>
+<h2 id="4-归并排序（自顶向下）"><a href="#4-归并排序（自顶向下）" class="headerlink" title="4.归并排序（自顶向下）"></a>4.<strong>归并排序（自顶向下）</strong></h2><p>归并排序最吸引人的性质是，能够保证将任意长度为N的数组排序所需时间和<strong>NlogN</strong>成正比。<br>实现归并的一种直截了当的方法是将两个不同的有序数组归并到第三个数组中，两个数组中的元素应该都实现了Comparable接口。</p>
+<p>归并排序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">//归并排序</span><br><span class="line">		aux = new Comparable[a.length];</span><br><span class="line">		int N = a.length;</span><br><span class="line">		sort(a,0,N-1);</span><br><span class="line"></span><br><span class="line">		private static void sort(Comparable[] a,int lo,int hi)&#123;</span><br><span class="line">		//将数组a[lo...hi]排序</span><br><span class="line">		if(hi&lt;=lo)&#123;</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		int mid = lo+(hi-lo)/2;</span><br><span class="line">		sort(a,lo,mid);//将左侧排序</span><br><span class="line">		sort(a,mid+1,hi);//将右侧排序</span><br><span class="line">		merge(a,lo,mid,hi);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	private static Comparable[] aux;</span><br><span class="line">	</span><br><span class="line">	public static void merge(Comparable[] a,int lo,int mid,int hi)&#123;</span><br><span class="line">		//将a[lo...mid]和a[mid+1...hi]归并</span><br><span class="line">		int i = lo,j =mid+1;</span><br><span class="line">		for (int k = lo; k &lt;=hi; k++) &#123;</span><br><span class="line">			aux[k] = a[k];//将a的信息复制到aux中</span><br><span class="line">		&#125;</span><br><span class="line">		for (int k = lo; k &lt;=hi; k++) &#123;</span><br><span class="line">			if(i&gt;mid)&#123;</span><br><span class="line">				//i&gt;mid说明左侧元素全部取完了</span><br><span class="line">				a[k] = aux[j++];</span><br><span class="line">			&#125;else if(j&gt;hi)&#123;</span><br><span class="line">				//j&gt;hi说明右侧元素全部取完了</span><br><span class="line">				a[k] = aux[i++];</span><br><span class="line">			&#125;else if(less(aux[j],aux[i]))&#123;</span><br><span class="line">				a[k] = aux[j++];</span><br><span class="line">			&#125;else&#123;</span><br><span class="line">				a[k] = aux[i++];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，利用了aux这个<strong>辅助数组</strong>。</p>
+<p>实际上，真正实现排序的功能在merge方法中。sort只是形式上的调用而已。这也是为什么自下而上的归并排序中只有merge的原因。因为真正起作用的就是merge这个函数。</p>
+<p>sort方法的作用其实在于安排多次merge方法调用的正确顺序。</p>
+<p>命题F：对于长度为N的任意数组，自顶向下的归并排序需要1/2NlogN至NlogN次比较。<br>命题G：对于长度为N的任意数组，自顶向下的归并排序最多需要访问数组6NlogN次。</p>
+<p>通过改进归并排序缩短运行时间：<br>1.<strong>对小规模子数组使用插入排序</strong><br>用不同的方法处理小规模问题能改进大多数递归算法的性能，因为递归会使小规模问题中方法的调用过于频繁。所以改进对他们的处理方法就能改进整个算法。<br>2.<strong>测试数组是否已经有序</strong><br>我们可以添加一个判断条件了，如果a[mid]小于等于a[mid+1]，我们就认为数组已经是有序的并跳过merge方法。这个改动不影响排序的递归调用，但是任意<strong>有序</strong>的子数组算法的运行时间就变成线性的了。<br>方法变为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">private static void sort(Comparable[] a,int lo,int hi)&#123;</span><br><span class="line">		//将数组a[lo...hi]排序</span><br><span class="line">		if(hi&lt;=lo)&#123;</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		int mid = lo+(hi-lo)/2;</span><br><span class="line">		sort(a,lo,mid);//将左侧排序</span><br><span class="line">		sort(a,mid+1,hi);//将右侧排序</span><br><span class="line">		if(less(a[mid],a[mid+1]))&#123;</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		merge(a,lo,mid,hi);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.<strong>不将元素复制到辅助数组</strong></p>
+<h2 id="5-归并排序（自底向上）"><a href="#5-归并排序（自底向上）" class="headerlink" title="5.归并排序（自底向上）"></a>5.<strong>归并排序（自底向上）</strong></h2><p>这种实现方法比标准递归方法所需要的代码更少。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">//归并排序(自底向上)</span><br><span class="line">		aux = new Comparable[a.length];</span><br><span class="line">		int N = a.length;</span><br><span class="line">		for (int sz = 1; sz &lt; N; sz=sz+sz) &#123;//sz表示子数组的大小,每次翻倍</span><br><span class="line">			//lo表示每次两个对比子数组的开始索引</span><br><span class="line">			for (int lo = 0; lo &lt; N-sz; lo+=sz+sz) &#123;</span><br><span class="line">				//两个子数组分别是a[lo...lo+sz-1]和a[lo+sz...lo+sz+sz-1],但要注意右侧数组右边界与总长度的关系</span><br><span class="line">				merge(a, lo, lo+sz-1, Math.min(lo+sz+sz-1, N-1));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		public static void merge(Comparable[] a,int lo,int mid,int hi)&#123;</span><br><span class="line">		//将a[lo...mid]和a[mid+1...hi]归并</span><br><span class="line">		int i = lo,j =mid+1;</span><br><span class="line">		for (int k = lo; k &lt;=hi; k++) &#123;</span><br><span class="line">			aux[k] = a[k];//将a的信息复制到aux中</span><br><span class="line">		&#125;</span><br><span class="line">		for (int k = lo; k &lt;=hi; k++) &#123;</span><br><span class="line">			if(i&gt;mid)&#123;</span><br><span class="line">				//i&gt;mid说明左侧元素全部取完了</span><br><span class="line">				a[k] = aux[j++];</span><br><span class="line">			&#125;else if(j&gt;hi)&#123;</span><br><span class="line">				//j&gt;hi说明右侧元素全部取完了</span><br><span class="line">				a[k] = aux[i++];</span><br><span class="line">			&#125;else if(less(aux[j],aux[i]))&#123;</span><br><span class="line">				a[k] = aux[j++];</span><br><span class="line">			&#125;else&#123;</span><br><span class="line">				a[k] = aux[i++];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>当数组长度为2的幂时，自顶向下和自底向上的归并排序所用的比较次数和数组访问次数正好相同，只是顺序不同。</p>
+<p>自底向上的归并排序比较适合<strong>用链表组织的数据</strong>。将链表先按大小为1的子链表进行排序，然后是2，再次4…这种方法只需要重新组织链表链接就能将链表<strong>原地排序</strong>（不需要创建任何新的链表节点）。</p>
+<p>排序算法的复杂度：<br>命题I：没有任何基于比较的算法能够保证使用小于NlogN次比较将长度为N的数组排序。（用<strong>比较树</strong>证明）</p>
+<p>命题J：归并排序是一种渐进最优的基于比较排序的算法。<br>准确的说，应该是，归并排序在最坏情况下的比较次数和任意基于比较的排序算法所需的最少比较次数都是NlogN。</p>
+<p>但归并排序的最优性并不是结束，也不代表实际应用中不考虑其他方法了。理论上它有这些<strong>局限性</strong>：<br>1.归并排序的<strong>空间复杂度</strong>不是最优。<br>2.在实践中不一定会遇到最坏情况。<br>3.除了比较，算法的其他操作（例如访问数组）也可能很重要。<br>4.不进行比较也能够排序。</p>
+<h2 id="6-快速排序："><a href="#6-快速排序：" class="headerlink" title="6.快速排序："></a>6.<strong>快速排序</strong>：</h2><p>优点：<br>1.原地排序（只需要一个很小的辅助栈）<br>2.将长度为N的数组排序所需时间和NlogN成正比。<br>3.快排的内循环比大多数排序都小。<br>缺点：<br>1.非常脆弱，在实现时要非常小心避免低劣的性能。</p>
+<p>快排思想：<br>快排是一种分治的排序算法。快排和归并排序是互补的。在归并排序中，一个数组被等分成两半；在快排中，切分（partition）的位置取决于数组的内容。</p>
+<p>快排代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">//快速排序</span><br><span class="line">		//随机打乱</span><br><span class="line">		Collections.shuffle(Arrays.asList(a));</span><br><span class="line">		sort(a,0,a.length-1);</span><br><span class="line"></span><br><span class="line">private static void sort(Comparable[] a,int lo,int hi)&#123;</span><br><span class="line">		if(lo&gt;=hi)&#123;</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		int j = merge(a,lo,hi);</span><br><span class="line">		sort(a,lo,j-1);//排序左边</span><br><span class="line">		sort(a,j+1,hi);//排序右边</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">public static int merge(Comparable[] a,int lo,int hi)&#123;</span><br><span class="line">		Comparable v = a[lo];</span><br><span class="line">		int i=lo,j=hi+1;//两个移动指针,j=hi+1是因为要用a[--j],而不能用a[j--]</span><br><span class="line">		while(true)&#123;</span><br><span class="line">			//扫描左右，检查扫描是否结束并交换元素</span><br><span class="line">			while(less(a[++i],v))&#123;</span><br><span class="line">				if(i==hi) break;</span><br><span class="line">			&#125;</span><br><span class="line">			while(less(v,a[--j]))&#123;</span><br><span class="line">//				//可以去掉该检测，因为不可能比自身小</span><br><span class="line">//				if(j==lo)break;</span><br><span class="line">			&#125;</span><br><span class="line">			if(i&gt;=j) break;</span><br><span class="line">			exch(a,i,j);</span><br><span class="line">		&#125;</span><br><span class="line">		exch(a,lo,j);</span><br><span class="line">		return j;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>该方法关键在于<strong>切分</strong>（partition）：<br>1.对于某个j，a[j]已经排定<br>2.a[lo]到a[j-1]中所有元素都不大于a[j]<br>3.a[j+1]到a[hi]中所有元素都不小于a[j]</p>
+<p>注意点：<br>1.原地划分<br>如果使用一个辅助数组，我们可以很容易实现切分，当将切分后的数组复制回去的开销会得不偿失。<br>2.别越界<br>3.保持随机性。这对于预测算法的运行时间很重要。另一种方法是在partition方法中随机选择一个切分元素。<br>4.终止循环<br>5.处理切分元素有重复的情况<br>左侧扫描最好是遇到<strong>大于等于</strong>切分元素值的元素时停下，右侧同理（<strong>小于等于</strong>）。尽管会有一些不必要的等值交换，但在某些情况下，能够避免算法的运行时间变为<strong>平方级别</strong>。<br>6.终止递归。<br>常见错误是不能保证将切分元素放入正确的位置，从而导致程序在切分元素正好是子数组的最大或最小元素时陷入无限的递归循环中。</p>
+<p>性能特点：<br>归并排序和希尔排序一般比快排慢，其原因是他们还在内循环中移动数据，而快排只是<strong>比较数据</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">while(less(a[++i],v))&#123;</span><br><span class="line">				if(i==hi) break;</span><br><span class="line">			&#125;</span><br><span class="line">			while(less(v,a[--j]))&#123;</span><br><span class="line">//				//可以去掉该检测，因为不可能比自身小</span><br><span class="line">//				if(j==lo)break;</span><br><span class="line">			&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出内循环中没有移动数据。</p>
+<p>潜在缺点：切分不平衡程序低效。<br>解决办法：随机化的思想。将能够产生糟糕的切分情况可能性降低。</p>
+<p>命题L：快排最多需要1/2N平方次比较，当随机打乱数组可以预防这种情况。</p>
+<p><strong>算法改进</strong>：<br>1.<strong>切换到插入排序</strong>。基于两点：<br>1.对于小数组，快排比插入排序慢<br>2.因为递归，快排的sort方法在小数组中也会调用自己。</p>
+<p>2.<strong>三取样切分</strong>。使用子数组的一小部分元素的中位数来切分。这样切分更好，代价是<strong>需要计算中位数</strong>。</p>
+<p>3.<strong>熵最优排序（三向切分快速排序）</strong>：<br>将数组切分为三部分：小于，等于，大于。</p>
+<p>思想：它从左到右遍历数组一次，维护一个指针lt使得a[lo…lt-1]中元素都小于v，一个指针gt使得a[gt+1…hi]中元素都大于v，一个指针i使得a[lt…i-1]中元素都等于v，a[i…gt]中元素还未确定。<br>我们直接处理以下情况：<br>1.a[i]小于v,将a[lt]和a[i]交换，将lt和i加1<br>2.a[i]大于v，将a[gt]和a[i]交换，将gt减1<br>3.a[i]等于v，将i加1</p>
+<p>这些操作都会保证数组元素不变且缩小gt-i的值（这样循环才会结束）。另外，除非和切分元素相等，其他元素都会被交换。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">//快速排序</span><br><span class="line">		//随机打乱</span><br><span class="line">		Collections.shuffle(Arrays.asList(a));</span><br><span class="line">		sort(a,0,a.length-1);</span><br><span class="line"></span><br><span class="line">private static void sort(Comparable[] a,int lo,int hi)&#123;</span><br><span class="line">		if(lo&gt;=hi)&#123;</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		int lt = lo,i=lo+1,gt=hi;</span><br><span class="line">		Comparable v = a[lo];</span><br><span class="line">		while(i&lt;=gt)&#123;</span><br><span class="line">			int cmp = a[i].compareTo(v);</span><br><span class="line">			if(cmp&lt;0)&#123;</span><br><span class="line">				exch(a,lt++,i++);</span><br><span class="line">			&#125;else if(cmp&gt;0)&#123;</span><br><span class="line">				exch(a,i,gt--);</span><br><span class="line">			&#125;else&#123;</span><br><span class="line">				i++;</span><br><span class="line">			&#125;</span><br><span class="line">			sort(a,lo,lt-1);</span><br><span class="line">			sort(a,gt+1,hi);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>这里可能会对你有点<strong>矛盾</strong>。</p>
+<p>我们已经证明过归并排序是最优的。怎么还有这种方法呢？<br>问题在于，命题I中，我们说归并排序最优，是对于任意输入的最差性能的比较。而我们现在讨论时已经知道输入数组的一些信息了。对于含有<strong>以任意概率分布的重复元素的输入</strong>，归并排序无法保证最佳性能。</p>
+<p>对于存在大量重复元素的数组，这种方法<strong>比标准的快排的效率高很多</strong>。</p>
+<p>对于只有若干不同主键的随机数组，归并排序的时间复杂度是<strong>线性对数</strong>的，而三向切分快速排序则是<strong>线性</strong>的。对于三向切分，最欢情况正是所有主键均不相同（这种情况下，比标准方法多了很多交换）。</p>
+<p>课后问答：<br>问：为什么要将注意力放在<strong>重复元素</strong>上？<br>答：这个问题直接影响实际应用中的性能。因为实际中，包含大量重复很常见。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/算法4读书笔记/">算法4读书笔记</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/04/08/2-排序/" data-title="2.排序 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/04/11/2-4优先队列/" title="2.4优先队列">
+  <strong>上一篇：</strong><br/>
+  <span>
+  2.4优先队列</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/04/03/2-算法分析/"  title="2.算法分析">
+ <strong>下一篇：</strong><br/> 
+ <span>2.算法分析
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/04/08/2-排序/" data-title="2.排序" data-url="http://yoursite.com/2016/04/08/2-排序/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#排序算法"><span class="toc-number">1.</span> <span class="toc-text">排序算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-选择排序"><span class="toc-number">2.</span> <span class="toc-text">1.选择排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-插入排序"><span class="toc-number">3.</span> <span class="toc-text">2.插入排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-希尔排序"><span class="toc-number">4.</span> <span class="toc-text">3.希尔排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-归并排序（自顶向下）"><span class="toc-number">5.</span> <span class="toc-text">4.归并排序（自顶向下）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-归并排序（自底向上）"><span class="toc-number">6.</span> <span class="toc-text">5.归并排序（自底向上）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-快速排序："><span class="toc-number">7.</span> <span class="toc-text">6.快速排序：</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zeng Qi,a Android developer. <br/>
+			This is my blog,hope you will enjoy it.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ZengQi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

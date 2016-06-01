@@ -1,0 +1,556 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>9.持有你的对象 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="九、持有你的对象
+array（数组）：
+关于array和其他容器之间的区别，存在两个议题：效率和型别。array是java用来“存储及随机访问一连串对象（尤其是对象的reference）”的各种做法中，最有效率的一种。不过效率带来的牺牲是：当你产生array时，其容量固定且无法动态改变。
+其他泛型容器：
+包括list，set，，map。他们不会以任何特定的型别来看待它们所持有的对象，一律将持有对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="9.持有你的对象">
+<meta property="og:url" content="http://yoursite.com/2015/12/11/9-持有你的对象/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="九、持有你的对象
+array（数组）：
+关于array和其他容器之间的区别，存在两个议题：效率和型别。array是java用来“存储及随机访问一连串对象（尤其是对象的reference）”的各种做法中，最有效率的一种。不过效率带来的牺牲是：当你产生array时，其容量固定且无法动态改变。
+其他泛型容器：
+包括list，set，，map。他们不会以任何特定的型别来看待它们所持有的对象，一律将持有对象">
+<meta property="og:updated_time" content="2016-06-01T07:05:45.795Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="9.持有你的对象">
+<meta name="twitter:description" content="九、持有你的对象
+array（数组）：
+关于array和其他容器之间的区别，存在两个议题：效率和型别。array是java用来“存储及随机访问一连串对象（尤其是对象的reference）”的各种做法中，最有效率的一种。不过效率带来的牺牲是：当你产生array时，其容量固定且无法动态改变。
+其他泛型容器：
+包括list，set，，map。他们不会以任何特定的型别来看待它们所持有的对象，一律将持有对象">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/11/9-持有你的对象/" title="9.持有你的对象" itemprop="url">9.持有你的对象</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-11T07:04:03.000Z" itemprop="datePublished"> Published 2015-12-11</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>九、持有你的对象</p>
+<p><strong>array（数组）：</strong></p>
+<p>关于array和其他容器之间的区别，存在两个议题：效率和型别。array是java用来“存储及随机访问一连串对象（尤其是对象的reference）”的各种做法中，最有效率的一种。不过效率带来的牺牲是：当你产生array时，其容量固定且无法动态改变。</p>
+<p><strong>其他泛型容器：</strong></p>
+<p>包括list，set，，map。他们不会以任何特定的型别来看待它们所持有的对象，一律将持有对象视为Object。只要产生单一容器，便可将任意java对象置于其中（基本性别除外）。基本型别要通过其外覆类进行加载。这引出array比容器好的第二点：当你产生array时，它持有的是特定型别的对象，这意味着编译期的型别检查会防止你将不正确的型别置于array。</p>
+<p><strong>array元素的比较：</strong></p>
+<p>撰写一份泛型排序码，面临的问题是，排序必须依据对象实际型别来进行比较。当然，为各种不同型别都分别撰写一份排序用的函数，也是一种解决办法，但你应该了解，这种做法无法轻易用在新的型别上。</p>
+<p><strong>tips：</strong></p>
+<p>程序设计的主要目标，是将“变动的事物和不变得事物隔离开来”。在这里，保持不变的，就是泛用排序算法，会变动的，则是对象的比较法。所以如果你不希望将对象比较动作写死于很多不同的排序函数中，我们可以采用callback技巧。通过callback，“因势而异的程序代码”可被封装于自己的class内，而“永不变动的程序代码”则回头调用前者。通过这个手法，便可让不同的对象各自表述其不同的比较法，并将该比较法喂进同一个排序算法中。</p>
+<p>java标准程序库的排序算法，会针对你所排序的型别来进行最佳化。面对基本性别时用的是quicksort，而面对对象则采用stable merge sort。<br>array排序完毕后，你可以使用Array.binarySearch()快速查找某个元素。但是千万别在未经排序的array身上使用binarySearch，否则结果完全无法预测。</p>
+<p><strong>不同容器的基本行为：</strong></p>
+<p>list会以元素安插次序来放置元素，不会重新排列或编修。set不接受重复元素，它会使用自己内部的一个排列机制。map也不接受重复元素，重复与否乃是以键值判断的。map排序也是用自己内部的一个机制。<br>容器的缺点：<br>如果你在定义容器的时候没有指定容器内存储对象的确切型别，那么你一旦将对象置于容器内，你便损失了他的型别信息。但是当你在定义之初就指定容器存储型别时，它在编译期就可以判断是否型别正确。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; list = new ArrayList&lt;String&gt;();</span><br><span class="line">list.add(new Integer(5));</span><br></pre></td></tr></table></figure></p>
+<p>它将会报错。<br>所谓的“迭代器”，可被用来达成这种概念，迭代器是个对象，其职责便是走访以及选择序列中的一连串对象。<br>调用java iterator，你可以：<br>1.调用iterator(),要求容器交给你一个iterator。当你第一次调用iterator的next（）时，它会返回序列中的第一个元素。<br>2.调用next（）取得序列中的下一个元素。<br>3.调用hasnext（）检查序列中是否还有其他元素。<br>4.调用remove（）移去迭代器最新传回的元素。</p>
+<p><strong>map的机能</strong></p>
+<p>“在arraylist中查找key”这个动作并不快，而这正是hashmap提高速度的地方。它不会逐一查找某个key，而会使用一种被称为hash code的特殊值。hash code是一种“将对象内的某些信息转换为几乎独一无二”的int，用来代表那个对象。</p>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">package test1;</span><br><span class="line"></span><br><span class="line">import java.util.HashMap;</span><br><span class="line"></span><br><span class="line">class Counter&#123;</span><br><span class="line">	int i = 1;</span><br><span class="line">	public String toString()&#123;</span><br><span class="line">		return Integer.toString(i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Statistics &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		HashMap hm = new HashMap&lt;&gt;();</span><br><span class="line">		for (int i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">			Integer r = new Integer((int)(Math.random()*20));</span><br><span class="line">			if(hm.containsKey(r))&#123;</span><br><span class="line">				((Counter)hm.get(r)).i++;</span><br><span class="line">			&#125;else</span><br><span class="line">			&#123;</span><br><span class="line">				hm.put(r,new Counter());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(hm);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里为什么不使用外覆类呢？因为，使用java的外覆类时，你只能在初始化时设定其值，而后读取其值。换句话说你没有办法在产生外覆类的对象之后改变其值。</p>
+<p><strong>持有reference：</strong></p>
+<p>java.lang.ref程序库含有一组classes，这些classes为垃圾回收机制提供更大的弹性。当你拥有很多可能耗尽内存的大型对象时，这些classes格外有用。有三个classes继承自抽象类Reference,SoftReference,WeakReference和PhantomReference。他们都对垃圾回收机制提供不同层级的间接性–如果外界只能通过这些Reference对象才得碰触对象的话。</p>
+<p>当你虚妄继续持有某个reference（它所指的对象是你希望碰触的），但你也允许垃圾回收器将它释放（回收），这时候你应该使用Reference对象。于是你得以继续使用该对象，而一旦内存即将耗尽，你也允许它被释放。<br>（代码未写完，待续）</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java编程思想读书笔记/">Java编程思想读书笔记</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2015/12/11/9-持有你的对象/" data-title="9.持有你的对象 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/12/24/关于控件getWidth和getHeight方法都为0的解释及解决方法/" title="关于控件getWidth和getHeight方法都为0的解释及解决方法">
+  <strong>上一篇：</strong><br/>
+  <span>
+  关于控件getWidth和getHeight方法都为0的解释及解决方法</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/12/10/8-接口和内隐类/"  title="8.接口和内隐类">
+ <strong>下一篇：</strong><br/> 
+ <span>8.接口和内隐类
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/12/11/9-持有你的对象/" data-title="9.持有你的对象" data-url="http://yoursite.com/2015/12/11/9-持有你的对象/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zeng Qi,a Android developer. <br/>
+			This is my blog,hope you will enjoy it.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ZengQi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

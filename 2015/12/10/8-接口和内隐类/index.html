@@ -1,0 +1,596 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>8.接口和内隐类 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="八.接口和内隐类
+接口和内隐类为你系统中的对象提供更为方便的组织和控制方式。
+接口：interface更胜于抽象类，因为我们能够借以撰写出可被向上转型为多个基本类型的class，从而达到像c++一样的多重继承的变形。
+interface可以内含数据成员，但是这些数据成员会自动变为static和final。是的，interface所提供的只是形式，不含实现的细目。
+interface所陈述的是：“所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8.接口和内隐类">
+<meta property="og:url" content="http://yoursite.com/2015/12/10/8-接口和内隐类/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="八.接口和内隐类
+接口和内隐类为你系统中的对象提供更为方便的组织和控制方式。
+接口：interface更胜于抽象类，因为我们能够借以撰写出可被向上转型为多个基本类型的class，从而达到像c++一样的多重继承的变形。
+interface可以内含数据成员，但是这些数据成员会自动变为static和final。是的，interface所提供的只是形式，不含实现的细目。
+interface所陈述的是：“所">
+<meta property="og:updated_time" content="2016-06-01T07:02:11.052Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="8.接口和内隐类">
+<meta name="twitter:description" content="八.接口和内隐类
+接口和内隐类为你系统中的对象提供更为方便的组织和控制方式。
+接口：interface更胜于抽象类，因为我们能够借以撰写出可被向上转型为多个基本类型的class，从而达到像c++一样的多重继承的变形。
+interface可以内含数据成员，但是这些数据成员会自动变为static和final。是的，interface所提供的只是形式，不含实现的细目。
+interface所陈述的是：“所">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/10/8-接口和内隐类/" title="8.接口和内隐类" itemprop="url">8.接口和内隐类</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-10T06:59:39.000Z" itemprop="datePublished"> Published 2015-12-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>八.接口和内隐类</p>
+<p>接口和内隐类为你系统中的对象提供更为方便的组织和控制方式。</p>
+<p><strong>接口：</strong>interface更胜于抽象类，因为我们能够借以撰写出可被向上转型为多个基本类型的class，从而达到像c++一样的多重继承的变形。</p>
+<p>interface可以内含数据成员，但是这些数据成员会自动变为static和final。是的，interface所提供的只是形式，不含实现的细目。</p>
+<p>interface所陈述的是：“所有实现出本接口的classes，看起来都应该像这样。”</p>
+<p>方法：interface中的方法都是public。所以当你实现某个接口时，必须将继承自该接口的所有方法都声明为public！</p>
+<p>代码演示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package test;</span><br><span class="line"></span><br><span class="line">public class Test &#123;</span><br><span class="line">	static void t(CanFight x)&#123;x.fight();&#125;</span><br><span class="line">	static void u(CanSwim x)&#123;x.swim();&#125;</span><br><span class="line">	static void v(CanFly x)&#123;x.fly();&#125;</span><br><span class="line">	static void w(ActionCharacter x)&#123;x.fight();&#125;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Hero h = new Hero();</span><br><span class="line">		t(h);</span><br><span class="line">		u(h);</span><br><span class="line">		v(h);</span><br><span class="line">		w(h);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">interface CanFight&#123;</span><br><span class="line">	void fight();</span><br><span class="line">&#125;</span><br><span class="line">interface CanSwim&#123;</span><br><span class="line">	void swim();</span><br><span class="line">&#125;</span><br><span class="line">interface CanFly&#123;</span><br><span class="line">	void fly();</span><br><span class="line">&#125;</span><br><span class="line">class ActionCharacter&#123;</span><br><span class="line">	public void fight()&#123;System.out.println(&quot;action fight&quot;);&#125;</span><br><span class="line">&#125;</span><br><span class="line">class Hero extends ActionCharacter implements CanFight,CanFly,CanSwim&#123;</span><br><span class="line">	public void swim()&#123;System.out.println(&quot;swim&quot;);&#125;;//实现</span><br><span class="line">	public void fly()&#123;System.out.println(&quot;fly&quot;);&#125;;//实现</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，interface CanFight及class ActionCharacter中的fight()的标记式是一致的（这样Hero通过继承ActionCharacter的方法，相当于实现了CanFight接口未实现的方法）</p>
+<p><strong>接口存在意义？</strong></p>
+<p>1.能够被向上转型为多个基本性别<br>2.让客户端程序员无法产生其对象，并因此确保这只是一个接口。</p>
+<p>interface同时赋予你抽象类和接口的好处，因此你的base class可以不带任何函数定义或任何成员变量，那么应该优先考虑用interface。<br>扩充interface：利用继承，可以轻易将新的函数加至interface中，也可以通过继承extends将多个interface结合为一个新的interface。</p>
+<p>产生产量群：因为interface中的所有数据成员都会自动成为static和final，所以能够方便的产生常量群。</p>
+<p>定义于interface中的数据成员都是static和final，但不能是blank finals。但可以被非常量表达式初始化。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface Rand&#123;</span><br><span class="line">int rint = (int)(Math.random()*10);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>嵌套的interface：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">package test;</span><br><span class="line"></span><br><span class="line">import test.A.DImp2;</span><br><span class="line"></span><br><span class="line">class A&#123;</span><br><span class="line">	interface B&#123;//default</span><br><span class="line">		void f();</span><br><span class="line">	&#125;</span><br><span class="line">	public class BImp implements B&#123;//public </span><br><span class="line">		public void f()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	private class BImp2 implements B&#123;//private</span><br><span class="line">		public void f()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public interface C&#123;//public</span><br><span class="line">		void f();</span><br><span class="line">	&#125;</span><br><span class="line">	class CImp implements C&#123;//default</span><br><span class="line">		public void f()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	private class CImp2 implements C&#123;//private</span><br><span class="line">		public void f()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	private interface D&#123;//private</span><br><span class="line">		void f();</span><br><span class="line">	&#125;</span><br><span class="line">	private class DImp implements D&#123;//private</span><br><span class="line">		public void f()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public class DImp2 implements D&#123;//public </span><br><span class="line">		public void f()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public D getD()&#123;</span><br><span class="line">		return new DImp2();</span><br><span class="line">	&#125;</span><br><span class="line">	private D dRef;</span><br><span class="line">	public void receiveD(D d)&#123;</span><br><span class="line">		dRef = d;</span><br><span class="line">		dRef.f();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface E&#123;</span><br><span class="line">	interface G&#123;</span><br><span class="line">		void f();</span><br><span class="line">	&#125;</span><br><span class="line">	//多余的public</span><br><span class="line">	public interface H&#123;</span><br><span class="line">		void f();</span><br><span class="line">	&#125;</span><br><span class="line">	void g();</span><br><span class="line">	//错误：成员只能是public</span><br><span class="line">	//!private interface I&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Test1 &#123;</span><br><span class="line">	public class BImp implements A.B&#123;</span><br><span class="line">		public void f()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	class CImp implements A.C&#123;</span><br><span class="line">		public void f()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	//不能实现一个private interface，除非在interface被定义的class中</span><br><span class="line">	//!class DImp implements A.D&#123;</span><br><span class="line">		//public void f()&#123;&#125;</span><br><span class="line">	//&#125;</span><br><span class="line">	class EImp implements E&#123;</span><br><span class="line">		public void g()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	class EGImp implements E.G&#123;</span><br><span class="line">		public void f()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	class EImp2 implements E&#123;</span><br><span class="line">		public void g()&#123;&#125;</span><br><span class="line">		class EG implements E.G&#123;</span><br><span class="line">			public void f()&#123;&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		A a = new A();</span><br><span class="line">		//A.D not visible</span><br><span class="line">		//!A.D ad = a.getD();</span><br><span class="line">		A.DImp2 di2 = (DImp2) a.getD();//向下转型</span><br><span class="line">		a.receiveD(a.getD());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>说明：将interface嵌套在class中，相当直觉。在其中的interface可被定义为正常的可视性。<br>interface E告诉我们，interface可彼此相互嵌套。但是”所有interface的元素都必须为public“这一条会被严格执行。注意，当你实现某个interface时，你无须实现其中任何嵌套的interface。此外，private interface无法再其所定义的class之外被使用。</p>
+<p><strong>内隐类</strong></p>
+<p>将某个class的定义置于另一个class定义之中是可行的，这就是所谓的内隐类（inner class）。注意，内隐类和所谓的组合（composition）是截然不同的两回事。</p>
+<p>内隐类的典型做法是，外围class有一个函数，可以传回一个reference指向inner class。代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">package test;</span><br><span class="line"></span><br><span class="line">public class Parcel2 &#123;</span><br><span class="line">	//内隐类</span><br><span class="line">	class Contents&#123;</span><br><span class="line">		private int i = 11;</span><br><span class="line">		public int value()&#123;return i;&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	class Destination&#123;</span><br><span class="line">		private String label;</span><br><span class="line">		Destination(String whereTo)&#123;</span><br><span class="line">			label = whereTo;</span><br><span class="line">		&#125;</span><br><span class="line">		String readLabel()&#123;</span><br><span class="line">			return label;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public Destination to(String s)&#123;</span><br><span class="line">		return new Destination(s);</span><br><span class="line">	&#125;</span><br><span class="line">	public Contents cont()&#123;</span><br><span class="line">		return new Contents();</span><br><span class="line">	&#125;</span><br><span class="line">	public void ship(String dest)&#123;</span><br><span class="line">		Contents c = cont();</span><br><span class="line">		Destination d = to(dest);</span><br><span class="line">		System.out.println(d.readLabel());</span><br><span class="line">	&#125;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Parcel2 p = new Parcel2();</span><br><span class="line">		p.ship(&quot;mianyang&quot;);</span><br><span class="line">		Parcel2 q = new Parcel2();</span><br><span class="line">		//给内隐类分配reference</span><br><span class="line">		Parcel2.Contents c = q.cont();</span><br><span class="line">		Parcel2.Destination d = q.to(&quot;tianjin&quot;);</span><br><span class="line">		Parcel2.Destination d2 = new Parcel2().new Destination(&quot;chengdu&quot;);</span><br><span class="line">		System.out.println(d.readLabel());</span><br><span class="line">		System.out.println(d2.readLabel());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mianyang</span><br><span class="line">tianjin</span><br><span class="line">chengdu</span><br></pre></td></tr></table></figure></p>
+<p><strong>内隐类和向上转型</strong></p>
+<p>当你开始向上转型至base class，尤其是转型为interface，就能凸显inner class的好处（注意：从某个”实现出interface I“的inner class对象身上产生一个reference指向I，本质上和”向上转型至base class“是一样的），这是因为inner class（也就是I的实现者）可以在接下来的情境中完全不被看见，而且不为任何人所用，这么一来我们就很方便能够”隐藏实现细目“。你所得到的只是”指向base class或interface“的一个reference。<br>一般的（non-inner）classes无法被声明为private或者protected，只能是public或friendly。</p>
+<p><strong>inner class的隐晦使用方式</strong></p>
+<p>你可以将inner class置于函数之内或者甚至置于程序范畴（scopes）之内。你这样做可能有两个理由：<br>1.你想实现某种interface，使你得以产生并返回某个reference。<br>2.你正在解决某个复杂问题，而你希望在解决方案中设计某个class，又不希望这个class被外界所用。<br>在任意程序范畴嵌套inner class：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package test;</span><br><span class="line">public class Parcel5 &#123;</span><br><span class="line">	//在任意函数范畴（scope）内嵌套inner class、</span><br><span class="line">	private void internalTracking(boolean b)&#123;</span><br><span class="line">		if(b)&#123;</span><br><span class="line">			class TrackingSlip&#123;</span><br><span class="line">				private String id;</span><br><span class="line">				TrackingSlip(String s) &#123;</span><br><span class="line">					id = s;</span><br><span class="line">				&#125;</span><br><span class="line">				String getSlip()&#123;</span><br><span class="line">					return id;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			TrackingSlip ts = new TrackingSlip(&quot;slip&quot;);</span><br><span class="line">			String s = ts.getSlip();</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">		//超出scope，不能够被使用</span><br><span class="line">		//!TrackingSlip ts1 = new TrackingSlip(&quot;slip&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Parcel5 p = new Parcel5();</span><br><span class="line">		p.internalTracking(true);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：class TrackingSlip被嵌套在if语句中，并不意味这该class会随着条件的成立才被产生，事实上，他会和其他classes一起被编译出来。不过它在它所处的范畴之外就不能被使用。</p>
+<p><strong>与外围class的连接关系</strong></p>
+<p>截止目前，inner class看起来似乎是一种用于名称隐藏和程序代码组织的体制。这并不能完全让人信服，它还有另外一个作用。当你建立一个inner class时，其对象便拥有了与其制造者–那个外围（enclosing）对象–之间的一种连接关系。所以它可以访问外围对象的所有成员而无需添加任何饰词。此外，inner class也可以访问enclosing class的所有元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">package test;</span><br><span class="line"></span><br><span class="line">interface Selector&#123;</span><br><span class="line">	boolean end();</span><br><span class="line">	Object current();</span><br><span class="line">	void next();</span><br><span class="line">&#125;</span><br><span class="line">public class Sequence &#123;</span><br><span class="line">	private Object[] obs;</span><br><span class="line">	private int next = 0;</span><br><span class="line">	public Sequence(int size)&#123;</span><br><span class="line">		obs = new Object[size];</span><br><span class="line">	&#125;</span><br><span class="line">	public void add(Object o)&#123;</span><br><span class="line">		if(next&lt;obs.length)&#123;</span><br><span class="line">			obs[next] = o;</span><br><span class="line">			next++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	private class SSelector implements Selector&#123;</span><br><span class="line">		int i = 0;</span><br><span class="line">		public boolean end()&#123;</span><br><span class="line">			return i == obs.length;</span><br><span class="line">	&#125;</span><br><span class="line">		public Object current()&#123;</span><br><span class="line">			return obs[i];</span><br><span class="line">			&#125;</span><br><span class="line">		public void next()&#123;</span><br><span class="line">			if(i&lt;obs.length)</span><br><span class="line">				i++;</span><br><span class="line">		&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	public Selector getSelector()&#123;</span><br><span class="line">		return new SSelector();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Sequence s = new Sequence(10);</span><br><span class="line">		for (int i = 0; i &lt; 10; i++) </span><br><span class="line">				s.add(Integer.toString(i));</span><br><span class="line">				Selector s1 = s.getSelector();</span><br><span class="line">				while(!s1.end())&#123;</span><br><span class="line">					System.out.println(s1.current());</span><br><span class="line">					s1.next();</span><br><span class="line">				&#125;</span><br><span class="line">	&#125;                    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sequence只是一个大小固定的Object array，以class形式加以包装。要想取得sequence中的每个对象，有个名为selector的interface，可以让你执行相关操作。由于selector是个interface，所以任何class都可以以自己的形式来实现此一interface，而很多函数都可以接受此一interface作为引数，藉以产生一般化的程序代码。<br>乍看之下，SSelector只不过是个inner class，但是注意到其函数中都用到了obs，并不是SSelector的一部分，而是外围class的private成员变量。这样就带来了很大的便利。</p>
+<p><strong>静态内隐类</strong></p>
+<p>如果你不需要inner class对象和enclosing class对象之间的连接关系，你可以将inner class声明为static。一般的inner class（也就是non-static inner class）会自动记录一个reference指向enclosing class的某个对象，而后者也就是此inner class对象的制造者。但是一旦你将inner class声明为static，上述说法不成立。static inner class意味着：<br>1.产生其对象时，并不需要同时存在一个enclosing class对象。即不需要s.getSelector()中的s<br>2.你无法在static inner class对象中访问enclosing class对象。<br>另一方面：non-static inner class内的所有数据和函数都只能位于class的外层（此语只是一种形容，没有实际的技术意义），所以它不能够拥有任何static data，static fields，static inner class。然而static inner class可以拥有这些东西。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">package test1;</span><br><span class="line"></span><br><span class="line">interface Contents&#123;</span><br><span class="line">	public int value();</span><br><span class="line">	&#125;</span><br><span class="line">interface Destination&#123;</span><br><span class="line">	public String readLabel();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Parcel10 &#123;</span><br><span class="line">	private static class pContents implements Contents&#123;</span><br><span class="line">		private int i = 11;</span><br><span class="line">		public int value()&#123;return i;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	protected static class pDestination implements Destination&#123;</span><br><span class="line">		private String label;</span><br><span class="line">		private  pDestination(String whereTo)&#123;</span><br><span class="line">			label = whereTo;</span><br><span class="line">		&#125;</span><br><span class="line">		public String readLabel()&#123;</span><br><span class="line">			return label;</span><br><span class="line">		&#125;</span><br><span class="line">		//static class可以包含static elements</span><br><span class="line">		public static void f()&#123;&#125;</span><br><span class="line">		static int x = 10;</span><br><span class="line">		static class AnotherLevel&#123;</span><br><span class="line">			public static void f()&#123;&#125;</span><br><span class="line">			static int x = 10;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static Destination dest(String s)&#123;</span><br><span class="line">		return new pDestination(s);</span><br><span class="line">	&#125;</span><br><span class="line">	public static Contents cont()&#123;</span><br><span class="line">		return new pContents();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Contents c = cont();</span><br><span class="line">		Destination d = dest(&quot;tianjin&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>main函数中完全不需要Parcel10对象，它只要采用一般用来选择static成员的语法，调用”传回reference（指向Contents）和reference（指向Destination）“的函数即可。<br>一般而言，你不能将任何程序代码置于interface内，但static inner class却可以是interface中的一部分，这是因为class既然被声明为static，那也就不会破坏interface的规则–static inner class只不过是被置于interface的命名空间中罢了。<br>non-static inner class之中对于外围class对象的连接关系，是通过一个特殊的this reference形成。</p>
+<p>注意两点：</p>
+<p>1.在需要产生一个reference指向outer class对象时，命名方式便是在outer class名称之后紧接一个句号，然后再接this。举例来说，class Sequence.SSelector内的任何函数都可以通过Sequence.this来产生一个reference指向Sequence。产生出来的reference会自动被设定正确性别。这样，编译期即可得知确切型别并加以检查，所以不会有执行期的额外负担。（inner class内部产生outer class对象）</p>
+<p>2.要产生inner class对象，就需要先产生一个outer class对象，否则无法得到该对象。因此，除非你已经拥有了一个outer class对象，否则便无法产生其inner class对象。这是因为inner class对象会被暗中连接到某个outer class对象上，后者即该inner class对象的制造者。但是对于static inner class，那就不需要一个reference指向outer class对象。（outer class中产生inner class对象）</p>
+<p><strong>继承inner class：</strong></p>
+<p>由于inner class的构造函数必须连接到一个reference指向outer class对象身上（应该是编译器自动完成），所以当你继承inner class时，事情变得复杂些。问题出在“指向outer calss对象”的那个神秘reference必须被初始化，但derived class之内不存有可连接的缺省对象。这个问题的答案是，使用专用语法，明确产生该关联性。</p>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">package test1;</span><br><span class="line">class WithInner&#123;</span><br><span class="line">	public WithInner()&#123;</span><br><span class="line">		System.out.println(&quot;withinner&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	//内部类</span><br><span class="line">	class Inner&#123;</span><br><span class="line">		public Inner()&#123;</span><br><span class="line">			System.out.println(&quot;inner&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class InheritInner extends WithInner.Inner&#123;</span><br><span class="line">	//不能够被编译</span><br><span class="line">	//!public InheritInner() &#123;</span><br><span class="line">	//&#125;</span><br><span class="line">	InheritInner(WithInner wi)&#123;</span><br><span class="line">		wi.super();</span><br><span class="line">		System.out.println(&quot;inheritinner end&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		WithInner wi = new WithInner();</span><br><span class="line">		InheritInner ii = new InheritInner(wi);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">withinner</span><br><span class="line">inner</span><br><span class="line">inheritinner end</span><br></pre></td></tr></table></figure>
+<p>InheritInner继承的是inner class而非outer class，但是当编译至构造函数时，default构造函数有问题；而且你也不能够只是传入一个reference指向outer object，你还必须在构造函数中使用一下语法：<br>enclosingClassReference.super();这么一来便能提供所需的reference，而程序也能顺利编译下去。<br>如果删除：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">InheritInner(WithInner wi)&#123;</span><br><span class="line">		wi.super();</span><br><span class="line">		System.out.println(&quot;inheritinner end&quot;);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>在new InheritInner(wi);处会报错，显示：The constructor InheritInner(WithInner) is undefined。</p>
+<p><strong>为什么需要inner class？</strong></p>
+<p>一般来说，inner class会继承某个class或实现某个interface，而且inner class内的程序代码会操作其outer class对象。可以这样说，inner class所提供的其实是针对outer class的某种窗口。<br>有个问题直指inner class的核心：如果我只需要”指向某个interface“的reference，为什么我不直接让outer class实现该interface呢？答案是，如果这么做能符合你的需求，你确实应该这么做。那么，”由inner class实现interface“和”由outer class实现interface“两者之间的区别究竟在哪儿？答案是后者将无法总是享受到interface的便利性–有时候你得下探实现细目。关于inner class的存在，最信服的理由就是：<br><strong>每个inner class都能够各自继承某一实现类。因此，inner class不受限于outer class是否已继承自某一实现类。</strong><br>从另一个角度看，它是多重继承问题的完美解决方案。interface能够解决其中一部分问题，但inner class才能实际允许你继承自多个实现类。如果你拥有的不是interface，而是抽象或实在的class，你就必须使用inner class来解决”多重继承“的问题。</p>
+<p>通过inner class，你可以拥有下列几个额外性质：</p>
+<p>1.inner class可以拥有多分实体（instance），每个实体都拥有专属的状态信息，而这些信息和outer class对象的信息是相互独立的。</p>
+<p>2.在单一outer class内你可以拥有多个inner class，每个都实现相同的interface，或以不同方式继承同一个class。（？？？）</p>
+<p>3.产生inner class对象的时间点，不见得必须和产生outer class对象同时。</p>
+<p>4.outer class和inner class之间不存在is-a的关系，inner class就是一个独立的个体。</p>
+<p>举个例子，如果Sequence.java不使用inner class，那么你就得宣称”Sequence是个Selector“，而且对特定某个Sequence而言，你只能拥有单一的Selector。另外，如果你希望拥有第二个函数，getRSelector(),令它产生一个“回头走”的Selector,那么你必须采用inner class，才能有如此弹性。<br><strong>Closures(终结)和callbacks(回调)</strong><br>所谓closure是一种可被调用的对象，他会记录一些信息，这些信息来自它的产生地所在的程序范畴（scope）。在callback机制底下，某个对象被赋予一些信息，这些信息允许该对象在稍后某个时间点上调用原先的对象。让inner class提供closure功能，是完美解决方案，比起指针来说，不但更具弹性，而且安全许多。代码示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">package test1;</span><br><span class="line">//用inner class实现callbacks</span><br><span class="line">interface Incrementable&#123;</span><br><span class="line">	void increment();</span><br><span class="line">&#125;</span><br><span class="line">//简单实现接口</span><br><span class="line">class Callee1 implements Incrementable&#123;</span><br><span class="line">	private int i = 0;</span><br><span class="line">	public void increment()&#123;</span><br><span class="line">		i++;</span><br><span class="line">		System.out.println(i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class MyIncrement&#123;</span><br><span class="line">	public void increment()&#123;</span><br><span class="line">		System.out.println(&quot;other operation&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	public static void f(MyIncrement mi)&#123;</span><br><span class="line">		mi.increment();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">//如果你的class要以其他方式实现increment()，你应该用inner class</span><br><span class="line">class Callee2 extends MyIncrement&#123;</span><br><span class="line">	private int i =0;</span><br><span class="line">	private void incr()&#123;</span><br><span class="line">		i++;</span><br><span class="line">		System.out.println(i);</span><br><span class="line">	&#125;</span><br><span class="line">	//inner class</span><br><span class="line">	private class Closure implements Incrementable&#123;</span><br><span class="line">		public void increment()&#123;</span><br><span class="line">			incr();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	Incrementable getCallbacksReference()&#123;</span><br><span class="line">		return new Closure();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">class Caller&#123;</span><br><span class="line">	private Incrementable callbackReference;</span><br><span class="line">	Caller(Incrementable cbh)&#123;</span><br><span class="line">		callbackReference = cbh;</span><br><span class="line">	&#125;</span><br><span class="line">	void go()&#123;</span><br><span class="line">		callbackReference.increment();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class Callbacks &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Callee1 c1 = new  Callee1();</span><br><span class="line">		Callee2 c2 = new Callee2();</span><br><span class="line">		MyIncrement.f(c2);</span><br><span class="line">		Caller caller1 = new Caller(c1);</span><br><span class="line">		Caller caller2 = new Caller(c2.getCallbacksReference());</span><br><span class="line">		caller1.go();</span><br><span class="line">		caller1.go();</span><br><span class="line">		caller2.go();</span><br><span class="line">		caller2.go();</span><br><span class="line">		for (int i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">			caller1.go();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">other operation</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td></tr></table></figure>
+<p>就程序代码而言，Callee1无疑是较简单的方法，Callee2继承自MyIncrement,后者拥有另一个不同的increment(),这个函数会执行一些动作，而这些动作和Incrementable interface预期应该要做的事毫无关联。当MyIncrement被Callee2继承，你无法重写increment（）以为Incrementable所用。所以你得利用inner class另行提供一份独立的实现码。请注意，当你撰写inner class时，你并不会将任何东西加入outer class的接口，或修改该接口。<br>inner class很单纯地藉由“实现Incrementable”来提供与Callee2之间的关联。这个关联很安全。<br>Caller于其构造函数中接受Incrementable reference作为引数，而且在某段时间之后，它会使用这个reference来“回头调用”Callee class。<br>callback的价值在于其弹性–你可以在执行时期动态决定究竟调用哪个函数。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java编程思想读书笔记/">Java编程思想读书笔记</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2015/12/10/8-接口和内隐类/" data-title="8.接口和内隐类 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/12/11/9-持有你的对象/" title="9.持有你的对象">
+  <strong>上一篇：</strong><br/>
+  <span>
+  9.持有你的对象</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/12/09/用FragmentActivity实现点击跳转Fragment效果-未完/"  title="用FragmentActivity实现点击跳转Fragment效果(未完)">
+ <strong>下一篇：</strong><br/> 
+ <span>用FragmentActivity实现点击跳转Fragment效果(未完)
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/12/10/8-接口和内隐类/" data-title="8.接口和内隐类" data-url="http://yoursite.com/2015/12/10/8-接口和内隐类/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zeng Qi,a Android developer. <br/>
+			This is my blog,hope you will enjoy it.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ZengQi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

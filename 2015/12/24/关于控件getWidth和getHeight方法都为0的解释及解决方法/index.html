@@ -1,0 +1,573 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>关于控件getWidth和getHeight方法都为0的解释及解决方法 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="问题描述：
+版主今天下午一直纠结这个问题，为什么有时候用getWidth和getHeight方法得到的控件的宽度和高度为0？
+思路：
+1.在我调用上述两个方法的时候控件并没有绘制，所以不知道宽高度。那么控件什么时候加载呢？我试着通过试验说明之。
+先试验思路一：
+12345678910111213141516171819202122232425262728package com.testwidthh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于控件getWidth和getHeight方法都为0的解释及解决方法">
+<meta property="og:url" content="http://yoursite.com/2015/12/24/关于控件getWidth和getHeight方法都为0的解释及解决方法/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="问题描述：
+版主今天下午一直纠结这个问题，为什么有时候用getWidth和getHeight方法得到的控件的宽度和高度为0？
+思路：
+1.在我调用上述两个方法的时候控件并没有绘制，所以不知道宽高度。那么控件什么时候加载呢？我试着通过试验说明之。
+先试验思路一：
+12345678910111213141516171819202122232425262728package com.testwidthh">
+<meta property="og:updated_time" content="2016-06-01T07:08:23.161Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于控件getWidth和getHeight方法都为0的解释及解决方法">
+<meta name="twitter:description" content="问题描述：
+版主今天下午一直纠结这个问题，为什么有时候用getWidth和getHeight方法得到的控件的宽度和高度为0？
+思路：
+1.在我调用上述两个方法的时候控件并没有绘制，所以不知道宽高度。那么控件什么时候加载呢？我试着通过试验说明之。
+先试验思路一：
+12345678910111213141516171819202122232425262728package com.testwidthh">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/12/24/关于控件getWidth和getHeight方法都为0的解释及解决方法/" title="关于控件getWidth和getHeight方法都为0的解释及解决方法" itemprop="url">关于控件getWidth和getHeight方法都为0的解释及解决方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2015-12-24T07:07:00.000Z" itemprop="datePublished"> Published 2015-12-24</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>问题描述：</p>
+<p>版主今天下午一直纠结这个问题，为什么有时候用getWidth和getHeight方法得到的控件的宽度和高度为0？</p>
+<p>思路：</p>
+<p>1.在我调用上述两个方法的时候控件并没有绘制，所以不知道宽高度。那么控件什么时候加载呢？我试着通过试验说明之。</p>
+<p>先试验思路一：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package com.testwidthheight;</span><br><span class="line"></span><br><span class="line">import android.app.Activity;</span><br><span class="line">import android.support.v7.app.AppCompatActivity;</span><br><span class="line">import android.os.Bundle;</span><br><span class="line">import android.view.View;</span><br><span class="line">import android.widget.EditText;</span><br><span class="line"></span><br><span class="line">public class MainActivity extends Activity &#123;</span><br><span class="line"></span><br><span class="line">    private EditText et1,et2;</span><br><span class="line">    //测试oncreate</span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        et1 = (EditText) findViewById(R.id.et1);</span><br><span class="line">        et2 = (EditText) findViewById(R.id.et2);</span><br><span class="line">        System.out.println(&quot;et1宽：&quot;+et1.getWidth()+&quot;---et1高：&quot;+et1.getHeight());</span><br><span class="line">        System.out.println(&quot;et2宽：&quot;+et2.getWidth()+&quot;---et2高：&quot;+et2.getHeight());</span><br><span class="line">        System.out.println(&quot;执行完毕&quot;+System.currentTimeMillis());</span><br><span class="line">    &#125;</span><br><span class="line">    public void onClick(View view)&#123;</span><br><span class="line">        System.out.println(&quot;按钮被点击&quot;+System.currentTimeMillis());</span><br><span class="line">        System.out.println(&quot;et1宽：&quot;+et1.getWidth()+&quot;---et1高：&quot;+et1.getHeight());</span><br><span class="line">        System.out.println(&quot;et2宽：&quot;+et2.getWidth()+&quot;---et2高：&quot;+et2.getHeight());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>R.layout.activity_main如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">     android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:orientation=&quot;vertical&quot;&gt;</span><br><span class="line">    &lt;EditText</span><br><span class="line">        android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:id=&quot;@+id/et1&quot;/&gt;</span><br><span class="line">    &lt;EditText</span><br><span class="line">        android:layout_width=&quot;50px&quot;</span><br><span class="line">        android:layout_height=&quot;60px&quot;</span><br><span class="line">        android:id=&quot;@+id/et2&quot;/&gt;</span><br><span class="line">    &lt;Button</span><br><span class="line">        android:layout_width=&quot;fill_parent&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:onClick=&quot;onClick&quot;</span><br><span class="line">        android:text=&quot;不通过oncreate&quot;/&gt;</span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，对于et1，我没有指定具体的宽高，对于et2，我指定了具体宽高度。输入结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">12-24 20:03:30.500 8321-8321/com.testwidthheight I/System.out: et1宽：0---et1高：0</span><br><span class="line">12-24 20:03:30.500 8321-8321/com.testwidthheight I/System.out: et2宽：0---et2高：0</span><br><span class="line">12-24 20:03:30.500 8321-8321/com.testwidthheight I/System.out: 执行完毕1450958610509</span><br><span class="line"></span><br><span class="line">//当我点击按钮后</span><br><span class="line">12-24 20:03:34.660 8321-8321/com.testwidthheight I/System.out: 按钮被点击1450958614665</span><br><span class="line">12-24 20:03:34.660 8321-8321/com.testwidthheight I/System.out: et1宽：78---et1高：118</span><br><span class="line">12-24 20:03:34.660 8321-8321/com.testwidthheight I/System.out: et2宽：50---et2高：60</span><br></pre></td></tr></table></figure>
+<p>从这里，可以看出在oncreate方法中并没有能够显示出具体值，当我点击按钮后，理论上并没有额外多余的干扰试验的动作发生，但是却能够显示出宽高度。所以，我有理由相信，在oncreate方法执行时，edittext（可能对于所有控件都是一样）他们并没有真正加载。当oncreate方法执行完后，控件才进行加载，加载完后就有了宽高度。这样，当我点击按钮时就能够得到宽高度了。这样就是所谓的“回调机制”？</p>
+<p>为了验证我的想法：我们自定义一个控件MyImageView：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">package com.testwidthheight;</span><br><span class="line"></span><br><span class="line">import android.content.Context;</span><br><span class="line">import android.graphics.Canvas;</span><br><span class="line">import android.media.Image;</span><br><span class="line">import android.util.AttributeSet;</span><br><span class="line">import android.widget.ImageView;</span><br><span class="line"></span><br><span class="line">import java.sql.Time;</span><br><span class="line">import java.util.Timer;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by Administrator on 2015/12/24.</span><br><span class="line"> */</span><br><span class="line">public class MyImageView extends ImageView&#123;</span><br><span class="line">    public MyImageView(Context context, AttributeSet attrs) &#123;</span><br><span class="line">        super(context, attrs);</span><br><span class="line">        System.out.println(&quot;有attrs构造被调用了&quot; + System.currentTimeMillis());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public MyImageView(Context context) &#123;</span><br><span class="line">        super(context);</span><br><span class="line">        System.out.println(&quot;无attrs构造被调用了&quot; + System.currentTimeMillis());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &#123;</span><br><span class="line">        super.onMeasure(widthMeasureSpec, heightMeasureSpec);</span><br><span class="line">        System.out.println(&quot;onMeasure被调用了&quot;+ System.currentTimeMillis());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onDraw(Canvas canvas) &#123;</span><br><span class="line">        super.onDraw(canvas);</span><br><span class="line">        System.out.println(&quot;onDraw被调用了&quot; + System.currentTimeMillis());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过system.out来判断函数调用的先后。</p>
+<p>主函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package com.testwidthheight;</span><br><span class="line"></span><br><span class="line">import android.app.Activity;</span><br><span class="line">import android.support.v7.app.AppCompatActivity;</span><br><span class="line">import android.os.Bundle;</span><br><span class="line">import android.view.View;</span><br><span class="line">import android.widget.EditText;</span><br><span class="line"></span><br><span class="line">public class MainActivity extends Activity &#123;</span><br><span class="line"></span><br><span class="line">    //测试oncreate</span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        System.out.println(&quot;执行完毕&quot;+System.currentTimeMillis());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">12-24 20:17:24.790 1125-1125/? I/System.out: 有attrs构造被调用了1450959444799</span><br><span class="line">12-24 20:17:24.790 1125-1125/? I/System.out: 执行完毕1450959444799</span><br><span class="line">12-24 20:17:24.810 1125-1125/? I/System.out: onMeasure被调用了1450959444822</span><br><span class="line">12-24 20:17:24.860 1125-1125/? I/System.out: onMeasure被调用了1450959444873</span><br><span class="line">12-24 20:17:24.860 1125-1125/? I/System.out: onDraw被调用了1450959444874</span><br></pre></td></tr></table></figure>
+<p>函数从主函数开始，先执行oncreate方法，在该方法中由于setContentView(R.layout.activity_main);引用了R.layout.activity_main，而R.layout.activity_main中又有我们自定义的MyImageView.所以有attrs的构造函数被调用了。oncreate方法执行完毕以后才执行onMeasure和onDraw。同时注意onMeasure被执行了两次。这就说明了oncreate中定义的控件，你想调用它的真实宽度高度都是错误的。因为在oncreate方法执行中，他们都没有被真正的绘制。所以宽高度永远是0.</p>
+<p>这里插一句关于<strong>回调机制</strong>的通俗理解（知乎获赞过千）：<br>你到一个商店买东西，刚好你要的东西没有货，于是你在店员那里留下了你的电话，过了几天店里有货了，店员就打了你的电话，然后你接到电话后就到店里去取了货。在这个例子里，你的电话号码就叫回调函数，你把电话留给店员就叫登记回调函数，店里后来有货了叫做触发了回调关联的事件，店员给你打电话叫做调用回调函数，你到店里去取货叫做响应回调事件。<br>那么，我们不禁要想，有没有方法在oncreate方法中也能够知道控件的真实宽高度呢？其实是有的，我在网上找了三种方法：</p>
+<p>方法一：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">final ImageView imageView = (ImageView) findViewById(R.id.imageview);  </span><br><span class="line">int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);  </span><br><span class="line">int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);  </span><br><span class="line">imageView.measure(w, h);  </span><br><span class="line">int height =imageView.getMeasuredHeight();  </span><br><span class="line">int width =imageView.getMeasuredWidth();  </span><br><span class="line">textView.append(&quot;\n&quot;+height+&quot;,&quot;+width);</span><br></pre></td></tr></table></figure>
+<p>方法二：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">final ImageView imageView = (ImageView) findViewById(R.id.imageview);  </span><br><span class="line">ViewTreeObserver vto = imageView.getViewTreeObserver();  </span><br><span class="line">        vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() &#123;  </span><br><span class="line">            public boolean onPreDraw() &#123;  </span><br><span class="line">                int height = imageView.getMeasuredHeight();  </span><br><span class="line">                int width = imageView.getMeasuredWidth();  </span><br><span class="line">                textView.append(&quot;\n&quot;+height+&quot;,&quot;+width);  </span><br><span class="line">                return true;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<p>方法三：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">final ImageView imageView = (ImageView) findViewById(R.id.imageview);  </span><br><span class="line">ViewTreeObserver vto2 = imageView.getViewTreeObserver();   </span><br><span class="line">    vto2.addOnGlobalLayoutListener(new OnGlobalLayoutListener() &#123;  </span><br><span class="line">        @Override   </span><br><span class="line">        public void onGlobalLayout() &#123;  </span><br><span class="line">            imageView.getViewTreeObserver().removeGlobalOnLayoutListener(this);   </span><br><span class="line">            textView.append(&quot;\n\n&quot;+imageView.getHeight()+&quot;,&quot;+imageView.getWidth());  </span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<p>我们分别调用这几个函数得到不同的输出：<br>方法一：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">12-24 20:53:34.760 32119-32119/? I/System.out: 有attrs构造被调用了1450961614773</span><br><span class="line">12-24 20:53:34.770 32119-32119/? I/System.out: onMeasure被调用了1450961614780</span><br><span class="line">12-24 20:53:34.770 32119-32119/? I/System.out: 执行完毕1450961614781</span><br><span class="line">12-24 20:53:34.780 32119-32119/? I/System.out: onMeasure被调用了1450961614789</span><br><span class="line">12-24 20:53:34.820 32119-32119/? I/System.out: onMeasure被调用了1450961614830</span><br><span class="line">12-24 20:53:34.820 32119-32119/? I/System.out: onDraw被调用了1450961614832</span><br></pre></td></tr></table></figure>
+<p>方法二：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">12-24 20:55:16.140 2119-2119/com.testwidthheight I/System.out: 有attrs构造被调用了1450961716152</span><br><span class="line">12-24 20:55:16.160 2119-2119/com.testwidthheight I/System.out: 执行完毕1450961716171</span><br><span class="line">12-24 20:55:16.170 2119-2119/com.testwidthheight I/System.out: onMeasure被调用了1450961716185</span><br><span class="line">12-24 20:55:16.210 2119-2119/com.testwidthheight I/System.out: onMeasure被调用了1450961716225</span><br><span class="line">12-24 20:55:16.220 2119-2119/com.testwidthheight I/System.out: onDraw被调用了1450961716233</span><br></pre></td></tr></table></figure>
+<p>方法三：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">12-24 20:58:34.460 6048-6048/? I/System.out: 有attrs构造被调用了1450961914467</span><br><span class="line">12-24 20:58:34.460 6048-6048/? I/System.out: 执行完毕1450961914475</span><br><span class="line">12-24 20:58:34.490 6048-6048/? I/System.out: onMeasure被调用了1450961914501</span><br><span class="line">12-24 20:58:34.530 6048-6048/? I/System.out: onMeasure被调用了1450961914543</span><br><span class="line">12-24 20:58:34.540 6048-6048/? I/System.out: onDraw被调用了1450961914551</span><br></pre></td></tr></table></figure>
+<p><strong>总结：</strong></p>
+<p>对于输出来说，第二种方法无论是getMeasuredHeight还是getHeight结果都相同，但对于本例来说，这两者显然是不相同的，其结果不准确，应该排除！并且其输出很多，几乎是死循环，改为false后也不能改善。</p>
+<p>对于求getMeasuredHeight推荐用第一种方法，对于求getHeight推荐用第三种方法。当然如果可以在oncreate方法外求宽高度的话，那么肯定推荐使用在oncreate方法外调用getHeight，这是最保险的方法。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2015/12/24/关于控件getWidth和getHeight方法都为0的解释及解决方法/" data-title="关于控件getWidth和getHeight方法都为0的解释及解决方法 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/12/31/高效看源代码网络汇总/" title="高效看源代码网络汇总">
+  <strong>上一篇：</strong><br/>
+  <span>
+  高效看源代码网络汇总</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/12/11/9-持有你的对象/"  title="9.持有你的对象">
+ <strong>下一篇：</strong><br/> 
+ <span>9.持有你的对象
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/12/24/关于控件getWidth和getHeight方法都为0的解释及解决方法/" data-title="关于控件getWidth和getHeight方法都为0的解释及解决方法" data-url="http://yoursite.com/2015/12/24/关于控件getWidth和getHeight方法都为0的解释及解决方法/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Zeng Qi,a Android developer. <br/>
+			This is my blog,hope you will enjoy it.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ZengQi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
