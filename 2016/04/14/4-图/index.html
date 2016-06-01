@@ -1,0 +1,632 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>4.图 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="关于图的现实应用：
+软件开发：编译器会使用图来表示大型软件系统中各个模块之间的关系。图中的结点即构成整个系统的各个类和模块，连接则为类的方法之间的可能调用关系（静态分析），或是系统运行时实际调用关系（动态分析）。
+我们将学习四种图：1.无向图（简单连接）2.有向图（连接有方向）3.加权图（连接带有权值）4.加权有向图（连接既有方向性又带有权值）
+4.1无向图特殊的图（两种特殊情况）：1.自环，即一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.图">
+<meta property="og:url" content="http://yoursite.com/2016/04/14/4-图/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="关于图的现实应用：
+软件开发：编译器会使用图来表示大型软件系统中各个模块之间的关系。图中的结点即构成整个系统的各个类和模块，连接则为类的方法之间的可能调用关系（静态分析），或是系统运行时实际调用关系（动态分析）。
+我们将学习四种图：1.无向图（简单连接）2.有向图（连接有方向）3.加权图（连接带有权值）4.加权有向图（连接既有方向性又带有权值）
+4.1无向图特殊的图（两种特殊情况）：1.自环，即一">
+<meta property="og:image" content="http://img.blog.csdn.net/20160416105208179">
+<meta property="og:image" content="http://img.blog.csdn.net/20160416151824650">
+<meta property="og:updated_time" content="2016-06-01T08:15:39.977Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4.图">
+<meta name="twitter:description" content="关于图的现实应用：
+软件开发：编译器会使用图来表示大型软件系统中各个模块之间的关系。图中的结点即构成整个系统的各个类和模块，连接则为类的方法之间的可能调用关系（静态分析），或是系统运行时实际调用关系（动态分析）。
+我们将学习四种图：1.无向图（简单连接）2.有向图（连接有方向）3.加权图（连接带有权值）4.加权有向图（连接既有方向性又带有权值）
+4.1无向图特殊的图（两种特殊情况）：1.自环，即一">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160416105208179">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/14/4-图/" title="4.图" itemprop="url">4.图</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-14T08:14:17.000Z" itemprop="datePublished"> Published 2016-04-14</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1无向图"><span class="toc-number">1.</span> <span class="toc-text">4.1无向图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2有向图"><span class="toc-number">2.</span> <span class="toc-text">4.2有向图</span></a></li></ol>
+		
+		</div>
+		
+		<p>关于图的现实应用：</p>
+<p>软件开发：编译器会使用图来表示大型软件系统中各个模块之间的关系。图中的结点即构成整个系统的各个类和模块，连接则为类的方法之间的可能调用关系（静态分析），或是系统运行时实际调用关系（动态分析）。</p>
+<p>我们将学习四种图：<br>1.无向图（简单连接）<br>2.有向图（连接有方向）<br>3.加权图（连接带有权值）<br>4.加权有向图（连接既有方向性又带有权值）</p>
+<h2 id="4-1无向图"><a href="#4-1无向图" class="headerlink" title="4.1无向图"></a>4.1无向图</h2><p>特殊的图（两种特殊情况）：<br>1.<strong>自环</strong>，即一条连接一个顶点和其自身的边<br>2.连接同一对顶点的两条边称为<strong>平行边</strong><br>将含有平行边的图称为<strong>多重图</strong>，将没有平行边或自环的图称为<strong>简单图</strong>。</p>
+<p>某个顶点的<strong>度数</strong>即为依附于它的边的总数。<br>路径或者环的长度为其中所包含的边数。</p>
+<p>定义：如果从任意一个顶点都存在一条路径到达另一个任意顶点，我们称这幅图为<strong>连通图</strong>。</p>
+<p>图与树之间的关系：<br>当且仅当一幅含有V个结点的图G满足<strong>下列5个条件之一</strong>时，他就是一棵树：<br>1.G有V-1条边且不含有环<br>2.G有V-1条边且是连通的<br>3.G是连通的，但删除任意一条边都会使他不再连通<br>4.G是无环图，但增加任意一条边都会产生一条环<br>5.G中的任意一对顶点之间仅存在一条简单路径</p>
+<p><strong>图的密度</strong>：已经连接的顶点对占所有可能被连接的顶点对的比例。</p>
+<p><strong>二分图</strong>：一种能够将所有结点分成两部分的图，其中图的<strong>每条边</strong>所连接的两个顶点都分别属于不同的部分。</p>
+<p>无向图的API：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//创建一个含有v个顶点但不含边的图</span><br><span class="line">	Graph(int v);</span><br><span class="line">	//顶点数</span><br><span class="line">	int V();</span><br><span class="line">	//边数</span><br><span class="line">	int E();</span><br><span class="line">	//向图中添加一条边v-w</span><br><span class="line">	void addEdge(int v,int w);</span><br><span class="line">	//和v相邻的所有顶点</span><br><span class="line">	Iterable&lt;Integer&gt; adj(int v);</span><br></pre></td></tr></table></figure>
+<p>我们研究算法或一个数据结构时，总是先想其所应该提供的API，由低级的API构成高级的API，低级API直接和具体的实现方式关联。注意计算机领域抽象的思想。</p>
+<p>图的几种表示方法：<br>用哪种方式（数据结构）来实现图并实现其API。要求：<br>1.它必须为可能在应用中碰到的各种类型的图预留出足够的空间<br>2.Graph的实例方法的实现必须要快–他们是开发处理图的各种用例的基础</p>
+<p>几种备选：<br>1.邻接矩阵，用V<em>V的布尔矩阵表示。不满足第一条件–V</em>V个布尔值所需空间太大<br>2.边的数组，可以使用一个Edge类，它含有两个int实例变量。表示方法简洁但是不满足第二条件–要实现adj（）需要检查图中的所有边（这种表示方法是站在<strong>边</strong>的角度上）<br>3.<strong>邻接表数组</strong>。我们使用一个以顶点为索引的列表数组，其中的每个元素都是和该顶点相邻的顶点列表。</p>
+<p>这种Graph的实现的性能有如下性能：<br>1.使用的空间和V+E成正比。<br>2.添加一条边所需的时间为常数<br>3.遍历顶点V的所有相邻顶点所需时间和V的度数成正比（处理每个相邻顶点所需的时间为常数）</p>
+<p>Graph数据类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">public class Graph&#123;</span><br><span class="line">	private final int V;//顶点数目</span><br><span class="line">	private int E;//边的数目</span><br><span class="line">	private Bag&lt;Integer&gt;[] adj;//邻接表</span><br><span class="line">	</span><br><span class="line">	public Graph(int V)&#123;</span><br><span class="line">		this.V = V;</span><br><span class="line">		this.E = 0;</span><br><span class="line">		adj = (Bag&lt;Integer&gt;[]) new Bag[V];//创建邻接表</span><br><span class="line">		for(int v = 0;v&lt;V;v++)&#123;</span><br><span class="line">			adj[v] = new Bag&lt;Integer&gt;();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public int V()&#123;return V;&#125;</span><br><span class="line">	public int E()&#123;return E;&#125;</span><br><span class="line">	public void addEdge(int v,int w)&#123;</span><br><span class="line">		adj[v].add(w);</span><br><span class="line">		adj[w].add(v);</span><br><span class="line">		E++;</span><br><span class="line">	&#125;</span><br><span class="line">	public Iterable&lt;Integer&gt; adj(int v)&#123; return adj[v];&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class Bag&lt;Item&gt; implements Iterable&lt;Item&gt; &#123;</span><br><span class="line">	//链表实现Bag</span><br><span class="line">	private Node first;//链表首结点</span><br><span class="line">	private class Node&#123;</span><br><span class="line">		Item item;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">	//和stack的push方法完全相同，在头部添加</span><br><span class="line">	public void add(Item item)&#123;</span><br><span class="line">		Node oldFirst = first;</span><br><span class="line">		first = new Node();</span><br><span class="line">		first.item = item;</span><br><span class="line">		first.next = oldFirst;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public Iterator&lt;Item&gt; iterator() &#123;</span><br><span class="line">		return new ListIterator();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	private class ListIterator implements Iterator&lt;Item&gt;&#123;</span><br><span class="line">		private Node current = first;</span><br><span class="line"></span><br><span class="line">		@Override</span><br><span class="line">		public boolean hasNext() &#123;</span><br><span class="line">			return current!=null;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		@Override</span><br><span class="line">		public Item next() &#123;</span><br><span class="line">			Item item = current.item;</span><br><span class="line">			current = current.next;</span><br><span class="line">			return item;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实际应用中可能还需要：<br>1.添加一个顶点<br>2.删除一个顶点<br>3.删除一条边<br>4.检查图中是否含有边v-w。<br>要实现这些方法（不允许存在平行边），我们可能需要<strong>用SET代替Bag</strong>来实现邻接表。我们称这种方法为<strong>邻接集</strong>。</p>
+<p><strong>深度优先搜索</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class DepthFirstSearch&#123;</span><br><span class="line">	private boolean[] marked;</span><br><span class="line">	private int count;</span><br><span class="line">	public DepthFirstSearch(Graph G,int s)&#123;//找到和起点s连通的所有顶点</span><br><span class="line">		marked = new boolean[G.V()];</span><br><span class="line">		dfs(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	private void dfs(Graph G,int w)&#123;</span><br><span class="line">		marked[w] = true;</span><br><span class="line">		count++;</span><br><span class="line">		for (int v:G.adj(w)) &#123;</span><br><span class="line">			if(!marked[v]) dfs(G,v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public boolean marked(int v)&#123;//v和s是连通的吗？</span><br><span class="line">		return marked[v];</span><br><span class="line">	&#125;</span><br><span class="line">	public int count()&#123;//与s连通的顶点总数</span><br><span class="line">		return count;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//上述算法在构造函数中处理一切运算，所以用例调用提供的对外方法能够返回最终结果</span><br></pre></td></tr></table></figure>
+<p>算法思想：<br>要搜索一幅图，只需用一个递归方法来遍历所有顶点。在访问其中一个顶点时：<br>1.将它标记为已访问<br>2.递归地访问它的所有没有被标记过的邻居顶点</p>
+<p>命题A：深度优先搜索标记与顶点连通的所有顶点所需的时间<strong>与顶点的度数之和成正比</strong>。</p>
+<p>算法遍历边和访问顶点的顺序与图的表示有关，而不只是与图的结构或是算法有关。深度优先搜索中每条边都会被访问两次，这意味着深度优先搜索的轨迹可能比想象长一倍。图中仅含有8条边，但需要追踪算法在邻接表的16个元素上的操作。</p>
+<p>寻找路径：<br>API：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Paths&#123;</span><br><span class="line">	Paths(Graph G,int s);//在G中找出所有起点为s的路径</span><br><span class="line">	boolean hasPathTo(int v);//是否存在从s到v的路径</span><br><span class="line">	Iterable&lt;Integer&gt; pathTo(int v);//s到v的路径，如果不存在返回null</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用深度优先搜索图中的路径：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">class DepthFirstPaths&#123;</span><br><span class="line">	private boolean[] marked;</span><br><span class="line">	private int[] edgeTo;//该数组记录与索引该点相连的上一个顶点</span><br><span class="line">	private int s;</span><br><span class="line">	</span><br><span class="line">	public DepthFirstPaths(Graph G,int s)&#123;</span><br><span class="line">		marked = new boolean[G.V()];</span><br><span class="line">		edgeTo = new int[G.V()];</span><br><span class="line">		this.s = s;</span><br><span class="line">		dfs(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	private void dfs(Graph G,int w)&#123;</span><br><span class="line">		marked[w] = true;</span><br><span class="line">		for (int v:G.adj(w)) &#123;</span><br><span class="line">			if(!marked[v])&#123;</span><br><span class="line">				edgeTo[v] = w;//使用数组记录，v索引上记录上一点w</span><br><span class="line">				dfs(G,v);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public boolean hasPathTo(int v)&#123;</span><br><span class="line">		return marked[v];</span><br><span class="line">	&#125;</span><br><span class="line">	public Iterable&lt;Integer&gt; pathTo(int v)&#123;</span><br><span class="line">		if(!hasPathTo(v)) return null;</span><br><span class="line">		Stack&lt;Integer&gt; path = new Stack&lt;&gt;();</span><br><span class="line">		for (int i = v; i !=s; i = edgeTo[i]) &#123;//不断回溯</span><br><span class="line">			path.push(i);</span><br><span class="line">		&#125;</span><br><span class="line">		path.push(s);</span><br><span class="line">		return path;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>算法思想：pathTo方法用变量i遍历整棵树，将i设为edgeTo[i]，然后在到达s之前，将遇到的所有顶点都压入栈中。将这个栈返回一个Iterable对象帮助用例遍历s到v的路径。<br>这个路径就是一条路径，可能从s到v有多条路径，但这种方法只会返回一条。这条路径是根据数据结构的顺序和DFS算法决定的。</p>
+<p><strong>广度优先搜索</strong>：<br>在广度优先搜索中，我们希望按照<strong>与起点的距离的顺序</strong>来遍历所有顶点。实现：使用（FIFO，先进先出）队列来代替栈（LIFO,后进先出）。因为深度优先是递归调用，所以其内部的执行顺序为栈。</p>
+<p>算法思想：<br>先将起点加入队列，然后重复以下步骤直到队列为空：<br>1.取队列中的下一个顶点v并标记它<br>2.将与v相邻的所有未被标记过的顶点加入队列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">class Queue&lt;Item&gt; implements Iterable&lt;Item&gt;&#123;</span><br><span class="line">	private Node first;</span><br><span class="line">	private Node last;</span><br><span class="line">	private int N;</span><br><span class="line">	private class Node&#123;</span><br><span class="line">		Item item;</span><br><span class="line">		Node next;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public boolean isEmpty()&#123;</span><br><span class="line">		return N==0;</span><br><span class="line">&#125;</span><br><span class="line">	public int size()&#123;</span><br><span class="line">		return N;</span><br><span class="line">	&#125;</span><br><span class="line">	public void enqueue(Item item)&#123;</span><br><span class="line">		//向表尾添加数据</span><br><span class="line">		Node oldLast = last;</span><br><span class="line">		last = new Node();</span><br><span class="line">		last.item = item;</span><br><span class="line">		last.next = null;</span><br><span class="line">		if(isEmpty()) first = last;//首尾是同一个</span><br><span class="line">		else oldLast.next = last;</span><br><span class="line">		N++;</span><br><span class="line">	&#125;</span><br><span class="line">	public Item dequeue()&#123;</span><br><span class="line">		//从表头删除元素</span><br><span class="line">		Item item = first.item;</span><br><span class="line">		first = first.next;</span><br><span class="line">		if(isEmpty()) last = null;</span><br><span class="line">		else</span><br><span class="line">		N--;</span><br><span class="line">		return item;</span><br><span class="line">	&#125;</span><br><span class="line">	@Override</span><br><span class="line">	public Iterator&lt;Item&gt; iterator() &#123;</span><br><span class="line">		// TODO Auto-generated method stub</span><br><span class="line">		return new ListIterator();</span><br><span class="line">	&#125;</span><br><span class="line">	private class ListIterator implements Iterator&lt;Item&gt;&#123;</span><br><span class="line">		private Node current = first;</span><br><span class="line">		@Override</span><br><span class="line">		public boolean hasNext() &#123;</span><br><span class="line">			return current!=null;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		@Override</span><br><span class="line">		public Item next() &#123;</span><br><span class="line">			Item item = current.item;</span><br><span class="line">			current = current.next;</span><br><span class="line">			return item;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class BreadthFirstPaths&#123;</span><br><span class="line">	private boolean[] marked;</span><br><span class="line">	private int[] edgeTo;//该数组记录与索引该点相连的上一个顶点</span><br><span class="line">	private int s;</span><br><span class="line">	</span><br><span class="line">	public BreadthFirstPaths(Graph G,int s)&#123;</span><br><span class="line">		marked = new boolean[G.V()];</span><br><span class="line">		edgeTo = new int[G.V()];</span><br><span class="line">		this.s = s;</span><br><span class="line">		bfs(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	private void bfs(Graph G,int s)&#123;</span><br><span class="line">		Queue&lt;Integer&gt; queue = new Queue&lt;&gt;();</span><br><span class="line">		marked[s] = true;</span><br><span class="line">		queue.enqueue(s);//将顶点加入队列</span><br><span class="line">		while(!queue.isEmpty())&#123;</span><br><span class="line">			int v = queue.dequeue();//从队列中删除下一个顶点</span><br><span class="line">			for(int w:G.adj(v))&#123;</span><br><span class="line">				if(!marked[w])&#123;//对于每个未被标记的顶点</span><br><span class="line">					edgeTo[w] = v;</span><br><span class="line">					marked[w] = true;</span><br><span class="line">					queue.enqueue(w);//加入队列</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	public boolean hasPathTo(int v)&#123;</span><br><span class="line">		return marked[v];</span><br><span class="line">	&#125;</span><br><span class="line">	public Iterable&lt;Integer&gt; pathTo(int v)&#123;</span><br><span class="line">		if(!hasPathTo(v)) return null;</span><br><span class="line">		Stack&lt;Integer&gt; path = new Stack&lt;&gt;();</span><br><span class="line">		for (int i = v; i !=s; i = edgeTo[i]) &#123;//不断回溯</span><br><span class="line">			path.push(i);</span><br><span class="line">		&#125;</span><br><span class="line">		path.push(s);</span><br><span class="line">		return path;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用广度优先搜索，以找出图中从构造函数得到的起点s到其他所有顶点的<strong>最短路径</strong>。bfs方法会标记所有与s连通的顶点，因此用例可以调用hasPathTo来判定一个顶点与s是否连通并使用pathTo得到一条从s到v的路径，确保没有其他从s到v的路径所含的边比这条路径更少。</p>
+<p>命题B：对于s可达的任意顶点v，广度优先搜索都能找到一条从s到v的最短路径。</p>
+<p>深度和广度的特点：<br>相同：<br>在搜索中都会先将起点存入数据结构，然后重复以下步骤直到数据结构被清空：<br>1.取其中的下一个顶点并标记它<br>2.将v的所有相邻而未被标记的顶点加入数据结构</p>
+<p>不同：<br>从数据结构中获取下一个顶点的规则（广度为最早加入的顶点，深度为最晚加入的顶点）</p>
+<p><strong>连通分量</strong>：<br>连通分量的API：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class CC&#123;</span><br><span class="line">	CC(Graph G);//预处理构造函数</span><br><span class="line">	boolean connected(int v,int w);//v和w连通吗</span><br><span class="line">	int count();//连通分量数</span><br><span class="line">	int id(int v);//v所在的连通分量的标识（0到count-1）</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">class CC&#123;</span><br><span class="line">	private boolean[] marked;</span><br><span class="line">	private int [] id;</span><br><span class="line">	private int count;</span><br><span class="line">	</span><br><span class="line">	public CC(Graph G)&#123;</span><br><span class="line">		marked = new boolean[G.V()];</span><br><span class="line">		id = new int[G.V()];</span><br><span class="line">		for (int s = 0; s &lt; G.V(); s++) &#123;</span><br><span class="line">			if(!marked[s])&#123;</span><br><span class="line">				dfs(G,s);</span><br><span class="line">				count++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	private void dfs(Graph G,int w)&#123;</span><br><span class="line">		marked[w] = true;</span><br><span class="line">		id[w] = count;</span><br><span class="line">		for (int v:G.adj(w)) &#123;</span><br><span class="line">			if(!marked[v])&#123;</span><br><span class="line">				dfs(G,v);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public boolean connected(int v,int w)&#123;</span><br><span class="line">		return id[v]==id[w];</span><br><span class="line">	&#125;</span><br><span class="line">	public int id(int v)&#123;</span><br><span class="line">		return id[v];</span><br><span class="line">	&#125;</span><br><span class="line">	public int count()&#123;</span><br><span class="line">		return count;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>命题C：深度优先搜索的预处理使用的时间和空间与V+E成正比且可以在常数时间内处理关于图的连通性查询。</p>
+<p>union-find算法：<br>union-find算法是一种动态算法（我们在任何时候都能用接近常数的时间检查两个顶点是否连通，甚至是在添加一条边的时候），但深度优先搜索则必须要对图进行预处理。因此，我们在完成只需要判断连通性或是需要完成有大量连通性查询和插入操作混合等类似的任务时，更倾向使用union-find算法，而深度优先搜索更适合实现图的抽象数据类型，因为它能更有效地利用已有的数据结构。</p>
+<p>怎样检验无向图G<strong>是否为无环图</strong>？</p>
+<p>stackoverflow上的答案：</p>
+<p>1.<br>The graph has a cycle if and only if there exists a back edge. A back edge is an edge that is from a node to itself (selfloop) or one of its ancestor in the tree produced by DFS forming a cycle.</p>
+<p>Both approaches above actually mean the same. However, this method can be applied only to undirected graphs.</p>
+<p>The reason why this algorithm doesn’t work for directed graphs is that in a directed graph 2 different paths to the same vertex don’t make a cycle. For example: A–&gt;B, B–&gt;C, A–&gt;C - don’t make a cycle whereas in undirected ones: A–B, B–C, C–A does.</p>
+<p>Find a cycle in undirected graphs</p>
+<p>An undirected graph has a cycle if and only if a depth-first search (DFS) finds an edge that points to an already-visited vertex (a back edge).</p>
+<p>Find a cycle in directed graphs</p>
+<p>In addition to visited vertices we need to keep track of vertices currently in recursion stack of function for DFS traversal. If we reach a vertex that is already in the recursion stack, then there is a cycle in the tree.</p>
+<p>2.<br><strong>For every visited vertex ‘v’, if there is an adjacent ‘u’ such that u is already visited and u is not parent of v, then there is a cycle in graph. If we don’t find such an adjacent for any vertex, we say that there is no cycle. The assumption of this approach is that there are no parallel edges between any two vertices.</strong></p>
+<p>算法实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class Cycle&#123;</span><br><span class="line">	private boolean[] marked;</span><br><span class="line">	private boolean hasCycle;</span><br><span class="line">	public Cycle(Graph G)&#123;</span><br><span class="line">		marked = new boolean[G.V()];</span><br><span class="line">		for (int i = 0; i &lt; G.V(); i++) &#123;</span><br><span class="line">			if(!marked[i])&#123;</span><br><span class="line">				dfs(G,i,i);//记录当前结点的父结点</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	//如果当前结点的下一个已经visited的结点不是自己的父结点，那么就存在环</span><br><span class="line">	private void dfs(Graph G,int v,int parent)&#123;</span><br><span class="line">		marked[v] = true;</span><br><span class="line">		for(int w:G.adj(v))&#123;</span><br><span class="line">			if(!marked[w])&#123;</span><br><span class="line">				dfs(G,w,v);</span><br><span class="line">			&#125;else if(w!=parent)&#123;</span><br><span class="line">				hasCycle = true;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public boolean hasCycle()&#123;</span><br><span class="line">		return hasCycle;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>判断无向图G是否为二分图（双色问题）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class TwoColor&#123;</span><br><span class="line">	private boolean[] marked;</span><br><span class="line">	private boolean[] color;</span><br><span class="line">	private boolean isTwoColor=true;</span><br><span class="line">	public TwoColor(Graph G)&#123;</span><br><span class="line">		marked = new boolean[G.V()];</span><br><span class="line">		color = new boolean[G.V()];</span><br><span class="line">		for (int i = 0; i &lt; G.V(); i++) &#123;</span><br><span class="line">			if(!marked[i])&#123;</span><br><span class="line">				dfs(G,i);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	private void dfs(Graph G,int v)&#123;</span><br><span class="line">		marked[v] = true;</span><br><span class="line">		for(int w:G.adj(v))&#123;</span><br><span class="line">			if(!marked[w])&#123;</span><br><span class="line">				color[w] = !color[v];</span><br><span class="line">				dfs(G,w);</span><br><span class="line">			&#125;else if(color[w]== color[v])&#123;</span><br><span class="line">				isTwoColor = false;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public boolean isTwoColor()&#123;</span><br><span class="line">		return isTwoColor;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20160416105208179" alt=""></p>
+<h2 id="4-2有向图"><a href="#4-2有向图" class="headerlink" title="4.2有向图"></a>4.2有向图</h2><p>定义：由<strong>一组顶点</strong>和<strong>一组有方向的边</strong>组成，每条有方向的边都连接着有序的一对顶点。一个顶点的<strong>出度</strong>为由该顶点指出的边的总数，一个顶点的<strong>入度</strong>为指向该顶点的边的总数。</p>
+<p>有向图还是使用<strong>邻接表</strong>表示，比无向图还简单。</p>
+<p>Digraph数据类型与Graph类型基本相同，只是addEdge只调用了一个add，它还有一个reverse方法来返回图的反向图：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public Digraph reverse()&#123;</span><br><span class="line">		Digraph R = new Digraph(V);</span><br><span class="line">		for (int v = 0; v &lt; V; v++) &#123;</span><br><span class="line">			for(int w:adj(v))&#123;</span><br><span class="line">				R.addEdge(w,v);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return R;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>单点可达性：<strong>给定一幅图和一个起点s</strong>，是否存在一条从s到达给定顶点v的有向路径。<br>多点可达性：<strong>给定一幅图和顶点的集合</strong>，是否存在一条<strong>从集合中的任意顶点</strong>到达给定顶点v的有向路径。</p>
+<p>多点可达性的一个重要的实际应用：在典型的内存管理系统中，包括很多java的实现。</p>
+<p>有向图的算法和数据结构跟无向图都差不多。</p>
+<p>有向环：<br>调度问题，拓扑排序。<br>有向图中的环，如果一个有优先级限制的问题中存在有向环，那么这个问题肯定是无解的。</p>
+<p><strong>有向环的检测</strong>：<br>基于深度优先搜索：<br>一旦我们找到了一条有向边v–&gt;w且w已经存在于栈中，那么就找到了一个环。因为栈表示的是一条由w到v的有向路径，而v–&gt;w正好补全这个环。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//寻找有向环</span><br><span class="line">class DirectedCycle&#123;</span><br><span class="line">	private boolean[] marked;</span><br><span class="line">	private int[] edgeTo;</span><br><span class="line">	private boolean[] onStack;//递归调用的栈上的所有顶点</span><br><span class="line">	private Stack&lt;Integer&gt; cycle;//有向环中的所有顶点（如果存在）</span><br><span class="line">	public DirectedCycle(Graph G)&#123;</span><br><span class="line">		marked = new boolean[G.V()];</span><br><span class="line">		onStack = new boolean[G.V()];</span><br><span class="line">		edgeTo = new int[G.V()];</span><br><span class="line">		for (int i = 0; i &lt; G.V(); i++) &#123;</span><br><span class="line">			if(!marked[i])&#123;</span><br><span class="line">				dfs(G,i);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	private void dfs(Graph G,int v)&#123;</span><br><span class="line">		marked[v] = true;</span><br><span class="line">		onStack[v] = true;</span><br><span class="line">		if(this.hasCycle())&#123;</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		for(int w:G.adj(v))&#123;</span><br><span class="line">			if(!marked[w])&#123;</span><br><span class="line">				edgeTo[w] = v;</span><br><span class="line">				dfs(G,w);</span><br><span class="line">			&#125;else if(onStack[w])&#123;</span><br><span class="line">				cycle = new Stack&lt;&gt;();</span><br><span class="line">				for (int i = v; i !=w; i = edgeTo[i]) &#123;</span><br><span class="line">					cycle.push(i);</span><br><span class="line">				&#125;</span><br><span class="line">				cycle.push(w);</span><br><span class="line">				cycle.push(v);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		onStack[v] = false;</span><br><span class="line">	&#125;</span><br><span class="line">	public boolean hasCycle()&#123;</span><br><span class="line">		return cycle!=null;</span><br><span class="line">	&#125;</span><br><span class="line">	public Iterable&lt;Integer&gt; cycle()&#123;</span><br><span class="line">		return cycle;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>命题F：当且仅当一幅图是无环图时它才能进行拓扑排序。</p>
+<p>三种排列顺序：<br>1.前序：在递归调用之前将顶点加入队列<br>2.后序：在递归调用之后将顶点加入队列<br>3.逆后序：在递归调用之后将顶点压入栈</p>
+<p>命题F：一副有向无环图的拓扑顺序即为所有顶点的逆后序排列。</p>
+<p><strong>有向环的检测是排序的前提</strong>。解决任务调度类应用通常需要三步：<br>1.指明任务和优先级条件<br>2.不断检测并去除有向图中的所有环，以确保存在可行方案<br>3.使用拓扑排序解决调度问题</p>
+<p><strong>有向图中的强连通性</strong>：<br>定义：如果两个顶点v和w是<strong>互相可达</strong>的，则称他们为强连通的。如果一副有向图中的任意两个顶点都是强连通的，则称<strong>这幅有向图也是强连通的</strong>。</p>
+<p><strong>两个顶点是强连通的当且仅当他们都在一个普通的有向环中</strong>。</p>
+<p>作为一种等价关系，强连通性将所有顶点分成了一些等价类，每个等价类都是由相互均为强连通的顶点的最大子集组成的。</p>
+<p>一个强连通图只含有一个强连通分量，而一个有向无环图中则含有V个强连通分量。</p>
+<p>计算强连通分量的Kosaraju算法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">//基于深度优先搜索的顶点排序</span><br><span class="line">public class DepthFirstOrder&#123;</span><br><span class="line">	private boolean[] marked;</span><br><span class="line">	private Queue&lt;Integer&gt; pre;//前序排列</span><br><span class="line">	private Queue&lt;Integer&gt; post;//后序排列</span><br><span class="line">	private Stack&lt;Integer&gt; reversePost;//逆后序排列</span><br><span class="line">	public DepthFirstOrder(Digraph G)&#123;</span><br><span class="line">		pre = new Queue&lt;Integer&gt;();</span><br><span class="line">		post = new Queue&lt;Integer&gt;();</span><br><span class="line">		reversePost = new Stack&lt;Integer&gt;();</span><br><span class="line">		marked = new boolean[G.V()];</span><br><span class="line">		for (int i = 0; i &lt; G.V(); i++) &#123;</span><br><span class="line">			if(!marked[i])&#123;</span><br><span class="line">				dfs(G,i);</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">	private void dfs(Graph G,int v)&#123;</span><br><span class="line">		pre.enqueue(v);</span><br><span class="line">		marked[v] = true;</span><br><span class="line">		for(int w:G.adj(v))&#123;</span><br><span class="line">			if(!marked[w])&#123;</span><br><span class="line">				dfs(G,w);</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line">		post.enqueue(v);</span><br><span class="line">		reversePost.push(v);</span><br><span class="line">&#125;</span><br><span class="line">	public Iterable&lt;Integer&gt; pre()&#123;</span><br><span class="line">		return pre;</span><br><span class="line">	&#125;</span><br><span class="line">	public Iterable&lt;Integer&gt; post()&#123;</span><br><span class="line">		return post;</span><br><span class="line">	&#125;</span><br><span class="line">	public Iterable&lt;Integer&gt; reversePost()&#123;</span><br><span class="line">		return reversePost;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class KosarajuSCC&#123;</span><br><span class="line">	private boolean[] marked;//已经访问过的顶点</span><br><span class="line">	private int [] id;//强连通分量标识</span><br><span class="line">	private int count;//强连通分量的数量</span><br><span class="line">	</span><br><span class="line">	public KosarajuSCC(Graph G)&#123;</span><br><span class="line">		marked = new boolean[G.V()];</span><br><span class="line">		id = new int[G.V()];</span><br><span class="line">		DepthFirstOrder order = new DepthFirstOrder(G.reverse());</span><br><span class="line">		for (int s:order.reversePost()) &#123;</span><br><span class="line">			if(!marked[s])&#123;</span><br><span class="line">				dfs(G,s);</span><br><span class="line">				count++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	private void dfs(Graph G,int w)&#123;</span><br><span class="line">		marked[w] = true;</span><br><span class="line">		id[w] = count;</span><br><span class="line">		for (int v:G.adj(w)) &#123;</span><br><span class="line">			if(!marked[v])&#123;</span><br><span class="line">				dfs(G,v);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public boolean stronglyConnected(int v,int w)&#123;</span><br><span class="line">		return id[v]==id[w];</span><br><span class="line">	&#125;</span><br><span class="line">	public int id(int v)&#123;</span><br><span class="line">		return id[v];</span><br><span class="line">	&#125;</span><br><span class="line">	public int count()&#123;</span><br><span class="line">		return count;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了找到所有强连通分量，它会在反向图中进行深度优先搜索来将顶点排序（搜索顺序的逆后序），在给定有向图中用这个顺序再进行一次深度优先搜索。</p>
+<p>命题H：使用深度优先搜索查找给定有向图G的反向图Gr，根据由此得到的所有顶点的逆后序再次用深度优先搜索处理有向图G（kosaraju算法），其构造函数中的每一次递归调用所标记的顶点都在同一个强连通分量之中。</p>
+<p><strong>再谈可达性</strong>：<br>顶点对的可达性：是否存在一条从一个给定的顶点v到另一个给定的顶点w的路径？</p>
+<p>对于无向图，这个问题等价于连通性问题。对于有向图，它和强连通性的问题有很大区别。CC实现需要线性级别的预处理时间才能支持常数时间的查询操作。</p>
+<p>定义：有向图G的传递闭包是由相同的一组顶点组成的另一幅有向图，在传递闭包中存在一条从v指向w的边当且仅当在G中w是从v可达的。</p>
+<p>简单说，就是将自环，直接可达（原始图中的边），间接可达放入数组，方便常数级别的查询。</p>
+<p>实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">//有向图的可达性</span><br><span class="line">//这份深度优先搜索的实现能够判断从给定的一个顶点或者一组顶点能到达哪些其他顶点</span><br><span class="line">class DirectedDFS&#123;</span><br><span class="line">	private boolean[] marked;</span><br><span class="line">	public DirectedDFS(Digraph G,int s)&#123;</span><br><span class="line">		marked = new boolean[G.V()];</span><br><span class="line">		dfs(G,s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public DirectedDFS(Digraph G,Iterable&lt;Integer&gt; sources)&#123;</span><br><span class="line">		marked = new boolean[G.V()];</span><br><span class="line">		for(int s:sources)&#123;</span><br><span class="line">			if(!marked[s])&#123;</span><br><span class="line">				dfs(G,s);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	private void dfs(Digraph G,int v)&#123;</span><br><span class="line">		marked[v] = true;</span><br><span class="line">		for(int w:G.adj(v))&#123;</span><br><span class="line">			if(!marked[w]) dfs(G,w);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public boolean marked(int v)&#123;</span><br><span class="line">		return marked[v];</span><br><span class="line">	&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">class TransitiveClosure&#123;</span><br><span class="line">	private DirectedDFS[] all;</span><br><span class="line">	TransitiveClosure(Digraph G)&#123;</span><br><span class="line">		all = new DirectedDFS[G.V()];</span><br><span class="line">		for (int i = 0; i &lt; G.V(); i++) &#123;</span><br><span class="line">			//对于每个顶点来说，能够到达哪些顶点</span><br><span class="line">			all[i] = new DirectedDFS(G,v);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	boolean reachable(int v,int w)&#123;</span><br><span class="line">		return all[v].marked(w);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>本质上，TransitiveClosure通过计算G的传递闭包来支持常数时间的查询–传递闭包矩阵中的第v行就是TransitiveClosure类中的DirectedDFS[] 数组的第v个元素的marked[] 数组。</p>
+<p><strong>总结</strong>：<br><img src="http://img.blog.csdn.net/20160416151824650" alt=""></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/算法4读书笔记/">算法4读书笔记</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/04/14/4-图/" data-title="4.图 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/04/16/4-3最小生成树/" title="4.3最小生成树">
+  <strong>上一篇：</strong><br/>
+  <span>
+  4.3最小生成树</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/04/13/1-关于算法4的零散小点/"  title="1.关于算法4的零散小点">
+ <strong>下一篇：</strong><br/> 
+ <span>1.关于算法4的零散小点
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/04/14/4-图/" data-title="4.图" data-url="http://yoursite.com/2016/04/14/4-图/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1无向图"><span class="toc-number">1.</span> <span class="toc-text">4.1无向图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2有向图"><span class="toc-number">2.</span> <span class="toc-text">4.2有向图</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TECH/" title="TECH">TECH<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ZengQi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

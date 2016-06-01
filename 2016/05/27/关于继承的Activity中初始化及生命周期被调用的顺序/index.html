@@ -1,0 +1,582 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>关于继承的Activity中初始化及生命周期被调用的顺序 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="先附上activity生命周期：
+
+试验内容：一个MainActivity（继承自BaseMainActivity）调用SecondActivity（继承自BaseSecondActivity），并back返回MainActivity的顺序。
+MainActivity代码如下（其他Activity完全相似）：
+12345678910111213141516171819202122232425262">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于继承的Activity中初始化及生命周期被调用的顺序">
+<meta property="og:url" content="http://yoursite.com/2016/05/27/关于继承的Activity中初始化及生命周期被调用的顺序/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="先附上activity生命周期：
+
+试验内容：一个MainActivity（继承自BaseMainActivity）调用SecondActivity（继承自BaseSecondActivity），并back返回MainActivity的顺序。
+MainActivity代码如下（其他Activity完全相似）：
+12345678910111213141516171819202122232425262">
+<meta property="og:image" content="http://img.blog.csdn.net/20160527171850959">
+<meta property="og:updated_time" content="2016-06-01T09:30:41.990Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于继承的Activity中初始化及生命周期被调用的顺序">
+<meta name="twitter:description" content="先附上activity生命周期：
+
+试验内容：一个MainActivity（继承自BaseMainActivity）调用SecondActivity（继承自BaseSecondActivity），并back返回MainActivity的顺序。
+MainActivity代码如下（其他Activity完全相似）：
+12345678910111213141516171819202122232425262">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160527171850959">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/27/关于继承的Activity中初始化及生命周期被调用的顺序/" title="关于继承的Activity中初始化及生命周期被调用的顺序" itemprop="url">关于继承的Activity中初始化及生命周期被调用的顺序</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-27T09:29:41.000Z" itemprop="datePublished"> Published 2016-05-27</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>先附上activity生命周期：</p>
+<p><img src="http://img.blog.csdn.net/20160527171850959" alt=""></p>
+<p>试验内容：一个MainActivity（继承自BaseMainActivity）调用SecondActivity（继承自BaseSecondActivity），并back返回MainActivity的顺序。</p>
+<p>MainActivity代码如下（其他Activity完全相似）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity   extends BaseMainActivity   &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private Out a = new Out(&quot;MainActivity   before static&quot;);</span><br><span class="line">    static&#123;</span><br><span class="line">        Log.i(&quot;test&quot;, &quot;MainActivity   static part&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    private Out b = new Out(&quot;MainActivity   after static&quot;);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        Log.i(&quot;test&quot;, &quot;MainActivity  oncreate&quot;);</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onStart() &#123;</span><br><span class="line">        Log.i(&quot;test&quot;, &quot;MainActivity  onstart&quot;);</span><br><span class="line">        super.onStart();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onResume() &#123;</span><br><span class="line">        Log.i(&quot;test&quot;, &quot;MainActivity  onresume&quot;);</span><br><span class="line">        super.onResume();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onRestart() &#123;</span><br><span class="line">        Log.i(&quot;test&quot;,&quot;MainActivity  onrestart&quot;);</span><br><span class="line">        super.onRestart();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onDestroy() &#123;</span><br><span class="line">        Log.i(&quot;test&quot;,&quot;MainActivity  ondestroy&quot;);</span><br><span class="line">        super.onDestroy();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onStop() &#123;</span><br><span class="line">        Log.i(&quot;test&quot;,&quot;MainActivity  onstop&quot;);</span><br><span class="line">        super.onStop();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onPause() &#123;</span><br><span class="line">        Log.i(&quot;test&quot;, &quot;MainActivity  onpause&quot;);</span><br><span class="line">        super.onPause();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onActivityReenter(int resultCode, Intent data) &#123;</span><br><span class="line">        Log.i(&quot;test&quot;, &quot;MainActivity  reenter&quot;);</span><br><span class="line">        super.onActivityReenter(resultCode, data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Out代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Out &#123;</span><br><span class="line">    public Out(String s)&#123;</span><br><span class="line">        Log.i(&quot;test&quot;,s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>情况一：在mainfest中只注册MainActivity和SecondActivity。<br>试验结果：</p>
+<p>点击进入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">I/test: BaseMainActivity   static part</span><br><span class="line">I/test: MainActivity   static part</span><br><span class="line">I/test: BaseMainActivity   before static</span><br><span class="line">I/test: BaseMainActivity   after static</span><br><span class="line">I/test: MainActivity   before static</span><br><span class="line">I/test: MainActivity   after static</span><br><span class="line">I/test: MainActivity  oncreate</span><br><span class="line">I/test: BaseMainActivity  oncreate</span><br><span class="line">I/test: MainActivity  onstart</span><br><span class="line">I/test: BaseMainActivity  onstart</span><br><span class="line">I/test: MainActivity  onresume</span><br><span class="line">I/test: BaseMainActivity  onresume</span><br><span class="line">//从试验结果看出，调用顺序如下：</span><br><span class="line">//1.首先向上追溯到最上层class，完成它的static初始化（函数和成员变量），逐步向下，完成至自身static块的初始化。 </span><br><span class="line">//2.完成最上层的non–static初始化，并调用其构造函数，完成后转向下一层class。 </span><br><span class="line">//3.之后完成该Activity的生命周期调用，因为每个生命周期后都跟有super调用父Activity的相应生命周期，所以结果如上。</span><br></pre></td></tr></table></figure>
+<p>点击click：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">I/test: MainActivity onclick</span><br><span class="line">I/test: MainActivity  onpause</span><br><span class="line">I/test: BaseMainActivity  onpause</span><br><span class="line">I/test: BaseSecondActivity   static part</span><br><span class="line">I/test: SecondActivity   static part</span><br><span class="line">I/test: BaseSecondActivity   before static</span><br><span class="line">I/test: BaseSecondActivity   after static</span><br><span class="line">I/test: SecondActivity   before static</span><br><span class="line">I/test: SecondActivity   after static</span><br><span class="line">I/test: SecondActivity  oncreate</span><br><span class="line">I/test: BaseSecondActivity  oncreate</span><br><span class="line">I/test: SecondActivity  onstart</span><br><span class="line">I/test: BaseSecondActivity  onstart</span><br><span class="line">I/test: SecondActivity  onresume</span><br><span class="line">I/test: BaseSecondActivity  onresume</span><br><span class="line">I/test: MainActivity  onstop</span><br><span class="line">I/test: BaseMainActivity  onstop</span><br><span class="line">//跟上面逻辑一样</span><br></pre></td></tr></table></figure>
+<p>点击back：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">I/test: SecondActivity  onpause</span><br><span class="line">I/test: BaseSecondActivity  onpause</span><br><span class="line">I/test: MainActivity  onrestart</span><br><span class="line">I/test: BaseMainActivity  onrestart</span><br><span class="line">I/test: MainActivity  onstart</span><br><span class="line">I/test: BaseMainActivity  onstart</span><br><span class="line">I/test: MainActivity  onresume</span><br><span class="line">I/test: BaseMainActivity  onresume</span><br><span class="line">I/test: SecondActivity  onstop</span><br><span class="line">I/test: BaseSecondActivity  onstop</span><br><span class="line">I/test: SecondActivity  ondestroy</span><br><span class="line">I/test: BaseSecondActivity  ondestroy</span><br></pre></td></tr></table></figure>
+<p>再点击click：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">I/test: MainActivity onclick</span><br><span class="line">I/test: MainActivity  onpause</span><br><span class="line">I/test: BaseMainActivity  onpause</span><br><span class="line">I/test: BaseSecondActivity   before static</span><br><span class="line">I/test: BaseSecondActivity   after static</span><br><span class="line">I/test: SecondActivity   before static</span><br><span class="line">I/test: SecondActivity   after static</span><br><span class="line">I/test: SecondActivity  oncreate</span><br><span class="line">I/test: BaseSecondActivity  oncreate</span><br><span class="line">I/test: SecondActivity  onstart</span><br><span class="line">I/test: BaseSecondActivity  onstart</span><br><span class="line">I/test: SecondActivity  onresume</span><br><span class="line">I/test: BaseSecondActivity  onresume</span><br><span class="line">I/test: MainActivity  onstop</span><br><span class="line">I/test: BaseMainActivity  onstop</span><br></pre></td></tr></table></figure>
+<p>该调用顺序中并没有出现onActivityReenter方法的调用。参考onActivityReenter方法的官方解释：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">    * Called when an activity you launched with an activity transition exposes this</span><br><span class="line">    * Activity through a returning activity transition, giving you the resultCode</span><br><span class="line">    * and any additional data from it. This method will only be called if the activity</span><br><span class="line">    * set a result code other than &#123;@link #RESULT_CANCELED&#125; and it supports activity</span><br><span class="line">    * transitions with &#123;@link Window#FEATURE_ACTIVITY_TRANSITIONS&#125;.</span><br><span class="line">    *</span><br><span class="line">    * &lt;p&gt;The purpose of this function is to let the called Activity send a hint about</span><br><span class="line">    * its state so that this underlying Activity can prepare to be exposed. A call to</span><br><span class="line">    * this method does not guarantee that the called Activity has or will be exiting soon.</span><br><span class="line">    * It only indicates that it will expose this Activity&apos;s Window and it has</span><br><span class="line">    * some data to pass to prepare it.&lt;/p&gt;</span><br><span class="line">    *</span><br><span class="line">    * @param resultCode The integer result code returned by the child activity</span><br><span class="line">    *                   through its setResult().</span><br><span class="line">    * @param data An Intent, which can return result data to the caller</span><br><span class="line">    *               (various data can be attached to Intent &quot;extras&quot;).</span><br><span class="line">    */</span><br></pre></td></tr></table></figure>
+<p>它的调用跟transition有关，如果没有transition，应该就不会调用。</p>
+<p>情况二：在mainfest中全部注册。<br>试验结果和情况一完全一样。</p>
+<p>情况三：当activity是抽象的activity时，该activity不能够在manifest中注册，会报错。<br>MainActivity代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity   extends BaseMainActivity   &#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        Log.i(&quot;test&quot;, &quot;MainActivity  oncreate&quot;);</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onStart() &#123;</span><br><span class="line">        Log.i(&quot;test&quot;, &quot;MainActivity  onstart&quot;);</span><br><span class="line">        super.onStart();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onResume() &#123;</span><br><span class="line">        Log.i(&quot;test&quot;, &quot;MainActivity  onresume&quot;);</span><br><span class="line">        super.onResume();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void initLayoutId()&#123;</span><br><span class="line">        Log.i(&quot;test&quot;, &quot;main  initlayoutid&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    public void initView()&#123;</span><br><span class="line">        Log.i(&quot;test&quot;,&quot;main  initView&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>BaseMainActivity代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public  abstract class BaseMainActivity   extends Activity&#123;</span><br><span class="line">    abstract void initLayoutId();</span><br><span class="line">    abstract void initView();</span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        Log.i(&quot;test&quot;, &quot;BaseMainActivity  oncreate&quot;);</span><br><span class="line">        initLayoutId();</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onStart() &#123;</span><br><span class="line">        Log.i(&quot;test&quot;, &quot;BaseMainActivity  onstart&quot;);</span><br><span class="line">        initView();</span><br><span class="line">        super.onStart();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onResume() &#123;</span><br><span class="line">        Log.i(&quot;test&quot;, &quot;BaseMainActivity  onresume&quot;);</span><br><span class="line">        super.onResume();</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>刚进入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">I/test: MainActivity  oncreate</span><br><span class="line">I/test: BaseMainActivity  oncreate</span><br><span class="line">I/test: main  initlayoutid</span><br><span class="line">I/test: MainActivity  onstart</span><br><span class="line">I/test: BaseMainActivity  onstart</span><br><span class="line">I/test: main  initView</span><br><span class="line">I/test: MainActivity  onresume</span><br><span class="line">I/test: BaseMainActivity  onresume</span><br></pre></td></tr></table></figure>
+<p>点击click：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">I/test: MainActivity onclick</span><br><span class="line">I/test: SecondActivity  oncreate</span><br><span class="line">I/test: BaseSecondActivity  oncreate</span><br><span class="line">I/test: second  initlayoutid</span><br><span class="line">I/test: SecondActivity  onstart</span><br><span class="line">I/test: BaseSecondActivity  onstart</span><br><span class="line">I/test: second  initView</span><br><span class="line">I/test: SecondActivity  onresume</span><br><span class="line">I/test: BaseSecondActivity  onresume</span><br></pre></td></tr></table></figure>
+<p>点击back：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">I/test: MainActivity  onstart</span><br><span class="line">I/test: BaseMainActivity  onstart</span><br><span class="line">I/test: main  initView</span><br><span class="line">I/test: MainActivity  onresume</span><br><span class="line">I/test: BaseMainActivity  onresume</span><br></pre></td></tr></table></figure>
+<p>再点击click：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">I/test: MainActivity onclick</span><br><span class="line">I/test: SecondActivity  oncreate</span><br><span class="line">I/test: BaseSecondActivity  oncreate</span><br><span class="line">I/test: second  initlayoutid</span><br><span class="line">I/test: SecondActivity  onstart</span><br><span class="line">I/test: BaseSecondActivity  onstart</span><br><span class="line">I/test: second  initView</span><br><span class="line">I/test: SecondActivity  onresume</span><br><span class="line">I/test: BaseSecondActivity  onresume</span><br></pre></td></tr></table></figure>
+<p><strong>以上用法为关于抽象activity的常用方式</strong>。记住！</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/05/27/关于继承的Activity中初始化及生命周期被调用的顺序/" data-title="关于继承的Activity中初始化及生命周期被调用的顺序 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/05/27/关于Fragment/" title="关于Fragment">
+  <strong>上一篇：</strong><br/>
+  <span>
+  关于Fragment</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/05/25/关于共享元素demo的实现数据及分析/"  title="关于共享元素demo的实现数据及分析">
+ <strong>下一篇：</strong><br/> 
+ <span>关于共享元素demo的实现数据及分析
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/05/27/关于继承的Activity中初始化及生命周期被调用的顺序/" data-title="关于继承的Activity中初始化及生命周期被调用的顺序" data-url="http://yoursite.com/2016/05/27/关于继承的Activity中初始化及生命周期被调用的顺序/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TECH/" title="TECH">TECH<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ZengQi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

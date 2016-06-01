@@ -1,0 +1,615 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>关于Android Lollipop | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="关于一些对以往功能部件的替换：
+1.app bar替换action bar
+2.关于共享元素动画演示：http://material-design.storage.googleapis.com/videos/animation-meaningfultransitions-view_contact_large_xhdpi.webm
+作者：彭澎链接：https://www.zhihu.com/ques">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于Android Lollipop">
+<meta property="og:url" content="http://yoursite.com/2016/05/25/关于Android-Lollipop/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="关于一些对以往功能部件的替换：
+1.app bar替换action bar
+2.关于共享元素动画演示：http://material-design.storage.googleapis.com/videos/animation-meaningfultransitions-view_contact_large_xhdpi.webm
+作者：彭澎链接：https://www.zhihu.com/ques">
+<meta property="og:image" content="https://pic4.zhimg.com/d014a2aac769aacaa3dffef21d6ca937_b.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/4a782b278913a7451f71ef6e9f3f8a8f_b.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/96553785ce8c51655e10c1fa028b35cb_b.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/889989d2198d2a742369815c9ed2beea_b.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/988cac4cc71439d21e8133ec809684f0_b.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/3cdc24df2fb5d23f2c1ac9a0fa4ecc92_b.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/6027a29c833834a97b9bdfb292525ef7_b.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/6da5dd77fb6defbf47d5d1e9061fdd4f_b.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/69d7386caa662644c859d071e8ee3481_b.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/4f3c7c1fecc095f11997b219b47c4b2b_b.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/56da3874643e2f37ea885e8ab3b68fc4_b.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/f619f9390ddf42fdc75fcf34507530a8_b.jpg">
+<meta property="og:updated_time" content="2016-06-01T08:57:17.923Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于Android Lollipop">
+<meta name="twitter:description" content="关于一些对以往功能部件的替换：
+1.app bar替换action bar
+2.关于共享元素动画演示：http://material-design.storage.googleapis.com/videos/animation-meaningfultransitions-view_contact_large_xhdpi.webm
+作者：彭澎链接：https://www.zhihu.com/ques">
+<meta name="twitter:image" content="https://pic4.zhimg.com/d014a2aac769aacaa3dffef21d6ca937_b.jpg">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/25/关于Android-Lollipop/" title="关于Android Lollipop" itemprop="url">关于Android Lollipop</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-25T08:52:23.000Z" itemprop="datePublished"> Published 2016-05-25</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>关于一些对以往功能部件的替换：</p>
+<p>1.app bar替换action bar</p>
+<p>2.关于共享元素动画演示：<br><a href="http://material-design.storage.googleapis.com/videos/animation-meaningfultransitions-view_contact_large_xhdpi.webm" target="_blank" rel="external">http://material-design.storage.googleapis.com/videos/animation-meaningfultransitions-view_contact_large_xhdpi.webm</a></p>
+<p>作者：彭澎<br>链接：<a href="https://www.zhihu.com/question/24276709/answer/27693028" target="_blank" rel="external">https://www.zhihu.com/question/24276709/answer/27693028</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>翻墙学习了一下官方规范：<br><a href="http://www.google.com/design/spec/material-design/introduction.html" target="_blank" rel="external">http://www.google.com/design/spec/material-design/introduction.html</a></p>
+<p>几个惊喜点：</p>
+<p><strong>1. 卡片</strong></p>
+<p>这应该是Google这几年风格探索中，最精巧又实用的成果了。等了这么久，终于在Material Design中被Google扶正了，我甚至觉得，整个Material Design就是围绕卡片这一创意而生的！<br><img src="https://pic4.zhimg.com/d014a2aac769aacaa3dffef21d6ca937_b.jpg" alt=""><br>Google对卡片的使用场景，外观，交互方式做了非常严谨的规范<br><img src="https://pic4.zhimg.com/4a782b278913a7451f71ef6e9f3f8a8f_b.jpg" alt=""><br>但一方面Google还是很克制的，在规范中强调了一些不适合使用卡片的场景，例如展示一组雷同内容的列表，卡片这种强烈的区块分割会导致浏览效率下降。<br><img src="https://pic4.zhimg.com/96553785ce8c51655e10c1fa028b35cb_b.jpg" alt=""></p>
+<p><strong>2. Z 轴的概念</strong></p>
+<p>通过布局和阴影，让屏幕上的元素产生层次感，这种层次感可以让使用者轻松理解元素的重要性及相互之间的关系。<br><img src="https://pic3.zhimg.com/889989d2198d2a742369815c9ed2beea_b.jpg" alt=""><br>虽然苹果的 iOS 和 OS X 早就大量使用阴影，但其实并没有 Z 这个概念，而更多的是一种装饰。所以 Google 说：Depth is not ornament. 深度感不是为了装饰而存在，而是为了功能！</p>
+<p>为此 Google 居然丧心病狂地定义了5种不同的Z轴状态，及其对应的阴影的尺寸！<br><img src="https://pic1.zhimg.com/988cac4cc71439d21e8133ec809684f0_b.jpg" alt=""></p>
+<p><img src="https://pic3.zhimg.com/3cdc24df2fb5d23f2c1ac9a0fa4ecc92_b.jpg" alt=""><br>在实际使用中，如下图，阴影可以很好地赋予按钮的轮廓，让按钮凸显，感觉浮起在白底之上，有按下去的冲动。<br><img src="https://pic4.zhimg.com/6027a29c833834a97b9bdfb292525ef7_b.jpg" alt=""></p>
+<p><strong>3. 有意义的动画</strong></p>
+<p>这次的 Material Design 规范，动画单独开出一个章节大书特书，而且放在第二章（第一章是导览），可见 Google 长期在动画的精妙效果上被苹果压制准备一血前耻的决心。</p>
+<p>除了强调了动画对交互相应的重要性外，Google还提出了要做有意义的动画效果，规范里把元素在动画转场中的表现分为三类：<br>进场元素<br>退场元素<br>共享元素<br>前两者好理解，如下图中的联系人头像和名称，就属于共享元素，即交互实施的元素。这样使用者很容易聚焦，很容易理解转场前后元素之间的关系。</p>
+<p>知乎不支持gif，请去原地址看这个效果：（可能需翻墙）<br><a href="http://material-design.storage.googleapis.com/videos/animation-meaningfultransitions-view_contact_large_xhdpi.webm" target="_blank" rel="external">http://material-design.storage.googleapis.com/videos/animation-meaningfultransitions-view_contact_large_xhdpi.webm</a></p>
+<p>另外，该章节中对动画速率，层次感，细节等说明，也非常有启发性。</p>
+<p>其他一些 Android 原有特性的优化</p>
+<p><strong>1. 下拉菜单</strong></p>
+<p>Android 4.X 时代的 spinner 被直接升级成 Menu，在原有位置扩展展开的样式更容易理解。我要吐槽一下 iOS 上一直缺乏这么一个简单轻量的下拉选单的控件……<br><img src="https://pic4.zhimg.com/6da5dd77fb6defbf47d5d1e9061fdd4f_b.jpg" alt=""></p>
+<p><strong>2. 提示</strong></p>
+<p>用 Snackbars 取代了 Android 4.X 时代的 Toasts，可以选择是否包含一个 actions 按钮，终于可以原生实现 Gmail for Android 删除邮件时 undo 的效果了。<br><img src="https://pic2.zhimg.com/69d7386caa662644c859d071e8ee3481_b.jpg" alt=""></p>
+<p><strong>3. 抽屉</strong></p>
+<p>同样也是 Android 4.X 时代的抽屉导航，也被统一叫做 Side Nav，从Z轴上看 Side Nav 是在最顶层。<br><img src="https://pic4.zhimg.com/4f3c7c1fecc095f11997b219b47c4b2b_b.jpg" alt=""></p>
+<p><strong>4. 按钮</strong></p>
+<p>规范对所有的按钮做了重新定义：<br>Floating action button：浮动按钮，是页面中的住按钮，页面中只能有一个，代表了该页面最核心的唯一操作<br>Raised button：用于图文混合展示时，需凸显按钮时使用<br>Flat button：用于对话框<br><img src="https://pic1.zhimg.com/56da3874643e2f37ea885e8ab3b68fc4_b.jpg" alt=""><br>浮动按钮可以说是 Material Design 中很亮眼，也很大胆的一个设计，为了防止被滥用，Google做了大量规范说明使用场景……</p>
+<p>赞美的部分结束了，下面是吐槽：<br>总而言之，在移动设备交互设计领域，比起苹果，Google还是略显稚嫩……</p>
+<p>苹果6.0之前的设计指南（ iOS Human Interface Guidelines），在界面设计原则和用户体验指南这两个章节投入了大量的篇幅，向读者讲述他们对智能设备时代下设计的理解，读起来犹如一个白胡子老人坐在你面前，打开一本厚厚的历史书，娓娓地道出：“long long ago…”</p>
+<p>毕竟苹果重新设计了手机，也重新定义了智能设备的人机交互准则，这方面无论 Google 还是 Microsoft 都是追随者，从他们两家的设计规范里都能看出一个追随者的急躁，急于向开发者宣讲他们的语言，灌输他们的思路，更多更像是一本说明书，而不是一本教材。</p>
+<p>（当然苹果在 iOS7 更新后的 HIG 中，关于原则和指南部分也大量缩减了，所以感觉 iOS7 的设计语言推出的比较仓促，其中有很多矛盾和难以自洽的地方，可见苹果自己想的并不完善，并且还在不断的改进中）</p>
+<p>这次Google的大招，有一个特点就是全平台通用的设计语言，我理解应该主要目的是规范自己的产品线，其次才是指导 Android 厂商跟进，至于引领设计风潮，我觉得 Google 还到不了这样的火候，也没有这样的野心……</p>
+<p>关于android material design中的motion：<br>1.关于movement：<br><a href="http://www.google.com/design/spec/motion/movement.html#" target="_blank" rel="external">http://www.google.com/design/spec/motion/movement.html#</a><br>2.关于choreography（主要是共享元素）：<br><a href="http://www.google.com/design/spec/motion/choreography.html#" target="_blank" rel="external">http://www.google.com/design/spec/motion/choreography.html#</a><br>3.关于Duration and easing：<br><a href="http://www.google.com/design/spec/motion/duration-easing.html#" target="_blank" rel="external">http://www.google.com/design/spec/motion/duration-easing.html#</a></p>
+<p>关于<strong>android material design的解读</strong>：<br>作者：刘缙<br>链接：<a href="https://www.zhihu.com/question/24276657/answer/27262112" target="_blank" rel="external">https://www.zhihu.com/question/24276657/answer/27262112</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>参考The Verge对Matias Duarte的访谈：<br><a href="http://www.theverge.com/2014/6/27/5849272/material-world-how-google-discovered-what-software-is-made-of" target="_blank" rel="external">http://www.theverge.com/2014/6/27/5849272/material-world-how-google-discovered-what-software-is-made-of</a><br>注意这一段（下划线和粗体是笔者加的）：<br>Material Design “unified us in our thinking,” Duarte says, admitting that “it’s absolutely a constraint.” These constraints, he says, made design decisions easier and more consistent. Take, for example, the idea of flipping a card over to see what’s on the back. In Material Design’s world, that’s a cheat that doesn’t work. It’s as if the software is actual, physical stuff inside these devices, and there’s not space inside a phone to flip a card over, so Google doesn’t allow itself to do it.</p>
+<p>Material Design Principles这个session中特别提到：这些飘来飘去的纸片，尺度和手机是一样的；屏幕不是看另一个世界的窗口。这是什么意思？</p>
+<p>Material is metaphor，这是关于整个手机的隐喻，我们怎么理解手里这个扁扁的黑盒子？</p>
+<p>早期的iPhone是“百变盒子”，通过运行不同的app，它可以模拟各种我们熟悉的物品：手机，相机，计算器… 在屏幕技术的限制内，app尽力接近它们要模拟的对象。在这个隐喻里，屏幕上的各种按钮本来应该是突出于屏幕之外的，虽然我们无法在触觉上模拟此效果。</p>
+<p>Windows Phone则拒绝在手机层面使用隐喻。手机就是一种全新的物品而无需模拟其他物品，屏幕的属性就是像素而无需模拟其他材质的属性。WP的屏幕是完全的平，前后都没有东西，所有UI元素都位于屏幕表面。</p>
+<p>Android直到Holo，似乎都没怎么考虑过这个层面的问题。Android UI继承了桌面UI，以功能性为主。</p>
+<p>iOS7呢？从放缩、透视和毛玻璃的大量使用来看，似乎正是把屏幕看作通往另一个世界的窗口。UI元素可能位于屏幕后面相当远的地方，而屏幕本身可以在这个虚拟世界中自由移动。</p>
+<p>回到Material Design，这些漂浮的小纸片，就“真实”地漂浮在手机这个小盒子之内，而屏幕是一块透明玻璃，用户可以透过它一窥盒子内部。UI通过阴影所表现出的深度，不应该超过手机本身的厚度。</p>
+<p>总结：<br>iOS（1-6）：手机是百变盒子。UI突出于屏幕。<br>Android（~Kitkat）：手机是小电脑。UI是什么没想过。<br>Windows Phone：手机就是手机。UI在屏幕表面。<br>iOS7：手机是观察异世界的魔镜。UI在另一个空间。<br>Android L：手机是装着漂浮小纸片，有玻璃盖子的盒子。UI在盒子内部。</p>
+<p>P.S.<br>说到盒子里的纸片，首先想到的是Paper Mario：<a href="http://papermario.nintendo.com/" target="_blank" rel="external">http://papermario.nintendo.com/</a></p>
+<hr>
+<p>看keynote时对Material Design这个提法十分不解，因为新UI风格并不注重表现材质，也没有体现纸张的物理特点。</p>
+<p>但看过Material Design的panel后，我觉得Matias Duarte确实已经用两个词说出了Material Design的核心，那就是所谓的material，并非纸/毛玻璃/皮革/木头，而是一种在现实中不存在的”magical material”。</p>
+<ol>
+<li>Material，即屏幕上的元素还是由类似真实世界的材料构成的物体，有类似的物理属性（形状比较固定，占据一定空间，有前后遮挡关系，会投射阴影，可以移动…）。相对的，Metro（比较极端地）和Holo（比较中庸地）都倾向于屏幕上的元素只需要具有像素本身的属性，而不必模拟真实世界。</li>
+</ol>
+<p>所以我们看到，在去掉阴影的潮流中，阴影又变得无处不在。另一方面，由于真实世界的物体通常不会瞬间、凭空出现和消失，所以平移、旋转、扩展和画面外飞入代替了原来从屏幕中间出现的过渡动画。</p>
+<ol>
+<li><p>Magical，即这种材料并不模拟真实世界某种具体的材料。拟物化的一个问题是用户对真实世界的材料有非常多的期望。把界面画得太像真实物体，你无法实现用户的期望。比如你可以在屏幕上画出很像纸质通讯录的通讯录，然而用户期望纸质通讯录可以翻页，可以折角，可以用笔批注，甚至有纸的触感，而你没有做到。<br><img src="https://pic1.zhimg.com/f619f9390ddf42fdc75fcf34507530a8_b.jpg" alt=""><br>相对的，不在视觉上模拟特定材料，比较容易控制用户的期望。一个不明材料制成的卡片，用户的期望可能只是可以移动而已，而这恰恰是我们想通过卡片表达的隐喻。</p>
+</li>
+<li><p>Magical的另一面，即这种材料不必受真实世界材料的限制。仍以仿纸质通讯录为例，用户并不期望纸张上的文字可以上下滑动，在屏幕上实现这一功能反而会与用户对材料的认知相矛盾。</p>
+</li>
+</ol>
+<p>而这种抽象的，”魔法”材料在必要时，不必受真实世界规则限制。比如大量使用的卡片伸缩变形动画，一方面为符合日常经验，变形要以连续的动画而不是瞬间完成，另一方面我们不必费心考虑和表现卡片是如何伸缩的（比如表现为卷轴），反正它是魔法材料。又如UI元素像现实世界一样有前后关系并投下阴影，但我们不必考虑它们是如何悬浮于空中，要不要加上支撑结构。</p>
+<p>总结：既要充分利用“材料”带来的现实世界隐喻，又不要被现实世界规律所束缚。Material Design看起来很正确，但很难把握度。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/05/25/关于Android-Lollipop/" data-title="关于Android Lollipop | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/05/25/关于共享元素demo的实现数据及分析/" title="关于共享元素demo的实现数据及分析">
+  <strong>上一篇：</strong><br/>
+  <span>
+  关于共享元素demo的实现数据及分析</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/05/16/机器学习笔记1/"  title="机器学习笔记1">
+ <strong>下一篇：</strong><br/> 
+ <span>机器学习笔记1
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/05/25/关于Android-Lollipop/" data-title="关于Android Lollipop" data-url="http://yoursite.com/2016/05/25/关于Android-Lollipop/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TECH/" title="TECH">TECH<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ZengQi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

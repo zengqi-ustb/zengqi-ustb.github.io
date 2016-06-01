@@ -1,0 +1,556 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>分清Big Data,ML,AI之间的关系 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="How are big data and machine learning related?（大数据与机器学习间关系）
+下面是回答：
+1.Big data and machine learning are not related, but when used together can do real wonder. （没有直接联系，但是在一起效果更好）
+Machine Learning &amp;amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分清Big Data,ML,AI之间的关系">
+<meta property="og:url" content="http://yoursite.com/2016/06/01/分清Big-Data-ML-AI之间的关系/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="How are big data and machine learning related?（大数据与机器学习间关系）
+下面是回答：
+1.Big data and machine learning are not related, but when used together can do real wonder. （没有直接联系，但是在一起效果更好）
+Machine Learning &amp;amp;">
+<meta property="og:updated_time" content="2016-06-01T09:40:22.949Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分清Big Data,ML,AI之间的关系">
+<meta name="twitter:description" content="How are big data and machine learning related?（大数据与机器学习间关系）
+下面是回答：
+1.Big data and machine learning are not related, but when used together can do real wonder. （没有直接联系，但是在一起效果更好）
+Machine Learning &amp;amp;">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/01/分清Big-Data-ML-AI之间的关系/" title="分清Big Data,ML,AI之间的关系" itemprop="url">分清Big Data,ML,AI之间的关系</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-01T09:36:44.000Z" itemprop="datePublished"> Published 2016-06-01</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p><strong>How are big data and machine learning related?（大数据与机器学习间关系）</strong></p>
+<p>下面是回答：</p>
+<p>1.<br>Big data and machine learning are not related, but when used together can do real wonder. （没有直接联系，但是在一起效果更好）</p>
+<p>Machine Learning &amp; Big Data: The learning comes from extensive calculations done over existing datasets to create a learning model(in most cases). A normal system can’t handle very large dataset calculation and data size is increasing day by day, thus the obtained model should be adapted accordingly. To obtain this we have to implement distributed computing using big data technologies like Apache Mahout, Spark, R-Hadoop or initial analytics processing in projects like hive/ pig and feed output to machine learning algorithms for model/ learning generation.（机器学习需要对已经存储的数据集进行广泛计算进而产生学习模型。但是常规的系统不能处理大量的数据集，并且数据大小与日俱增，随着时间推移，已经得到的模型需要进行更新。为了达成这个目标，我们需要用分布式计算，利用大数据的技术，来产生模型和机器学习算法。）</p>
+<p>2.<br>You can apply machine learning algorithms to big data and/or you can apply big data processing techniques to machine learning.（两种技术可以相互渗透）</p>
+<p>An example of the first case would be training a neural network or logistic regression with a large dataset using online gradient descent.（在大数据集上用在线梯度下降来训练神经网络或逻辑回归）</p>
+<p>An example of the second case would be parallelizing gradient descent to run in a Map-Reduce environment.（在Map-Reduce环境下执行并行梯度下降）</p>
+<p>In Machine learning large datasets usually mean you need to use simpler algorithms and they perform much better than on smaller datasets.</p>
+<p>3.<br>There are two types of insights anyone can get from a dataset :<br>Q1.  Direct (group by/join/ sum/ max / average)（直接）<br>Q2. Inductive (if something is.. then something else is..  else anything is..)（推测）</p>
+<p>Mind that the <strong>first type</strong> of insights are always <strong>exact</strong>, so you need to use computational tools like <strong>excel in small data and hadoop in big data to calculate</strong>.<br>The <strong>inductive insights</strong> on the other hand are <strong>approximations</strong> on seeing the data. For <strong>small</strong> amount of Data, a human can try and infer things seeing <strong>charts/graphs</strong> etc. However, when the data is <strong>huge</strong>, its beyond human capacity to infer rules from data. This is exactly when <strong>Machine Learning</strong> comes in.</p>
+<p>4.<br>One of the biggest reason’s why we use big data is to extract some meaning out of it, so that we can make better decisions. And that’s what machine learning does! It is the science of training systems to learn from data and output appropriate response without being explicitly programmed for that .But, on flip side without big data machine learning would be totally irrelevant, because to learn anything from data you need to have a large number of ‘training examples’ so that all possible scenarios are exhausted and also to avoid faulty training due to few erroneous datasets.<br>So, they are deeply interconnected.（一句话，大数据集让机器学习出来的模型不偏颇）</p>
+<p>5.<br>I have often found these terms used in an interchangeable way, which is totally wrong.<br>Big data has got more to do with High Performance Computing（大数据跟高性能计算相关）， while Machine Learning is a part of Data Science（机器学习是数据科学的一部分）. What happens in Big Data is large volumes of data which cannot be processed in reasonable amount of time, is processed quickly by various techniques and tools. In Machine Learning, a system learns from past experiences and is able to build a model which would most likely be able to comprehend future instances.<br>One of the main reason why big data and machine learning are used together is because big data is more likely to be a preprocessing step to machine learning.</p>
+<p>6.<br>Machine Learning is a science of studying patterns in the data. These patterns explain how the data is correlated. This correlated data is used to make future predictions. </p>
+<p>Big Data is an art of working with large amount of data. As such, machine learning could be done on a smaller set of data, but larger the data; better the predictions.</p>
+<p>So if I were to give a short answer; When you have a lot of structured/unstructured data that you want to study and find patterns, then you use big data and run your Machine Learning algorithms and find patterns that make a business use case.</p>
+<p>7.<br>Machine Learning - Build models. When  people hear the term “machine learning”, they make mental images of robots who walk, climb or clean houses. In reality, machine learning starts alot closer to home. When you open your emails, spam has been filtered out from your important messages by an algorithm that has learnt to classify “spam” and “not spam”. Your Facebook news feed features posts from your closest friends because an algorithm has examined your likes, tags and photos to decipher who you connect with most. When you upload a photo and the website identifies your face, it’s fuelled by a facial recognition algorithm. When you use a search engine, you see the best and most relevant content first because of a sophisticated search ranking algorithm. In short, machine learning permeates our lives i.e it builds models for self learning algorithms.<br>Data Mining -  It is an analytic process designed to explore data and consequently find Patterns in data. It is a practice of applying algorithms (<strong>mostly Machine learning algorithms</strong> ) to find patterns in data.<br>Artificial Intelligence - Behaves and Reasons. Science to develop a system or software to mimic human to respond and behave in a circumference. As field with extremely broad scope, AI has defined its goal into multiple chunks. Later each chuck has become a separate field of study to solve its problem.<br><strong>Major list of AI goal：</strong><br>Reasoning<br>Knowledge Representation<br>Computer Vision<br>Machine Leaning<br>Natural Language<br>Robotics<br>General intelligence, or strong AI<br>Machine learning is field emerged from one the AI goal to help machine to learn on it own to solve problems it’s can come across.</p>
+<p>Natural language processing is another such field emerged from AI goal to help machine to communicate with real human.</p>
+<p>Computer vision is a field emerged from AI goal to identify and distinguish objects that the machine could see.</p>
+<p>Robotics is a field emerged from AI goal to give a physical appearance for a machine to do physical actions.</p>
+<p>以下是关于大数据/算法/机器学习的知名演讲或paper：<br><a href="https://www.quora.com/What-are-the-best-talks-lectures-related-to-big-data-algorithms-machine-learning" target="_blank" rel="external">https://www.quora.com/What-are-the-best-talks-lectures-related-to-big-data-algorithms-machine-learning</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/TECH/">TECH</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/06/01/分清Big-Data-ML-AI之间的关系/" data-title="分清Big Data,ML,AI之间的关系 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/05/29/关于在配置hexo中遇到的问题/"  title="关于在配置hexo中遇到的问题">
+ <strong>下一篇：</strong><br/> 
+ <span>关于在配置hexo中遇到的问题
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/06/01/分清Big-Data-ML-AI之间的关系/" data-title="分清Big Data,ML,AI之间的关系" data-url="http://yoursite.com/2016/06/01/分清Big-Data-ML-AI之间的关系/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TECH/" title="TECH">TECH<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ZengQi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

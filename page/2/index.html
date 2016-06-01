@@ -78,15 +78,17 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/12/31/状态栏高度和标题栏高度/" title="状态栏高度和标题栏高度" itemprop="url">
+    <a href="/2016/05/10/PHP制作验证码/" title="PHP制作验证码" itemprop="url">
   
-    <h1 itemprop="name">状态栏高度和标题栏高度</h1>
+    <h1 itemprop="name">PHP制作验证码</h1>
     
      
-           <p itemprop="description" >参考于：http://blog.csdn.net/ygzk123/article/details/76087231234567891011//测试//得到状态栏的高度statusHeightRect  frame = new Rect();getWindow().getDecor</p>
+           <p itemprop="description" >学习目的：屏蔽机器请求，保证业务不受机器提交请求干扰。为什么要屏蔽：一般服务端业务，写请求产生的消耗要远远大于读请求。技术点：1.底图的实现，并且添加干扰元素2.生成验证内容3.验证内容保存在服务端4.验证内容的效验
+实现底图：代码：
+12345678&amp;lt;?php$img =</p>
         
     
-    <time datetime="2015-12-31T07:17:01.000Z" itemprop="datePublished">2015-12-31</time>
+    <time datetime="2016-05-10T10:12:41.000Z" itemprop="datePublished">2016-05-10</time>
   </a>
 </section>
 
@@ -98,20 +100,16 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/12/31/高效看源代码网络汇总/" title="高效看源代码网络汇总" itemprop="url">
+    <a href="/2016/05/10/关于JSON/" title="关于JSON" itemprop="url">
   
-    <h1 itemprop="name">高效看源代码网络汇总</h1>
+    <h1 itemprop="name">关于JSON</h1>
     
      
-           <p itemprop="description" >问题：怎样高效阅读别人编写的源代码？
-一：
-首先熟悉写这个源码的语言是基本的要求。了解源码的整体功能和模块划分，不要去考虑具体实现，只要明白怎么组织的结构。选择你感兴趣的模块，功能，类，方法，函数。层层击破。
-二：
-1 借助一些对代码静态分析的工具。
-2 利用链接器的功能在代码 </p>
+           <p itemprop="description" >理解JSON数据格式和serialize序列化，XML以及数组的区别。JSON的四个基本规则：1.并列的数据之间用逗号分隔2.映射用冒号表示3.并列数据的集合（数组）用方括号表示4.映射的集合（对象）用大括号表示
+JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，占用带</p>
         
     
-    <time datetime="2015-12-31T07:10:01.000Z" itemprop="datePublished">2015-12-31</time>
+    <time datetime="2016-05-10T04:23:39.000Z" itemprop="datePublished">2016-05-10</time>
   </a>
 </section>
 
@@ -123,20 +121,17 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/12/24/关于控件getWidth和getHeight方法都为0的解释及解决方法/" title="关于控件getWidth和getHeight方法都为0的解释及解决方法" itemprop="url">
+    <a href="/2016/05/05/屏幕适配全攻略/" title="屏幕适配全攻略" itemprop="url">
   
-    <h1 itemprop="name">关于控件getWidth和getHeight方法都为0的解释及解决方法</h1>
+    <h1 itemprop="name">屏幕适配全攻略</h1>
     
      
-           <p itemprop="description" >问题描述：
-版主今天下午一直纠结这个问题，为什么有时候用getWidth和getHeight方法得到的控件的宽度和高度为0？
-思路：
-1.在我调用上述两个方法的时候控件并没有绘制，所以不知道宽高度。那么控件什么时候加载呢？我试着通过试验说明之。
-先试验思路一：
-123456789</p>
+           <p itemprop="description" >屏幕适配：适配主要的6种分辨率。
+主要问题：
+1.什么是屏幕尺寸，屏幕分辨率，屏幕像素密度？屏幕尺寸：屏幕对角线的长度，单位为英寸，一英寸=2.54厘米。屏幕分辨率：在横纵向上的像素点数，单位为px，1px=1个像素点。如1920*1080.屏幕像素密度：每英寸上的像素点数，单位</p>
         
     
-    <time datetime="2015-12-24T07:07:00.000Z" itemprop="datePublished">2015-12-24</time>
+    <time datetime="2016-05-05T08:35:33.000Z" itemprop="datePublished">2016-05-05</time>
   </a>
 </section>
 
@@ -148,17 +143,19 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/12/11/9-持有你的对象/" title="9.持有你的对象" itemprop="url">
+    <a href="/2016/05/05/WebView相关知识/" title="WebView相关知识" itemprop="url">
   
-    <h1 itemprop="name">9.持有你的对象</h1>
+    <h1 itemprop="name">WebView相关知识</h1>
     
      
-           <p itemprop="description" >九、持有你的对象
-array（数组）：
-关于array和其他容器之间的区别，存在两个议题：效率和型别。array是java用来“存储及随机访问一连串对象（尤其是对象的reference）”的各种做法中，最有效率的一种。不过效率带来的牺牲是：当你产生array时，其容量固定且无法动</p>
+           <p itemprop="description" >为什么用WebView：
+1.兼容已有的项目2.可以动态更新
+12WebView webView;//通过findViewById找到webView.loadUrl(&amp;quot;网址&amp;quot;);
+但是loadUrl默认会通过手机浏览器打开，所以应该做下列修改：
+1234567</p>
         
     
-    <time datetime="2015-12-11T07:04:03.000Z" itemprop="datePublished">2015-12-11</time>
+    <time datetime="2016-05-05T08:33:18.000Z" itemprop="datePublished">2016-05-05</time>
   </a>
 </section>
 
@@ -170,18 +167,17 @@ array（数组）：
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/12/10/8-接口和内隐类/" title="8.接口和内隐类" itemprop="url">
+    <a href="/2016/05/02/Volley相关知识/" title="Volley相关知识" itemprop="url">
   
-    <h1 itemprop="name">8.接口和内隐类</h1>
+    <h1 itemprop="name">Volley相关知识</h1>
     
      
-           <p itemprop="description" >八.接口和内隐类
-接口和内隐类为你系统中的对象提供更为方便的组织和控制方式。
-接口：interface更胜于抽象类，因为我们能够借以撰写出可被向上转型为多个基本类型的class，从而达到像c++一样的多重继承的变形。
-interface可以内含数据成员，但是这些数据成员会自动变为</p>
+           <p itemprop="description" >1-1：
+Volley特点：
+1.通信更快，更简单2.get、post网络请求及网络图像的高效率异步处理请求（已经帮我们处理好了异步化）3.排序（根据网络请求优先级进行排序）4.网络请求的缓存5.多级别取消请求6.和activity生命周期的联动（这样当退出activity时，就</p>
         
     
-    <time datetime="2015-12-10T06:59:39.000Z" itemprop="datePublished">2015-12-10</time>
+    <time datetime="2016-05-02T08:30:36.000Z" itemprop="datePublished">2016-05-02</time>
   </a>
 </section>
 
@@ -193,15 +189,16 @@ interface可以内含数据成员，但是这些数据成员会自动变为</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/12/09/用FragmentActivity实现点击跳转Fragment效果-未完/" title="用FragmentActivity实现点击跳转Fragment效果(未完)" itemprop="url">
+    <a href="/2016/04/24/关于youtube上Android-Performance-Patterns的总结-部分/" title="关于youtube上Android Performance Patterns的总结(部分)" itemprop="url">
   
-    <h1 itemprop="name">用FragmentActivity实现点击跳转Fragment效果(未完)</h1>
+    <h1 itemprop="name">关于youtube上Android Performance Patterns的总结(部分)</h1>
     
      
-           <p itemprop="description" >因为TabHost已经不推荐使用了，所以现在一般都用FragmentTabHost,但是因为Fragment在3.0才出现，所以为了解决低版本兼容问题。我们要引入android.support.v4.app包！注意：当你导入跟FragmentTabHost相关包时，都要导成and</p>
+           <p itemprop="description" >重要更新：胡凯凯神总结的“安卓性能优化典范”比我好太多了，为了不重复造低效的轮子，我决定弃更了！(不过自己看一遍原版视频，收获也挺大的！)安卓性能优化典范，请参阅：Hukai’s Blog
+1.熟悉android studio关于Logcat，Memory，CPU，GPU，Net</p>
         
     
-    <time datetime="2015-12-09T06:57:24.000Z" itemprop="datePublished">2015-12-09</time>
+    <time datetime="2016-04-24T08:22:37.000Z" itemprop="datePublished">2016-04-24</time>
   </a>
 </section>
 
@@ -213,15 +210,15 @@ interface可以内含数据成员，但是这些数据成员会自动变为</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/12/07/Android-LayoutInflater详解/" title="Android LayoutInflater详解" itemprop="url">
+    <a href="/2016/04/21/Miui-Note源码解析/" title="Miui Note源码解析" itemprop="url">
   
-    <h1 itemprop="name">Android LayoutInflater详解</h1>
+    <h1 itemprop="name">Miui Note源码解析</h1>
     
      
-           <p itemprop="description" >在实际开发中LayoutInflater这个类还是非常有用的，它的作用类似于findViewById()。不同点是LayoutInflater是用来找res/layout/下的xml布局文件，并且实例化；而findViewById()是找xml布局文件下的具体widget控件(如</p>
+           <p itemprop="description" >我们先从AndroidManifest.xml中的代码看起。12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596</p>
         
     
-    <time datetime="2015-12-07T06:50:21.000Z" itemprop="datePublished">2015-12-07</time>
+    <time datetime="2016-04-21T08:18:39.000Z" itemprop="datePublished">2016-04-21</time>
   </a>
 </section>
 
@@ -233,16 +230,18 @@ interface可以内含数据成员，但是这些数据成员会自动变为</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/12/06/7-多态/" title="7.多态" itemprop="url">
+    <a href="/2016/04/16/4-3最小生成树/" title="4.3最小生成树" itemprop="url">
   
-    <h1 itemprop="name">7.多态</h1>
+    <h1 itemprop="name">4.3最小生成树</h1>
     
      
-           <p itemprop="description" >七、多态
-多态中重要概念：函数调用（method–call）绑定方式，所谓“绑定”，就是建立method call（函数调用）和method body（函数本体）的关联。 后期绑定（动态绑定）：绑定动作将在执行期才根据对象型别而进行。Java中的所有函数，除了被声明为final者</p>
+           <p itemprop="description" >加权图是一种为每条边关联一个权值或是成本的图模型。最小生成树。给定一副加权无向图，找出它的一颗最小生成树。
+定义：图的最小生成树是它的一副含有其所有顶点的无环连通子图。一副加权图的最小生成树（MST）是它的一颗权值（树种所有边的权值之和）最小的生成树。
+一些约定：
+1.只考虑连通</p>
         
     
-    <time datetime="2015-12-06T04:30:33.000Z" itemprop="datePublished">2015-12-06</time>
+    <time datetime="2016-04-16T08:16:05.000Z" itemprop="datePublished">2016-04-16</time>
   </a>
 </section>
 
@@ -254,18 +253,17 @@ interface可以内含数据成员，但是这些数据成员会自动变为</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/12/03/6-重复使用classes/" title="6.重复使用classes" itemprop="url">
+    <a href="/2016/04/14/4-图/" title="4.图" itemprop="url">
   
-    <h1 itemprop="name">6.重复使用classes</h1>
+    <h1 itemprop="name">4.图</h1>
     
      
-           <p itemprop="description" >六、重复运用classes
-两种方法：1.组合2.继承
-“为每个class提供main()”的技巧，可以使每个class的单元测试更为容易。
-关于继承的小tip：一般为了继承着想，一般将所有数据成员声明为private，将所有函数声明为public，当然并不是这么绝对，针对具体情</p>
+           <p itemprop="description" >关于图的现实应用：
+软件开发：编译器会使用图来表示大型软件系统中各个模块之间的关系。图中的结点即构成整个系统的各个类和模块，连接则为类的方法之间的可能调用关系（静态分析），或是系统运行时实际调用关系（动态分析）。
+我们将学习四种图：1.无向图（简单连接）2.有向图（连接有方向）3</p>
         
     
-    <time datetime="2015-12-03T04:27:41.000Z" itemprop="datePublished">2015-12-03</time>
+    <time datetime="2016-04-14T08:14:17.000Z" itemprop="datePublished">2016-04-14</time>
   </a>
 </section>
 
@@ -277,16 +275,15 @@ interface可以内含数据成员，但是这些数据成员会自动变为</p>
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2015/12/03/5-隐藏实现细目/" title="5.隐藏实现细目" itemprop="url">
+    <a href="/2016/04/13/1-关于算法4的零散小点/" title="1.关于算法4的零散小点" itemprop="url">
   
-    <h1 itemprop="name">5.隐藏实现细目</h1>
+    <h1 itemprop="name">1.关于算法4的零散小点</h1>
     
      
-           <p itemprop="description" >五、隐藏实现细目
-Package（程序库单元）：每个编译单元只能有一个public class，否则编译器不接受。Package之外的世界无法看见该编译单元内的其余classes，这些classes主要用来为那个主要的public class提供支持。应该明白，关键字packag</p>
+           <p itemprop="description" >1.2数据抽象数据类型指的是一组值和一组对这些值的操作的集合。原则上，所有程序都只需要使用原始数据类型即可，但在更高层次的抽象上编写程序会更加方便。抽象数据类型（ADT）是一种能够对使用者隐藏数据表示的数据类型。在使用抽象数据类型时，我们的注意力集中在API描述的操作上而不会关心</p>
         
     
-    <time datetime="2015-12-03T04:25:15.000Z" itemprop="datePublished">2015-12-03</time>
+    <time datetime="2016-04-13T08:11:42.000Z" itemprop="datePublished">2016-04-13</time>
   </a>
 </section>
 
@@ -297,7 +294,7 @@ Package（程序库单元）：每个编译单元只能有一个public class，�
 
 
   <nav id="page-nav" class="clearfix unexpand">
-    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
   </nav>
 
 </div>
@@ -325,11 +322,19 @@ Package（程序库单元）：每个编译单元只能有一个public class，�
 		<ul class="clearfix">
 		
 			
+				<li><a href="/tags/Android/" title="Android">Android<sup>18</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Android/" title="Android">Android<sup>8</sup></a></li>
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>4</sup></a></li>
 			
 		
 			
@@ -337,15 +342,19 @@ Package（程序库单元）：每个编译单元只能有一个public class，�
 			
 		
 			
-				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>2</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TECH/" title="TECH">TECH<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
 			
 		
 		</ul>

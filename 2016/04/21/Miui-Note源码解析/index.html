@@ -1,0 +1,561 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Miui Note源码解析 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="我们先从AndroidManifest.xml中的代码看起。12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Miui Note源码解析">
+<meta property="og:url" content="http://yoursite.com/2016/04/21/Miui-Note源码解析/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="我们先从AndroidManifest.xml中的代码看起。12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899">
+<meta property="og:image" content="http://img.blog.csdn.net/20131022212352140">
+<meta property="og:updated_time" content="2016-06-01T08:20:50.387Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Miui Note源码解析">
+<meta name="twitter:description" content="我们先从AndroidManifest.xml中的代码看起。12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20131022212352140">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/21/Miui-Note源码解析/" title="Miui Note源码解析" itemprop="url">Miui Note源码解析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-21T08:18:39.000Z" itemprop="datePublished"> Published 2016-04-21</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>我们先从AndroidManifest.xml中的代码看起。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- Copyright (c) 2010-2011, The MiCode Open Source Community (www.micode.net)</span><br><span class="line"></span><br><span class="line">     Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span><br><span class="line">     you may not use this file except in compliance with the License.</span><br><span class="line">     You may obtain a copy of the License at</span><br><span class="line"></span><br><span class="line">          http://www.apache.org/licenses/LICENSE-2.0</span><br><span class="line"></span><br><span class="line">     Unless required by applicable law or agreed to in writing, software</span><br><span class="line">     distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span><br><span class="line">     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span><br><span class="line">     See the License for the specific language governing permissions and</span><br><span class="line">     limitations under the License.</span><br><span class="line">--&gt;</span><br><span class="line"></span><br><span class="line">&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    package=&quot;net.micode.notes&quot;</span><br><span class="line">    android:versionCode=&quot;1&quot;</span><br><span class="line">    android:versionName=&quot;0.1&quot; &gt;</span><br><span class="line"></span><br><span class="line">    &lt;uses-sdk android:minSdkVersion=&quot;14&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;</span><br><span class="line">    &lt;uses-permission android:name=&quot;com.android.launcher.permission.INSTALL_SHORTCUT&quot; /&gt;</span><br><span class="line">    &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;</span><br><span class="line">    &lt;uses-permission android:name=&quot;android.permission.READ_CONTACTS&quot; /&gt;</span><br><span class="line">    &lt;uses-permission android:name=&quot;android.permission.MANAGE_ACCOUNTS&quot; /&gt;</span><br><span class="line">    &lt;uses-permission android:name=&quot;android.permission.AUTHENTICATE_ACCOUNTS&quot; /&gt;</span><br><span class="line">    &lt;uses-permission android:name=&quot;android.permission.GET_ACCOUNTS&quot; /&gt;</span><br><span class="line">    &lt;uses-permission android:name=&quot;android.permission.USE_CREDENTIALS&quot; /&gt;</span><br><span class="line">    &lt;uses-permission android:name=&quot;android.permission.RECEIVE_BOOT_COMPLETED&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;application</span><br><span class="line">        android:icon=&quot;@drawable/icon_app&quot;</span><br><span class="line">        android:label=&quot;@string/app_name&quot; &gt;</span><br><span class="line">        &lt;activity</span><br><span class="line">            android:name=&quot;.ui.NotesListActivity&quot;</span><br><span class="line">            android:configChanges=&quot;keyboardHidden|orientation|screenSize&quot;</span><br><span class="line">            android:label=&quot;@string/app_name&quot;</span><br><span class="line">            android:launchMode=&quot;singleTop&quot;</span><br><span class="line">            android:theme=&quot;@style/NoteTheme&quot;</span><br><span class="line">            android:uiOptions=&quot;splitActionBarWhenNarrow&quot;</span><br><span class="line">            android:windowSoftInputMode=&quot;adjustPan&quot; &gt;</span><br><span class="line"></span><br><span class="line">            &lt;intent-filter&gt;</span><br><span class="line">                &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;</span><br><span class="line">                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;</span><br><span class="line">            &lt;/intent-filter&gt;</span><br><span class="line">        &lt;/activity&gt;</span><br><span class="line"></span><br><span class="line">        &lt;activity</span><br><span class="line">            android:name=&quot;.ui.NoteEditActivity&quot;</span><br><span class="line">            android:configChanges=&quot;keyboardHidden|orientation|screenSize&quot;</span><br><span class="line">            android:launchMode=&quot;singleTop&quot;</span><br><span class="line">            android:theme=&quot;@style/NoteTheme&quot; &gt;</span><br><span class="line"></span><br><span class="line">            &lt;intent-filter&gt;</span><br><span class="line">                &lt;action android:name=&quot;android.intent.action.VIEW&quot; /&gt;</span><br><span class="line">                &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;</span><br><span class="line">                &lt;data android:mimeType=&quot;vnd.android.cursor.item/text_note&quot; /&gt;</span><br><span class="line">                &lt;data android:mimeType=&quot;vnd.android.cursor.item/call_note&quot; /&gt;</span><br><span class="line">            &lt;/intent-filter&gt;</span><br><span class="line"></span><br><span class="line">            &lt;intent-filter&gt;</span><br><span class="line">                &lt;action android:name=&quot;android.intent.action.INSERT_OR_EDIT&quot; /&gt;</span><br><span class="line">                &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;</span><br><span class="line">                &lt;data android:mimeType=&quot;vnd.android.cursor.item/text_note&quot; /&gt;</span><br><span class="line">                &lt;data android:mimeType=&quot;vnd.android.cursor.item/call_note&quot; /&gt;</span><br><span class="line">            &lt;/intent-filter&gt;</span><br><span class="line"></span><br><span class="line">            &lt;intent-filter&gt;</span><br><span class="line">                &lt;action android:name=&quot;android.intent.action.SEARCH&quot; /&gt;</span><br><span class="line">                &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;</span><br><span class="line">            &lt;/intent-filter&gt;</span><br><span class="line"></span><br><span class="line">            &lt;meta-data</span><br><span class="line">                android:name=&quot;android.app.searchable&quot;</span><br><span class="line">                android:resource=&quot;@xml/searchable&quot; /&gt;</span><br><span class="line">        &lt;/activity&gt;</span><br><span class="line"></span><br><span class="line">        &lt;provider</span><br><span class="line">            android:name=&quot;net.micode.notes.data.NotesProvider&quot;</span><br><span class="line">            android:authorities=&quot;micode_notes&quot;</span><br><span class="line">            android:multiprocess=&quot;true&quot; /&gt;</span><br><span class="line"></span><br><span class="line">        &lt;receiver</span><br><span class="line">            android:name=&quot;.widget.NoteWidgetProvider_2x&quot;</span><br><span class="line">            android:label=&quot;@string/app_widget2x2&quot; &gt;</span><br><span class="line">            &lt;intent-filter&gt;</span><br><span class="line">                &lt;action android:name=&quot;android.appwidget.action.APPWIDGET_UPDATE&quot; /&gt;</span><br><span class="line">                &lt;action android:name=&quot;android.appwidget.action.APPWIDGET_DELETED&quot; /&gt;</span><br><span class="line">                &lt;action android:name=&quot;android.intent.action.PRIVACY_MODE_CHANGED&quot; /&gt;</span><br><span class="line">            &lt;/intent-filter&gt;</span><br><span class="line"></span><br><span class="line">            &lt;meta-data</span><br><span class="line">                android:name=&quot;android.appwidget.provider&quot;</span><br><span class="line">                android:resource=&quot;@xml/widget_2x_info&quot; /&gt;</span><br><span class="line">        &lt;/receiver&gt;</span><br><span class="line">        &lt;receiver</span><br><span class="line">            android:name=&quot;.widget.NoteWidgetProvider_4x&quot;</span><br><span class="line">            android:label=&quot;@string/app_widget4x4&quot; &gt;</span><br><span class="line"></span><br><span class="line">            &lt;intent-filter&gt;</span><br><span class="line">                &lt;action android:name=&quot;android.appwidget.action.APPWIDGET_UPDATE&quot; /&gt;</span><br><span class="line">                &lt;action android:name=&quot;android.appwidget.action.APPWIDGET_DELETED&quot; /&gt;</span><br><span class="line">                &lt;action android:name=&quot;android.intent.action.PRIVACY_MODE_CHANGED&quot; /&gt;</span><br><span class="line">            &lt;/intent-filter&gt;</span><br><span class="line"></span><br><span class="line">            &lt;meta-data</span><br><span class="line">                android:name=&quot;android.appwidget.provider&quot;</span><br><span class="line">                android:resource=&quot;@xml/widget_4x_info&quot; /&gt;</span><br><span class="line">        &lt;/receiver&gt;</span><br><span class="line"></span><br><span class="line">        &lt;receiver android:name=&quot;.ui.AlarmInitReceiver&quot; &gt;</span><br><span class="line">            &lt;intent-filter&gt;</span><br><span class="line">                &lt;action android:name=&quot;android.intent.action.BOOT_COMPLETED&quot; /&gt;</span><br><span class="line">            &lt;/intent-filter&gt;</span><br><span class="line">        &lt;/receiver&gt;</span><br><span class="line"></span><br><span class="line">        &lt;receiver</span><br><span class="line">            android:name=&quot;net.micode.notes.ui.AlarmReceiver&quot;</span><br><span class="line">            android:process=&quot;:remote&quot; &gt;</span><br><span class="line">        &lt;/receiver&gt;</span><br><span class="line"></span><br><span class="line">        &lt;activity</span><br><span class="line">            android:name=&quot;.ui.AlarmAlertActivity&quot;</span><br><span class="line">            android:label=&quot;@string/app_name&quot;</span><br><span class="line">            android:launchMode=&quot;singleInstance&quot;</span><br><span class="line">            android:theme=&quot;@android:style/Theme.Holo.Wallpaper.NoTitleBar&quot; &gt;</span><br><span class="line">        &lt;/activity&gt;</span><br><span class="line"></span><br><span class="line">        &lt;activity</span><br><span class="line">            android:name=&quot;net.micode.notes.ui.NotesPreferenceActivity&quot;</span><br><span class="line">            android:label=&quot;@string/preferences_title&quot;</span><br><span class="line">            android:launchMode=&quot;singleTop&quot;</span><br><span class="line">            android:theme=&quot;@android:style/Theme.Holo.Light&quot; &gt;</span><br><span class="line">        &lt;/activity&gt;</span><br><span class="line"></span><br><span class="line">        &lt;service</span><br><span class="line">            android:name=&quot;net.micode.notes.gtask.remote.GTaskSyncService&quot;</span><br><span class="line">            android:exported=&quot;false&quot; &gt;</span><br><span class="line">        &lt;/service&gt;</span><br><span class="line"></span><br><span class="line">        &lt;meta-data</span><br><span class="line">            android:name=&quot;android.app.default_searchable&quot;</span><br><span class="line">            android:value=&quot;.ui.NoteEditActivity&quot; /&gt;</span><br><span class="line">    &lt;/application&gt;</span><br><span class="line">&lt;/manifest&gt;</span><br></pre></td></tr></table></figure></p>
+<p>.ui.NotesListActivity：我们需要知道几点：1.launchMode为singleTop（栈顶复用）。2.它为MAIN Activity。</p>
+<p><strong>栈顶复用</strong>：</p>
+<p>这种模式下，如果新的Activity已经位于任务栈的栈顶，此Activity不会被重新创建（onCreate，onStart不会被系统调用），同时它的onNewIntent方法会被回调。通过此方法的参数我们可以取出当前请求的信息。例如任务栈当前为ABCD，D在栈顶，当再次启动D时，若D的启动模式为singleTop，栈内情况依然为ABCD。如果D的启动模式为standard，那么栈内情况为ABCDD。</p>
+<p>net.micode.notes.data.NotesProvider：需要知道：1.android:multiprocess=”true”。</p>
+<p><strong>关于android:multiprocess的官方解释</strong>：<br>Whether or not an instance of the content provider can be created in every client process — “true” if instances can run in multiple processes, and “false” if not. The default value is “false”.<br>Normally, a content provider is instantiated in the process of the application that defined it. However, if this flag is set to “true”, the system can create an instance in every process where there’s a client that wants to interact with it, thus avoiding the overhead of interprocess communication.（避免了进程间通信）</p>
+<p>.ui.AlarmInitReceiver： Android手机开机后，会发送android.intent.action.BOOT_COMPLETED广播，通过监听这个广播就能监听开机。</p>
+<p>.ui.AlarmReceiver：通过设置android:process=”:remote”，使该Receiver运行在remote进程上。</p>
+<p>任务栈分为<strong>前台任务栈</strong>和<strong>后台任务栈</strong>，后台任务栈中的存放的是暂停状态下的activity，前台任务栈就是当下正在操作的任务栈啦！</p>
+<p>.ui.AlarmAlertActivity：注意android:launchMode=”singleInstance”。（单实例模式）。</p>
+<p><strong>单实例模式</strong>：一种加强的singleTask模式，具有此种模式的Activity只能单独位于一个任务栈中。</p>
+<p>net.micode.notes.gtask.remote.GTaskSyncService：其android:exported=”false”。</p>
+<p><strong>android:exported</strong>：</p>
+<p>官方文档说明：<br>Whether or not components of other applications can invoke the service or interact with it — “true” if they can, and “false” if not. When the value is “false”, only components of the same application or applications with the same user ID can start the service or bind to it.<br>The default value depends on whether the service contains intent filters. The absence of any filters means that it can be invoked only by specifying its exact class name. This implies that the service is intended only for application-internal use (since others would not know the class name). So in this case, the default value is “false”. On the other hand, the presence of at least one filter implies that the service is intended for external use, so the default value is “true”.</p>
+<p>This attribute is not the only way to limit the exposure of a service to other applications. <strong>You can also use a permission to limit the external entities that can interact with the service</strong> (see the permission attribute).</p>
+<p>在BackupUtils中，我们有下列代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//定义选择返回哪些列</span><br><span class="line">private static final String[] NOTE_PROJECTION = &#123;</span><br><span class="line">                NoteColumns.ID,</span><br><span class="line">                NoteColumns.MODIFIED_DATE,</span><br><span class="line">                NoteColumns.SNIPPET,</span><br><span class="line">                NoteColumns.TYPE</span><br><span class="line">        &#125;;</span><br><span class="line">Cursor notesCursor = mContext.getContentResolver().query(Notes.CONTENT_NOTE_URI,</span><br><span class="line">                    NOTE_PROJECTION, NoteColumns.PARENT_ID + &quot;=?&quot;, new String[] &#123;</span><br><span class="line">                        folderId</span><br><span class="line">                    &#125;, null)；</span><br><span class="line">String noteId = notesCursor.getString(notesCursor.getColumnIndex(NoteColumns.ID));</span><br><span class="line">long time = notesCursor.getLong(notesCursor.getColumnIndex(NoteColumns.MODIFIED_DATE));</span><br></pre></td></tr></table></figure>
+<p>上面写法是一般的写法，且当projection为null时，要想获得对应的index，只有这种写法，不能用下列写法。<br>当projection不为null时，上面的cursor的get方法可以替换成下列：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">private static final int NOTE_COLUMN_ID = 0;</span><br><span class="line">private static final int NOTE_COLUMN_MODIFIED_DATE = 1;</span><br><span class="line">String noteId = notesCursor.getString(NOTE_COLUMN_ID);</span><br><span class="line">long time = notesCursor.getLong(NOTE_COLUMN_MODIFIED_DATE);</span><br></pre></td></tr></table></figure>
+<p>注意，此处的NOTE_COLUMN_ID ，NOTE_COLUMN_MODIFIED_DATE 的数值必须跟NOTE_PROJECTION中出现的顺序一一对应。<br>这说明，query调用后，返回projection对应的数据后index进行了重新排列，按照projection的顺序从0开始排序了，不再为原来的index。</p>
+<p><strong>AsyncQueryHandler</strong>:<br>A helper class to help make handling asynchronous ContentResolver queries easier.</p>
+<p>关于他的示例使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">// MainActivity.onCreate()</span><br><span class="line"> </span><br><span class="line">// AsyncQueryHandler object</span><br><span class="line"> </span><br><span class="line">AsyncQueryHandler queryHandler = new AsyncQueryHandler(getContentResolver()) &#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected void onQueryComplete(int token, Object cookie, Cursor cursor) &#123;</span><br><span class="line">        int idIndex = cursor.getColumnIndex(UserDictionary.Words._ID);</span><br><span class="line">        int wordIndex = cursor.getColumnIndex(UserDictionary.Words.WORD);</span><br><span class="line">        int localeIndex = cursor.getColumnIndex(UserDictionary.Words.LOCALE);</span><br><span class="line"> </span><br><span class="line">        if (cursor == null) &#123;</span><br><span class="line">            // Some providers return null if an error occurs whereas others throw an exception</span><br><span class="line">        &#125;</span><br><span class="line">        else if (cursor.getCount() &lt; 1) &#123;</span><br><span class="line">            // No matches found</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line"> </span><br><span class="line">            while (cursor.moveToNext()) &#123;</span><br><span class="line">                int id = cursor.getInt(idIndex);</span><br><span class="line">                String word = cursor.getString(wordIndex);</span><br><span class="line">                String locale = cursor.getString(localeIndex);</span><br><span class="line"> </span><br><span class="line">                // Dumps &quot;ID: 1 Word: NewWord Locale: en_US&quot;</span><br><span class="line">                // I added this via Settings &gt; Language &amp; Input &gt; Personal Dictionary</span><br><span class="line">                Log.d(TAG, &quot;ID: &quot; + id + &quot; Word: &quot; + word + &quot; Locale: &quot; + locale);</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">// Construct query and execute</span><br><span class="line"> </span><br><span class="line">// &quot;projection&quot; defines the columns that will be returned for each row</span><br><span class="line">String[] projection = &#123;</span><br><span class="line">        UserDictionary.Words._ID,       // Contract class constant for the _ID column</span><br><span class="line">        UserDictionary.Words.WORD,      // Contract class constant for the word column</span><br><span class="line">        UserDictionary.Words.LOCALE     // Contract class constant for the locale column</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">// Defines WHERE clause columns and placeholders</span><br><span class="line">String selectionClause = UserDictionary.Words._ID + &quot; = ?&quot;;</span><br><span class="line"> </span><br><span class="line">// Define the WHERE clause&apos;s placeholder values</span><br><span class="line">String[] selectionArgs = &#123; &quot;1&quot; &#125;;</span><br><span class="line"> </span><br><span class="line">queryHandler.startQuery(</span><br><span class="line">        1, null,</span><br><span class="line">        UserDictionary.Words.CONTENT_URI,</span><br><span class="line">        projection,</span><br><span class="line">        selectionClause,</span><br><span class="line">        selectionArgs,</span><br><span class="line">        UserDictionary.Words.DEFAULT_SORT_ORDER // &quot;frequency DESC&quot;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>关于ActionMode,用它替换掉Menu。它可以临时占据ActionBar，退出此状态后消失。<br>左右对比就能看出来了：<br><img src="http://img.blog.csdn.net/20131022212352140" alt=""><br><strong>官方介绍</strong>：<br>Represents a contextual mode of the user interface. Action modes can be used to provide alternative interaction modes and replace parts of the normal UI until finished. Examples of good action modes include text selection and contextual actions.</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/04/21/Miui-Note源码解析/" data-title="Miui Note源码解析 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/04/24/关于youtube上Android-Performance-Patterns的总结-部分/" title="关于youtube上Android Performance Patterns的总结(部分)">
+  <strong>上一篇：</strong><br/>
+  <span>
+  关于youtube上Android Performance Patterns的总结(部分)</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/04/16/4-3最小生成树/"  title="4.3最小生成树">
+ <strong>下一篇：</strong><br/> 
+ <span>4.3最小生成树
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/04/21/Miui-Note源码解析/" data-title="Miui Note源码解析" data-url="http://yoursite.com/2016/04/21/Miui-Note源码解析/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TECH/" title="TECH">TECH<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ZengQi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

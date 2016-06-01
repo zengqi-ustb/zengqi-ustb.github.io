@@ -1,0 +1,577 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Volley相关知识 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="1-1：
+Volley特点：
+1.通信更快，更简单2.get、post网络请求及网络图像的高效率异步处理请求（已经帮我们处理好了异步化）3.排序（根据网络请求优先级进行排序）4.网络请求的缓存5.多级别取消请求6.和activity生命周期的联动（这样当退出activity时，就取消网络请求，避免性能问题）
+Volley缺点：
+不适合数据的上传和下载。
+为什么使用Volley：
+功能上：
+1.高效">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Volley相关知识">
+<meta property="og:url" content="http://yoursite.com/2016/05/02/Volley相关知识/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="1-1：
+Volley特点：
+1.通信更快，更简单2.get、post网络请求及网络图像的高效率异步处理请求（已经帮我们处理好了异步化）3.排序（根据网络请求优先级进行排序）4.网络请求的缓存5.多级别取消请求6.和activity生命周期的联动（这样当退出activity时，就取消网络请求，避免性能问题）
+Volley缺点：
+不适合数据的上传和下载。
+为什么使用Volley：
+功能上：
+1.高效">
+<meta property="og:updated_time" content="2016-06-01T08:32:40.955Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Volley相关知识">
+<meta name="twitter:description" content="1-1：
+Volley特点：
+1.通信更快，更简单2.get、post网络请求及网络图像的高效率异步处理请求（已经帮我们处理好了异步化）3.排序（根据网络请求优先级进行排序）4.网络请求的缓存5.多级别取消请求6.和activity生命周期的联动（这样当退出activity时，就取消网络请求，避免性能问题）
+Volley缺点：
+不适合数据的上传和下载。
+为什么使用Volley：
+功能上：
+1.高效">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/02/Volley相关知识/" title="Volley相关知识" itemprop="url">Volley相关知识</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-02T08:30:36.000Z" itemprop="datePublished"> Published 2016-05-02</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>1-1：</p>
+<p><strong>Volley特点</strong>：</p>
+<p>1.通信更快，更简单<br>2.get、post网络请求及网络图像的高效率异步处理请求（已经帮我们处理好了异步化）<br>3.排序（根据网络请求优先级进行排序）<br>4.网络请求的缓存<br>5.多级别取消请求<br>6.和activity生命周期的联动（这样当退出activity时，就取消网络请求，避免性能问题）</p>
+<p><strong>Volley缺点</strong>：</p>
+<p>不适合数据的<strong>上传</strong>和<strong>下载</strong>。</p>
+<p>为什么使用Volley：</p>
+<p>功能上：</p>
+<p>1.高效的get/post方式的数据请求交互<br>2.网络图片加载和缓存<br>其他：<br>谷歌官方推出<br>性能很稳定和强劲</p>
+<p>1-2：<br>get和post请求接口数据的使用<br>挑选合适的对象：<br>StringRequest(当我们对request返回的结果类型不确定时，因为StringRequest包含了后面两种)<br>JsonObjectRequest（当确定返回是JsonObject时）<br>JsonArrayRequest（当确定返回是JsonArray时）</p>
+<p>与activity生命周期联动：<br>特点：<br>可以在activity销毁时候，同时关闭请求<br>关键点：<br><strong>设置Tag标签，onStop里执行取消请求</strong></p>
+<p>1-3：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">//全局的请求队列</span><br><span class="line">public class MyApplication extends Application &#123;</span><br><span class="line"></span><br><span class="line">    public static RequestQueue queues;</span><br><span class="line">    @Override</span><br><span class="line">    public void onCreate() &#123;</span><br><span class="line">        super.onCreate();</span><br><span class="line">        queues = Volley.newRequestQueue(getApplicationContext());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //暴露一个方法，获取请求队列</span><br><span class="line">    public static RequestQueue getHttpQueues()&#123;</span><br><span class="line">        return queues;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">//之后在manifest中设置application的android:name</span><br><span class="line">//用例</span><br><span class="line">private void volleyGet()&#123;</span><br><span class="line">        //成功</span><br><span class="line">        class SuccessListener implements Response.Listener&lt;String&gt; &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onResponse(String response) &#123;</span><br><span class="line">                Toast.makeText(MainActivity.this,response,Toast.LENGTH_LONG).show();;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //失败</span><br><span class="line">        class ErrorListener implements Response.ErrorListener&#123;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void onErrorResponse(VolleyError error) &#123;</span><br><span class="line">                Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_LONG).show();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        String url = &quot;http://apis.juhe.cn/mobile/get?phone=13718590919&amp;key=335adcc4e891ba4e4be6d7534fd54c5d&quot;;</span><br><span class="line">        SuccessListener successListener = new SuccessListener();</span><br><span class="line">        ErrorListener errorListener = new ErrorListener();</span><br><span class="line">        StringRequest request = new StringRequest(Request.Method.GET,url,successListener,errorListener);</span><br><span class="line">        //设置tag</span><br><span class="line">        request.setTag(&quot;abcGet&quot;);</span><br><span class="line">        //加入队列</span><br><span class="line">        MyApplication.getHttpQueues().add(request);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>get方式将所有的需要的请求参数都写到了url中，post需要另外填入请求参数。</p>
+<p>getParams()方法：用户在Volley中使用post方式请求数据中参数的传递。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">private void volleyPost()&#123;</span><br><span class="line">        //成功</span><br><span class="line">        class SuccessListener implements Response.Listener&lt;String&gt; &#123;//String(StringRequest)或Object(JsonObjectRequest)</span><br><span class="line">            @Override</span><br><span class="line">            public void onResponse(String response) &#123;</span><br><span class="line">                Toast.makeText(MainActivity.this,response.toString(),Toast.LENGTH_LONG).show();;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //失败</span><br><span class="line">        class ErrorListener implements Response.ErrorListener&#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onErrorResponse(VolleyError error) &#123;</span><br><span class="line">                Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_LONG).show();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        String url = &quot;http://apis.juhe.cn/mobile/get?&quot;;</span><br><span class="line">        SuccessListener successListener = new SuccessListener();</span><br><span class="line">        ErrorListener errorListener = new ErrorListener();</span><br><span class="line">        StringRequest request = new StringRequest(Request.Method.POST,url,successListener,errorListener)&#123;</span><br><span class="line">            @Override</span><br><span class="line">            protected Map&lt;String, String&gt; getParams() throws AuthFailureError &#123;</span><br><span class="line">                //创建hashMap,将需要传递的参数放在map中</span><br><span class="line">                Map&lt;String,String&gt; hashMap = new HashMap&lt;&gt;();</span><br><span class="line">                hashMap.put(&quot;phone&quot;,&quot;13778103370&quot;);</span><br><span class="line">                hashMap.put(&quot;key&quot;,&quot;0daac515f9692696b13ca41d1ee91b11&quot;);</span><br><span class="line">                return hashMap;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        //测试不能用，至今不知为什么</span><br><span class="line">        //使用JsonObjectRequest，需要创建jsonObject,其作用是将map包装一下，传递参数用</span><br><span class="line">//        Map&lt;String,String&gt; hashMap = new HashMap&lt;&gt;();</span><br><span class="line">//        hashMap.put(&quot;phone&quot;,&quot;13718590919&quot;);</span><br><span class="line">//        hashMap.put(&quot;key&quot;,&quot;0daac515f9692696b13ca41d1ee91b11&quot;);</span><br><span class="line">//        JSONObject jsonObject = new JSONObject(hashMap);</span><br><span class="line">//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener&lt;JSONObject&gt;() &#123;</span><br><span class="line">//            @Override</span><br><span class="line">//            public void onResponse(JSONObject response) &#123;</span><br><span class="line">//                Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_LONG).show();</span><br><span class="line">//            &#125;</span><br><span class="line">//        &#125;, new Response.ErrorListener() &#123;</span><br><span class="line">//            @Override</span><br><span class="line">//            public void onErrorResponse(VolleyError error) &#123;</span><br><span class="line">//                Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_LONG).show();</span><br><span class="line">//            &#125;</span><br><span class="line">//        &#125;);</span><br><span class="line">        //设置tag</span><br><span class="line">        request.setTag(&quot;abcPost1&quot;);</span><br><span class="line">        //加入队列</span><br><span class="line">        MyApplication.getHttpQueues().add(request);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>队列的cancelAll()方法：通过给定的tag值，将指定的队列全部关闭。</p>
+<p>二次简单封装好处：<br>请求成功和失败可以进行全局的控制。这样对于全局性的东西，不需要再每个请求的都写同样的控制样板代码了。<br>二次封装代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">//对volley进行二次封装</span><br><span class="line">public class VolleyRequest &#123;</span><br><span class="line">    public static StringRequest stringRequest;</span><br><span class="line">    public static Context mContext;</span><br><span class="line">    //传递接口</span><br><span class="line">    public static void RequestGet(Context context,String url,String tag,VolleyInterface vif)&#123;</span><br><span class="line">        MyApplication.getHttpQueues().cancelAll(tag);</span><br><span class="line">        stringRequest = new StringRequest(Request.Method.GET,url,vif.loadingListener(),vif.loadingErrorListener());</span><br><span class="line">        stringRequest.setTag(tag);</span><br><span class="line">        MyApplication.getHttpQueues().add(stringRequest);</span><br><span class="line">        MyApplication.getHttpQueues().start();</span><br><span class="line">    &#125;</span><br><span class="line">    //自定义post</span><br><span class="line">    public static void RequestPost(Context context,String url,String tag, final Map&lt;String,String&gt;params,VolleyInterface vif)&#123;</span><br><span class="line">        MyApplication.getHttpQueues().cancelAll(tag);</span><br><span class="line">        stringRequest = new StringRequest(Request.Method.POST,url,vif.loadingListener(),vif.loadingErrorListener())&#123;</span><br><span class="line">            @Override</span><br><span class="line">            protected Map&lt;String, String&gt; getParams() throws AuthFailureError &#123;</span><br><span class="line">                //返回传递进来的参数</span><br><span class="line">                return params;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        stringRequest.setTag(tag);</span><br><span class="line">        MyApplication.getHttpQueues().add(stringRequest);</span><br><span class="line">        MyApplication.getHttpQueues().start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public abstract class VolleyInterface &#123;</span><br><span class="line">    public Context mContext;</span><br><span class="line">    public Response.Listener&lt;String&gt; mListener;</span><br><span class="line">    public Response.ErrorListener mErrorListener;</span><br><span class="line">    public VolleyInterface(Context context)&#123;</span><br><span class="line">        this.mContext = context;</span><br><span class="line">//        this.mListener = listener;</span><br><span class="line">//        this.mErrorListener = errorListener;</span><br><span class="line">    &#125;</span><br><span class="line">    public Response.Listener&lt;String&gt; loadingListener()&#123;</span><br><span class="line">        mListener = new Response.Listener&lt;String&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onResponse(String response) &#123;</span><br><span class="line">                //便于进行全局控制</span><br><span class="line">                //比如弹出加载中的对话框</span><br><span class="line">                onMysuccess(response);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        return mListener;</span><br><span class="line">    &#125;</span><br><span class="line">    public Response.ErrorListener loadingErrorListener()&#123;</span><br><span class="line">        mErrorListener = new Response.ErrorListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onErrorResponse(VolleyError response) &#123;</span><br><span class="line">                onMyError(response);</span><br><span class="line">                //便于进行全局控制</span><br><span class="line">                //比如提示请求失败</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        return mErrorListener;</span><br><span class="line">    &#125;</span><br><span class="line">    //交给子类重写</span><br><span class="line">    public abstract void onMysuccess(String result);</span><br><span class="line">    public abstract void onMyError(VolleyError error);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//用例代码</span><br><span class="line">//二次封装试验</span><br><span class="line">        String url = &quot;http://apis.juhe.cn/mobile/get?phone=13718590919&amp;key=0daac515f9692696b13ca41d1ee91b11&quot;;</span><br><span class="line">        VolleyRequest.RequestGet(this, url, &quot;abcGet&quot;, new VolleyInterface(this) &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onMysuccess(String result) &#123;</span><br><span class="line">                //写不是全局性的代码</span><br><span class="line">                Toast.makeText(MainActivity.this,result,Toast.LENGTH_LONG).show();;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void onMyError(VolleyError error) &#123;</span><br><span class="line">                Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_LONG).show();;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        String url1 = &quot;http://apis.juhe.cn/mobile/get?phone=13778103370&amp;key=0daac515f9692696b13ca41d1ee91b11&quot;;</span><br><span class="line">        VolleyRequest.RequestGet(this, url1, &quot;abc1Get&quot;, new VolleyInterface(this) &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onMysuccess(String result) &#123;</span><br><span class="line">                Toast.makeText(MainActivity.this,&quot;成功了&quot;,Toast.LENGTH_LONG).show();;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void onMyError(VolleyError error) &#123;</span><br><span class="line">                Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_LONG).show();;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+<p>4-1：<br>加载图片缓存功能简单介绍：1.LruCache 2.ImageCache<br>加载网络图片及监听：<br>1.ImageRequest 2.ImageLoader 3.NetworkImageView(或普通ImageView)</p>
+<p>imageCache单独使用是起不到缓存效果的，所以要结合LruCache。<br>NetworkImageView需要搭配ImageLoader 使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">ImageRequest imageRequest = new ImageRequest(url,listener,maxWidth,maxHeight, ImageView.ScaleType.CENTER, Bitmap.Config.ARGB_8888,errorListener);</span><br><span class="line">        </span><br><span class="line">        ImageLoader imageLoader = new ImageLoader(MyApplication.getHttpQueues(),new BitmapCache());//自定义BitmapCache类</span><br><span class="line">        //getImageListener返回默认的listener，你也可以自定义listener</span><br><span class="line">        ImageLoader.ImageListener listener = ImageLoader.getImageListener(imageView,defaultImage,errorImage);</span><br><span class="line">        imageLoader.get(url, listener);</span><br><span class="line">        </span><br><span class="line">        NetworkImageView networkImageView;//通过findViewById找到</span><br><span class="line">        networkImageView.setDefaultImageResId(defaultImage);</span><br><span class="line">        networkImageView.setErrorImageResId(errorImage);</span><br><span class="line">        networkImageView.setImageUrl(url,imageLoader);//跟imageLoader配合使用</span><br><span class="line"></span><br><span class="line">//内部使用LruCache进行缓存</span><br><span class="line">public class BitmapCache implements ImageLoader.ImageCache&#123;</span><br><span class="line">    public LruCache&lt;String,Bitmap&gt; cache;</span><br><span class="line">    public int maxSize = 10*1024*1024;</span><br><span class="line">    public BitmapCache()&#123;</span><br><span class="line">        cache = new LruCache&lt;String,Bitmap&gt;(maxSize)&#123;</span><br><span class="line">            @Override</span><br><span class="line">            protected int sizeOf(String key, Bitmap value) &#123;</span><br><span class="line">                return value.getRowBytes()*value.getHeight();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public Bitmap getBitmap(String url) &#123;</span><br><span class="line">        return cache.get(url);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void putBitmap(String url, Bitmap bitmap) &#123;</span><br><span class="line">        cache.put(url,bitmap);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/05/02/Volley相关知识/" data-title="Volley相关知识 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/05/05/WebView相关知识/" title="WebView相关知识">
+  <strong>上一篇：</strong><br/>
+  <span>
+  WebView相关知识</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/04/24/关于youtube上Android-Performance-Patterns的总结-部分/"  title="关于youtube上Android Performance Patterns的总结(部分)">
+ <strong>下一篇：</strong><br/> 
+ <span>关于youtube上Android Performance Patterns的总结(部分)
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/05/02/Volley相关知识/" data-title="Volley相关知识" data-url="http://yoursite.com/2016/05/02/Volley相关知识/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TECH/" title="TECH">TECH<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ZengQi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

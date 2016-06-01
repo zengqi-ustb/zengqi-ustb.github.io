@@ -1,0 +1,611 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>关于youtube上Android Performance Patterns的总结(部分) | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="重要更新：胡凯凯神总结的“安卓性能优化典范”比我好太多了，为了不重复造低效的轮子，我决定弃更了！(不过自己看一遍原版视频，收获也挺大的！)安卓性能优化典范，请参阅：Hukai’s Blog
+1.熟悉android studio关于Logcat，Memory，CPU，GPU，Network分析窗口的使用。一旦你配置的内存突然下降，那么应该是GC在发挥作用。这些垃圾收集活动通常不会太大影响性能，但是短">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于youtube上Android Performance Patterns的总结(部分)">
+<meta property="og:url" content="http://yoursite.com/2016/04/24/关于youtube上Android-Performance-Patterns的总结-部分/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="重要更新：胡凯凯神总结的“安卓性能优化典范”比我好太多了，为了不重复造低效的轮子，我决定弃更了！(不过自己看一遍原版视频，收获也挺大的！)安卓性能优化典范，请参阅：Hukai’s Blog
+1.熟悉android studio关于Logcat，Memory，CPU，GPU，Network分析窗口的使用。一旦你配置的内存突然下降，那么应该是GC在发挥作用。这些垃圾收集活动通常不会太大影响性能，但是短">
+<meta property="og:image" content="http://img.blog.csdn.net/20160424205256985">
+<meta property="og:image" content="http://img.blog.csdn.net/20160424213559486">
+<meta property="og:image" content="http://img.blog.csdn.net/20160425094902756">
+<meta property="og:image" content="http://img.blog.csdn.net/20160425094244950">
+<meta property="og:image" content="http://img.blog.csdn.net/20160425095246089">
+<meta property="og:image" content="http://img.blog.csdn.net/20160425103011375">
+<meta property="og:image" content="http://img.blog.csdn.net/20160425110557654">
+<meta property="og:image" content="http://img.blog.csdn.net/20160425151607331">
+<meta property="og:image" content="http://img.blog.csdn.net/20160425152531477">
+<meta property="og:image" content="http://img.blog.csdn.net/20160425165238146">
+<meta property="og:image" content="http://img.blog.csdn.net/20160425172611754">
+<meta property="og:image" content="http://img.blog.csdn.net/20160425174729000">
+<meta property="og:image" content="http://img.blog.csdn.net/20160425195637990">
+<meta property="og:image" content="http://img.blog.csdn.net/20160425200859154">
+<meta property="og:image" content="http://img.blog.csdn.net/20160425202046732">
+<meta property="og:image" content="http://img.blog.csdn.net/20160425220054290">
+<meta property="og:image" content="http://img.blog.csdn.net/20160426100727145">
+<meta property="og:image" content="http://img.blog.csdn.net/20160426101907649">
+<meta property="og:image" content="http://img.blog.csdn.net/20160426111617564">
+<meta property="og:image" content="http://img.blog.csdn.net/20160426111730830">
+<meta property="og:updated_time" content="2016-06-01T08:29:53.010Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于youtube上Android Performance Patterns的总结(部分)">
+<meta name="twitter:description" content="重要更新：胡凯凯神总结的“安卓性能优化典范”比我好太多了，为了不重复造低效的轮子，我决定弃更了！(不过自己看一遍原版视频，收获也挺大的！)安卓性能优化典范，请参阅：Hukai’s Blog
+1.熟悉android studio关于Logcat，Memory，CPU，GPU，Network分析窗口的使用。一旦你配置的内存突然下降，那么应该是GC在发挥作用。这些垃圾收集活动通常不会太大影响性能，但是短">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160424205256985">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/24/关于youtube上Android-Performance-Patterns的总结-部分/" title="关于youtube上Android Performance Patterns的总结(部分)" itemprop="url">关于youtube上Android Performance Patterns的总结(部分)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-24T08:22:37.000Z" itemprop="datePublished"> Published 2016-04-24</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p><strong>重要更新</strong>：<br>胡凯凯神总结的<strong>“安卓性能优化典范”</strong>比我好太多了，为了不重复造低效的轮子，我决定弃更了！(不过自己看一遍原版视频，收获也挺大的！)<br>安卓性能优化典范，请参阅：<a href="http://hukai.me/" title="hukai" target="_blank" rel="external">Hukai’s Blog</a></p>
+<p>1.熟悉android studio关于Logcat，Memory，CPU，GPU，Network分析窗口的使用。一旦你配置的内存突然下降，那么应该是GC在发挥作用。这些垃圾收集活动通常不会太大影响性能，但是短时间内频繁的出现，会迅速消耗帧时间，还是会导致性能问题的。</p>
+<p>2.内存泄露：指的是应用不再使用的对象，但是垃圾收集没有把它们辨认出来。结果是它们一直留在你的内存里。<br>android运行环境中的内存堆：<br><img src="http://img.blog.csdn.net/20160424205256985" alt=""><br>android runtime内存堆被有效的划分为不同的区块，根据配置的类型，还根据系统为将来的垃圾收集活动对这些配置的最佳整理。新的对象被配置时，会考虑到这些特点，来决定哪一个区块最合适这个配置。</p>
+<p>3.GC的两个主要原则：<br>1.找到程序里以后都不会使用的数据对象。<br>2.重新收回这些对象占用的资源。<br>知道两点：<br>1.在规定时间内应用垃圾收集时间越长，那么剩下的用于16ms内完成光栅化的逻辑处理时间就更短。如果有连续的大量垃圾收集，或者长时间的垃圾收集，可能会超过16ms，就会导致用户视觉上的卡顿。<br>2.要知道你的码流可能会执行一些工作，迫使GC发生的更加频繁，或者持续时间更长，比如，在向内部循环中进行一大堆重要对象配置时，就会花费很长时间。这一大堆对象就会污染内存堆。</p>
+<p>4.内存流失：在短时间内配置大量的对象，并将它们极短时间内进行释放，就会出现内存流失。如果在内存监控中，看到有内存抖动，那么八九不离十从那里下手。<br>解决办法：<br>1.要确保没有在内循环内，为了明显原因配置对象。试着将它们移出到循环之外，或者直接避免它们。还有onDraw函数中也是一样（本质相同）。<br>2.如果非要创建对象，可以考虑<strong>对象池模式</strong>。实际上，你会有一个用于配置一组对象的对象池，你的代码不必每次都到堆里去，它可以从内存池里抓取可获得的对象。<br><img src="http://img.blog.csdn.net/20160424213559486" alt=""><br> 这种模式的弊端：你得自己负责释放对象，在使用完要将它们释放进内存池。也就意味着对于高扰动对象，就会需要消耗一些精力，在创建和销毁时合理管理这些对象。（跟getView方法中的模式很像）。</p>
+<p> 5.关于JobScheduler API的介绍：如何在低电量情况下做事。工具battery historian。</p>
+<p> 一言以蔽之, 就是把不紧急的工作留待条件更充分的时候完成. </p>
+<p>更好的条件包括wifi, 充电, 手机处于休眠状态等…</p>
+<p>如果APP有符合如下情况的任务, 可以尝试使用JobScheduler机制执行任务:<br>可以推迟的非面向用户的任务(如定期数据库数据更新)<br>当充电时才希望执行的工作(如备份数据)<br>需要访问网络或 Wi-Fi 连接的任务(如向服务器拉取内置数据)<br>希望作为一个批次定期运行的许多任务</p>
+<p>代码上所需做的工作是将相关任务放置到JobService, 并根据应用情况设置Service启动条件, 可以是如下条件:</p>
+<p>当设备充电时启动<br>当设备连接到不限流量网络(wifi)时启动<br>当设备空闲时启动<br>在特定的截止期限之前或以最小的延迟完成<br>只有当条件得到满足, 系统才会启动计划中的任务.</p>
+<p>只要一切执行到位, 对手机续航的提高当然显而易见.</p>
+<p>6.关于overdraw：<br>过度绘制发生的原因是，硬件使用太多的周期来绘制屏幕上的像素，而这些像素到最后都不会组成图片。<br>现在安卓系统会自动尽量减少过度绘制，它可以试着避免绘制那些完全隐藏于不透明表面之下的项目 。<br>但是这项技术没有再深入发展，没有复杂的定制视图，还不能覆盖onDraw方法。这些情况下，系统无法了解你是如何绘制内容的，从而很难知道自己应该避免什么。<br>解决办法：通过使用canvas.cliprect API帮助系统好观察到这一过程。这个功能允许你为自己给出的视图规定可绘制边界，只有矩形框内的项目可以被绘制。<br>这个API还能保护CPU和GPU的性能：<br>CPU：每一条canvas绘制命令，将它们提交给OpenGL ES进行绘制时，都会有一点点额外负担。任何clipRect之外的绘制命令都不会提交至硬件，也就不会产生额外负担。<br>现在，任何与clipRect有部分交叉的内容还是会被绘制。<br>这也是clipRect在GPU方面可以帮助<strong>定义排除矩形</strong>，从而从像素层面上让GPU避免为裁剪部分上色的原因。</p>
+<p>除了clipRect，还可以使用qucikreject API，他可以让你在你的onDraw功能内部，测试clipRect的交叉部分。</p>
+<p>可以使用GPU Overdraw工具进行监测。</p>
+<p>7.对于绘制的工作原理：<br>android系统的工作原理，当更新可视化物品的时候，要记住android在你的设备上绘制图案前，都会将高级的xml文件，转换成GPU可以接受的文件，然后进行屏幕渲染。<br>这要借助一个内部对象，他叫做<strong>显示列表</strong>。显示列表基本上包含了所有用于GPU渲染的所需信息。<br>要想提升渲染系统的整体性能，布局失效最小化是一个不错的开端。<br><img src="http://img.blog.csdn.net/20160425094902756" alt=""><br>监测工具：<br>1.Profile GPU Rendering<br><img src="http://img.blog.csdn.net/20160425094244950" alt=""><br>2.经常使用Hierarchy Viewer，检查你的视图层次，尽量保持它的平整。</p>
+<p>8.绘制：<br><img src="http://img.blog.csdn.net/20160425095246089" alt=""><br>按钮，或者路径等，需要被绘制到屏幕上时，它们首先需要在CPU内被转换成像素和纹理，然后才能送至GPU进行光栅化。<br>优化光栅化性能意味着，将尽可能多的数据存入，而且越快越好，然后留在那里，尽可能长时间不去动他。<br>对于常用的绘制图案，纹理，android进行了优化，不需要经过CPU进行转换，而是直接存在了GPU中，这样就减少了中间转化的时间。</p>
+<p>9.Profile GPU Rendering:</p>
+<p>蓝色，红色，橙色直接反映了android渲染通道的比例。<br>蓝色：代表了绘制时间。或者说，在java中具体花了多长时间来生成并更新你的显示列表。记住，在视图被渲染之前，它必须被转换成适合GPU的格式。简单的说，这可能仅仅是几个绘图命令，当复杂起来，我们可能需要往里的canvas对象里嵌合自定义路径。一旦完成，结果由系统生成为显示列表。蓝色记录了为所有的需要更新的视图完成这两步需要消耗的时间。上图：<br><img src="http://img.blog.csdn.net/20160425103011375" alt=""><br>如果蓝色升高，可能是：<br>1.一堆视图突然失效了<br>2.一部分自定义视图在onDraw功能里包含了某些复杂逻辑。</p>
+<p>红色：代表了执行时间。这是android的2D渲染执行显示列表时消耗的时间。越是复杂的视图，越是需要复杂的命令让OpenGL绘制。<br>如果红色升高：可能是：<br>1.复杂的视图。<br>值得注意的是密集的栏目高峰，还有可能是重复上传大量视图，进行重新绘制造成的。这些视图不一定是无效的。</p>
+<p>橙色：代表了处理时间。这是CPU告诉GPU它完成一帧渲染了。这个活动是一个封锁呼叫。因此，CPU会等待GPU的信息，来感知它接受到的指令。如果橙色高，意味着GPU在处理大量工作，导致出现了很多复杂的视图，需要很多的OpenGL渲染命令来进行处理。</p>
+<p>10.VSYNC。<br>刷新频率：屏幕每秒内更新显示的次数。<br>帧频：GPU每秒可以绘制的帧数。例如60fps。这种情况下，帧频越高越好。<br>解决两个频率不同的问题：<strong>双缓冲技术</strong>，也叫<strong>后台缓冲</strong>。<br>实际上，当GPU将一帧绘制到内存后，它会将其复制到内存副区域，也叫帧缓存区，当它绘制第二帧时，它会完成后台缓冲，帧缓存区不受影响，现在，当屏幕刷新时，它会从并不处于绘制过程中的帧缓存区进行刷新。<br><img src="http://img.blog.csdn.net/20160425110557654" alt=""><br>这就要用到VSYNC了，也叫<strong>垂直同步</strong>。<br>帧率要一直保证你的GPU能够迅速获取它要的数据，并且有时间在下一次屏幕刷新前进行绘制。android会每隔16ms绘制刷新屏幕一次，如果帧频小于60，那么在刷新屏幕时，会检测到渲染没有准备好，那么就不会进行刷新（即保存原来的样子）。这样，我们就在32ms内看到同一帧的图像（可能更长）。</p>
+<p>11.进入开发者模式，利用工具：“显示GPU重复绘制”进行监测。能够检测overdraw。</p>
+<p>12.MonkeyRunner，Espresso。</p>
+<p>13.加载图片造成的内存抖动：<br>1.使用对象池<br>2.可以指示解码器使用一个已存内存片，来将该位图载入，而不是创建一个新的位图。使用对象BitmapOptions(位图功能)中的inBitmap属性可以解决。当你将inBitmap属性分配到一个已存在的位图时，对接下来的像素数据，你的任何解码和加载指令都会重复使用那个现存的位图，而不是从堆中配置一个新的对象。<br><img src="http://img.blog.csdn.net/20160425151607331" alt=""><br>注意点：<br>1.对于SDK 18以下，加载的位图和重新使用的位图必须大小一致才能合理工作。 对于19以上，加载的位图比原图大或者相等。<br><img src="http://img.blog.csdn.net/20160425152531477" alt=""><br>2.虽然可以跨像素格式重新使用，这也是个多节的过程，一个简单的方法是为你的每一种像素格式使用单独的位图。这样好麻烦！<br>3.使用glide库，或者其他开源框架吧。</p>
+<p>14.Pre-scaling Bitmaps：<br>对于生成不是原图的2的幂大小的位图。首先用inSampleSize将它转换成目标带下的2次幂。然后用inDensity和inTargetDensity将生成规格缩放为你想要的准确大小。这两个方法的结合是非常快的操作，因为inSampleSize会减少像素的数量，而基于输出密度的步骤需要对这些像素应用大小重置过滤。<br><img src="http://img.blog.csdn.net/20160425165238146" alt=""><br>实用类库：glide，Picasso。能够处理这类位图大小重置的代码，还有其他功能，比如异步解码和缓存。</p>
+<p>15.PNG文件是android图像内容的主要部分，特别是当你的应用内有很多UI元素，而不是图片数据时。PNG它们很容易膨胀，膨胀频率高。<br>优化方法：<br>1.<br><img src="http://img.blog.csdn.net/20160425172611754" alt=""><br>2.使用WebP格式。它支持alpha透明处理，无损及有损压缩，也支持动画。事实上，WebP和有损处理步骤，只会在图片发布阶段帮助你处理大小。一旦图片已经加载至内存，它们已经被解压至正常格式，所以可以用于渲染。这意味着，所有的文件压缩只能帮你进行数据传送，而不是CPU内存使用量。一旦文件离开磁盘进入内存，有些很好的压缩保存都消失了。</p>
+<p>16.更小的像素格式：<br><img src="http://img.blog.csdn.net/20160425174729000" alt=""><br>所谓性能，在于取舍。图片的内存大小，视觉效果，加载时间。这都是你需要平衡的，这样你的应用才能实现最佳性能。Dalvik版本时的android垃圾收集器是不可压缩的，意味着当对象被释放时，其他的对象不会为了优化以释放空间而被调整。这代表了位图的一大问题，它可能是你会在应用内实际配置的最大的连续内存区块。你堆内存中连续可用空间越少，意味着位图的配置可能失败，导致垃圾收集事件被触发，来在其他位置释放空间，所以配置最终可能成功，也可能出现内存不足错误。<br><img src="http://img.blog.csdn.net/20160425195637990" alt=""><br>这些图片在内存中如此大的原因是，在你可以使用这些JPEG或PNG文件前，它们先要被加载进入内存并解码成一种系统可以渲染的格式，就是说一旦它们载入了，它们就不再是它们的压缩格式了。并且，默认情况下，android中当图片被载入为位图时，格式默认为AGBB_8888，此外通过设置，其他格式有RGB_565,ARGB_4444，ALPHA_8.</p>
+<p>17.提高性能，减少工作量很重要。但有时，工作时间和工作量同样重要。几个重要API：<br>1.AlarmManager<br><img src="http://img.blog.csdn.net/20160425200859154" alt=""><br>设置非准时警报。不必要时，不要设置准时警报。<br>2.SyncAdapter（同步适配器）：它提供的批处理方式与非准确警报完全一致。但是他们也会给你带来网络连接检查和自动重试。</p>
+<p>如果你的目标是API21以上，直接用功能更强大的3。<br>3.JobScheduler</p>
+<p>18.自定义view：<br>错误：<br>1.浪费时间绘制那些还没改变的事物。<br>2.浪费时间和带宽绘制永远不会显示出来的像素。因为它们被其他物体遮盖住了。<br>3.浪费太长时间运行绘制函数的代码。</p>
+<p>对于1：<br>记住，所有的绘制开始都要调用view.invalidate代码。<br>原则一：如果视图里没有任何改变，那就不必重新绘制。<br><img src="http://img.blog.csdn.net/20160425202046732" alt=""><br>原则二：永远通过一个矩形来作废。脏矩形（dirty rect），给系统的提示，告诉它视图的那个部分被改变了。遮阳系统使用这个矩形来帮助决定何时调用绘制函数。<br>当你的视图动画时，onDraw每秒会被调用60次。与其他大部分代码不同，绘制代码必须在UI主线程运行。</p>
+<p>19.ANR：<br>通常我们怀疑的是会无限期阻塞的系统调用，比如磁盘或者网络访问。正常情况下，可以执行的很快，但是一旦硬件+软件+坏运气组合起来，他们就会爆发。<br>监测工具：开发者模式下的strict mode。<br>严格模式：<br>Thread Policy: 线程规则有探测较慢阻塞方法的功能。<br>VM Policy:探测各种内存流失的选项。<br>两张规则相辅相成。<br>如果你内存较低，一个普通的配置也会阻塞上百毫秒。很可能在你应用的主线程上，有至少一个阻塞调用，正等着导致小故障，丢帧，甚至ANR。严格模式会帮你找到他们。</p>
+<p>20.避免在onDraw中进行配置（allocation）：<br>在绘制函数里进行的典型配置，比如绘画，路径，字样等。可是这些类都有共同点，他们都是本地对象的封装器。android系统的2D绘制系统依赖于一个叫Skia的图形处理函数库。Skia是用c++编写的。android.graphics里的很多类，实际上都是本地c++对象的封装器而已。而且c++对象有析构函数，在你回收某个对象的内存之前，你要明确的调用析构函数。这意味着要运行终结器（finalizers），这对性能是非常不好的。而且析构函数必须，和其他的事一起，在本地堆锁上同步。所以总有可能，他们会阻塞UI主线程，时间长到会丢帧。换句话说，持续的创建并丢弃图像对象，本质上就是告诉系统，希望应用在不可测的时间间隔内被不定时长的打扰。</p>
+<p>解决方法：本质，不要在onDraw函数中new太多对象。利用android studio里面的重构工具。使用Extract Field（提取域）来将这些对象移出绘制函数，并放进可以被重新使用的类的主体内，如果可能的话，让这些域保持静态。这样，你可以重新使用你的类的多实例中的对象。<strong>特别是当你的视图在列表项中使用时</strong>，这是个很好的方法。因为这种情况下它会被多次创建。</p>
+<p>21.hidden cost of transparency:<br>alpha透明组合，是帮助应用畅销的一个酷炫效果。<br>当你渲染不透明元素时，每个像素只需要写入一次，但是当你混合时，每个像素至少要绘制2次。因为我们要知道alpha透明混合视图内部是什么，才能进行混合。在某些情况下，单一的alpha透明混合视图会造成你的视图层级内一个完整分支被绘制2次。潜在性能问题，因为，硬件层有很多前端代价，但随着时间推移会变得廉价。第一次使用硬件层时，它可比直接绘制到屏幕上花费的多。<br>节省的部分在后面，当你重复使用层而不更换内容时。但是，android系统默认在每一帧之后，渲染器丢弃硬件层。所以，要实现优化，就要显式的提醒系统，重复使用硬件层。<br>优化：<br>1.重复使用硬件层。android 16以上直接使用中间的语句，让动画来自动管理层类型。16以下的使用前一句和最后一句。<br><img src="http://img.blog.csdn.net/20160425220054290" alt=""><br>2.明确功能，根据业务重写View.hasOverlappingRendering。</p>
+<p>22.使用android studio中的Lint工具检查静态代码的优化问题。可能检查的事项比较多，那么有一些简单建议：<br>1.确保你在绘制代码中设置了内存配置（Memory allocations within drawing code），抛出一个错误。<br>2.将overdraw检测纳入警告类。</p>
+<p>23.LRU Cache：<br>根据应用可用的内存总量来设置cache大小：<br><img src="http://img.blog.csdn.net/20160426100727145" alt=""><br>getMemoryClass指出为了让系统最佳工作，你的应用本身应该设置的内存限制。</p>
+<p>24.关于迭代器：在java中，为了稳定性和可维护性，都要求使用迭代器来遍历数组或其他数据结构。但是这也是有性能损失的。如果在非常重性能的情况下，应该慎重考虑。<br>试验：对ArrayList和Vector进行三种语法的试验（for，标准iterator，简化iterator（for(Item item:list)））。结果如下：<br><img src="http://img.blog.csdn.net/20160426101907649" alt=""><br>注意：在替换前，看是否性能能够得到明显提升，这是用稳定性和可维护性来换取性能的例子。</p>
+<p>25.关于object pool，网上有很多争议，其实现方法也比较困难。务必搞清楚在具体应用中是否值得用。<br>参考：<br><a href="https://www.youtube.com/watch?v=bSOREVMEFnM&amp;list=PLWz5rJ2EKKc9CBxr3BVjPTPoDPLdPIFCE&amp;index=42" target="_blank" rel="external">https://www.youtube.com/watch?v=bSOREVMEFnM&amp;list=PLWz5rJ2EKKc9CBxr3BVjPTPoDPLdPIFCE&amp;index=42</a><br>还有pocket中的文章。</p>
+<p>26.network：<br><img src="http://img.blog.csdn.net/20160426111617564" alt=""><br>电流图：<br><img src="http://img.blog.csdn.net/20160426111730830" alt=""></p>
+<p>请求：1.现在马上做（如用户主动下拉刷新）2.将来某个时间做（用JobScheduler）<br>针对now optimization：<br>1.好好利用预载取功能（prefetch）。本质上，试图预测用户在接下来5到10分钟可能需要的东西，或者1-5M的数据，提前获取那个内容。这样可以摆脱将来那些独立微小的请求的负担。<br>2.确保要对你可以控制的上传或下载的任何内容进行高度压缩。总的来说，需要压缩或解压内容的CPU周期的电池性能，通常会大大低于无线电用于传送该负载至网络上成本。<br>监测工具：Networking Profiling（网络连接剖析）。</p>
+<p>27.网络连接性能在于缩短用户请求数据到我们返回数据的时间。很多事物影响这个变量。比如带宽延时，蜂窝网连接速度。</p>
+<p>原则：<br>1.减少无线电活跃时间<br>2.减少获取数据的大小</p>
+<p>网络请求的分类：<br>1.用户要求你做的。（手动刷新）<br>2.服务器要对你进行的更新（传回一个response，有新的社交数据可用）<br>3.需要频繁上传的数据（上传分析，搜索任何设备位置）</p>
+<p>后两个是优化的重点。<br>1.<strong>绝不应该定期轮询服务器获取更新！</strong>，这就是浪费带宽和电量，让服务器告诉你什么都没有改变<br>解决办法：例如借助Google云端推送，会让服务器有新内容时提示应用。GCMNetworkManager是一个Google Play服务API，可以帮助你规划网络连接导向任务，并为你处理批处理。</p>
+<p>28.关于压缩数据：<br><a href="https://www.youtube.com/watch?v=Eb7rzMxHyOk&amp;list=PLOU2XLYxmsIJGErt5rrCqaSGTMyyqNt2H&amp;feature=iv&amp;src_vid=l5mE3Tpjejs&amp;annotation_id=annotation_296967671" target="_blank" rel="external">https://www.youtube.com/watch?v=Eb7rzMxHyOk&amp;list=PLOU2XLYxmsIJGErt5rrCqaSGTMyyqNt2H&amp;feature=iv&amp;src_vid=l5mE3Tpjejs&amp;annotation_id=annotation_296967671</a></p>
+<p><a href="http://www.html5rocks.com/en/tutorials/speed/img-compression/" target="_blank" rel="external">http://www.html5rocks.com/en/tutorials/speed/img-compression/</a></p>
+<p><a href="https://www.youtube.com/watch?v=whGwm0Lky2s&amp;feature=iv&amp;src_vid=l5mE3Tpjejs&amp;annotation_id=annotation_1270272007" target="_blank" rel="external">https://www.youtube.com/watch?v=whGwm0Lky2s&amp;feature=iv&amp;src_vid=l5mE3Tpjejs&amp;annotation_id=annotation_1270272007</a></p>
+<p><a href="http://www.html5rocks.com/en/tutorials/speed/txt-compression/" target="_blank" rel="external">http://www.html5rocks.com/en/tutorials/speed/txt-compression/</a></p>
+<p>仔细想你发送xml和json数据包的频率，可能发现不应该发送这些原始文本数据，相反应该用Protobufs或FlatBuffers格式进行杠杆作用</p>
+<p>停止更新！！！看到胡凯同学的总结，比我自己写的好多了。弃坑！！！<br>传送地址：<a href="http://hukai.me/" title="hukai" target="_blank" rel="external">Hukai’s Blog</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/04/24/关于youtube上Android-Performance-Patterns的总结-部分/" data-title="关于youtube上Android Performance Patterns的总结(部分) | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/05/02/Volley相关知识/" title="Volley相关知识">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Volley相关知识</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/04/21/Miui-Note源码解析/"  title="Miui Note源码解析">
+ <strong>下一篇：</strong><br/> 
+ <span>Miui Note源码解析
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/04/24/关于youtube上Android-Performance-Patterns的总结-部分/" data-title="关于youtube上Android Performance Patterns的总结(部分)" data-url="http://yoursite.com/2016/04/24/关于youtube上Android-Performance-Patterns的总结-部分/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github Card</p>
+<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">Tags</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>18</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/TECH/" title="TECH">TECH<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ZengQi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
