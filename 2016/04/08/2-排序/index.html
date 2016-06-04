@@ -225,6 +225,13 @@
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#排序算法"><span class="toc-number">1.</span> <span class="toc-text">排序算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-选择排序"><span class="toc-number">2.</span> <span class="toc-text">1.选择排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-插入排序"><span class="toc-number">3.</span> <span class="toc-text">2.插入排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-希尔排序"><span class="toc-number">4.</span> <span class="toc-text">3.希尔排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-归并排序（自顶向下）"><span class="toc-number">5.</span> <span class="toc-text">4.归并排序（自顶向下）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-归并排序（自底向上）"><span class="toc-number">6.</span> <span class="toc-text">5.归并排序（自底向上）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-快速排序："><span class="toc-number">7.</span> <span class="toc-text">6.快速排序：</span></a></li></ol>
+ 
+  </div>
+
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
@@ -382,6 +389,8 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });

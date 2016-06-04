@@ -212,6 +212,13 @@ Fragment 表示 Activity 中的行为或用户界面部分。您可以将多个�
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建片段"><span class="toc-number">1.</span> <span class="toc-text">创建片段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加用户界面"><span class="toc-number">2.</span> <span class="toc-text">添加用户界面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#向-Activity-添加片段"><span class="toc-number">3.</span> <span class="toc-text">向 Activity 添加片段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#与activity通信"><span class="toc-number">4.</span> <span class="toc-text">与activity通信</span></a></li></ol>
+ 
+  </div>
+
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
@@ -369,6 +376,8 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
