@@ -11,7 +11,9 @@
     
 
     
-    <meta name="description" content="第一周：笔记：
+    <meta name="description" content="第一周：
+1-Linear Regression with One Variable2-Linear Algebra Review
+笔记：
 
 cost function：
 h(x)与J（&amp;amp;）的比较：学习算法的优化目标是我们想找到一个&amp;amp;的值来将J（&amp;amp;）最小化。即为1。此时拟合度最高。
@@ -19,13 +21,14 @@ h(x)与J（&amp;amp;）的比较：学习算法的优化目标是我们想找到
 
 关于学习速率：
 
-当我们在梯度下降时，导数值会随着接近的过程变得越来越小。所以我们没有必须随着接近过程动态改变学习速率，因为导数已经随着时间改变了。
-将梯度下降和线性回归模型">
+当我们在梯度下降时，导数值会随着">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习笔记1">
 <meta property="og:url" content="http://yoursite.com/2016/05/16/机器学习笔记1/index.html">
 <meta property="og:site_name" content="曾先生's Blog">
-<meta property="og:description" content="第一周：笔记：
+<meta property="og:description" content="第一周：
+1-Linear Regression with One Variable2-Linear Algebra Review
+笔记：
 
 cost function：
 h(x)与J（&amp;amp;）的比较：学习算法的优化目标是我们想找到一个&amp;amp;的值来将J（&amp;amp;）最小化。即为1。此时拟合度最高。
@@ -33,8 +36,7 @@ h(x)与J（&amp;amp;）的比较：学习算法的优化目标是我们想找到
 
 关于学习速率：
 
-当我们在梯度下降时，导数值会随着接近的过程变得越来越小。所以我们没有必须随着接近过程动态改变学习速率，因为导数已经随着时间改变了。
-将梯度下降和线性回归模型">
+当我们在梯度下降时，导数值会随着">
 <meta property="og:image" content="http://img.blog.csdn.net/20160516114947817">
 <meta property="og:image" content="http://img.blog.csdn.net/20160516115741828">
 <meta property="og:image" content="http://img.blog.csdn.net/20160516120232022">
@@ -65,10 +67,28 @@ h(x)与J（&amp;amp;）的比较：学习算法的优化目标是我们想找到
 <meta property="og:image" content="http://img.blog.csdn.net/20160601100228862">
 <meta property="og:image" content="http://img.blog.csdn.net/20160601100619163">
 <meta property="og:image" content="http://img.blog.csdn.net/20160601101911629">
-<meta property="og:updated_time" content="2016-06-01T08:51:29.545Z">
+<meta property="og:image" content="http://img.blog.csdn.net/20160603191842091">
+<meta property="og:image" content="http://img.blog.csdn.net/20160603193119186">
+<meta property="og:image" content="http://img.blog.csdn.net/20160603194600549">
+<meta property="og:image" content="http://img.blog.csdn.net/20160603201914328">
+<meta property="og:image" content="http://img.blog.csdn.net/20160603202337883">
+<meta property="og:image" content="http://img.blog.csdn.net/20160603205248176">
+<meta property="og:image" content="http://img.blog.csdn.net/20160603205402051">
+<meta property="og:image" content="http://img.blog.csdn.net/20160603205600877">
+<meta property="og:image" content="http://img.blog.csdn.net/20160603205919584">
+<meta property="og:image" content="http://img.blog.csdn.net/20160603210235914">
+<meta property="og:image" content="http://img.blog.csdn.net/20160603210548250">
+<meta property="og:image" content="http://img.blog.csdn.net/20160604155742475">
+<meta property="og:image" content="http://img.blog.csdn.net/20160604162141834">
+<meta property="og:image" content="http://img.blog.csdn.net/20160604162344931">
+<meta property="og:image" content="http://img.blog.csdn.net/20160604162813906">
+<meta property="og:image" content="http://img.blog.csdn.net/20160604163701496">
+<meta property="og:updated_time" content="2016-06-04T13:49:59.268Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习笔记1">
-<meta name="twitter:description" content="第一周：笔记：
+<meta name="twitter:description" content="第一周：
+1-Linear Regression with One Variable2-Linear Algebra Review
+笔记：
 
 cost function：
 h(x)与J（&amp;amp;）的比较：学习算法的优化目标是我们想找到一个&amp;amp;的值来将J（&amp;amp;）最小化。即为1。此时拟合度最高。
@@ -76,8 +96,7 @@ h(x)与J（&amp;amp;）的比较：学习算法的优化目标是我们想找到
 
 关于学习速率：
 
-当我们在梯度下降时，导数值会随着接近的过程变得越来越小。所以我们没有必须随着接近过程动态改变学习速率，因为导数已经随着时间改变了。
-将梯度下降和线性回归模型">
+当我们在梯度下降时，导数值会随着">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20160516114947817">
 
     
@@ -154,11 +173,13 @@ h(x)与J（&amp;amp;）的比较：学习算法的优化目标是我们想找到
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Linear-Regression-with-One-Variable"><span class="toc-number">1.</span> <span class="toc-text">1-Linear Regression with One Variable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Linear-Algebra-Review"><span class="toc-number">2.</span> <span class="toc-text">2-Linear Algebra Review</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Linear-Regression-with-Multiple-Variables"><span class="toc-number">3.</span> <span class="toc-text">1-Linear Regression with Multiple Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Logistic-Regression"><span class="toc-number">4.</span> <span class="toc-text">1-Logistic Regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Regularization"><span class="toc-number">5.</span> <span class="toc-text">2-Regularization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Neural-Networks-Representation"><span class="toc-number">6.</span> <span class="toc-text">1-Neural Networks: Representation</span></a></li></ol>
 		
 		</div>
 		
-		<p><strong>第一周</strong>：<br>笔记：<br><img src="http://img.blog.csdn.net/20160516114947817" alt=""></p>
+		<p><strong>第一周</strong>：</p>
+<h2 id="1-Linear-Regression-with-One-Variable"><a href="#1-Linear-Regression-with-One-Variable" class="headerlink" title="1-Linear Regression with One Variable"></a>1-Linear Regression with One Variable</h2><h2 id="2-Linear-Algebra-Review"><a href="#2-Linear-Algebra-Review" class="headerlink" title="2-Linear Algebra Review"></a>2-Linear Algebra Review</h2><hr>
+<p>笔记：<br><img src="http://img.blog.csdn.net/20160516114947817" alt=""></p>
 <p><img src="http://img.blog.csdn.net/20160516115741828" alt=""></p>
 <p>cost function：<br><img src="http://img.blog.csdn.net/20160516120232022" alt=""></p>
 <p>h(x)与J（&amp;）的比较：<br><img src="http://img.blog.csdn.net/20160516143739045" alt=""><br>学习算法的优化目标是我们想找到一个&amp;的值来将J（&amp;）最小化。即为1。此时拟合度最高。</p>
@@ -172,7 +193,9 @@ h(x)与J（&amp;amp;）的比较：学习算法的优化目标是我们想找到
 <p><img src="http://img.blog.csdn.net/20160516162724293" alt=""><br>编程中注意点：同时更新两个参数。</p>
 <p>利用梯度下降的原因：<br>1.对于一般情况，它更容易得到局部最优值。但是，对于线性回归的代价函数，代价函数本身是一个凸函数（convex function）,直白点说，就是碗状（bowl shape）的函数。对于这样的代价函数，只有一个全局最优解，没有局部最优解。所以用梯度下降算法不会陷入局部最优的困境。</p>
 <p>一般的算法都是”batch“：<br><img src="http://img.blog.csdn.net/20160516163605125" alt=""></p>
-<p><strong>第二周</strong>：<br>多特征：<br><img src="http://img.blog.csdn.net/20160516203429042" alt=""></p>
+<p><strong>第二周</strong>：</p>
+<h2 id="1-Linear-Regression-with-Multiple-Variables"><a href="#1-Linear-Regression-with-Multiple-Variables" class="headerlink" title="1-Linear Regression with Multiple Variables"></a>1-Linear Regression with Multiple Variables</h2><hr>
+<p>多特征：<br><img src="http://img.blog.csdn.net/20160516203429042" alt=""></p>
 <p><img src="http://img.blog.csdn.net/20160516203919377" alt=""></p>
 <p>利用梯度下降法求多特征的参数集：<br><img src="http://img.blog.csdn.net/20160518092712164" alt=""></p>
 <p>之前单特征跟多特征的比较，可以看出单特征是多特征的特例：<br><img src="http://img.blog.csdn.net/20160518093147593" alt=""></p>
@@ -191,12 +214,32 @@ h(x)与J（&amp;amp;）的比较：学习算法的优化目标是我们想找到
 <p>如果X’X不可逆呢？pinv能求出其伪逆矩阵。<br>什么情况下出现不可逆呢？应该怎样避免？<br><img src="http://img.blog.csdn.net/20160530105252024" alt=""><br>1.删掉本来相关的特征（如m与feet）。<br>2.用太小的样本来拟合太多的特征，删除一些特征。</p>
 <p>在进行数值运算的时候，应该具有向量的思想。与其写for循环计算，右边明显要快很多。<br><img src="http://img.blog.csdn.net/20160530115057710" alt=""></p>
 <p><strong>第三周</strong>：</p>
+<h2 id="1-Logistic-Regression"><a href="#1-Logistic-Regression" class="headerlink" title="1-Logistic Regression"></a>1-Logistic Regression</h2><h2 id="2-Regularization"><a href="#2-Regularization" class="headerlink" title="2-Regularization"></a>2-Regularization</h2><hr>
 <p>用线性回归不能够准确解决分类问题，原因：<br>1.本身不准确<br><img src="http://img.blog.csdn.net/20160601095522901" alt=""><br>2.不能保证h(X)在0-1之间<br><img src="http://img.blog.csdn.net/20160601095659214" alt=""></p>
 <p>采用<strong>逻辑回归</strong>（logistics regression）分类算法！</p>
 <p><strong>逻辑回归</strong>：<br><img src="http://img.blog.csdn.net/20160601100228862" alt=""></p>
 <p>实际上，这个模型预测的值是<strong>概率值</strong>：<br><img src="http://img.blog.csdn.net/20160601100619163" alt=""></p>
 <p>对于非线性预测边界，通过增加复杂的多项式特征变量，我们可以得到更复杂的边界。<br><img src="http://img.blog.csdn.net/20160601101911629" alt=""></p>
 <p><strong>强调</strong>：决策边界不是训练集的属性，而是假设本身及其参数的属性。只要我们给定了参数向量&amp;，圆形的决策边界就确定了，我们不是用训练集来定义的决策边界，我们是用训练集来拟合参数&amp;。</p>
+<p>如果用定义线性回归的方式定义逻辑回归的cost function，会出现non-convex的情况，有很多局部最优值。<br><img src="http://img.blog.csdn.net/20160603191842091" alt=""></p>
+<p>我们定义了单训练的代价函数。<br><img src="http://img.blog.csdn.net/20160603193119186" alt=""></p>
+<p>比梯度下降更高级的优化算法：<br><img src="http://img.blog.csdn.net/20160603194600549" alt=""></p>
+<p>多分类问题：<br>只是简单的介绍了一下one-vs-all方法。</p>
+<p>过度拟合：<br><img src="http://img.blog.csdn.net/20160603201914328" alt=""></p>
+<p>修正过度拟合：<br><img src="http://img.blog.csdn.net/20160603202337883" alt=""><br>1.减少特征变量<br>2.正则化</p>
+<p><strong>正则化：</strong></p>
+<p>1.将正则化用于线性回归：<br>定义的正则化线性回归：<br><img src="http://img.blog.csdn.net/20160603205248176" alt=""><br>对应到梯度下降：<br><img src="http://img.blog.csdn.net/20160603205402051" alt=""><br>简单理解就是在之前的&amp;前乘以系数(0.99之类)再运算。<br>对应到正规方程：<br><img src="http://img.blog.csdn.net/20160603205600877" alt=""></p>
+<p>2.将正则化用于逻辑回归：<br>定义的正则化逻辑回归：<br><img src="http://img.blog.csdn.net/20160603205919584" alt=""><br>对应到梯度下降：<br><img src="http://img.blog.csdn.net/20160603210235914" alt=""><br>简单理解就是在之前的&amp;前乘以系数(0.99之类)再运算。<br>对应到高级算法：<br><img src="http://img.blog.csdn.net/20160603210548250" alt=""></p>
+<p><strong>第四周：</strong></p>
+<h2 id="1-Neural-Networks-Representation"><a href="#1-Neural-Networks-Representation" class="headerlink" title="1-Neural Networks: Representation"></a>1-Neural Networks: Representation</h2><hr>
+<p><strong>神经网络：</strong><br>为什么需要神经网络？<br>考虑一个非线性分类器，我们用逻辑回归做的话，可能需要很多特征，并且需要这些特征之间的相关项（这样就导致需要求解的theta很大），例如：<br><img src="http://img.blog.csdn.net/20160604155742475" alt=""><br>对比于5000个feature，如果我们只选择各自的平方项，则能缩短至100.</p>
+<p>所以，只是简单的增加二次项或者三次项之类的逻辑回归算法，并不是解决复杂非线性问题的好方法。因为当n很大时，将会产生非常多的特征项。</p>
+<p><strong>神经网络介绍：</strong><br><img src="http://img.blog.csdn.net/20160604162141834" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20160604162344931" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20160604162813906" alt=""></p>
+<p>前项传播的向量化实现：<br><img src="http://img.blog.csdn.net/20160604163701496" alt=""></p>
+<p>利用神经网络进行多分类：<br>参考matlab作业。</p>
+<p>关于matlab使用的技巧：多看workspace中矩阵变量的维数。有助于矩阵相乘运算。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -258,7 +301,7 @@ h(x)与J（&amp;amp;）的比较：学习算法的优化目标是我们想找到
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Linear-Regression-with-One-Variable"><span class="toc-number">1.</span> <span class="toc-text">1-Linear Regression with One Variable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Linear-Algebra-Review"><span class="toc-number">2.</span> <span class="toc-text">2-Linear Algebra Review</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Linear-Regression-with-Multiple-Variables"><span class="toc-number">3.</span> <span class="toc-text">1-Linear Regression with Multiple Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Logistic-Regression"><span class="toc-number">4.</span> <span class="toc-text">1-Logistic Regression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Regularization"><span class="toc-number">5.</span> <span class="toc-text">2-Regularization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Neural-Networks-Representation"><span class="toc-number">6.</span> <span class="toc-text">1-Neural Networks: Representation</span></a></li></ol>
  
   </div>
 
