@@ -178,72 +178,19 @@ Package（程序库单元）：每个编译单元只能有一个public class，�
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">Contents</strong>
- 
- 
- 
-  </div>
-
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
-<div class="github-card">
-<p class="asidetitle">Github Card</p>
-<div class="github-card" data-github="zengqi-ustb" data-width="220" data-height="119" data-theme="medium">
-<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
-</div>
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 18px;">Java编程思想读书笔记</a> <a href="/tags/TECH/" style="font-size: 10px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 14px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 12px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a> <a href="/tags/算法4读书笔记/" style="font-size: 16px;">算法4读书笔记</a>
+    </div>
   </div>
-
-
-
-  
-
-  
-<div class="tagslist">
-	<p class="asidetitle">Tags</p>
-		<ul class="clearfix">
-		
-			
-				<li><a href="/tags/Android/" title="Android">Android<sup>18</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Java编程思想读书笔记/" title="Java编程思想读书笔记">Java编程思想读书笔记<sup>9</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/算法4读书笔记/" title="算法4读书笔记">算法4读书笔记<sup>5</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/后端开发/" title="后端开发">后端开发<sup>4</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/数据结构与算法分析/" title="数据结构与算法分析">数据结构与算法分析<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Java/" title="Java">Java<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/TECH/" title="TECH">TECH<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/机器学习/" title="机器学习">机器学习<sup>1</sup></a></li>
-			
-		
-		</ul>
-</div>
 
 
   <div class="linkslist">
@@ -284,10 +231,6 @@ Package（程序库单元）：每个编译单元只能有一个public class，�
 </div>
 
   
-
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
-</div>
 
   <div class="weiboshow">
   <p class="asidetitle">Weibo</p>
@@ -379,6 +322,11 @@ $(document).ready(function(){
     o.css("top",Math.max(80,260-$(this).scrollTop()));
   });
   
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
   $(window).resize(function(){
     getSize(); 
     if (myWidth >= 1024) {
@@ -387,8 +335,6 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
