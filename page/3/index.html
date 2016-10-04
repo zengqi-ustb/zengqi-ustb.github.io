@@ -78,6 +78,96 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/05/27/关于继承的Activity中初始化及生命周期被调用的顺序/" title="关于继承的Activity中初始化及生命周期被调用的顺序" itemprop="url">
+  
+    <h1 itemprop="name">关于继承的Activity中初始化及生命周期被调用的顺序</h1>
+    
+     
+           <p itemprop="description" >先附上activity生命周期：
+
+试验内容：一个MainActivity（继承自BaseMainActivity）调用SecondActivity（继承自BaseSecondActivity），并back返回MainActivity的顺序。
+MainActivity代码如下（其</p>
+        
+    
+    <time datetime="2016-05-27T09:29:41.000Z" itemprop="datePublished">2016-05-27</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/25/关于共享元素demo的实现数据及分析/" title="关于共享元素demo的实现数据及分析" itemprop="url">
+  
+    <h1 itemprop="name">关于共享元素demo的实现数据及分析</h1>
+    
+     
+           <p itemprop="description" >为了弄懂共享元素间数据传递到底是怎么回事，我决定粗暴野蛮的进行测试，方法很简单：打log。两个activity的所有生命周期和重要方法都打了。以下是试验结果（注意试验2紧接着试验1，没有退出MainActivity）：
+demo的地址：点我
+试验1：123456789101112</p>
+        
+    
+    <time datetime="2016-05-25T09:26:46.000Z" itemprop="datePublished">2016-05-25</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/25/关于Android-Lollipop/" title="关于Android Lollipop" itemprop="url">
+  
+    <h1 itemprop="name">关于Android Lollipop</h1>
+    
+     
+           <p itemprop="description" >关于一些对以往功能部件的替换：
+1.app bar替换action bar
+2.关于共享元素动画演示：http://material-design.storage.googleapis.com/videos/animation-meaningfultransitions-view</p>
+        
+    
+    <time datetime="2016-05-25T08:52:23.000Z" itemprop="datePublished">2016-05-25</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/16/COURSERA机器学习笔记1/" title="COURSERA机器学习笔记1" itemprop="url">
+  
+    <h1 itemprop="name">COURSERA机器学习笔记1</h1>
+    
+     
+           <p itemprop="description" >第一周：
+1-Linear Regression with One Variable2-Linear Algebra Review
+笔记：cost function：
+h(x)与J（&amp;amp;）的比较：学习算法的优化目标是我们想找到一个&amp;amp;的值来将J（&amp;amp;）最小化。即</p>
+        
+    
+    <time datetime="2016-05-16T08:50:12.000Z" itemprop="datePublished">2016-05-16</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/05/13/妹知-源码解读/" title="妹知-源码解读" itemprop="url">
   
     <h1 itemprop="name">妹知-源码解读</h1>
@@ -207,93 +297,6 @@ JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，�
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/05/05/WebView相关知识/" title="WebView相关知识" itemprop="url">
-  
-    <h1 itemprop="name">WebView相关知识</h1>
-    
-     
-           <p itemprop="description" >为什么用WebView：
-1.兼容已有的项目2.可以动态更新
-12WebView webView;//通过findViewById找到webView.loadUrl(&amp;quot;网址&amp;quot;);
-但是loadUrl默认会通过手机浏览器打开，所以应该做下列修改：
-1234567</p>
-        
-    
-    <time datetime="2016-05-05T08:33:18.000Z" itemprop="datePublished">2016-05-05</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/05/02/Volley相关知识/" title="Volley相关知识" itemprop="url">
-  
-    <h1 itemprop="name">Volley相关知识</h1>
-    
-     
-           <p itemprop="description" >1-1：
-Volley特点：
-1.通信更快，更简单2.get、post网络请求及网络图像的高效率异步处理请求（已经帮我们处理好了异步化）3.排序（根据网络请求优先级进行排序）4.网络请求的缓存5.多级别取消请求6.和activity生命周期的联动（这样当退出activity时，就</p>
-        
-    
-    <time datetime="2016-05-02T08:30:36.000Z" itemprop="datePublished">2016-05-02</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/04/24/关于youtube上Android-Performance-Patterns的总结-部分/" title="关于youtube上Android Performance Patterns的总结(部分)" itemprop="url">
-  
-    <h1 itemprop="name">关于youtube上Android Performance Patterns的总结(部分)</h1>
-    
-     
-           <p itemprop="description" >重要更新：胡凯凯神总结的“安卓性能优化典范”比我好太多了，为了不重复造低效的轮子，我决定弃更了！(不过自己看一遍原版视频，收获也挺大的！)安卓性能优化典范，请参阅：Hukai’s Blog
-1.熟悉android studio关于Logcat，Memory，CPU，GPU，Net</p>
-        
-    
-    <time datetime="2016-04-24T08:22:37.000Z" itemprop="datePublished">2016-04-24</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/04/21/Miui-Note源码解析/" title="Miui Note源码解析" itemprop="url">
-  
-    <h1 itemprop="name">Miui Note源码解析</h1>
-    
-     
-           <p itemprop="description" >我们先从AndroidManifest.xml中的代码看起。12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596</p>
-        
-    
-    <time datetime="2016-04-21T08:18:39.000Z" itemprop="datePublished">2016-04-21</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
@@ -312,7 +315,7 @@ Volley特点：
   <div class="tagcloudlist">
     <p class="asidetitle">Tag Cloud</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 18.57px;">Java编程思想读书笔记</a> <a href="/tags/TECH/" style="font-size: 12.86px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 17.14px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.43px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 14.29px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15.71px;">算法4读书笔记</a>
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 17.14px;">Java编程思想读书笔记</a> <a href="/tags/TECH/" style="font-size: 12.86px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 18.57px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.43px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 14.29px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15.71px;">算法4读书笔记</a>
     </div>
   </div>
 
