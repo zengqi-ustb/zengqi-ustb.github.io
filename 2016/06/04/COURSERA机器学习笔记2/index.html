@@ -1,0 +1,614 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>COURSERA机器学习笔记2 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="第五周：
+Neural Networks: Learning
+关于神经网络的记法：
+神经网路的代价函数：
+直接计算神经网络的各项导数很复杂，为了计算导数，采用反向传播(backpropagation)的算法：
+
+前项传播原理：
+后向传播：
+矩阵与向量之间的转换：
+
+使用矩阵表达式的好处是：当你的参数以矩阵的形式存储时，你在进行正向传播和反向传播时，你会觉得更加方便。使用向量表达式的好处是：如果你有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="COURSERA机器学习笔记2">
+<meta property="og:url" content="http://yoursite.com/2016/06/04/COURSERA机器学习笔记2/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="第五周：
+Neural Networks: Learning
+关于神经网络的记法：
+神经网路的代价函数：
+直接计算神经网络的各项导数很复杂，为了计算导数，采用反向传播(backpropagation)的算法：
+
+前项传播原理：
+后向传播：
+矩阵与向量之间的转换：
+
+使用矩阵表达式的好处是：当你的参数以矩阵的形式存储时，你在进行正向传播和反向传播时，你会觉得更加方便。使用向量表达式的好处是：如果你有">
+<meta property="og:image" content="http://img.blog.csdn.net/20160610123136419">
+<meta property="og:image" content="http://img.blog.csdn.net/20160610124052098">
+<meta property="og:image" content="http://img.blog.csdn.net/20160610125527761">
+<meta property="og:image" content="http://img.blog.csdn.net/20160610125629866">
+<meta property="og:image" content="http://img.blog.csdn.net/20160610130455696">
+<meta property="og:image" content="http://img.blog.csdn.net/20160610130944746">
+<meta property="og:image" content="http://img.blog.csdn.net/20160610133316940">
+<meta property="og:image" content="http://img.blog.csdn.net/20160610135444796">
+<meta property="og:image" content="http://img.blog.csdn.net/20160610141845502">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612130358359">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612130825517">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612132845478">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612133404855">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612133739857">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612145727712">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612150123140">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612154052484">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612154258866">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612154849795">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612155647912">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612160248429">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612162713017">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612163249540">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612164521508">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612165654669">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612170106360">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612171524707">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612172222679">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612203817314">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612204310744">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612214202506">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612214241069">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612214251726">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612215218023">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612220316980">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612222745817">
+<meta property="og:image" content="http://img.blog.csdn.net/20160612223529358">
+<meta property="og:image" content="http://img.blog.csdn.net/20160613161038819">
+<meta property="og:image" content="http://img.blog.csdn.net/20160613161342365">
+<meta property="og:image" content="http://img.blog.csdn.net/20160613161650368">
+<meta property="og:image" content="http://img.blog.csdn.net/20160613161941716">
+<meta property="og:image" content="http://img.blog.csdn.net/20160613165827306">
+<meta property="og:updated_time" content="2016-10-04T15:03:33.811Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="COURSERA机器学习笔记2">
+<meta name="twitter:description" content="第五周：
+Neural Networks: Learning
+关于神经网络的记法：
+神经网路的代价函数：
+直接计算神经网络的各项导数很复杂，为了计算导数，采用反向传播(backpropagation)的算法：
+
+前项传播原理：
+后向传播：
+矩阵与向量之间的转换：
+
+使用矩阵表达式的好处是：当你的参数以矩阵的形式存储时，你在进行正向传播和反向传播时，你会觉得更加方便。使用向量表达式的好处是：如果你有">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160610123136419">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/04/COURSERA机器学习笔记2/" title="COURSERA机器学习笔记2" itemprop="url">COURSERA机器学习笔记2</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-04T09:44:44.000Z" itemprop="datePublished"> Published 2016-06-04</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Neural-Networks-Learning"><span class="toc-number">1.</span> <span class="toc-text">Neural Networks: Learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于神经网络的总结"><span class="toc-number">2.</span> <span class="toc-text">关于神经网络的总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Advice-for-Applying-Machine-Learning"><span class="toc-number">3.</span> <span class="toc-text">Advice for Applying Machine Learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Machine-Learning-System-Design"><span class="toc-number">4.</span> <span class="toc-text">Machine Learning System Design</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Support-Vector-Machines"><span class="toc-number">5.</span> <span class="toc-text">Support Vector Machines</span></a></li></ol>
+		
+		</div>
+		
+		<p><strong>第五周：</strong></p>
+<h2 id="Neural-Networks-Learning"><a href="#Neural-Networks-Learning" class="headerlink" title="Neural Networks: Learning"></a>Neural Networks: Learning</h2><hr>
+<p>关于神经网络的记法：<br><img src="http://img.blog.csdn.net/20160610123136419" alt=""></p>
+<p>神经网路的代价函数：<br><img src="http://img.blog.csdn.net/20160610124052098" alt=""></p>
+<p>直接计算神经网络的各项导数很复杂，为了计算导数，采用<strong>反向传播(backpropagation)</strong>的算法：<br><img src="http://img.blog.csdn.net/20160610125527761" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20160610125629866" alt=""></p>
+<p>前项传播原理：<br><img src="http://img.blog.csdn.net/20160610130455696" alt=""></p>
+<p>后向传播：<br><img src="http://img.blog.csdn.net/20160610130944746" alt=""></p>
+<p>矩阵与向量之间的转换：<br><img src="http://img.blog.csdn.net/20160610133316940" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20160610135444796" alt=""></p>
+<p>使用矩阵表达式的好处是：当你的参数以矩阵的形式存储时，你在进行正向传播和反向传播时，你会觉得更加方便。<br>使用向量表达式的好处是：如果你有像thetaVec或者DVec这样的矩阵，当你使用一些高级的优化算法时，这些算法通常要求你所有的参数都要展开成一个长向量的形式。</p>
+<p>梯度检查（目的：检查后向传播算法结果跟梯度的数值计算方法结果是不是差不多）：<br><img src="http://img.blog.csdn.net/20160610141845502" alt=""></p>
+<p>随机初始化：<br>采用零初始化的问题：<br><img src="http://img.blog.csdn.net/20160612130358359" alt=""></p>
+<p>随机初始化（目的：打破对称性）：<br><img src="http://img.blog.csdn.net/20160612130825517" alt=""></p>
+<h2 id="关于神经网络的总结"><a href="#关于神经网络的总结" class="headerlink" title="关于神经网络的总结"></a>关于神经网络的总结</h2><ol>
+<li>首先选取神经网络模型的结构<br><img src="http://img.blog.csdn.net/20160612132845478" alt=""></li>
+<li>神经网络训练过程（共6步）<br><img src="http://img.blog.csdn.net/20160612133404855" alt=""><br>随机初始化权值时，通常设为很小的值，接近于零<br><img src="http://img.blog.csdn.net/20160612133739857" alt=""></li>
+</ol>
+<hr>
+<p><strong>第六周：</strong></p>
+<h2 id="Advice-for-Applying-Machine-Learning"><a href="#Advice-for-Applying-Machine-Learning" class="headerlink" title="Advice for Applying Machine Learning"></a>Advice for Applying Machine Learning</h2><h2 id="Machine-Learning-System-Design"><a href="#Machine-Learning-System-Design" class="headerlink" title="Machine Learning System Design"></a>Machine Learning System Design</h2><hr>
+<p><strong>问题引入：</strong><br><img src="http://img.blog.csdn.net/20160612145727712" alt=""><br> 上面的这几种方法都可以试一试。但是，我们<strong>凭感觉</strong>试一试之后，有可能是一条不归路。有没有方法能够帮助我们选择呢？</p>
+<p>解决方法（”诊断法”）：<br><img src="http://img.blog.csdn.net/20160612150123140" alt=""></p>
+<p>评估机器学习算法的性能：<br>用70%作为训练，用30%作为测试，计算测试样本的误差。(注意要shuffle)</p>
+<p>另一种更好的评估方法：<br>用60%作为训练集，用20%作为交叉验证集，用20%作为测试集。<br><img src="http://img.blog.csdn.net/20160612154052484" alt=""><br>定义误差：<br><img src="http://img.blog.csdn.net/20160612154258866" alt=""></p>
+<p>交叉验证集与测试集：<br><img src="http://img.blog.csdn.net/20160612154849795" alt=""></p>
+<p>error：<br><img src="http://img.blog.csdn.net/20160612155647912" alt=""></p>
+<p>判断underfit or overfit：<br><img src="http://img.blog.csdn.net/20160612160248429" alt=""></p>
+<p>选择theta：<br><img src="http://img.blog.csdn.net/20160612162713017" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20160612163249540" alt=""></p>
+<p>学习曲线：<br><img src="http://img.blog.csdn.net/20160612164521508" alt=""><br>交叉验证集误差是对完全陌生的交叉验证集数据进行预测得到的误差。那么我们知道 当训练集很小的时候，泛化程度不会很好，意思是不能很好地适应新样本，因此这个假设，就不是一个理想的假设。只有当我使用一个更大的训练集时，我才有可能得到一个能够更好拟合数据的可能的假设。因此，你的验证集误差和测试集误差都会随着训练集样本容量m的增加而减小。因为你使用的数据越多，你越能获得更好地泛化表现或者说对新样本的适应能力更强。</p>
+<p>underfit(high bias):<br><img src="http://img.blog.csdn.net/20160612165654669" alt=""><br>重要结论：<br>如果学习算法处于<strong>underfit状态</strong>，那么<strong>增加更多的训练数据是没用的</strong>。</p>
+<p>overfit(high variance):<br><img src="http://img.blog.csdn.net/20160612170106360" alt=""><br>重要结论：<br>如果学习算法处于<strong>overfit状态</strong>，那么<strong>增加更多的训练数据是有用的</strong>。</p>
+<p>到现在，我们能够对引入的问题进行回答了。<br><strong>总结：</strong><br><img src="http://img.blog.csdn.net/20160612171524707" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20160612172222679" alt=""></p>
+<p>通常来说，正如我在前面的视频中讲过的，默认的情况是，使用一个隐藏层。但是如果你确实想要选择多个隐藏层，你也可以试试把数据分割为训练集，验证集和测试集，然后使用交叉验证的方法比较一个隐藏层的神经网络。然后试试两个，三个隐藏层，以此类推。然后看看哪个神经网络在交叉验证集上表现得最理想。也就是说，你得到了三个神经网络模型，分别有一个，两个，三个隐藏层 然后你对每一个模型都用交叉验证集数据进行测试，算出三种情况下的交叉验证集误差Jcv。然后选出你认为最好的神经网络结构。 </p>
+<p><strong>机器学习系统设计：</strong><br>举例：垃圾邮件分类<br><img src="http://img.blog.csdn.net/20160612203817314" alt=""></p>
+<p>首先可以”头脑风暴”一下<br><img src="http://img.blog.csdn.net/20160612204310744" alt=""></p>
+<p>但是要从中选取比较好的一个方法就需要一个系统性的方法<strong>“误差分析”</strong>了。</p>
+<p>系统设计的通用步骤：<br><img src="http://img.blog.csdn.net/20160612214202506" alt=""></p>
+<p><strong>大致步骤：</strong><br>1.快速实现，然后交叉检验<br>2.画出学习曲线，看接下来哪些做法是有用的<br>3.误差分析</p>
+<p>误差分析：<br><img src="http://img.blog.csdn.net/20160612214241069" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20160612214251726" alt=""></p>
+<p><strong>偏斜类：</strong><br>癌症分类样本中，真正得癌症的人的样本非常非常少，大概只有0.5%，非癌症类远大于癌症类。那么这时癌症类就为<strong>偏斜类</strong>。<br><img src="http://img.blog.csdn.net/20160612215218023" alt=""><br><strong>我们不能简单地用分类精确度来衡量分类的好坏。</strong><br>因为如果我们简单粗暴地忽略输入，直接输出”肺癌症”类，那么我们的分类精确度是99.5%，看起来很高，但是这个策略是完全错误的啊！</p>
+<p>引入<strong>查准率和召回率</strong>：<br><img src="http://img.blog.csdn.net/20160612220316980" alt=""></p>
+<p>对于大多数回归模型，得权衡<strong>查准率</strong>和<strong>召回率</strong>：<br><img src="http://img.blog.csdn.net/20160612222745817" alt=""></p>
+<p>这产生了另一个有趣的问题，<strong>有没有办法自动选取临界值？</strong></p>
+<p><strong>F值：</strong><br><img src="http://img.blog.csdn.net/20160612223529358" alt=""><br><strong>通过最大化F值来选择临界值！</strong></p>
+<p>关于机器学习的数据：<br><img src="http://img.blog.csdn.net/20160613161038819" alt=""></p>
+<p>多少特征才能够预测呢？<br><img src="http://img.blog.csdn.net/20160613161342365" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20160613161650368" alt=""></p>
+<p>什么时候大数据量不起作用：<br><img src="http://img.blog.csdn.net/20160613161941716" alt=""></p>
+<p><strong>总结：</strong></p>
+<p>一个高性能的学习算法，我觉得关键的测试，我常常问自己，首先 一个人类专家看到了特征值x能很有信心的预测出 y值吗？因为这可以证明y可以根据特征值x被准确地预测出来(包含足够信息)。其次，我们实际上能得到一组庞大的训练集并且在这个训练集中训练一个<strong>有很多参数</strong>的学习算法吗？如果你能做到这两者，<strong>满足这两个条件</strong>，那么你会得到一个性能很好的学习算法。</p>
+<hr>
+<p><strong>第七周：</strong></p>
+<h2 id="Support-Vector-Machines"><a href="#Support-Vector-Machines" class="headerlink" title="Support Vector Machines"></a>Support Vector Machines</h2><hr>
+<p>支持向量机：</p>
+<p>先来看看逻辑回归的思想：<br><img src="http://img.blog.csdn.net/20160613165827306" alt=""></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/机器学习/">机器学习</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/06/04/COURSERA机器学习笔记2/" data-title="COURSERA机器学习笔记2 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/06/02/2016互联网趋势报告/"  title="2016互联网趋势报告">
+ <strong>下一篇：</strong><br/> 
+ <span>2016互联网趋势报告
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/06/04/COURSERA机器学习笔记2/" data-title="COURSERA机器学习笔记2" data-url="http://yoursite.com/2016/06/04/COURSERA机器学习笔记2/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Neural-Networks-Learning"><span class="toc-number">1.</span> <span class="toc-text">Neural Networks: Learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于神经网络的总结"><span class="toc-number">2.</span> <span class="toc-text">关于神经网络的总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Advice-for-Applying-Machine-Learning"><span class="toc-number">3.</span> <span class="toc-text">Advice for Applying Machine Learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Machine-Learning-System-Design"><span class="toc-number">4.</span> <span class="toc-text">Machine Learning System Design</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Support-Vector-Machines"><span class="toc-number">5.</span> <span class="toc-text">Support Vector Machines</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 18.33px;">Java编程思想读书笔记</a> <a href="/tags/TECH/" style="font-size: 13.33px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 15px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.67px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 11.67px;">机器学习</a> <a href="/tags/算法4读书笔记/" style="font-size: 16.67px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

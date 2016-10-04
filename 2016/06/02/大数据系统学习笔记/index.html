@@ -1,0 +1,564 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>大数据系统学习笔记 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="大数据系统综述
+大数据的特征（five V）:
+1.体量大(volume)2.速度快(velocity)3.模态多(variety)4.难辨识(veracity)5.价值大密度低(value)
+大数据难点：
+1.数据类型多(variety)2.要求及时响应(velocity)3.数据的不确定性(veracity)
+大数据时代处理数据的理念：
+1.要全体不要抽样2.要效率不要绝对精确3.要相关不要因">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据系统学习笔记">
+<meta property="og:url" content="http://yoursite.com/2016/06/02/大数据系统学习笔记/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="大数据系统综述
+大数据的特征（five V）:
+1.体量大(volume)2.速度快(velocity)3.模态多(variety)4.难辨识(veracity)5.价值大密度低(value)
+大数据难点：
+1.数据类型多(variety)2.要求及时响应(velocity)3.数据的不确定性(veracity)
+大数据时代处理数据的理念：
+1.要全体不要抽样2.要效率不要绝对精确3.要相关不要因">
+<meta property="og:image" content="http://img.blog.csdn.net/20160602175010500">
+<meta property="og:image" content="http://img.blog.csdn.net/20160602181838792">
+<meta property="og:updated_time" content="2016-10-04T14:57:35.555Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="大数据系统学习笔记">
+<meta name="twitter:description" content="大数据系统综述
+大数据的特征（five V）:
+1.体量大(volume)2.速度快(velocity)3.模态多(variety)4.难辨识(veracity)5.价值大密度低(value)
+大数据难点：
+1.数据类型多(variety)2.要求及时响应(velocity)3.数据的不确定性(veracity)
+大数据时代处理数据的理念：
+1.要全体不要抽样2.要效率不要绝对精确3.要相关不要因">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160602175010500">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/02/大数据系统学习笔记/" title="大数据系统学习笔记" itemprop="url">大数据系统学习笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-02T09:36:44.000Z" itemprop="datePublished"> Published 2016-06-02</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#大数据系统综述"><span class="toc-number">1.</span> <span class="toc-text">大数据系统综述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1批量数据处理"><span class="toc-number">2.</span> <span class="toc-text">1-1批量数据处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2流式数据处理系统"><span class="toc-number">3.</span> <span class="toc-text">1-2流式数据处理系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3交互式数据处理"><span class="toc-number">4.</span> <span class="toc-text">1-3交互式数据处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4图数据处理系统"><span class="toc-number">5.</span> <span class="toc-text">1-4图数据处理系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">6.</span> <span class="toc-text">小结</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="大数据系统综述"><a href="#大数据系统综述" class="headerlink" title="大数据系统综述"></a>大数据系统综述</h2><hr>
+<p>大数据的特征（five V）:</p>
+<p>1.体量大(volume)<br>2.速度快(velocity)<br>3.模态多(variety)<br>4.难辨识(veracity)<br>5.价值大密度低(value)</p>
+<p>大数据难点：</p>
+<p>1.数据类型多(variety)<br>2.要求及时响应(velocity)<br>3.数据的不确定性(veracity)</p>
+<p>大数据时代处理数据的理念：</p>
+<p>1.要全体不要抽样<br>2.要效率不要绝对精确<br>3.要相关不要因果</p>
+<p>大数据处理形式：</p>
+<ol>
+<li>对静态数据的批量处理(1-1)</li>
+<li>对在线数据的实时处理<pre><code>1. 对流式数据的处理(1-2)
+2. 实时交互计算(1-3)
+</code></pre></li>
+<li>对图数据(graph)的综合处理(1-4)</li>
+</ol>
+<hr>
+<h2 id="1-1批量数据处理"><a href="#1-1批量数据处理" class="headerlink" title="1-1批量数据处理"></a>1-1批量数据处理</h2><hr>
+<p><strong>数据特征：</strong></p>
+<p>1.体量大(PB级别)。静态形式存在硬盘中，很少更新，存储时间长，可重复利用。</p>
+<p>2.数据精度高。往往是从应用中沉淀下来的，宝贵财富。</p>
+<p>3.价值密度低。以视频批量数据为例，可能有用的数据仅为一两秒。需要通过合理的算法从批量数据中抽取有用的价值。</p>
+<p>批量处理比较耗时，<strong>不提供用户与系统的交互手段</strong>。所以当发现结果和预期或以往结果差别较大时，会浪费时间。因此，<strong>批量数据处理适合大型的相对成熟的作业</strong>。</p>
+<p><strong>典型应用：</strong></p>
+<p>1.以人为核心的社交网络产生了大量文本，图片，音视频等不同形式的数据。对社交网络进行分析，发现人与人之间隐含的关系，推荐朋友或相关的主题，提升用户体验。</p>
+<p>2.电子商务中大量购买历史记录，商品评论，商品网页的访问次数和驻留时间等数据。分析出用户的消费行为，为客户推荐相关商品，提升优质客户数量。</p>
+<p>3.搜索引擎的广告分析系统，改善广告的投放效果提高点击量。</p>
+<p> <strong>代表性处理系统：</strong></p>
+<p>Google文件系统GFS,MapReduce编程模型(由于未开源，后来被Hadoop的开源产品：HDFS,MapReduce.Hadoop部分取代)。</p>
+<p>由<strong>HDFS</strong>负责静态数据的存储，并通过<strong>MapReduce</strong>将计算逻辑分配到各数据节点进行数据计算和价值发现。</p>
+<hr>
+<h2 id="1-2流式数据处理系统"><a href="#1-2流式数据处理系统" class="headerlink" title="1-2流式数据处理系统"></a>1-2流式数据处理系统</h2><hr>
+<p>流式数据处理源于服务器日志的实时采集，交互式数据处理的目标是将<strong>PB级</strong>别的处理时间缩短到<strong>秒级</strong>。</p>
+<p><strong>数据特征：</strong><br>流式数据是一个无穷的数据序列，序列中每个元素来源各异。<br>共同点：<br>1.序列往往包含时序特性，或者其他的有序标签（如IP报文中的序号）<br>2.数据流中数据格式可以是结构化，半结构化，甚至无结构化。<br>3.数据是流动的（用完即弃）</p>
+<p><strong>典型应用：</strong></p>
+<p>1.传感器采集系统（物联网）通过采集传感器的信息，实习分析提供动态的信息显示，应用于智能交通，环境监控，灾难预警。<br>2.Web数据采集系统利用网络爬虫程序抓取Web上的内容，通过清洗，归类，分析并挖掘其数据价值。</p>
+<p>流式数据对应的处理工具需具备高性能，实时，可扩展等特性。</p>
+<p><strong>代表性处理系统：</strong><br>Storm,Nutch。</p>
+<p>Storm系统：<br>其流式处理作业被分发至不同类型的组件，每个组件负责一项简单，特定的处理任务。<br><img src="http://img.blog.csdn.net/20160602175010500" alt=""><br>1.Spout组件：Storm集群的输入流，Spout组件将数据传递给名为Bolt的组件。<br>2.Bolt组件：以特定方式处理数据，如持久化或转发给另外的Bolt。</p>
+<p>Storm集群可以看成一条由Bolt组件组成的链(称为一个Topology)。每个Bolt对Spout产生出来的数据做某种方式的额处理。<br><img src="http://img.blog.csdn.net/20160602181838792" alt=""><br>1.Nimbus节点：负责提交任务，分发执行代码，为每个工作结点指派任务和监控失败的任务<br>2.Zookeeper节点：负责Storm集群的协同操作<br>3.Supervisor节点：负责启动多个Worker进程，执行Topology的一部分，这个过程是通过Zookeeper节点与Nimbus节点通信完成的。<br>因为Storm将所有的集群状态保存在Zookeeper或者本地磁盘上，Supervisior节点是无状态的，因此其失败或者重启不会引起全局的重新计算。</p>
+<hr>
+<h2 id="1-3交互式数据处理"><a href="#1-3交互式数据处理" class="headerlink" title="1-3交互式数据处理"></a>1-3交互式数据处理</h2><hr>
+<p><strong>数据特征：</strong><br>人机对话的方式，操作人员提出请求，数据以对话的方式输入，系统便提供相应的数据或提示信息，引导操作人员逐步完成所需的操作，直至获取最后处理结果。</p>
+<p><strong>典型应用：</strong><br>1.信息处理系统领域，目前基于开源体系架构下的数据仓库系统以Hive,Pig为代表的分布式数据仓库发展迅速。<br>2.互联网领域，主要体现人际间的交互。为了交互性数据处理的实时性需求，各大平台主要使用<strong>NoSQL类型</strong>的数据库系统。如<strong>HBase</strong>采用多维有序表的列式存储方式；<strong>MongoDB</strong>采用JSON格式的数据嵌套存储方式。大多NoSQL数据不提供Join等关系型数据库的操作模式，以增加数据操作的实时性。</p>
+<p><strong>代表性处理系统：</strong><br>Spark：基于内存计算的可扩展的开源集群计算系统。针对MAPReduce的不足(大量的网络传输和磁盘I/O)，Spark使用内存进行数据计算以便快速处理查询。<br>Spark的计算架构3特点：</p>
+<p>1.拥有轻量级的集群计算框架<br>2.包含大数据领域的数据流计算和交互式计算。Spark可以与HDFS交互取得里面的数据文件，同时Spark的迭代，内存计算，以及交互式计算为数据挖掘和机器学习提供了很好的框架。<br>3.有很好的容错机制。</p>
+<hr>
+<h2 id="1-4图数据处理系统"><a href="#1-4图数据处理系统" class="headerlink" title="1-4图数据处理系统"></a>1-4图数据处理系统</h2><hr>
+<p>图由于自身的结构特征，可以很好地表示事物之间的关系。图中点和边的强关联性，需要图数据处理系统对图数据进行操作，包括图数据的存储，图查询，最短路径查询，关键字查询，图模式挖掘以及图数据的分类，聚类等。</p>
+<p><strong>数据特征：</strong><br>1.节点间的关联性。<br>2.图数据种类繁多。<br>3.图数据计算的强耦合性。在图中，数据间相互关联，对图数据的计算也是相互关联的。大数据是无法使用单台机器进行处理的，当如果对大图数据进行并行处理，对于每个顶点之间都是连通的图来讲，难以分割成若干完全独立的子图进行独立的并行处理；即使可以分割，也会面临并行机器的协同处理，以及将最后处理结果进行合并等一系列问题。（<strong>难点</strong>）</p>
+<p><strong>代表性图数据处理系统：</strong><br>Pregel,Neo4j,Trinity</p>
+<hr>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><hr>
+<p>面对大数据，各种处理系统层出不穷。总体来说，有3种发展趋势：<br>1.数据处理引擎专用化：为了降低成本，提高能效，大数据系统需要摆脱传统的通用体系，趋向专用化架构技术。<br>2.数据处理平台多样化<br>3.数据计算实时化：作为批量计算的补充，旨在将PB级数据的处理时间缩短到秒级的实时计算收到更多关注。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/TECH/">TECH</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/06/02/大数据系统学习笔记/" data-title="大数据系统学习笔记 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/06/02/2016互联网趋势报告/" title="2016互联网趋势报告">
+  <strong>上一篇：</strong><br/>
+  <span>
+  2016互联网趋势报告</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/06/01/分清Big-Data-ML-AI之间的关系/"  title="分清Big Data,ML,AI之间的关系">
+ <strong>下一篇：</strong><br/> 
+ <span>分清Big Data,ML,AI之间的关系
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/06/02/大数据系统学习笔记/" data-title="大数据系统学习笔记" data-url="http://yoursite.com/2016/06/02/大数据系统学习笔记/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#大数据系统综述"><span class="toc-number">1.</span> <span class="toc-text">大数据系统综述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1批量数据处理"><span class="toc-number">2.</span> <span class="toc-text">1-1批量数据处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2流式数据处理系统"><span class="toc-number">3.</span> <span class="toc-text">1-2流式数据处理系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3交互式数据处理"><span class="toc-number">4.</span> <span class="toc-text">1-3交互式数据处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4图数据处理系统"><span class="toc-number">5.</span> <span class="toc-text">1-4图数据处理系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">6.</span> <span class="toc-text">小结</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 18.33px;">Java编程思想读书笔记</a> <a href="/tags/TECH/" style="font-size: 13.33px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 15px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.67px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 11.67px;">机器学习</a> <a href="/tags/算法4读书笔记/" style="font-size: 16.67px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
