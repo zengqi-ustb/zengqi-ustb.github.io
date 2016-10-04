@@ -1,0 +1,519 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>python基础知识 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="数字：python支持四种数据类型：1.int（带符号整数）python“普通”整数可以说是全能型的数值类型，如果运行在32位机上，范围为-2e(31)到2e(31)-1。2.long（长整数）长整数要加上大写字母L。3.float（浮点实数）4.complex（复数）最令人感兴趣的应该是长整数和复数类型。不要与c语言的长整数混在一起。python中的长整数的唯一限制是你的（虚拟）内存的容量。类似">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python基础知识">
+<meta property="og:url" content="http://yoursite.com/2016/08/29/python基础知识/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="数字：python支持四种数据类型：1.int（带符号整数）python“普通”整数可以说是全能型的数值类型，如果运行在32位机上，范围为-2e(31)到2e(31)-1。2.long（长整数）长整数要加上大写字母L。3.float（浮点实数）4.complex（复数）最令人感兴趣的应该是长整数和复数类型。不要与c语言的长整数混在一起。python中的长整数的唯一限制是你的（虚拟）内存的容量。类似">
+<meta property="og:image" content="http://img.blog.csdn.net/20160828232012787">
+<meta property="og:updated_time" content="2016-10-04T15:24:45.616Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python基础知识">
+<meta name="twitter:description" content="数字：python支持四种数据类型：1.int（带符号整数）python“普通”整数可以说是全能型的数值类型，如果运行在32位机上，范围为-2e(31)到2e(31)-1。2.long（长整数）长整数要加上大写字母L。3.float（浮点实数）4.complex（复数）最令人感兴趣的应该是长整数和复数类型。不要与c语言的长整数混在一起。python中的长整数的唯一限制是你的（虚拟）内存的容量。类似">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160828232012787">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/29/python基础知识/" title="python基础知识" itemprop="url">python基础知识</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-08-29T04:23:39.000Z" itemprop="datePublished"> Published 2016-08-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>数字：<br>python支持四种数据类型：<br>1.int（带符号整数）<br>python“普通”整数可以说是全能型的数值类型，如果运行在32位机上，范围为-2e(31)到2e(31)-1。<br>2.long（长整数）<br>长整数要加上大写字母L。<br>3.float（浮点实数）<br>4.complex（复数）<br>最令人感兴趣的应该是<strong>长整数</strong>和<strong>复数</strong>类型。不要与c语言的长整数混在一起。python中的长整数的唯一限制是你的<strong>（虚拟）内存的容量</strong>。类似于java中的<strong>BigInteger类型</strong>。</p>
+<p>divmod()返回的是一个表列形式的（商，余数）对。</p>
+<p>int()直接去掉数字的小数点及小数部分（截断）<br>floor()返回最接近原参数但又不大于原参数的整数<br>round()按照四舍五入规则进行</p>
+<p><strong>序列：字符串，列表，表列。</strong><br>list(seq)  把序列seq转换为列表<br>str(seq)   把序列seq转换为字符串<br>tuple(seq) 把序列seq转换为表列<br>其中，list和tuple函数很适合<strong>彼此转换</strong>。<br>字符串：<br>第一个元素下标为0，索引值-1指向最后一个字符。加号（+）为合并，星号（*）是重复操作符。</p>
+<p>列表和表列：<br>列表具有包容器和可被修改的特性，具有很好的灵活性。<br>字典：<br>key限制：<br>1.不允许一个key对应多个value<br>2.key必须是不可变的</p>
+<p>if语句，如果表达式为<strong>非零值</strong>或<strong>真</strong>，执行其子句。另，python中没有switch或case语句。</p>
+<p>for循环和range()内建函数：<br>python中的for循环要用到一个我们称之为序列（sequence）的数据类型（列表，表列或字符串等），并遍历序列中的每个元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for item in [&apos;emial&apos;,&apos;chat&apos;,&apos;android&apos;]:</span><br><span class="line">	print item</span><br><span class="line">结果：</span><br><span class="line">emial</span><br><span class="line">chat</span><br><span class="line">android</span><br></pre></td></tr></table></figure>
+<p>在缺省情况下，print语句会自动在每行的末尾加上一个换行符。在print语句最后加上一个逗号（，），就能在一行输出。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for item in [&apos;emial&apos;,&apos;chat&apos;,&apos;android&apos;]:</span><br><span class="line">	print item,</span><br><span class="line">结果：</span><br><span class="line">emial chat android</span><br></pre></td></tr></table></figure>
+<p>文件和open()函数：<br>handle = open(file_name,access_mode=’r’)。<br>r读操作<br>w写操作<br>a添加操作<br>+读写操作<br>b二进制存取操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">file = open(filename,&apos;r&apos;)</span><br><span class="line">allLines = file.readlines()#全部读入内存，更加快速完成文件访问操作</span><br><span class="line">file.close()</span><br><span class="line">for eachLine in allLines:</span><br><span class="line">    print eachLine,</span><br></pre></td></tr></table></figure>
+<p>把多个对象赋值给多个变量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(x,y,z) = (1,2,&apos;string&apos;)</span><br></pre></td></tr></table></figure>
+<p>最好用4个空格进行缩进。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">\#/usr/bin/env python    (1)启动语句行（UNIX系统用）</span><br><span class="line"></span><br><span class="line">\#this is a test module  (2)模块文档</span><br><span class="line"></span><br><span class="line">import sys   (3)模块导入</span><br><span class="line"></span><br><span class="line">debug = 1    (4)（全局性）变量定义</span><br><span class="line"></span><br><span class="line">class FooClass:   (5)类定义</span><br><span class="line">    &apos;foo class&apos;</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">def test():   (6)函数定义</span><br><span class="line">    &apos;test function&apos;</span><br><span class="line">    foo = FooClass()</span><br><span class="line">    if debug:</span><br><span class="line">        print &apos;run test&apos;</span><br><span class="line"></span><br><span class="line">if __name__ = &apos;__main__&apos;:   (7)程序“主体”，主程序</span><br><span class="line">    test()</span><br></pre></td></tr></table></figure>
+<p>编程提示：用”name”指示模块是如何加载的<br>因为不管一个模块是被导入还是直接运行，“主”代码部分都会被执行，所以我们通常需要知道这个模块到底是怎么加载的，根据具体情况来选择执行路线。一个应用程序需要导入另外一个应用程序的模块，其目的可能是想要访问有用的代码。但在这种情况下，你想做的只是访问其他应用程序的代码而已，并不是要运行它。问题就来了：python能否在运行时检测出一个模块是被导入还是直接执行的？系统变量”name”就是解决问题的关键。<br>1.如果是导入的，”name”变量里包含的就是该模块的名字<br>2.如果是直接运行的，“name”变量里包含的就是“main”</p>
+<p>大部分模块是为了被导入而不是作为直接执行的脚本程序而创建的。总之，只有一个模块将被执行，就是那个容纳着主程序的模块。</p>
+<p><img src="http://img.blog.csdn.net/20160828232012787" alt=""></p>
+<p>函数：</p>
+<p>可变长参数：有时需要处理这样的情况：需要程序处理的参数的个数是变化着的。</p>
+<p>1.非关键字可变长参数<br>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def function_name(formal_args,*vargs_tuple)</span><br></pre></td></tr></table></figure>
+<p>把所有的正式参数都定义分配好以后，如果还有多出来的参数，就都属于可变长参数这一大类，多出来的在表列里，如果没有，表列就为空。<br><strong>全体正式参数必须定义在非正式参数的前面</strong>。</p>
+<p>2.关键字可变长参数<br>关键字可变长参数的字典必须是函数定义中的最后一个参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def function_name(formal_args,*args_tuple,**dict_args)</span><br></pre></td></tr></table></figure></p>
+<p>内建函数：<br>apply(),filter(),map(),reduce()</p>
+<p>apply在某些情况下非常有用。如果需要调用一个函数，但是这个函数的参数是<strong>动态生成</strong>的，这种情况就应该使用！</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/后端开发/">后端开发</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/08/29/python基础知识/" data-title="python基础知识 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/08/29/spring资料整理/" title="spring资料整理">
+  <strong>上一篇：</strong><br/>
+  <span>
+  spring资料整理</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/08/21/自己动手写爬虫/"  title="自己动手写爬虫">
+ <strong>下一篇：</strong><br/> 
+ <span>自己动手写爬虫
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/08/29/python基础知识/" data-title="python基础知识" data-url="http://yoursite.com/2016/08/29/python基础知识/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 18.57px;">Java编程思想读书笔记</a> <a href="/tags/TECH/" style="font-size: 12.86px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 17.14px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.43px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/算法4读书笔记/" style="font-size: 15.71px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,541 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>springboot中文文档笔记 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="安装Spring CLI：配置一下环境变量即可，spring –version进行验证
+代码：
+一个example小程序：12345678910111213141516171819import org.springframework.boot.*;import org.springframework.boot.autoconfigure.*;import org.springframework.s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot中文文档笔记">
+<meta property="og:url" content="http://yoursite.com/2016/08/29/springboot中文文档笔记/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="安装Spring CLI：配置一下环境变量即可，spring –version进行验证
+代码：
+一个example小程序：12345678910111213141516171819import org.springframework.boot.*;import org.springframework.boot.autoconfigure.*;import org.springframework.s">
+<meta property="og:updated_time" content="2016-10-04T15:33:16.656Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="springboot中文文档笔记">
+<meta name="twitter:description" content="安装Spring CLI：配置一下环境变量即可，spring –version进行验证
+代码：
+一个example小程序：12345678910111213141516171819import org.springframework.boot.*;import org.springframework.boot.autoconfigure.*;import org.springframework.s">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/29/springboot中文文档笔记/" title="springboot中文文档笔记" itemprop="url">springboot中文文档笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-08-29T05:23:39.000Z" itemprop="datePublished"> Published 2016-08-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>安装Spring CLI：<br>配置一下环境变量即可，spring –version进行验证</p>
+<p>代码：</p>
+<p>一个example小程序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import org.springframework.boot.*;</span><br><span class="line">import org.springframework.boot.autoconfigure.*;</span><br><span class="line">import org.springframework.stereotype.*;</span><br><span class="line">import org.springframework.web.bind.annotation.*;</span><br><span class="line"></span><br><span class="line">@RestController</span><br><span class="line">@EnableAutoConfiguration</span><br><span class="line">public class Example &#123;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;/&quot;)</span><br><span class="line">    String home() &#123;</span><br><span class="line">        return &quot;Hello World!&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        SpringApplication.run(Example.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>第一个注解是@RestController，这被称为构造型（stereotype）注解。它为阅读代码的人提供暗示（这是一个支持REST的控制器），对于Spring，该类扮演了一个特殊角色。在本示例中，我们的类是一个web @Controller，所以当web请求进来时，Spring会考虑是否使用它来处理。</p>
+<p>@RequestMapping注解提供路由信息，它告诉Spring任何来自”/“路径的HTTP请求<strong>都应该被映射到home方法</strong>。@RestController注解告诉Spring以字符串的形式渲染结果，并直接返回给调用者。</p>
+<p>@RestController和@RequestMapping是Spring MVC中的注解（它们不是Spring Boot的特定部分）</p>
+<p>第二个类级别的注解是@EnableAutoConfiguration，这个注解告诉Spring Boot根据添加的jar依赖猜测你想如何配置Spring。由于spring-boot-starter-web添加了Tomcat和Spring MVC，所以auto-configuration<strong>将假定你正在开发一个web应用，并对Spring进行相应地设置</strong>。<br>Starters和Auto-Configuration：Auto-configuration设计成可以跟”Starters”一起很好的使用，但这两个概念没有直接的联系。你可以自由地挑选starters以外的jar依赖，<strong>Spring Boot仍会尽最大努力去自动配置你的应用</strong>。</p>
+<p>应用程序的最后部分是main方法，这是一个标准的方法，它遵循Java对于一个应用程序入口点的约定。我们的main方法通过调用run，将业务委托给了Spring Boot的SpringApplication类。SpringApplication将引导我们的应用，启动Spring，相应地启动被自动配置的Tomcat web服务器。我们需要将Example.class作为参数传递给run方法，以此告诉SpringApplication谁是主要的Spring组件，并传递args数组以暴露所有的命令行参数。</p>
+<p>可执行jars和Java：Java没有提供任何标准方式，用于加载内嵌jar文件（即jar文件中还包含jar文件），这对分发自包含应用来说是个问题。为了解决该问题，很多开发者采用”共享的”jars。共享的jar只是简单地将所有jars的类打包进一个单独的存档，这种方式存在的问题是，很难区分应用程序中使用了哪些库。在多个jars中如果存在相同的文件名（但内容不一样）也会是一个问题。Spring Boot采取一个不同的方式，允许你真正的直接内嵌jars。（<strong>fat jars</strong>）</p>
+<p>通常建议将应用的<strong>main类</strong>放到其他类所在<strong>包的顶层(root package)</strong>，并将<strong>@EnableAutoConfiguration注解</strong>到你的main类上，这样就隐式地定义了一个基础的包搜索路径（search package），以搜索某些特定的注解实体（比如@Service，@Component等） 。例如，如果你正在编写一个JPA应用，Spring将搜索@EnableAutoConfiguration注解的类所在包下的@Entity实体。</p>
+<p>典型结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">com</span><br><span class="line"> +- example</span><br><span class="line">     +- myproject</span><br><span class="line">         +- Application.java</span><br><span class="line">         |</span><br><span class="line">         +- domain</span><br><span class="line">         |   +- Customer.java</span><br><span class="line">         |   +- CustomerRepository.java</span><br><span class="line">         |</span><br><span class="line">         +- service</span><br><span class="line">         |   +- CustomerService.java</span><br><span class="line">         |</span><br><span class="line">         +- web</span><br><span class="line">             +- CustomerController.java</span><br></pre></td></tr></table></figure>
+<p>Application.java将声明main方法，还有基本的@Configuration。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package com.example.myproject;</span><br><span class="line"></span><br><span class="line">import org.springframework.boot.SpringApplication;</span><br><span class="line">import org.springframework.boot.autoconfigure.EnableAutoConfiguration;</span><br><span class="line">import org.springframework.context.annotation.ComponentScan;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">@EnableAutoConfiguration</span><br><span class="line">@ComponentScan</span><br><span class="line">public class Application &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>自动配置</strong>：<br>Spring Boot自动配置（auto-configuration）尝试根据添加的jar依赖自动配置你的Spring应用。例如，如果classpath下存在HSQLDB，并且你没有手动配置任何数据库连接的beans，那么Spring Boot将自动配置一个内存型（in-memory）数据库。</p>
+<p>实现自动配置有两种可选方式，分别是将@EnableAutoConfiguration或@SpringBootApplication注解到@Configuration类上。</p>
+<p>注：你应该只添加一个@EnableAutoConfiguration注解，通常建议将它添加到主配置类（primary @Configuration）上。</p>
+<p><strong>逐步替换自动配置</strong>：</p>
+<p>自动配置（Auto-configuration）是<strong>非侵入性</strong>的，任何时候你都可以定义自己的配置类来替换自动配置的特定部分。例如，<strong>如果你添加自己的DataSource bean，默认的内嵌数据库支持将不被考虑</strong>。</p>
+<p>如果需要查看当前应用启动了哪些自动配置项，你可以在运行应用时打开–debug开关，这将为核心日志开启debug日志级别，并将自动配置相关的日志输出到控制台。</p>
+<p><strong>禁用特定的自动配置项</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import org.springframework.boot.autoconfigure.*;</span><br><span class="line">import org.springframework.boot.autoconfigure.jdbc.*;</span><br><span class="line">import org.springframework.context.annotation.*;</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">@EnableAutoConfiguration(exclude=&#123;DataSourceAutoConfiguration.class&#125;)</span><br><span class="line">public class MyConfiguration &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Spring Beans和依赖注入</strong>:</p>
+<p>你可以自由地使用任何标准的Spring框架技术去定义beans和它们注入的依赖。简单起见，我们经常使用@ComponentScan注解搜索beans，并结合@Autowired构造器注入。</p>
+<p>如果遵循以上的建议组织代码结构（将应用的main类放到包的最上层，即root package），那么你就可以添加@ComponentScan注解而不需要任何参数，所有应用组件（@Component, @Service, @Repository, @Controller等）都会<strong>自动注册成Spring Beans</strong>。<br>下面是一个@Service Bean的示例，它使用构建器注入获取一个需要的RiskAssessor bean。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package com.example.service;</span><br><span class="line"></span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line">@Service</span><br><span class="line">public class DatabaseAccountService implements AccountService &#123;</span><br><span class="line"></span><br><span class="line">    private final RiskAssessor riskAssessor;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    public DatabaseAccountService(RiskAssessor riskAssessor) &#123;</span><br><span class="line">        this.riskAssessor = riskAssessor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>流畅的构建API</strong>：<br>如果你需要创建一个分层的ApplicationContext（多个具有父子关系的上下文），或你只是喜欢使用流畅的构建API，你可以使用SpringApplicationBuilder。SpringApplicationBuilder允许你以链式方式调用多个方法，包括可以创建层次结构的parent和child方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">new SpringApplicationBuilder()</span><br><span class="line">    .showBanner(false)</span><br><span class="line">    .sources(Parent.class)</span><br><span class="line">    .child(Application.class)</span><br><span class="line">    .run(args);</span><br></pre></td></tr></table></figure>
+<p>注：创建ApplicationContext层次时有些限制，比如，Web组件(components)必须包含在子上下文(child context)中，且相同的Environment即用于父上下文也用于子上下文中。具体参考 ：<a href="http://docs.spring.io/spring-boot/docs/1.2.2.BUILD-SNAPSHOT/api/org/springframework/boot/builder/SpringApplicationBuilder.html" target="_blank" rel="external">SpringApplicationBuilder javadoc</a></p>
+<hr>
+<p><strong>开发Web应用</strong>：</p>
+<p>Spring Boot非常适合开发web应用程序。你可以使用<strong>内嵌的Tomcat，Jetty或Undertow</strong>轻轻松松地创建一个HTTP服务器。大多数的web应用都使用spring-boot-starter-web模块进行快速搭建和运行。</p>
+<p>Spring Web MVC框架（通常简称为”Spring MVC”）是一个富”模型，视图，控制器”的web框架。 </p>
+<p>Spring MVC允许你创建特定的@Controller或@RestController beans来处理传入的HTTP请求。 </p>
+<p>使用@RequestMapping注解可以将控制器中的方法映射到相应的HTTP请求。<br>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RequestMapping(value=&quot;/users&quot;)</span><br><span class="line">public class MyRestController &#123;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(value=&quot;/&#123;user&#125;&quot;, method=RequestMethod.GET)</span><br><span class="line">    public User getUser(@PathVariable Long user) &#123;</span><br><span class="line">        // ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(value=&quot;/&#123;user&#125;/customers&quot;, method=RequestMethod.GET)</span><br><span class="line">    List&lt;Customer&gt; getUserCustomers(@PathVariable Long user) &#123;</span><br><span class="line">        // ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(value=&quot;/&#123;user&#125;&quot;, method=RequestMethod.DELETE)</span><br><span class="line">    public User deleteUser(@PathVariable Long user) &#123;</span><br><span class="line">        // ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>HttpMessageConverters</strong>：</p>
+<p><strong>Spring MVC使用HttpMessageConverter接口转换HTTP请求和响应。</strong>合理的缺省值被包含的恰到好处（out of the box），例如对象可以自动转换为JSON（使用Jackson库）或XML（如果Jackson XML扩展可用则使用它，否则使用JAXB）。字符串默认使用UTF-8编码。</p>
+<p>如果需要添加或自定义转换器，你可以使用Spring Boot的HttpMessageConverters类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import org.springframework.boot.autoconfigure.web.HttpMessageConverters;</span><br><span class="line">import org.springframework.context.annotation.*;</span><br><span class="line">import org.springframework.http.converter.*;</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">public class MyConfiguration &#123;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public HttpMessageConverters customConverters() &#123;</span><br><span class="line">        HttpMessageConverter&lt;?&gt; additional = ...</span><br><span class="line">        HttpMessageConverter&lt;?&gt; another = ...</span><br><span class="line">        return new HttpMessageConverters(additional, another);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>任何在上下文中出现的HttpMessageConverter bean将会添加到converters列表，<strong>你可以通过这种方式覆盖默认的转换器（converters）</strong>。</p>
+<p><strong>静态内容</strong>：</p>
+<p>默认情况下，Spring Boot从classpath下一个叫/static（/public，/resources或/META-INF/resources）的文件夹或从ServletContext根目录提供静态内容。</p>
+<p><strong>注</strong>：<strong>如果你的应用将被打包成jar，那就不要使用src/main/webapp文件夹</strong>。尽管该文件夹是一个共同的标准，但它仅在打包成war的情况下起作用，并且如果产生一个jar，多数构建工具都会静悄悄的忽略它。</p>
+<p><strong>模板引擎</strong>：</p>
+<p>正如REST web服务，你也可以<strong>使用Spring MVC提供动态HTML内容</strong>。Spring MVC支持各种各样的模板技术，包括Velocity, FreeMarker和JSPs。很多其他的模板引擎也提供它们自己的Spring MVC集成。</p>
+<p>Spring Boot为以下的模板引擎提供自动配置支持：</p>
+<p>1.FreeMarker<br>2.Groovy<br>3.Thymeleaf<br>4.Velocity<br>当你使用这些引擎的任何一种，并采用默认的配置，你的模板将会从src/main/resources/templates目录下自动加载。</p>
+<p><strong>错误处理</strong>：</p>
+<p>Spring Boot默认提供一个/error映射用来以合适的方式处理所有的错误，并且它在servlet容器中注册了一个全局的错误页面。对于机器客户端（相对于浏览器而言，浏览器偏重于人的行为），它会产生一个具有详细错误，HTTP状态，异常信息的JSON响应。对于浏览器客户端，它会产生一个白色标签样式（whitelabel）的错误视图，该视图将以HTML格式显示同样的数据（可以添加一个解析为erro的View来自定义它）。为了完全替换默认的行为，你可以实现ErrorController，并注册一个该类型的bean定义，或简单地添加一个ErrorAttributes类型的bean以使用现存的机制，只是替换显示的内容。</p>
+<p>如果在某些条件下需要比较多的错误页面，内嵌的servlet容器提供了一个统一的Java DSL（领域特定语言）来自定义错误处理。 示例：<br>定制化错误处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public EmbeddedServletContainerCustomizer containerCustomizer()&#123;</span><br><span class="line">    return new MyCustomizer();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ...</span><br><span class="line">private static class MyCustomizer implements EmbeddedServletContainerCustomizer &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void customize(ConfigurableEmbeddedServletContainer container) &#123;</span><br><span class="line">        container.addErrorPages(new ErrorPage(HttpStatus.BAD_REQUEST, &quot;/400&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>内嵌servlet容器支持</strong>：</p>
+<p>Spring Boot支持内嵌的Tomcat, Jetty和Undertow服务器。多数开发者只需要使用合适的’Starter POM’来获取一个完全配置好的实例即可。默认情况下，内嵌的服务器会在8080端口监听HTTP请求。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/后端开发/">后端开发</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/08/29/springboot中文文档笔记/" data-title="springboot中文文档笔记 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/08/29/spring资料整理/"  title="spring资料整理">
+ <strong>下一篇：</strong><br/> 
+ <span>spring资料整理
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/08/29/springboot中文文档笔记/" data-title="springboot中文文档笔记" data-url="http://yoursite.com/2016/08/29/springboot中文文档笔记/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 18.57px;">Java编程思想读书笔记</a> <a href="/tags/TECH/" style="font-size: 12.86px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 17.14px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.43px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/算法4读书笔记/" style="font-size: 15.71px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

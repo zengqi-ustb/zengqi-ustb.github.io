@@ -1,0 +1,508 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>infoQ推荐算法综述笔记 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="推荐系统算法通常是某类推荐模型的实现，它负责获取数据，例如用户的喜好和可推荐项的描述，以及预测给定的用户组会对哪些选项感兴趣。
+CF的方法大体可分为两类：分别为邻域和基于模型的方法。邻域方法（即基于内存的CF）是使用用户对已有项的评分直接预测该用户对新项的评分。与之相反，基于模型的方法是使用历史评分数据，基于学习出的预测模型，预测对新项的评分。通常的方式是使用机器学习算法，找出用户与项的相互作用模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="infoQ推荐算法综述笔记">
+<meta property="og:url" content="http://yoursite.com/2016/07/04/infoQ推荐算法综述笔记/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="推荐系统算法通常是某类推荐模型的实现，它负责获取数据，例如用户的喜好和可推荐项的描述，以及预测给定的用户组会对哪些选项感兴趣。
+CF的方法大体可分为两类：分别为邻域和基于模型的方法。邻域方法（即基于内存的CF）是使用用户对已有项的评分直接预测该用户对新项的评分。与之相反，基于模型的方法是使用历史评分数据，基于学习出的预测模型，预测对新项的评分。通常的方式是使用机器学习算法，找出用户与项的相互作用模">
+<meta property="og:image" content="http://cdn.infoqstatic.com/statics_s1_20160622-0236/resource/articles/recommendation-algorithm-overview-part04/zh/resources/0121030.jpg">
+<meta property="og:updated_time" content="2016-10-04T15:16:04.135Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="infoQ推荐算法综述笔记">
+<meta name="twitter:description" content="推荐系统算法通常是某类推荐模型的实现，它负责获取数据，例如用户的喜好和可推荐项的描述，以及预测给定的用户组会对哪些选项感兴趣。
+CF的方法大体可分为两类：分别为邻域和基于模型的方法。邻域方法（即基于内存的CF）是使用用户对已有项的评分直接预测该用户对新项的评分。与之相反，基于模型的方法是使用历史评分数据，基于学习出的预测模型，预测对新项的评分。通常的方式是使用机器学习算法，找出用户与项的相互作用模">
+<meta name="twitter:image" content="http://cdn.infoqstatic.com/statics_s1_20160622-0236/resource/articles/recommendation-algorithm-overview-part04/zh/resources/0121030.jpg">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/07/04/infoQ推荐算法综述笔记/" title="infoQ推荐算法综述笔记" itemprop="url">infoQ推荐算法综述笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-04T04:23:39.000Z" itemprop="datePublished"> Published 2016-07-04</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>推荐系统算法通常是某类推荐模型的实现，它负责获取数据，例如用户的喜好和可推荐项的描述，以及预测给定的用户组会对哪些选项感兴趣。</p>
+<p>CF的方法大体可分为两类：分别为邻域和基于模型的方法。邻域方法（即基于内存的CF）是使用用户对已有项的评分直接预测该用户对新项的评分。与之相反，基于模型的方法是使用历史评分数据，基于学习出的预测模型，预测对新项的评分。通常的方式是使用机器学习算法，找出用户与项的相互作用模型，从而找出数据中的特定模式。</p>
+<p>基于邻域的CF方法意在找出项与项之间的联系（基于项的CF），或者用户与用户之间的联系（基于用户的CF）。</p>
+<p>1.基于用户的CF通过找出对项的偏好与你相似的用户从而基于他们对于新项的喜好来为你进行推荐。<br>2.基于项的CF会向用户推荐与用户喜欢的项相似的项，这种相似是基于项的共同出现几率（例如用户买了X，通时也买了Y）。</p>
+<p>邻域方法由于其简单性和效率具有相当的知名度，同时也是由于它们有产生准确的和个性化的推荐的能力。然而，它们也有一些可扩展性的限制，因为在用户数量和项的数量增长的情况下，它们需要一个相似度的计算（基于用户或项）。在最坏的情况下，这种计算的时间复杂度可能是O(m*n)，但在实践中的情况稍微好一点O(m+n)，部分原因是由于利用了数据的稀疏度。虽然稀疏有助于可扩展性，它也对基于邻域的方法提出了一个挑战，因为我们的用户仅仅对庞大数量项中的很少一部分进行了评分。例如，在Mendeley，我们有数以百万计的文章而一个用户可能只读了其中几百篇文章。两个读过100篇文章的用户有一篇相同文章的概率（共5000万篇文章）是0.0002。</p>
+<p>基于模型的方法会在使用评分去学习预测模型的基础上，去预测新项。一般的想法是使用机器学习算法建立用户和项的相互作用模型，从而找出数据中的模式。在一般情况下，<strong>基于模型的CF被认为是建立CF推荐系统的更先进的算法</strong>。有许多不同的算法可用于构建模型并基于这些模型进行预测，例如，贝叶斯网络、聚类、分类、回归、矩阵分解、受限玻尔兹曼机等等。</p>
+<p>CF方法的一个更重要的限制是我们所称的“冷启动问题”，系统是不能够给没有（或非常少）惯用活动的用户进行推荐，又名曰新用户问题，或推荐新项问题。新用户的“冷启动问题”可以通过流行性和混合方法进行解决，而新项问题可以通过使用基于内容的过滤或multi-armed bandits（即探索利用）进行解决。</p>
+<p>基于内容的推荐算法总是为用户推荐那些与用户过去喜欢的item类似的item。它不同于协同过滤，它是基于item的内容（例如标题、年份、描述）比较item之间的相似度。并没有考虑用户过去如何使用item的情况。</p>
+<p>基于内容的方法克服了协同过滤方法的很多不足。具体来说，基于内容的推荐算法可以克服流行度偏离和新item的冷启动问题，这些问题在第二部分介绍协同过滤的时候已经讨论过。然而，值得注意的是，纯粹基于内容的推荐算法的性能通常不如协同过滤算法。基于内容的推荐算法通常还存在过度专业化（over-specialisation）的问题，即用户可能会得到过多相同类型的item（如推荐所有的“指环王”系列电影），而不会推荐其他不同的、但用户可能感兴趣的item。最后是，基于内容的推荐算法中，仅仅使用了包含在item元数据中的词汇（如标题、描述年份），这限制了推荐算法的实用性，不能帮助用户探索和发现词汇之外的内容。</p>
+<p>混合推荐：<br>几种推荐方式混合的方式：<br><img src="http://cdn.infoqstatic.com/statics_s1_20160622-0236/resource/articles/recommendation-algorithm-overview-part04/zh/resources/0121030.jpg" alt=""></p>
+<p>例如利用weighted方式来混合推荐方法，那么我们可以给出不同推荐方式所对应的权重。手动给出权重需要大量工作。一种改进是利用集成学习：<br>它需要学习一个函数（即集成器）来确定不同推荐算法组合的权重。值得注意的是，通常集成方法不仅仅结合了不同的算法，同时也组合了基于相同算法的不同变种（模型）。例如，在赢得Netflix竞赛的解决方案中，研究者使用了来自于超过10种不同算法（流行度、领域方法、矩阵因子分解、受限玻尔兹曼机、回归等）的100多种模型，并通过使用梯度boosted决策树将它们组合到一个集成器中。</p>
+<p>最后，需要紧紧牢记的是，推荐模型仅仅是推荐系统五个部件中的其中一个。付出努力将推荐模型正确建立起来是非常重要的，但是对于其他的所有部件，如数据收集和处理、后处理、在线模块和用户界面，做出正确的选择同样重要。正如我们一遍又一遍所强调的，该推荐算法仅仅是推荐系统中的一部分，你的决策需要考虑整个产品。</p>
+<p>原文章入口：<br><a href="http://www.infoq.com/cn/articles/recommendation-algorithm-overview-part01#idp_register" target="_blank" rel="external">http://www.infoq.com/cn/articles/recommendation-algorithm-overview-part01#idp_register</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/机器学习/">机器学习</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/07/04/infoQ推荐算法综述笔记/" data-title="infoQ推荐算法综述笔记 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/08/21/自己动手写爬虫/" title="自己动手写爬虫">
+  <strong>上一篇：</strong><br/>
+  <span>
+  自己动手写爬虫</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/06/17/机器学习（周志华版）读书笔记1/"  title="机器学习（周志华版）读书笔记1">
+ <strong>下一篇：</strong><br/> 
+ <span>机器学习（周志华版）读书笔记1
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/07/04/infoQ推荐算法综述笔记/" data-title="infoQ推荐算法综述笔记" data-url="http://yoursite.com/2016/07/04/infoQ推荐算法综述笔记/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 18.57px;">Java编程思想读书笔记</a> <a href="/tags/TECH/" style="font-size: 12.86px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 17.14px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.43px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/算法4读书笔记/" style="font-size: 15.71px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

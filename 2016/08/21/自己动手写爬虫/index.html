@@ -1,0 +1,548 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>自己动手写爬虫 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="一：全面剖析网络爬虫
+URI：web上各种可用的资源，如HTML文档，图像，视频，程序等都由一个通用资源标志符（URI）进行定位。URI通常三部分组成：1.访问资源的命令机制2.存放资源的主机名3.资源自身的名称，由路径表示文件的URL:用URL表示文件时，服务器方式用file表示，后面要有IP地址，文件的存取路径（即目录）和文件名等信息。有时可省略目录和文件名，但“/”符号不能省略。
+大致步骤：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自己动手写爬虫">
+<meta property="og:url" content="http://yoursite.com/2016/08/21/自己动手写爬虫/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="一：全面剖析网络爬虫
+URI：web上各种可用的资源，如HTML文档，图像，视频，程序等都由一个通用资源标志符（URI）进行定位。URI通常三部分组成：1.访问资源的命令机制2.存放资源的主机名3.资源自身的名称，由路径表示文件的URL:用URL表示文件时，服务器方式用file表示，后面要有IP地址，文件的存取路径（即目录）和文件名等信息。有时可省略目录和文件名，但“/”符号不能省略。
+大致步骤：">
+<meta property="og:image" content="http://img.blog.csdn.net/20160821105035788">
+<meta property="og:image" content="http://img.blog.csdn.net/20160821105222916">
+<meta property="og:image" content="http://img.blog.csdn.net/20160821110725356">
+<meta property="og:image" content="http://img.blog.csdn.net/20160821151042671">
+<meta property="og:image" content="http://img.blog.csdn.net/20160821213936348">
+<meta property="og:updated_time" content="2016-10-04T15:16:52.352Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自己动手写爬虫">
+<meta name="twitter:description" content="一：全面剖析网络爬虫
+URI：web上各种可用的资源，如HTML文档，图像，视频，程序等都由一个通用资源标志符（URI）进行定位。URI通常三部分组成：1.访问资源的命令机制2.存放资源的主机名3.资源自身的名称，由路径表示文件的URL:用URL表示文件时，服务器方式用file表示，后面要有IP地址，文件的存取路径（即目录）和文件名等信息。有时可省略目录和文件名，但“/”符号不能省略。
+大致步骤：">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160821105035788">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/08/21/自己动手写爬虫/" title="自己动手写爬虫" itemprop="url">自己动手写爬虫</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-08-21T04:23:39.000Z" itemprop="datePublished"> Published 2016-08-21</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一：全面剖析网络爬虫"><span class="toc-number">1.</span> <span class="toc-text">一：全面剖析网络爬虫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二：分布式爬虫"><span class="toc-number">2.</span> <span class="toc-text">二：分布式爬虫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三：爬虫的“方方面面-”"><span class="toc-number">3.</span> <span class="toc-text">三：爬虫的“方方面面 ##”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#主题爬虫"><span class="toc-number">4.</span> <span class="toc-text">主题爬虫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#限定爬虫"><span class="toc-number">5.</span> <span class="toc-text">限定爬虫</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="一：全面剖析网络爬虫"><a href="#一：全面剖析网络爬虫" class="headerlink" title="一：全面剖析网络爬虫"></a>一：全面剖析网络爬虫</h2><hr>
+<p>URI：<br>web上各种可用的资源，如HTML文档，图像，视频，程序等都由一个通用资源标志符（URI）进行定位。<br>URI通常三部分组成：<br>1.访问资源的命令机制<br>2.存放资源的主机名<br>3.资源自身的名称，由路径表示<br>文件的URL:<br>用URL表示文件时，服务器方式用file表示，后面要有IP地址，文件的存取路径（即目录）和文件名等信息。有时可省略目录和文件名，<strong>但“/”符号不能省略</strong>。</p>
+<p>大致步骤：<br>GET:<br><img src="http://img.blog.csdn.net/20160821105035788" alt=""><br>POST:<br><img src="http://img.blog.csdn.net/20160821105222916" alt=""><br>与get方法不同，post方法可以使用NameValuePair来设置参数，因此可以设置“无限”多的参数。而get方法采用把参数写在URL里面的方式，由于URL有长度限制，因此传递参数的长度也会有限制。</p>
+<p><img src="http://img.blog.csdn.net/20160821110725356" alt=""></p>
+<p><strong>宽度优先爬虫：</strong><br>实际的爬虫项目是从一系列的种子链接开始的。所谓的种子链接，就好比宽度优先遍历中的种子结点一样。但是种子链接可以有多个。<br><strong>带偏好的爬虫：</strong><br>判断网页的重要性的因素有很多，主要有链接的欢迎度，链接的重要度和平均链接深度，网站质量，历史权重等主要因素。<br>链接的欢迎度主要是由反向链接（backlinks，即指向当前URL的链接）的数量和质量决定的，定义为IB(P)。<br>链接的重要度，是一个关于URL字符串的函数，仅仅考察字符串本身，比如认为“.com”和“home”的URL重要度比“.cc”和”map“高，定义为IL(P)。<br>平均链接深度，根据上面所分析的宽度优先原则计算出全站的平均链接深度，然后距离种子站点越近的重要性越高，定义为ID(P)。</p>
+<p>定义网页的重要性为I(P)，那么：<br>I(P) = X<em>IB(P)+Y</em>IL(P)<br>X,Y表示所占比例大小，ID(P)由宽度优先的遍历规则保证。<br><strong>如何实现最佳爬虫呢？</strong><br>可以使用<strong>优先队列</strong>来实现TODO表，并且把每个URL的重要性作为队列元素的优先级。<br>在带偏好的爬虫里，队列元素的优先级是由URL的优先级确定的。关于如何确定URL的优先级，有一些专用的链接分析的方法，<strong>比如google的PangRank和HITS算法</strong>。</p>
+<p><strong>爬虫队列：</strong><br>爬虫队列的设计是网络爬虫的关键。爬虫队列是用来保存URL的队列数据结构的。数以亿计的URL地址，使用内存的链表或者队列来存储显然不够。需要找到另一种数据结构，具有以下特点：<br>1.能够存储海量数据，当数据超出内存限制时，能够固化到硬盘上。<br>2.存储数据速度非常快.<br>3.能够支持多线程访问。</p>
+<p>3点要求，使得Hash成为存储结构的不二选择。<br>在进行Hash存储的时候，为了节省空间，通常会对URL进行压缩。常用的压缩算法是MD5算法。</p>
+<p><strong>通过布隆过滤器构建Visited表：</strong><br>在企业级搜索引擎中，常用一个成为布隆过滤器（bloom filter）的算法来实现对已经抓取过的URL的过滤。</p>
+<p><strong>设计爬虫架构：</strong><br>1.分布式：能在多台机器上运行<br>2.可伸缩性：能过通过额外的机器和带宽来提高抓取速度<br>3.性能和有效性：有效利用各种系统资源，例如，处理器、存储空间和网络带宽。<br>4.质量：爬虫应该首先抓取有用的网页<br>5.新鲜性：在很多应用中，爬虫应该持续运行而不是只遍历一次。<br>6.更新<br>7.可扩展性：为了能够支持新的数据格式和新的抓取协议，爬虫架构应该设计成模块化的形式。</p>
+<p>实际爬虫逻辑架构参考：<br>1.URL Frontier包含爬虫当前待抓取的URL（对于持续更新抓取的爬虫，以前已经抓取过的URL可能会回到Frontier重抓）。<br>2.DNS解析模块根据给定的URL决定从哪个Web服务器获取网页。<br>3.获取模块使用HTTP协议获取URL代表的页面。<br>4.解析模块提取文本和网页的链接集合<br>5.重复消除模块决定一个解析出来的链接是否已经在URL Frontier或者最近下载过。</p>
+<p>示意图：<br><img src="http://img.blog.csdn.net/20160821151042671" alt=""></p>
+<p>DNS解析是网络爬虫的瓶颈。由于域名服务的分布式特点，DNS可能需要多次请求转发，并在互联网上往返，需要几秒甚至更长的时间解析出IP地址。如果我们的目标是一秒钟抓取数百个文件，这样就达不到性能要求。一个标准的补救措施是<strong>引入缓存</strong>：最近完成DNS查询的网址可能会在DNS缓存中找到，避免了访问互联网上的DNS服务器。</p>
+<p>用DNS解析还有一个难点：<strong>在标准库中实现的查找是同步的</strong>。这意味着一旦一个请求发送到DNS服务器上，在哪个节点上的其他爬虫线程也被阻塞知道第一个请求完成。为了避免这种情况发生，很多爬虫自己来实现DNS解析。</p>
+<p>整个爬虫系统可以由一台抓取机器或多个爬虫节点组成。多机并行抓取的分布式爬虫这需要考虑节点之间的通信和调度。</p>
+<p>在一个爬虫节点上实现并行抓取，可以考虑：<br>1.多线程同步IO<br>2.单线程异步IO</p>
+<p><strong>JAVA多线程：</strong><br>多线程是一种机制，它允许在程序中并发执行多个指令流，每个指令流都称为一个线程，彼此间相互独立。<br>线程又称为轻量级进程，它和进程一样拥有独立的执行控制，由操作系统负责调度，<strong>区别是线程没有独立的存储空间</strong>，而是和所属进程中的其他线程共享存储空间，这使得线程间的通信较进程简单。<br>多个线程的执行是并发的，即在逻辑上是“同时”的。如果系统只有一个CPU，那么真正的“同时”是不可能的，但是由于CPU切换的速度非常快，用户感觉不到其中的区别。</p>
+<p><strong>线程的状态</strong>，一个线程具有如下四种状态：<br>1.<strong>新状态</strong>：线程已被创建但尚未执行（start()方法尚未被调用）<br>2.<strong>可执行状态</strong>：线程可以执行，但不一定正在执行。CPU时间随时可能被分配给该线程，从而使得它执行<br>3.<strong>死亡状态</strong>：正常情况下，run()方法返回使得线程死亡。调用Thread类中的stop()或destroy()方法亦有同样效果，但是不推荐使用这两种方法，前者会产生异常，后者是强制终止，不会释放锁。<br>4.<strong>阻塞状态</strong>：线程不会被分配CPU时间，无法执行。</p>
+<p>在java语言中，每个对象都拥有一把锁，当执行这个对象的synchronized方法时，必须获得该对象的锁方能执行，否则所属线程阻塞。而synchronized方法一旦执行，就独占该锁，直到从synchronized方法返回时才将锁释放，之后被阻塞的线程方能获得该锁，重新进入可执行状态。<br>这种对象锁机制确保同一时刻对于每一对象，其所有声明为synchronized的方法中至多只有一个处于可执行状态，从而有效地避免了类成员变量的访问冲突。<br>在java中，不光是对象，每一个类也对应一把锁，因此也可将该类的静态成员函数声明为synchronized，以控制其对类的静态成员变量的访问。<br>（1）synchronized方法<br>（2）synchronized块<br>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">synchronize(syncObject)&#123;</span><br><span class="line">//允许访问控制的代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>块的代码必须获得syncObject对象（<strong>可以是类实例或类</strong>）的锁才能执行。</p>
+<h2 id="二：分布式爬虫"><a href="#二：分布式爬虫" class="headerlink" title="二：分布式爬虫"></a>二：分布式爬虫</h2><hr>
+<p>Hadoop是Apache下的一个分布式并行计算框架。Hadoop的核心设计思想是MapReduce和HDFS。<br>Hadoop中MapReduce的三个步骤：<br>1.map（主要是分解并行的任务）<br>2.combine（主要是为了提高reduce的效率）<br>3.reduce（把处理后的结果再汇总起来）</p>
+<p><strong>1.map</strong></p>
+<p>由于map是并行地对输入的文件集进行操作，所以它的第一步就是<strong>把文件集分割成一些子集</strong>。如果单个的文件大到影响查找效率时，它会被分割成一些小的文件。要指出的是，分割这一步是不知道输入文件到额内部逻辑结构的。比如，以行为逻辑分割的文本文件会被以任意的字节界限分割，所以<strong>这个具体分割要由用户自己指定</strong>。然后每个文件分割体都会对应地有一个新的map任务。</p>
+<p>当单个map任务开始时，它会对每个配置过的reduce任务开启一个新的输出流，这个输出流会读取文件分割体。Hadoop中的类InputFormat用于分析输入文件并产生键值（key/value）对。</p>
+<p>Hadoop中的Mapper类是一个可以由用户实现的类，经过InputFormat类分析的键值（key/value）对都传给Mapper类，这样用户提供的Mapper类就可以进行真正的map操作。</p>
+<p>当map操作的输出被收集后，他们会被Hadoop中Partitioner类以指定的方式区分地写入输出文件里。</p>
+<p><strong>2.combine</strong></p>
+<p>当map操作输出它的键值（key/value）对时，处于性能和效率的考虑，Hadoop框架提供了一个合成器（combine）。有了这个合成器，map操作所产生的键值（key/value）对就不会马上写入输出文件，他们会被收集在一些list中，一个key值对应一个list，当写入一定数量的键值（key/value）对时，这部分list会被合成器处理。<br>比如，Hadoop案例中的wordCount程序，它的map操作输出是（word,l）键值对，在map操作的输入中，词的计数可以使用合成器来加速。合成操作会在内存中收集处理list，一个词一个list。当一定数量的键值对输出到内存中时，就调用合成操作的reduce方法，每次都以一个唯一的词为key，values是list的迭代器，然后合成器输出(word,count-in-this-part-of-the-input)键值对。</p>
+<p><strong>3.reduce</strong></p>
+<p>当一个reduce任务开始时，它的输入分散在各个节点的map的输出文件里。如果在分布式的模式下，需要先把这些文件拷贝到本地文件系统上。</p>
+<p>一旦所有的数据都被拷贝到reduce任务所在的机器上时，reduce任务会把这些文件合并到一个文件中。然后这个文件会被合并分类，使得相同的key的键值对可以排在一起。接下来的reduce操作就很简单了，顺序地读入这个文件，将键（key）所对应的值（value）传给reduce方法完成之后再读取一个键（key）。</p>
+<p>最后，输出由每个reduce任务的输出文件组成。而他们的格式可以由JobConf.setOutputFormat类指定。</p>
+<h2 id="三：爬虫的“方方面面-”"><a href="#三：爬虫的“方方面面-”" class="headerlink" title="三：爬虫的“方方面面 ##”"></a>三：爬虫的“方方面面 ##”</h2><hr>
+<p>设计爬虫时，通常都会回避动态网页，因为动态网页（识别动态网页，看URL中是否出现问号）会将爬虫带入“黑洞”。</p>
+<p>一般的爬虫是“见网页就抓”，而主题爬虫只抓取和主题“相关”的页面。</p>
+<h2 id="主题爬虫"><a href="#主题爬虫" class="headerlink" title="主题爬虫"></a>主题爬虫</h2><p>如何控制抓取的网页和主题相关呢？<br>解决思路有四种：</p>
+<p><strong>1.第一种</strong>，通常指一些行业搜索。比如机票搜索等。航空公司和代理人网站的数量有限。因此，抓取的时候可以根据这些网站做定制抓取。也就是根据每个网站的页面内容，分析他们的源代码的结构，获取自己需要的信息，存入数据库中。这种方法适合小型的行业搜索引擎。</p>
+<p><strong>2.第二种</strong>，根据得到的网页的内容，判断网页的内容和主题是否相关。如果一个网页是和主题相关的，在网页中的标题、正文、超链接中，通常会有一些与主题相关的关键词。在面向主题的搜索中，这种词叫做<strong>导向词</strong>，给每个导向词一个权重，就能够优先访问和主题相关的URL。</p>
+<p>导向词设置权重的方法：<br>1.管理员的经验手工设置<br>2.“特征提取”</p>
+<p>导向词算法在对一个URL进行评分的时候，总是要先下载URL指向的页面，然后对URL进行评分，放入TODO表中进行处理。当扩展这个URL的时候，还要进行一次下载，这样对网络资源的消耗非常大。这是可以采用一种阈值的方法进行处理。即通过经验设定一个阈值，如果得出的评分大于这个阈值，就立刻进行下一步处理，并且先不对从当前页面中提取出的URL进行评分计算，待到扩展的时候再进行评分，否则，简单丢弃这个页面即可。</p>
+<p><strong>3.第三种</strong>，针对网页链接进行评分（这种方法只是根据当前爬虫爬取的信息对当前的URL进行评分，而不涉及当前网页的内容）</p>
+<p><strong>4.第四种</strong>，链接描述文本分析。</p>
+<p>主题爬虫处理流程：<br><img src="http://img.blog.csdn.net/20160821213936348" alt=""></p>
+<h2 id="限定爬虫"><a href="#限定爬虫" class="headerlink" title="限定爬虫"></a>限定爬虫</h2><p>限定爬虫就是对爬虫所爬取的主机范围做一些限制，通常，限定爬虫包含以下几个方面。<br>1.限定域名。例，只抓取edu.cn结尾的域名<br>2.限定爬取层数。<br>3.限定IP。例，只抓取中国范围内的IP<br>4.限定语言的抓取。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/后端开发/">后端开发</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/08/21/自己动手写爬虫/" data-title="自己动手写爬虫 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/08/29/python基础知识/" title="python基础知识">
+  <strong>上一篇：</strong><br/>
+  <span>
+  python基础知识</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/07/04/infoQ推荐算法综述笔记/"  title="infoQ推荐算法综述笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>infoQ推荐算法综述笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/08/21/自己动手写爬虫/" data-title="自己动手写爬虫" data-url="http://yoursite.com/2016/08/21/自己动手写爬虫/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一：全面剖析网络爬虫"><span class="toc-number">1.</span> <span class="toc-text">一：全面剖析网络爬虫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二：分布式爬虫"><span class="toc-number">2.</span> <span class="toc-text">二：分布式爬虫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三：爬虫的“方方面面-”"><span class="toc-number">3.</span> <span class="toc-text">三：爬虫的“方方面面 ##”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#主题爬虫"><span class="toc-number">4.</span> <span class="toc-text">主题爬虫</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#限定爬虫"><span class="toc-number">5.</span> <span class="toc-text">限定爬虫</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 18.57px;">Java编程思想读书笔记</a> <a href="/tags/TECH/" style="font-size: 12.86px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 17.14px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.43px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/算法4读书笔记/" style="font-size: 15.71px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,545 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>机器学习（周志华版）读书笔记1 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="第一章:绪论
+机器学习致力于研究如何通过计算的手段，利用经验来改善系统自身的性能。在计算机系统中，”经验”通常以”数据”形式存在，因此，机器学习所研究的主要内容，是关于在计算机上从数据中产生”模型(model)”的算法，即“学习算法”(learning algorithm)。
+若我们预预测的是离散值，例如“好瓜”，“坏瓜”，此类学习任务称为“分类”(classification)。若我们预预测的是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习（周志华版）读书笔记1">
+<meta property="og:url" content="http://yoursite.com/2016/06/17/机器学习（周志华版）读书笔记1/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="第一章:绪论
+机器学习致力于研究如何通过计算的手段，利用经验来改善系统自身的性能。在计算机系统中，”经验”通常以”数据”形式存在，因此，机器学习所研究的主要内容，是关于在计算机上从数据中产生”模型(model)”的算法，即“学习算法”(learning algorithm)。
+若我们预预测的是离散值，例如“好瓜”，“坏瓜”，此类学习任务称为“分类”(classification)。若我们预预测的是">
+<meta property="og:updated_time" content="2016-10-04T15:14:05.952Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习（周志华版）读书笔记1">
+<meta name="twitter:description" content="第一章:绪论
+机器学习致力于研究如何通过计算的手段，利用经验来改善系统自身的性能。在计算机系统中，”经验”通常以”数据”形式存在，因此，机器学习所研究的主要内容，是关于在计算机上从数据中产生”模型(model)”的算法，即“学习算法”(learning algorithm)。
+若我们预预测的是离散值，例如“好瓜”，“坏瓜”，此类学习任务称为“分类”(classification)。若我们预预测的是">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/17/机器学习（周志华版）读书笔记1/" title="机器学习（周志华版）读书笔记1" itemprop="url">机器学习（周志华版）读书笔记1</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-17T04:23:39.000Z" itemprop="datePublished"> Published 2016-06-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章-绪论"><span class="toc-number">1.</span> <span class="toc-text">第一章:绪论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二章-模型评估与选择"><span class="toc-number">2.</span> <span class="toc-text">第二章:模型评估与选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1经验误差与过拟合"><span class="toc-number">3.</span> <span class="toc-text">2.1经验误差与过拟合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2评估方法"><span class="toc-number">4.</span> <span class="toc-text">2.2评估方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3性能度量"><span class="toc-number">5.</span> <span class="toc-text">2.3性能度量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4比较检验"><span class="toc-number">6.</span> <span class="toc-text">2.4比较检验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5偏差与方差"><span class="toc-number">7.</span> <span class="toc-text">2.5偏差与方差</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="第一章-绪论"><a href="#第一章-绪论" class="headerlink" title="第一章:绪论"></a>第一章:绪论</h2><hr>
+<p>机器学习致力于研究如何通过计算的手段，利用经验来改善系统自身的性能。在计算机系统中，”经验”通常以”数据”形式存在，因此，机器学习所研究的主要内容，是关于在计算机上从数据中产生”模型(model)”的算法，即“学习算法”(learning algorithm)。</p>
+<p>若我们预预测的是离散值，例如“好瓜”，“坏瓜”，此类学习任务称为“分类”(classification)。若我们预预测的是连续值，例如瓜的成熟度，此类学习任务称为“回归”(regression)。</p>
+<p>对于西瓜来说，我们还可以对西瓜进行“聚类”(clustering)，即将训练集中的西瓜分成若干组，每组称为一个“簇”(cluster)，这些自动形成的簇可能对应一些潜在的概念划分，例如“本地瓜”等。这样的学习过程有助于我们了解数据内在的规律，能为更深入地分析数据建立基础。需要说明的是，在聚类学习中，“本地瓜”这样的概念我们事先是不知道的，而且学习过程中使用的训练样本通常不拥有标记信息。</p>
+<p>监督学习：分类和回归是其代表<br>无监督学习：聚类是其代表</p>
+<p><strong>假设空间：</strong><br>我们可以把学习过程看做一个在所有假设(hypothesis)组成的空间中进行探索的过程，探索目标是找到与训练集“匹配”(fit)的假设。假设的表示一旦确定，假设空间及其规模大小就确定了。</p>
+<p>现实问题中我们常面临很大的假设空间，但学习过程是基于有限样本训练集进行的，因此，可能有多个假设与训练集一致，即存在一个与训练集一致的“假设集合”，称之为“版本空间”(versin space)。</p>
+<p><strong>归纳偏好：</strong><br>若仅有有限的数据，在版本空间中无法继续判断出哪个假设更好。可是，对于一个具体的学习算法而言，它必须产生一个模型。怎么办呢？这时，<strong>学习算法本身的“偏好”</strong>就会起关键作用。</p>
+<p>归纳偏好可以看作学习算法自身的一个可能很庞大的假设空间中对假设进行选择的启发式或“价值观”。<br>那么，有没有一般性的原则来引导算法确立“正确的”偏好呢？奥卡姆的剃刀(Occam’s razor)是常用原则，即“若有多个假设与观察一致，选择最简单的一个”。但是，关于“简单”的定义，针对具体情况有不同的定义。当奥卡姆剃刀并非唯一原则。</p>
+<p>事实上，归纳偏好对应了学习算法本身所作出的关于“什么样的模型更好”的假设。在具体的现实问题中，这个假设是否成立，即<strong>算法的归纳偏好是否与问题本身匹配，大多数时候直接决定了算法能否取得好的性能</strong>。</p>
+<p>关于NFL(No Free Lunch Theorem)定理：<br>所有“问题”出现的机会相同，或所有问题同等重要的前提下，无论学习算法A多聪明，学习算法B多笨拙，他们的期望性能都相同！</p>
+<p>这就引出问题：既然所有学习算法期望性能跟胡猜差不多，那有什么好学的？</p>
+<p>答：请注意NFL的前提，并且NFL定理假设了f的均匀分布，而实际情况并非如此。</p>
+<p>所以,<strong>NFL定理</strong>是想让我们认识到：<br>脱离具体的问题，空泛地讨论“什么学习算法最好”毫无意义，因为若考虑所有潜在的问题，则所有学习算法都一样好。学习算法自身的归纳偏好与问题是否匹配，往往会起到决定性的作用。</p>
+<p><strong>机器学习发展历程：</strong><br>机器学习是人工智能研究发展到一定阶段的必然产物。</p>
+<p>1950-1970初：<br>人工智能研究处于“推理期”，那时人们认为只要能赋予机器逻辑推理能力，机器就具有智能。</p>
+<p>1980年代：<br>从“样例中学习”的一大主流是<strong>符号主义</strong>学习，其代表包括决策树(decision tree)和基于逻辑的学习。典型的决策树学习以信息论为基础，以信息熵的最小化为目标，直接模拟了人类对概念进行判断的树形流程。基于逻辑的学习的著名代表是归纳逻辑程序设计(ILP)，可看做机器学习与逻辑程序设计的交叉，它使用一阶逻辑（即谓词逻辑）来进行知识表示，通过修改和扩充逻辑表达式来完成对数据的归纳。成也萧何，败也萧何，<strong>由于表示能力太强，直接导致学习过程面临的假设空间太大，复杂度太高，问题规模稍大就难以进行有效的学习</strong>。</p>
+<p>1990中期以前：<br>从“样例中学习”的另一主流技术是<strong>基于神经网络</strong>的<strong>连接主义学习</strong>。连接主义学习最大局限是“试错性”：简单说，<strong>其学习过程涉及大量参数，而参数的设置缺乏理论指导，只要靠手工“调参”。夸张一点，参数调节上失之毫厘，学习结果可能谬之千里。（现在参数调节的理论指导应该有所改进吧？）</strong></p>
+<p>1990中期：<br><strong>“统计学习”</strong>（statistical learning）闪亮登场并迅速占据主流舞台，代表技术是<strong>支持向量机(SVM)</strong>以及更一般的<strong>“核方法”</strong>（kernel methods）。</p>
+<p>21世纪初：<br>连接主义又卷土重来，掀起了以<strong>“深度学习”</strong>为名的热潮，所谓深度学习，狭义地说就是“很多层”的神经网络。而深度学习技术涉及的模型复杂度非常高，以至于只要下功夫“调参”，把参数调节好，性能往往就好。因此，深度学习虽缺乏理论基础，但他显著降低了机器学习应用者的门槛，为机器学习技术走向工程实践带来了便利。</p>
+<p><strong>为什么此时才热起来呢？</strong><br>原因有二：<br>1.数据大了<br>2.计算能力强了</p>
+<p>深度学习模型拥有大量参数，若数据样本少，则很容易“过拟合”。如此复杂的模型，如此大的数据样本，若缺乏强力计算设备，根本无法求解。</p>
+<p><strong>相同的历史背景：</strong><br>有趣的是，深度学习现在的状况，与彼时的神经网络何其相似。当年，神经网络在1980年中期走红，与当时Intel x86系列微处理器与内存条技术的广泛应用所造成的计算能力，数据访存效率的显著提高不无关联！</p>
+<p>数据挖掘与机器学习：<br>数据库领域的研究为数据挖掘提供了<strong>数据管理技术</strong>，而机器学习和统计学的研究为数据挖掘提供<strong>数据分析技术</strong>。</p>
+<p>机器学习：不显式编程地赋予计算机能力的研究领域。</p>
+<hr>
+<h2 id="第二章-模型评估与选择"><a href="#第二章-模型评估与选择" class="headerlink" title="第二章:模型评估与选择"></a>第二章:模型评估与选择</h2><hr>
+<h2 id="2-1经验误差与过拟合"><a href="#2-1经验误差与过拟合" class="headerlink" title="2.1经验误差与过拟合"></a>2.1经验误差与过拟合</h2><p>我们希望能得到<strong>泛化误差小</strong>的学习器，然而，我们事先并不知道新样本是什么样的，实际能做的是努力是<strong>经验误差</strong>最小化。遗憾的是，大多数情况下，这样的学习器都是不好的。（过拟合）</p>
+<p><strong>欠与过：</strong><br>欠拟合比较容易克服，例如在决策树学习中扩展分支，在神经网络学习中增加训练轮数等，而过拟合则比较麻烦。过拟合无法彻底避免，我们能做的只是“缓解”，或者说减小其风险。</p>
+<p>在现实任务中，我们有很多算法供选择，甚至同一个算法，不同参数配置，也能够产生不同的模型。该选用哪一种呢？这是“模型选择”（model selection）问题。</p>
+<p>理想解决方案：<br>对候选模型的泛化误差进行评估，然后选择泛化误差最小的那个模型。那是，我们无法直接获得泛化误差，而训练误差又由于过拟合现象的存在而不适合作为标准。那么，<strong>怎样进行模型评估和选择呢？</strong></p>
+<h2 id="2-2评估方法"><a href="#2-2评估方法" class="headerlink" title="2.2评估方法"></a>2.2评估方法</h2><p><strong>评估方法：</strong><br>注意：测试集应该尽可能与训练集互斥。<br>1.留出法<br>2.交叉验证法<br>3.自助法（自助法在数据集较小，难以有效划分训练/测试集时很有用，当初始数据量足够时，用留出法或交叉验证法更好一些）</p>
+<p>大多数学习算法都有参数需要设定，参数配置不同，学得模型的性能往往有显著差别。因此，在进行模型评估与选择时，除了要对学习算法进行选择，还需对算法参数进行设定。即“调参”(parameter tuning)</p>
+<p>很多强大的学习算法有不少参数需设定，这将导致极大的调参工程量，以至于不少应用任务中参数调的好不好往往对最终模型性能有关键性影响。</p>
+<p>我们用测试集上的判别效果来估计模型在实际使用时的泛化能力，而把训练数据另外划分为训练集和验证集，基于验证集上的性能来进行模型选择和调参。</p>
+<h2 id="2-3性能度量"><a href="#2-3性能度量" class="headerlink" title="2.3性能度量"></a>2.3性能度量</h2><p><strong>性能度量：</strong><br>1.错误率与精度<br>2.查准率，查全率与F1<br>3.ROC与AUC<br>4.代价敏感错误率与代价曲线<br>为权衡不同类型错误所造成的不同损失，可为错误赋予“非均等代价“（unequal cost）</p>
+<p>在非均等代价下，我们所希望的不再是简单地最小化错误次数，而是希望最小化“总体代价”（total cost）</p>
+<h2 id="2-4比较检验"><a href="#2-4比较检验" class="headerlink" title="2.4比较检验"></a>2.4比较检验</h2><p>实际上，机器学习中的性能比较这件事要比我们想象的复杂得多。基于假设检验结果我们可推断出，若在测试集上观察到学习器A比B好，则A的泛化性能是否在统计意义上优于B，以及这个结论的把握有多大。</p>
+<p>1.假设检验<br>2.交叉验证t检验<br>3.McNemar检验<br>4.Friedman检验与Nemenyi后续检验</p>
+<h2 id="2-5偏差与方差"><a href="#2-5偏差与方差" class="headerlink" title="2.5偏差与方差"></a>2.5偏差与方差</h2><p>对学习算法除了通过实验估计其泛化性能，人们往往还希望了解它“为什么”具有这样的性能。“偏差-方差分解”（bias-variance decomposition）是解释学习算法泛化性能的一种重要工具。</p>
+<p><strong>泛化误差可以分解为偏差，方差，噪声之和！</strong></p>
+<p><strong>偏差</strong>：度量了学习算法的期望预测与真实结果的偏离程度，即刻画了学习算法本身的拟合能力。<br>方差：度量了同样大小的训练集的变动所导致的学习性能的变化，即刻画了数据扰动所造成的影响。<br>噪声：表达了当前任务上任何学习算法所能达到的期望泛化误差的下界，即刻画了学习问题本身的难度。</p>
+<p>泛化性能是由学习算法的能力，数据的充分性以及学习任务本身的难度所共同决定的。给定学习任务，为了取得好的泛化性能，则需使偏差较小，即能充分拟合数据，并且使方差较小，即使得数据扰动产生的影响最小。</p>
+<p><strong>一般，偏差和方差是冲突的！</strong></p>
+<p><strong>偏差-方差窘境（bias-variance dilemma）：</strong></p>
+<p>给定学习任务，假定我们能控制学习算法的训练程度。</p>
+<p>在训练不足时，学习器的拟合能力不够强，，训练数据的扰动不足以使学习器产生显著变化，此时偏差主导了泛化错误率。</p>
+<p>随着训练程度的加深，学习器的学习能力逐渐增强，训练数据发生的扰动渐渐被学习器学到，方差主导了泛化错误率。</p>
+<p>在训练充足后，拟合能力已经非常强了，训练数据发生的轻微扰动都会导致学习器发生显著变化，若训练数据自身的，非全局的特性被学习器学到了，则将发生过拟合。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/机器学习/">机器学习</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/06/17/机器学习（周志华版）读书笔记1/" data-title="机器学习（周志华版）读书笔记1 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/07/04/infoQ推荐算法综述笔记/" title="infoQ推荐算法综述笔记">
+  <strong>上一篇：</strong><br/>
+  <span>
+  infoQ推荐算法综述笔记</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/06/04/COURSERA机器学习笔记2/"  title="COURSERA机器学习笔记2">
+ <strong>下一篇：</strong><br/> 
+ <span>COURSERA机器学习笔记2
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/06/17/机器学习（周志华版）读书笔记1/" data-title="机器学习（周志华版）读书笔记1" data-url="http://yoursite.com/2016/06/17/机器学习（周志华版）读书笔记1/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章-绪论"><span class="toc-number">1.</span> <span class="toc-text">第一章:绪论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二章-模型评估与选择"><span class="toc-number">2.</span> <span class="toc-text">第二章:模型评估与选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1经验误差与过拟合"><span class="toc-number">3.</span> <span class="toc-text">2.1经验误差与过拟合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2评估方法"><span class="toc-number">4.</span> <span class="toc-text">2.2评估方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3性能度量"><span class="toc-number">5.</span> <span class="toc-text">2.3性能度量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4比较检验"><span class="toc-number">6.</span> <span class="toc-text">2.4比较检验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5偏差与方差"><span class="toc-number">7.</span> <span class="toc-text">2.5偏差与方差</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 18.57px;">Java编程思想读书笔记</a> <a href="/tags/TECH/" style="font-size: 12.86px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 17.14px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.43px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/算法4读书笔记/" style="font-size: 15.71px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
