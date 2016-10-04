@@ -1,0 +1,530 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>1.注重实效的哲学 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="关于DRY：不但dont repeat yourself，也dont repeat others，作为一个pragmatic程序员，合理地使用工具、库、以及自己积累的轮子，会让自己的productivity不断提升。
+认知科学认为，1.频繁的高强度的外部刺激和2.自主的有意识的反复提醒是加速内化的两个重要方法。
+想要内化书中的这些小声音，要靠实践！
+理想的阅读状态是先大致理解和记住里面的Tip，然">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1.注重实效的哲学">
+<meta property="og:url" content="http://yoursite.com/2016/09/12/1-注重实效的哲学/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="关于DRY：不但dont repeat yourself，也dont repeat others，作为一个pragmatic程序员，合理地使用工具、库、以及自己积累的轮子，会让自己的productivity不断提升。
+认知科学认为，1.频繁的高强度的外部刺激和2.自主的有意识的反复提醒是加速内化的两个重要方法。
+想要内化书中的这些小声音，要靠实践！
+理想的阅读状态是先大致理解和记住里面的Tip，然">
+<meta property="og:updated_time" content="2016-10-04T16:03:54.731Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1.注重实效的哲学">
+<meta name="twitter:description" content="关于DRY：不但dont repeat yourself，也dont repeat others，作为一个pragmatic程序员，合理地使用工具、库、以及自己积累的轮子，会让自己的productivity不断提升。
+认知科学认为，1.频繁的高强度的外部刺激和2.自主的有意识的反复提醒是加速内化的两个重要方法。
+想要内化书中的这些小声音，要靠实践！
+理想的阅读状态是先大致理解和记住里面的Tip，然">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/09/12/1-注重实效的哲学/" title="1.注重实效的哲学" itemprop="url">1.注重实效的哲学</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-09-12T04:23:39.000Z" itemprop="datePublished"> Published 2016-09-12</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>关于DRY：不但dont repeat yourself，也dont repeat others，作为一个pragmatic程序员，合理地使用工具、库、以及自己积累的轮子，会让自己的productivity不断提升。</p>
+<p>认知科学认为，<strong>1.频繁的高强度的外部刺激</strong>和<strong>2.自主的有意识的反复提醒</strong>是加速内化的两个重要方法。</p>
+<p>想要内化书中的这些小声音，<strong>要靠实践！</strong></p>
+<p><strong>理想的阅读状态是先大致理解和记住里面的Tip，然后每周争取实践2到3个Tip。这样下来一圈也就是半年，在这一圈之后就会记住所有的Tip。</strong></p>
+<hr>
+<p><em>在所有的弱点中，最大的弱点就是害怕暴露弱点。</em></p>
+<p>要提供各种选择，而不是找借口。不要说事情做不到，要说明能够做什么来挽回局面。</p>
+<p>不要留着“破窗户”（低劣的设计，错误决策，或是糟糕的代码）不修。发现一个就修一个。如果没有足够的时间来进行适当的修理。<strong>就用木板把它钉起来</strong>。或许你可以把出问题的代码放入注释，或是显示“未实现”消息，或是用虚设的数据加以代替。采用某种行动防止进一步的损坏，并说明情势处在你的控制之下。</p>
+<p><strong>石头汤与煮青蛙</strong>的故事告诉我们：<br>1.士兵戏弄了村民，利用了村民的好奇，从他们那里弄到了食物。<br>2.更重要的，士兵充当了催化剂，把村民团结起来了，和他们一起做到了他们原来本来做不到的事情–一项协作的成果！</p>
+<p>在某些情况下，你知道确切地知道需要做什么，以及怎样去做。整个系统就在你的眼前–你知道它是对的。当请求许可去处理整个事情，你会遇到拖延和漠然。大家要设立委员会，预算需要批准，事情变得复杂化。每个人都在捍卫自己的资源。</p>
+<p><strong>这种情况下，正是拿出石头的时候了</strong>。设计出你可以合理要求的东西，好好开发它。一旦完成，就拿给大家分享，让他们大吃一惊。然后说：“<strong>要是我们增加…….可能就会更好</strong>”。</p>
+<p>然后人们发现，参与正在发生的成功要更容易。<strong>让他们看见未来，你就能让他们聚集在你周围</strong>。</p>
+<p><strong>让你的用户参与权衡</strong>：</p>
+<p>无视用户的需求，一味地给程序添加新特性，或是一次又一次润饰代码，这不是有职业素养的做法。我们不是在提倡慌张：许诺不可能兑现的时间标度，为赶上最后期限而消减基本的工程内容，这些同样不是有职业素养的做法。</p>
+<p><strong>你的知识资产</strong>：</p>
+<p><em>知识上的投资总能得到最好的回报。</em></p>
+<p>你的知识和经验是你最重要的职业财富。</p>
+<p>遗憾地是，他们是有时效的资产（expiring asset）。随着新技术，语言及环境的出现，你的知识会变得过时。</p>
+<p><strong>经营你的资产</strong>：</p>
+<p>1.<strong>定期投资</strong>。就像金融投资一样，你必须定期为你的知识资产投资。即使投资量很小，习惯自身也和总量一样重要。</p>
+<p>2.<strong>多元化</strong>。你知道的不同的事情越多，你就越有价值。你掌握的技术越多，你就越能更好地进行调整，赶上变化。</p>
+<p>3.<strong>管理风险</strong>。不要把你所有的技术鸡蛋放在一个篮子里。</p>
+<p>4.<strong>低买高卖</strong>。在新兴的技术流行之前学习它可能就和找到被低估的股票一样困难，但所得到的就和那样的股票带来的收益一样。在java刚出现时学习它可能有风险，但对于早期采用者，这样做得到了非常大的回报。</p>
+<p>5.<strong>重新评估和平衡</strong>。</p>
+<p><strong>目标</strong>：</p>
+<p>1.每年至少学习一种新语言。<br>2.每季度阅读一本技术书籍。<br>3.也要阅读非技术书籍。<br>4.参加本地用户组织。不要只是去听讲，而是主动参与。与世隔绝对你的职业生涯来说可能是致命的。打听一下公司之外的人都在做什么。</p>
+<p>是否在某个项目中使用这些技术，或者是否把它们加入你的简历，这并不重要。<strong>学习的过程将扩展你的思维，使你向着新的可能性和新的故事方式扩展。思想的“异花授粉”（cross-pollination）十分重要。</strong>例如，你熟悉了面向对象，你就不会用不同的方式编写纯C语言。</p>
+<p><strong>交流</strong>：</p>
+<p>知道你想要说什么。在工作中使用的更为正式的交流方式中，最困难的部分也许是确切地弄清楚你想要说什么。规划你要说的东西，写出大纲。这个方法不止适用于撰写文档。当你面临重要会议，或是要与重要客户通电话时，简略记下你想要交流的想法，并准备好几种把它们讲清楚的策略。</p>
+<p><strong>让文档美观</strong>：</p>
+<p>你的主意很重要，它们应该以美观的方式传给你的观众。太多程序员和他们的经理在制作书面文档时只关心内容。我们认为是一个错误。任何一个厨师都会告诉你，可以在厨房里忙碌几个小时，最好却会因为糟糕的外观而毁掉你的努力。例如，LaTeX。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/程序员修炼之道读书笔记/">程序员修炼之道读书笔记</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/09/12/1-注重实效的哲学/" data-title="1.注重实效的哲学 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/09/12/2-注重实效的途径/" title="2.注重实效的途径">
+  <strong>上一篇：</strong><br/>
+  <span>
+  2.注重实效的途径</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/08/29/springboot中文文档笔记/"  title="springboot中文文档笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>springboot中文文档笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/09/12/1-注重实效的哲学/" data-title="1.注重实效的哲学" data-url="http://yoursite.com/2016/09/12/1-注重实效的哲学/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 18.57px;">Java编程思想读书笔记</a> <a href="/tags/TECH/" style="font-size: 12.86px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 17.14px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.43px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 14.29px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15.71px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

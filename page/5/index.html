@@ -78,6 +78,100 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2015/12/31/安卓中的开发框架/" title="安卓中的开发框架" itemprop="url">
+  
+    <h1 itemprop="name">安卓中的开发框架</h1>
+    
+     
+           <p itemprop="description" >转自知乎。
+一：
+实际开发中，常用的库有按类型有:
+1 生命周期管理
+目前每个项目的基础架构有区别，大部分是开发者自用库，比如本人的开发代号 afw­lc （little­cake）及 afw­lc­lite（eggroll）库，一个重型事务型生命周期框架，和轻量级的生命周期代理</p>
+        
+    
+    <time datetime="2015-12-31T07:19:27.000Z" itemprop="datePublished">2015-12-31</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/12/31/状态栏高度和标题栏高度/" title="状态栏高度和标题栏高度" itemprop="url">
+  
+    <h1 itemprop="name">状态栏高度和标题栏高度</h1>
+    
+     
+           <p itemprop="description" >参考于：http://blog.csdn.net/ygzk123/article/details/76087231234567891011//测试//得到状态栏的高度statusHeightRect  frame = new Rect();getWindow().getDecor</p>
+        
+    
+    <time datetime="2015-12-31T07:17:01.000Z" itemprop="datePublished">2015-12-31</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/12/31/高效看源代码网络汇总/" title="高效看源代码网络汇总" itemprop="url">
+  
+    <h1 itemprop="name">高效看源代码网络汇总</h1>
+    
+     
+           <p itemprop="description" >问题：怎样高效阅读别人编写的源代码？
+一：
+首先熟悉写这个源码的语言是基本的要求。了解源码的整体功能和模块划分，不要去考虑具体实现，只要明白怎么组织的结构。选择你感兴趣的模块，功能，类，方法，函数。层层击破。
+二：
+1 借助一些对代码静态分析的工具。
+2 利用链接器的功能在代码 </p>
+        
+    
+    <time datetime="2015-12-31T07:10:01.000Z" itemprop="datePublished">2015-12-31</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2015/12/24/关于控件getWidth和getHeight方法都为0的解释及解决方法/" title="关于控件getWidth和getHeight方法都为0的解释及解决方法" itemprop="url">
+  
+    <h1 itemprop="name">关于控件getWidth和getHeight方法都为0的解释及解决方法</h1>
+    
+     
+           <p itemprop="description" >问题描述：
+版主今天下午一直纠结这个问题，为什么有时候用getWidth和getHeight方法得到的控件的宽度和高度为0？
+思路：
+1.在我调用上述两个方法的时候控件并没有绘制，所以不知道宽高度。那么控件什么时候加载呢？我试着通过试验说明之。
+先试验思路一：
+123456789</p>
+        
+    
+    <time datetime="2015-12-24T07:07:00.000Z" itemprop="datePublished">2015-12-24</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2015/12/11/9-持有你的对象/" title="9.持有你的对象" itemprop="url">
   
     <h1 itemprop="name">9.持有你的对象</h1>
@@ -204,94 +298,6 @@ interface可以内含数据成员，但是这些数据成员会自动变为</p>
 
 
 
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/12/03/5-隐藏实现细目/" title="5.隐藏实现细目" itemprop="url">
-  
-    <h1 itemprop="name">5.隐藏实现细目</h1>
-    
-     
-           <p itemprop="description" >五、隐藏实现细目
-Package（程序库单元）：每个编译单元只能有一个public class，否则编译器不接受。Package之外的世界无法看见该编译单元内的其余classes，这些classes主要用来为那个主要的public class提供支持。应该明白，关键字packag</p>
-        
-    
-    <time datetime="2015-12-03T04:25:15.000Z" itemprop="datePublished">2015-12-03</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/12/02/4-初始化和清理/" title="4.初始化和清理" itemprop="url">
-  
-    <h1 itemprop="name">4.初始化和清理</h1>
-    
-     
-           <p itemprop="description" >四、初始化和清理
-初始化和清理时众多安全议题中的两个。区分重载函数：每个重载函数都需要具备独一无二的引数列。
-关键字this，编译器暗自做手脚，将调用者的reference传入到对象方法中来取代this。这个关键字仅用于函数之内，能取得“唤起此一函数”的那个object refe</p>
-        
-    
-    <time datetime="2015-12-02T04:22:51.000Z" itemprop="datePublished">2015-12-02</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/12/02/3-控制程序流程/" title="3.控制程序流程" itemprop="url">
-  
-    <h1 itemprop="name">3.控制程序流程</h1>
-    
-     
-           <p itemprop="description" >三、控制程序流程
-注意“==”和“！=”比较的乃是reference，所以对于“Integer n1 = newInteger(47);Integer n2 = new Integer(47);”n1==n1为false，n1!=n2为true。如果想比较reference所指向</p>
-        
-    
-    <time datetime="2015-12-02T04:21:01.000Z" itemprop="datePublished">2015-12-02</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2015/12/02/2-万事万物皆对象/" title="2.万事万物皆对象" itemprop="url">
-  
-    <h1 itemprop="name">2.万事万物皆对象</h1>
-    
-     
-           <p itemprop="description" >二、万事万物皆对象
-Reference是操控对象的钥匙，对象和reference的关系相当于电视和遥控器的关系，写“String s；”这样只会产生一个reference，不会产生实际的对象，如果此刻将消息传送给s，执行时期便会发生错误。
-程序在执行时如何放置对象（存储）：
-
-寄</p>
-        
-    
-    <time datetime="2015-12-02T04:17:37.000Z" itemprop="datePublished">2015-12-02</time>
-  </a>
-</section>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix unexpand">
     <a class="extend prev" rel="prev" href="/page/4/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">Next<span></span></a>
@@ -310,7 +316,7 @@ Reference是操控对象的钥匙，对象和reference的关系相当于电视�
   <div class="tagcloudlist">
     <p class="asidetitle">Tag Cloud</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 18.57px;">Java编程思想读书笔记</a> <a href="/tags/TECH/" style="font-size: 12.86px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 17.14px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.43px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/算法4读书笔记/" style="font-size: 15.71px;">算法4读书笔记</a>
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 18.57px;">Java编程思想读书笔记</a> <a href="/tags/TECH/" style="font-size: 12.86px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 17.14px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.43px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 14.29px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15.71px;">算法4读书笔记</a>
     </div>
   </div>
 

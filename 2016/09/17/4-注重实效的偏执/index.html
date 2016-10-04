@@ -1,0 +1,529 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>4.注重实效的偏执 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="按条约设计：
+前条件（precondition）：为了调用例程，必须为真的条件，例程的需求。在其前条件被违反时，例程绝不应该被调用。传递好数据是调用者的责任。
+后条件（postcondition）：例程保证会做的事情，例程完成时世界的状态。例程有后条件这一事实意味着它会结束：不允许有无限循环。
+类不变项（class invariant）：类确保从调用者的视角来看，该条件总是为真。在例程内部处理过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.注重实效的偏执">
+<meta property="og:url" content="http://yoursite.com/2016/09/17/4-注重实效的偏执/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="按条约设计：
+前条件（precondition）：为了调用例程，必须为真的条件，例程的需求。在其前条件被违反时，例程绝不应该被调用。传递好数据是调用者的责任。
+后条件（postcondition）：例程保证会做的事情，例程完成时世界的状态。例程有后条件这一事实意味着它会结束：不允许有无限循环。
+类不变项（class invariant）：类确保从调用者的视角来看，该条件总是为真。在例程内部处理过程">
+<meta property="og:updated_time" content="2016-10-04T16:06:54.685Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4.注重实效的偏执">
+<meta name="twitter:description" content="按条约设计：
+前条件（precondition）：为了调用例程，必须为真的条件，例程的需求。在其前条件被违反时，例程绝不应该被调用。传递好数据是调用者的责任。
+后条件（postcondition）：例程保证会做的事情，例程完成时世界的状态。例程有后条件这一事实意味着它会结束：不允许有无限循环。
+类不变项（class invariant）：类确保从调用者的视角来看，该条件总是为真。在例程内部处理过程">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/09/17/4-注重实效的偏执/" title="4.注重实效的偏执" itemprop="url">4.注重实效的偏执</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-09-17T06:23:39.000Z" itemprop="datePublished"> Published 2016-09-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p><strong>按条约设计</strong>：</p>
+<p><strong>前条件（precondition）</strong>：<br>为了调用例程，必须为真的条件，例程的需求。在其前条件被违反时，例程绝不应该被调用。传递好数据是调用者的责任。</p>
+<p><strong>后条件（postcondition）</strong>：<br>例程保证会做的事情，例程完成时世界的状态。例程有后条件这一事实意味着它会结束：不允许有无限循环。</p>
+<p><strong>类不变项（class invariant）</strong>：<br>类确保从调用者的视角来看，该条件总是为真。在例程内部处理过程中，不变项不一定会保持，但在例程退出，控制返回到调用者时，不变项必须为真（注意，类不能给出无限制的对参与不变项的任何数据成员的写访问）。</p>
+<p>例程与任何潜在的调用者之间的合约可解读为：</p>
+<p><strong>如果调用者满足了例程的所有前条件，例程应该保证在其完成时，所有后条件和不变项将为真。</strong></p>
+<p>在“正交性”中，我们建议编写“羞涩”的代码。这里，强调的重点是在“懒惰”的代码上：对在开始之前接受的东西要严格，而承诺返回的东西要尽可能少。记住，如果你的合约表明你将接受任何东西，并允诺返回整个世界，那么你就有大量的代码要写了。</p>
+<p><strong>实现DBC（按合约设计）</strong>：</p>
+<p>尽管用文档记载这些假定是一个了不起的开始，让编译器为你检查你的合约，你能够获得大得多的好处。在有些语言中，你可以通过<strong>断言</strong>对此进行<strong>部分的模拟</strong>。为何是部分的？不能用断言做DBC能做的每一件事情吗？</p>
+<p>遗憾的是，答案是”不能“。首先，断言不能沿着继承层次向下遗传。这就意味着，如果你重新定义了每个具有合约的基类方法，实现该合约的断言不会被正确调用（除非你在新代码中手工复制他们）。在退出每个方法之前，你必须记得手工调用类不变项（以及所有的基类不变项）。根本问题是合约不会自动实施。</p>
+<p><strong>DBC与早崩溃</strong>：</p>
+<p>谁负责检查前条件，是调用者，还是被调用的例程？如果作为语言的一部分实现，答案是两者都不是：前条件是在调用者调用例程之后，但在进入例程自身之前，在幕后测试的。因而如果要对参数进行任何显示的检查，就必须由<strong>调用者</strong>来完成，因为例程自身永远不会看到违反了其前条件的参数。</p>
+<p>考虑一个程序，它从控制台读出数字，（通过调用sqrt）计算其平方根，并打印结果。sqrt函数有一个前条件–其参数不能为负。如果用户在控制台上输入负数，要由调用代码确保它不会传递给sqrt。该调用代码有很多选择：它可以终止，可以发出警告并读取另外的数，也可以把这个数编程正数等等。无论其选择是什么，这都不是sqrt的问题。</p>
+<p>通过在sqrt例程的前条件中表示平方根函数的参数域，你把保证正确性的负担转交给了调用者–本应如此。</p>
+<p>通过早崩溃，在问题现场找到和诊断问题要容易得多。</p>
+<p><strong>不变项的其他用法</strong>：</p>
+<p>1.循环不变项：是对循环的最终目标的陈述，但又进行了一般化，这样在循环执行之前和每次循环迭代时，它都是有效的。你可以把它视为一种微型合约。经典的例子是找出数组中的最大值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int m =arr[0]; //example assume arr.length&gt;0</span><br><span class="line">int i = 1;</span><br><span class="line"></span><br><span class="line">//loop invariant:m = max(arr[0:i-1])</span><br><span class="line">while(i&lt;arr.length)&#123;</span><br><span class="line">m = Math.max(m,arr[i]);</span><br><span class="line">i = i+1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.语义不变项：表达不可违反的需求，一种“哲学合约”。</p>
+<p>我们曾经编写过一个借记卡交易交换程序。一个主要的需求是借记卡用户的同一笔交易不能被两次记录到账户中。换句话说，不管发生何种方式的失败，结果都应该是：不处理交易，而不是处理重复的交易。</p>
+<p>这个简单的法则，直接由需求驱动，被证明非常有助于处理复杂的错误恢复情况，并且可以在很多领域中指导详细的设计和实现。</p>
+<p>一定不要把固定的需求，不可违反的原则与那些仅仅是政策（policy）的东西混为一谈。这就是为什么要使用“语义不变项”的原因–它必须是事物的确切含义的中心，而不受反复无常的政策的支配（后者是更为动态的商业规则的用途所在）。</p>
+<p><strong>断言式编程</strong>：</p>
+<p><em>在自责中有一种满足感。当我们责备自己时，会觉得再没人有权责备我们。</em></p>
+<p><em>如果它不可能发生，用断言确保它不会发生。</em></p>
+<p>注意：<br>1.传给断言的条件不应该有副作用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">while(iter.hasMoreElements())&#123;</span><br><span class="line">Test.ASSEST(iter.nextElement()!=null);</span><br><span class="line">object obj = iter.nextElement();</span><br><span class="line">//这样的asset有副作用啊！</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">应该改为：</span><br><span class="line"></span><br><span class="line">while(iter.hasMoreElements())&#123;</span><br><span class="line"></span><br><span class="line">object obj = iter.nextElement();</span><br><span class="line">Test.ASSET(obj!=null);</span><br><span class="line">//...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.断言可能会在编译时被关闭–绝不要把必须要执行的代码放在asset中。<br>3.不要用断言代替真正的错误处理。断言检查的是绝不应该发生的事情。</p>
+<p><strong>何时使用异常</strong>：</p>
+<p>异常应该保留给意外事件。</p>
+<p>例如，如果你的代码视图打开一个文件进行读取，而该文件不存在，应该引起异常吗？</p>
+<p>回答是：<strong>取决于实际情况</strong>。如果文件应该在那里，那么引发异常就有正当理由。某件意外事件发生了–你期望其存在的文件好像消失了。另一方面，如果你不清楚文件是否应该存在，那么你找不到它看来就不是异常情况，错误返回就是合适的。</p>
+<p>1.如果打开文件/etc/password，这个文件在所有的UNIX系统上都应该存在，那么可以返回异常。<br>2.如果是某个寻常文件，那么返回异常就不合适。</p>
+<p><strong>配平资源</strong>：</p>
+<p>嵌套的分配：<br>对于一次需要不只一个资源的例程，可以对资源分配的基本模式进行扩展。<strong>建议</strong>：</p>
+<p>1.以与资源分配的<strong>次序相反</strong>解除资源的分配。这样，如果一个资源含有另一个资源的引用，你就不会造成资源被遗弃。</p>
+<p>2.在代码的不同地方分配同一组资源时，总是以<strong>相同的次序</strong>分配他们。这将降低发生死锁的可能性。</p>
+<p>无论是谁分配的资源，他都应该负责解除该资源的分配。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/程序员修炼之道读书笔记/">程序员修炼之道读书笔记</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/09/17/4-注重实效的偏执/" data-title="4.注重实效的偏执 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/09/17/3-基本工具/"  title="3.基本工具">
+ <strong>下一篇：</strong><br/> 
+ <span>3.基本工具
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/09/17/4-注重实效的偏执/" data-title="4.注重实效的偏执" data-url="http://yoursite.com/2016/09/17/4-注重实效的偏执/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 18.57px;">Java编程思想读书笔记</a> <a href="/tags/TECH/" style="font-size: 12.86px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 17.14px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.43px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 14.29px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15.71px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
