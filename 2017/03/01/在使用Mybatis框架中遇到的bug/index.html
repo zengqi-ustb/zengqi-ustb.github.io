@@ -1,0 +1,540 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>在使用Mybatis框架中遇到的bug | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="前段时间，看了看Mybatis官方文档，在自己跟着做了两个例子后，准备在实际项目中用一用。下面我从实招来，在项目中遇到的一些坑。
+Mybatis框架的大体思路是，1.自定义SQL语句，2.将语句和对应的方法关联，3.使用之。套路如下：
+1.SQL语句可以通过xml或者java代码代码生成对应的SQL语句或者通过诸如@Select注解来定义，都是ok的，官方推荐用xml，因为其表达能力更强，官方也做">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在使用Mybatis框架中遇到的bug">
+<meta property="og:url" content="http://yoursite.com/2017/03/01/在使用Mybatis框架中遇到的bug/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="前段时间，看了看Mybatis官方文档，在自己跟着做了两个例子后，准备在实际项目中用一用。下面我从实招来，在项目中遇到的一些坑。
+Mybatis框架的大体思路是，1.自定义SQL语句，2.将语句和对应的方法关联，3.使用之。套路如下：
+1.SQL语句可以通过xml或者java代码代码生成对应的SQL语句或者通过诸如@Select注解来定义，都是ok的，官方推荐用xml，因为其表达能力更强，官方也做">
+<meta property="og:image" content="http://img.blog.csdn.net/20170301201456312?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170301210845277?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-03-18T15:10:18.966Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在使用Mybatis框架中遇到的bug">
+<meta name="twitter:description" content="前段时间，看了看Mybatis官方文档，在自己跟着做了两个例子后，准备在实际项目中用一用。下面我从实招来，在项目中遇到的一些坑。
+Mybatis框架的大体思路是，1.自定义SQL语句，2.将语句和对应的方法关联，3.使用之。套路如下：
+1.SQL语句可以通过xml或者java代码代码生成对应的SQL语句或者通过诸如@Select注解来定义，都是ok的，官方推荐用xml，因为其表达能力更强，官方也做">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170301201456312?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/03/01/在使用Mybatis框架中遇到的bug/" title="在使用Mybatis框架中遇到的bug" itemprop="url">在使用Mybatis框架中遇到的bug</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2017-03-01T04:30:33.000Z" itemprop="datePublished"> Published 2017-03-01</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			
+		
+		</div>
+		
+		<p>前段时间，看了看<a href="http://www.mybatis.org/mybatis-3/" target="_blank" rel="external">Mybatis官方文档</a>，在自己跟着做了两个例子后，准备在实际项目中用一用。下面我从实招来，在项目中遇到的一些坑。</p>
+<p>Mybatis框架的大体思路是，1.自定义SQL语句，2.将语句和对应的方法关联，3.使用之。套路如下：</p>
+<p>1.SQL语句可以通过xml或者java代码代码生成对应的SQL语句或者通过诸如<code>@Select</code>注解来定义，都是ok的，官方推荐用xml，因为其表达能力更强，官方也做了更好的适配。<br>2.在语句与方法映射这一步，可以使用<code>&lt;mapper&gt;</code> 标签进行注册，然后通过sqlSession的一系列方法使用之，也可以自己定义一个接口，在接口中定义方法来实现映射。</p>
+<p>关于第一部分：<br><img src="http://img.blog.csdn.net/20170301201456312?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>前两种方式都可以写动态的SQL语句，第三种方式貌似只能写静态的SQL语句，这里动态的意思是指根据条件来添加对应的语句。<br>比如：</p>
+<p>1.通过xml：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line">&lt;mapper namespace=&quot;mappers.GoodsMapper&quot;&gt;</span><br><span class="line">    &lt;select id=&quot;selectGoods&quot; resultType=&quot;com.zeng.domain.Goods&quot; parameterType=&quot;map&quot;&gt;</span><br><span class="line">        SELECT * FROM goods</span><br><span class="line">        &lt;where&gt;</span><br><span class="line">            &lt;if test=&quot;platform != null&quot;&gt;</span><br><span class="line">                platform = #&#123;platform&#125;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">            &lt;if test=&quot;fundType != null&quot;&gt;</span><br><span class="line">                AND fund_type = #&#123;fundType&#125;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">        &lt;/where&gt;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+<p>2.通过java代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">package com.zeng;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.jdbc.SQL;</span><br><span class="line"></span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Created by zeng on 17-3-1.</span><br><span class="line"> */</span><br><span class="line">public class GoodsDaoSelectProvider &#123;</span><br><span class="line">    static String platform;</span><br><span class="line">    static String fundType;</span><br><span class="line">    static Integer pageSize;</span><br><span class="line">    static Integer pageNum;</span><br><span class="line">    public static String findGoods(Map&lt;String, Object&gt; params) &#123;</span><br><span class="line">             platform = (String)params.get(&quot;platform&quot;);</span><br><span class="line">             fundType = (String)params.get(&quot;fundType&quot;);</span><br><span class="line">             pageSize = (Integer)params.get(&quot;pageSize&quot;);</span><br><span class="line">             pageNum = (Integer) params.get(&quot;pageNum&quot;);</span><br><span class="line">            //实现1</span><br><span class="line">//            StringBuffer buffer = new StringBuffer();</span><br><span class="line">//            buffer.append(&quot;SELECT * FROM goods WHERE 1=1 &quot;);</span><br><span class="line">//            if (!(&quot;all&quot;.equals(platform))) &#123;</span><br><span class="line">//                buffer.append(&quot;AND platform=#&#123;platform&#125; &quot;);</span><br><span class="line">//            &#125;</span><br><span class="line">//            if (!(&quot;all&quot;.equals(fundType))) &#123;</span><br><span class="line">//                buffer.append(&quot;AND fund_type=#&#123;fundType&#125; &quot;);</span><br><span class="line">//            &#125;</span><br><span class="line">//</span><br><span class="line">//            buffer.append(&quot;LIMIT #&#123;pageNum&#125;,#&#123;pageSize&#125;&quot;);</span><br><span class="line">//</span><br><span class="line">//            return buffer.toString();</span><br><span class="line">            //实现2</span><br><span class="line">            return new SQL()&#123;&#123;</span><br><span class="line">                SELECT(&quot;*&quot;);</span><br><span class="line">                FROM(&quot;goods&quot;);</span><br><span class="line">                if (!(&quot;all&quot;.equals(platform))) &#123;</span><br><span class="line">                WHERE(&quot;platform=#&#123;platform&#125;&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            if (!(&quot;all&quot;.equals(fundType))) &#123;</span><br><span class="line">                WHERE(&quot;fund_type=#&#123;fundType&#125;&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            &#125;.toString()+&quot; LIMIT #&#123;pageNum&#125;,#&#123;pageSize&#125;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码实现1和实现2都能够实现，都需要注意在字符串拼接时空格的使用，推荐使用第2种实现方式。</p>
+<p>3.通过注解：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Mapper</span><br><span class="line">public interface CityMapper &#123;</span><br><span class="line">    @Select(&quot;select * from ciry where state=#&#123;state&#125;&quot;)</span><br><span class="line">        City findByState(@Param(&quot;state&quot;)String state);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方式的实现的缺点，上面已经说过，不能实现动态SQL语句。</p>
+<p>关于第2部分：</p>
+<p>存在两个方式，一种是在xml中配置<code>&lt;mapper&gt;</code>标签，另一种是直接定义mapper的interface，通过<code>&lt;@Mapper&gt;</code>注解来实现。</p>
+<p><strong>那么问题来了！</strong></p>
+<p>是不是第一部分的3种方式与第二部分的2种方式都能够一一组合，从而形成6种不同的写法呢？（这让我写到了回字是不是有4种写法呢？QAQ），经过我的试验，大概可能的组合如下：<br><img src="http://img.blog.csdn.net/20170301210845277?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>组合1:<a href="https://github.com/zengqi-ustb/MyBatis1" target="_blank" rel="external">github传送门</a></p>
+<p>要点：<br>1.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlSession.selectList(id,parms,rowBounds)</span><br></pre></td></tr></table></figure></p>
+<p>2.<br>传入多参数需要用map传递，所以<code>parameterType=&quot;map&quot;</code><br>3.<br>在mybatis-config.xml中定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;mappers&gt;</span><br><span class="line">        &lt;mapper resource=&quot;mappers/GoodsMapper.xml&quot;/&gt;</span><br><span class="line">&lt;/mappers&gt;</span><br></pre></td></tr></table></figure>
+<p>输出正常：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">测试有值</span><br><span class="line">platform: baidu and fund_type: success</span><br><span class="line">platform: baidu and fund_type: success</span><br><span class="line">platform: baidu and fund_type: success</span><br><span class="line">测试平台</span><br><span class="line">platform: taobao and fund_type: half success</span><br><span class="line">platform: taobao and fund_type: success</span><br><span class="line">测试type</span><br><span class="line">platform: baidu and fund_type: success</span><br><span class="line">platform: taobao and fund_type: success</span><br><span class="line">platform: baidu and fund_type: success</span><br><span class="line">platform: baidu and fund_type: success</span><br><span class="line">测试无值</span><br><span class="line">测试无值后是否正常运行</span><br><span class="line">platform: baidu and fund_type: success</span><br><span class="line">platform: baidu and fund_type: success</span><br><span class="line">platform: baidu and fund_type: success</span><br></pre></td></tr></table></figure>
+<p>组合2:<a href="https://github.com/zengqi-ustb/MyBatis2" target="_blank" rel="external">github传送门</a></p>
+<p><strong>注意下面两个属性</strong>有可能重复定义了<code>&lt;mapper&gt;</code> （如果在mybatis-config.xml中也注册了相同mapper，那么肯定是重复定义了哈）从而会出现如下异常：<br>属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mybatis.config-location=classpath:mybatis-config.xml</span><br><span class="line">mybatis.mapper-locations=classpath:GoodsMapper.xml</span><br></pre></td></tr></table></figure></p>
+<p>异常：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mapped Statements collection already contains value for com.zeng.GoodsMapper.selectGoods</span><br></pre></td></tr></table></figure>
+<p>通常，我们在<code>mybatis-config.xml</code>中还会定义其他一些东西，所以最好就是不要添加<code>mybatis.mapper-locations</code>属性，所有的mapper都交给<code>mybatis-config.xml</code> 定义。</p>
+<p>而且，<strong>值得注意的是</strong>，即使在项目中有mybatis.config.xml文件，但是如果没在springBoot配置文件application.properties中加入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mybatis.config-location=classpath:mybatis-config.xml</span><br></pre></td></tr></table></figure>
+<p><strong>这种情况下，该mybatis的配置是不生效的</strong>！</p>
+<p>要点：<br>1.定义mapper interface：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface GoodsMapper &#123;</span><br><span class="line">    //必须加param注解，不然只能通过param1，param2等没有绑定value的方式实现引用</span><br><span class="line">    List&lt;Goods&gt; selectGoods(@Param(value=&quot;pageStart&quot;) int pageStart, @Param(value=&quot;pageSize&quot;) int pageSize, @Param(value = &quot;platform&quot;) String platform,@Param(value = &quot;fundType&quot;) String fundType);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.在mapper.xml中通过命令空间绑定对应的interface：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line">&lt;!--绑定对应interface--&gt;</span><br><span class="line">&lt;mapper namespace=&quot;com.zeng.GoodsMapper&quot;&gt;</span><br><span class="line">    &lt;select id=&quot;selectGoods&quot; resultType=&quot;com.zeng.domain.Goods&quot;&gt;</span><br><span class="line">        SELECT * FROM goods</span><br><span class="line">        &lt;where&gt;</span><br><span class="line">            &lt;if test=&quot;platform != null&quot;&gt;</span><br><span class="line">                platform = #&#123;platform&#125;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">            &lt;if test=&quot;fundType != null&quot;&gt;</span><br><span class="line">                AND fund_type = #&#123;fundType&#125;</span><br><span class="line">            &lt;/if&gt;</span><br><span class="line">        &lt;/where&gt;</span><br><span class="line">         LIMIT #&#123;pageStart&#125;,#&#123;pageSize&#125;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+<p>完美运行。</p>
+<p>组合3:<a href="https://github.com/zengqi-ustb/MyBatis3" target="_blank" rel="external">github传送门</a></p>
+<p>要点：<br>1.在GoodsDaoSelectProvider中使用java代码定义sql语句，动态性方面可以有很好的表示。代码前面已经给出过。</p>
+<p>2.定义mapper与其绑定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Mapper</span><br><span class="line">public interface GoodsMapper &#123;</span><br><span class="line">        @SelectProvider(type = GoodsDaoSelectProvider.class, method = &quot;findGoods&quot;)</span><br><span class="line">        List&lt;Goods&gt; selectGoods(@Param(value = &quot;pageNum&quot;)int pageNum, @Param(value = &quot;pageSize&quot;)int pageSize, @Param(value = &quot;platform&quot;)String platform, @Param(value = &quot;fundType&quot;) String fundType);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样就ok了。</p>
+<p>组合4:<a href="https://github.com/zengqi-ustb/MyBatis4" target="_blank" rel="external">github传送门</a></p>
+<p>要点：<br>1.所有的定义都在mapper interface中都可以完成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Mapper</span><br><span class="line">public interface GoodsMapper &#123;</span><br><span class="line">    //其动态性很受限制</span><br><span class="line">    @Select(&quot;select * from goods where platform=#&#123;platform&#125; and fund_type=#&#123;fundType&#125; limit #&#123;pageStart&#125;,#&#123;pageSize&#125;&quot;)</span><br><span class="line">    List&lt;Goods&gt; selectGoods(@Param(value=&quot;pageStart&quot;) int pageStart, @Param(value=&quot;pageSize&quot;) int pageSize, @Param(value = &quot;platform&quot;) String platform,@Param(value = &quot;fundType&quot;) String fundType);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>但是其动态性很受限制</strong>！</p>
+<p>这里，总结一下，上述4种组合的<strong>适用场合</strong>：</p>
+<p>1.对于比较简单的sql语句，可以使用注解的方式，但是动态性受限。<br>2.需要动态性的场合，java语句与xml都能够胜任，我认为java语句动态性会更强，因为xml实现动态性是基于标签的，而java语句实现是基于代码逻辑。<br>3.更通用的场合，推荐使用组合2，通俗易懂。</p>
+<p>本来写到这里就应该完了，但是基于在实验时发现的一些坑，我决定看看<br><strong>mybatis-spring-boot-starter</strong>中有哪些<strong>重要属性</strong>：<br>在<a href="mybatis-spring-boot-autoconfigure">mybatis-spring-boot-autoconfigure</a>中查看Configuration一节。</p>
+<p>另外，在这次调bug过程中，领会了一个<strong>重要的思路</strong>：在google+stackvoerflow无解的情况下，一个高质量的方式是去springBoot对应starter的github查看issue，里面兴许有问题的答案！比如：<br><a href="https://github.com/mybatis/spring-boot-starter/issues" target="_blank" rel="external">mybatis-spring-boot-starter的issue</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/后端开发/">后端开发</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2017/03/01/在使用Mybatis框架中遇到的bug/" data-title="在使用Mybatis框架中遇到的bug | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/02/24/SpringBoot+Thymeleaf+iBatis开发项目/"  title="SpringBoot+Thymeleaf+iBatis开发项目">
+ <strong>下一篇：</strong><br/> 
+ <span>SpringBoot+Thymeleaf+iBatis开发项目
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/03/01/在使用Mybatis框架中遇到的bug/" data-title="在使用Mybatis框架中遇到的bug" data-url="http://yoursite.com/2017/03/01/在使用Mybatis框架中遇到的bug/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 16.67px;">Java编程思想读书笔记</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a> <a href="/tags/TECH/" style="font-size: 11.67px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 18.33px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.67px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 13.33px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
