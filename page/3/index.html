@@ -78,6 +78,30 @@
   
 <section class="post" itemscope itemprop="blogitem">
   
+    <a href="/2016/05/27/关于Fragment/" title="关于Fragment" itemprop="url">
+  
+    <h1 itemprop="name">关于Fragment</h1>
+    
+     
+           <p itemprop="description" >先上fragment的生命周期：
+
+关于activity与fragment生命周期的关系：
+
+Fragment 表示 Activity 中的行为或用户界面部分。您可以将多个片段组合在一个 Activity 中来构建多窗格 UI，以及在多个 Activity 中重复使用某个片段。您</p>
+        
+    
+    <time datetime="2016-05-27T09:31:37.000Z" itemprop="datePublished">2016-05-27</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
     <a href="/2016/05/27/关于继承的Activity中初始化及生命周期被调用的顺序/" title="关于继承的Activity中初始化及生命周期被调用的顺序" itemprop="url">
   
     <h1 itemprop="name">关于继承的Activity中初始化及生命周期被调用的顺序</h1>
@@ -189,95 +213,6 @@ h(x)与J（&amp;amp;）的比较：学习算法的优化目标是我们想找到
   
 <section class="post" itemscope itemprop="blogitem">
   
-    <a href="/2016/05/12/PHP开发APP接口/" title="PHP开发APP接口" itemprop="url">
-  
-    <h1 itemprop="name">PHP开发APP接口</h1>
-    
-     
-           <p itemprop="description" >PHP开发APP接口：
-APP接口做的哪些事儿：1.获取数据：从数据库中或缓存中获取数据，然后通过接口数据返回给客户端2.提交数据：通过接口提交数据给服务器，然后服务器入库处理，或者其他处理
-字符串转换编码函数：$newData = iconv(‘UTF-8’,’GBK’,$da</p>
-        
-    
-    <time datetime="2016-05-12T08:41:29.000Z" itemprop="datePublished">2016-05-12</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/05/11/PHP实现文件上传与下载/" title="PHP实现文件上传与下载" itemprop="url">
-  
-    <h1 itemprop="name">PHP实现文件上传与下载</h1>
-    
-     
-           <p itemprop="description" >文件上传原理：
-将客户端的文件上传到服务器端，再将服务器端的临时文件移动到指定目录即可。
-客户端配置：
-1.表单页面2.表单的发送方式为post3.添加enctype=”multipart/form-data”
-$_FILES中保存着上传文件的信息name:上传文件的名称type</p>
-        
-    
-    <time datetime="2016-05-11T08:39:28.000Z" itemprop="datePublished">2016-05-11</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/05/10/PHP制作验证码/" title="PHP制作验证码" itemprop="url">
-  
-    <h1 itemprop="name">PHP制作验证码</h1>
-    
-     
-           <p itemprop="description" >学习目的：屏蔽机器请求，保证业务不受机器提交请求干扰。为什么要屏蔽：一般服务端业务，写请求产生的消耗要远远大于读请求。技术点：1.底图的实现，并且添加干扰元素2.生成验证内容3.验证内容保存在服务端4.验证内容的效验
-实现底图：代码：
-12345678&amp;lt;?php$img =</p>
-        
-    
-    <time datetime="2016-05-10T10:12:41.000Z" itemprop="datePublished">2016-05-10</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
-    <a href="/2016/05/10/关于JSON/" title="关于JSON" itemprop="url">
-  
-    <h1 itemprop="name">关于JSON</h1>
-    
-     
-           <p itemprop="description" >理解JSON数据格式和serialize序列化，XML以及数组的区别。JSON的四个基本规则：1.并列的数据之间用逗号分隔2.映射用冒号表示3.并列数据的集合（数组）用方括号表示4.映射的集合（对象）用大括号表示
-JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，占用带</p>
-        
-    
-    <time datetime="2016-05-10T04:23:39.000Z" itemprop="datePublished">2016-05-10</time>
-  </a>
-</section>
-
-
-
-
-
-
-  
-<section class="post" itemscope itemprop="blogitem">
-  
     <a href="/2016/05/05/屏幕适配全攻略/" title="屏幕适配全攻略" itemprop="url">
   
     <h1 itemprop="name">屏幕适配全攻略</h1>
@@ -289,6 +224,73 @@ JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，�
         
     
     <time datetime="2016-05-05T08:35:33.000Z" itemprop="datePublished">2016-05-05</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/05/WebView相关知识/" title="WebView相关知识" itemprop="url">
+  
+    <h1 itemprop="name">WebView相关知识</h1>
+    
+     
+           <p itemprop="description" >为什么用WebView：
+1.兼容已有的项目2.可以动态更新
+12WebView webView;//通过findViewById找到webView.loadUrl(&amp;quot;网址&amp;quot;);
+但是loadUrl默认会通过手机浏览器打开，所以应该做下列修改：
+1234567</p>
+        
+    
+    <time datetime="2016-05-05T08:33:18.000Z" itemprop="datePublished">2016-05-05</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/05/02/Volley相关知识/" title="Volley相关知识" itemprop="url">
+  
+    <h1 itemprop="name">Volley相关知识</h1>
+    
+     
+           <p itemprop="description" >1-1：
+Volley特点：
+1.通信更快，更简单2.get、post网络请求及网络图像的高效率异步处理请求（已经帮我们处理好了异步化）3.排序（根据网络请求优先级进行排序）4.网络请求的缓存5.多级别取消请求6.和activity生命周期的联动（这样当退出activity时，就</p>
+        
+    
+    <time datetime="2016-05-02T08:30:36.000Z" itemprop="datePublished">2016-05-02</time>
+  </a>
+</section>
+
+
+
+
+
+
+  
+<section class="post" itemscope itemprop="blogitem">
+  
+    <a href="/2016/04/24/关于youtube上Android-Performance-Patterns的总结-部分/" title="关于youtube上Android Performance Patterns的总结(部分)" itemprop="url">
+  
+    <h1 itemprop="name">关于youtube上Android Performance Patterns的总结(部分)</h1>
+    
+     
+           <p itemprop="description" >重要更新：胡凯凯神总结的“安卓性能优化典范”比我好太多了，为了不重复造低效的轮子，我决定弃更了！(不过自己看一遍原版视频，收获也挺大的！)安卓性能优化典范，请参阅：Hukai’s Blog
+1.熟悉android studio关于Logcat，Memory，CPU，GPU，Net</p>
+        
+    
+    <time datetime="2016-04-24T08:22:37.000Z" itemprop="datePublished">2016-04-24</time>
   </a>
 </section>
 
@@ -315,7 +317,7 @@ JSON的优点：1.数据格式简单，易于读写，格式都是压缩的，�
   <div class="tagcloudlist">
     <p class="asidetitle">Tag Cloud</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 17.14px;">Java编程思想读书笔记</a> <a href="/tags/TECH/" style="font-size: 12.86px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 18.57px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.43px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 14.29px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15.71px;">算法4读书笔记</a>
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 18.57px;">Java编程思想读书笔记</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/TECH/" style="font-size: 12.86px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 17.14px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.43px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 14.29px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15.71px;">算法4读书笔记</a>
     </div>
   </div>
 
