@@ -12,25 +12,22 @@
 
     
     <meta name="description" content="反向代理代理其实就是一个中介，A和B本来可以直连，中间插入一个C，C就是中介。刚开始的时候，代理多数是帮助内网client访问外网server用的（比如HTTP代理），从内到外。后来出现了反向代理，”反向”这个词在这儿的意思其实是指方向相反，即代理将来自外网client的请求forward到内网server，从外到内。
-
-正向代理中，proxy和client同属一个LAN，对server透明；反向">
+正向代理中，proxy和client同属一个LAN，对server透明；反向代">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx学习笔记">
 <meta property="og:url" content="http://yoursite.com/2016/09/28/Nginx学习笔记/index.html">
 <meta property="og:site_name" content="曾先生's Blog">
 <meta property="og:description" content="反向代理代理其实就是一个中介，A和B本来可以直连，中间插入一个C，C就是中介。刚开始的时候，代理多数是帮助内网client访问外网server用的（比如HTTP代理），从内到外。后来出现了反向代理，”反向”这个词在这儿的意思其实是指方向相反，即代理将来自外网client的请求forward到内网server，从外到内。
-
-正向代理中，proxy和client同属一个LAN，对server透明；反向">
-<meta property="og:image" content="https://pic1.zhimg.com/480c1c45d2565e2f92fd930d25b73a18_b.jpg">
-<meta property="og:image" content="https://pic2.zhimg.com/904696074e077934e601f175913f42fd_b.png">
-<meta property="og:image" content="https://pic3.zhimg.com/2651b72ce2170336d10ad17fd020ae7a_b.png">
-<meta property="og:updated_time" content="2016-10-04T16:21:49.406Z">
+正向代理中，proxy和client同属一个LAN，对server透明；反向代">
+<meta property="og:image" content="http://img.blog.csdn.net/20170318215813968?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170318215859007?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170318215919766?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-03-18T14:01:56.041Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx学习笔记">
 <meta name="twitter:description" content="反向代理代理其实就是一个中介，A和B本来可以直连，中间插入一个C，C就是中介。刚开始的时候，代理多数是帮助内网client访问外网server用的（比如HTTP代理），从内到外。后来出现了反向代理，”反向”这个词在这儿的意思其实是指方向相反，即代理将来自外网client的请求forward到内网server，从外到内。
-
-正向代理中，proxy和client同属一个LAN，对server透明；反向">
-<meta name="twitter:image" content="https://pic1.zhimg.com/480c1c45d2565e2f92fd930d25b73a18_b.jpg">
+正向代理中，proxy和client同属一个LAN，对server透明；反向代">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170318215813968?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 
     
     <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
@@ -110,21 +107,20 @@
 		
 		</div>
 		
-		<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><p>代理其实就是一个中介，A和B本来可以直连，中间插入一个C，C就是中介。刚开始的时候，代理多数是帮助内网client访问外网server用的（比如HTTP代理），从内到外。后来出现了反向代理，”反向”这个词在这儿的意思其实是指方向相反，即代理将来自<strong>外网client的请求forward到内网server</strong>，从外到内。</p>
-<p><img src="https://pic1.zhimg.com/480c1c45d2565e2f92fd930d25b73a18_b.jpg" alt=""></p>
+		<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><p>代理其实就是一个中介，A和B本来可以直连，中间插入一个C，C就是中介。刚开始的时候，代理多数是帮助内网client访问外网server用的（比如HTTP代理），从内到外。后来出现了反向代理，”反向”这个词在这儿的意思其实是指方向相反，即代理将来自<strong>外网client的请求forward到内网server</strong>，从外到内。<br><img src="http://img.blog.csdn.net/20170318215813968?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
 <p><strong>正向代理中</strong>，proxy和client同属一个LAN，<strong>对server透明</strong>；<br><strong>反向代理中</strong>，proxy和server同属一个LAN，<strong>对client透明</strong>。<br>实际上proxy在两种代理中做的事都是代为收发请求和响应，不过从结构上来看正好左右互换了下，所以把后出现的那种代理方式叫成了反向代理。</p>
 <hr>
 <h2 id="厘清各种概念"><a href="#厘清各种概念" class="headerlink" title="厘清各种概念"></a>厘清各种概念</h2><h3>Apache,Nginx,Tomcat:</h3>
 
 <p><strong>理解1：</strong></p>
 <p>Apache，指的应该是Apache软件基金会下的一个项目——Apache HTTP Server Project；Nginx同样也是一款开源的HTTP服务器软件（当然它也可以作为邮件代理服务器、通用的TCP代理服务器）。</p>
-<p>HTTP服务器本质上也是一种应用程序——它通常运行在服务器之上，绑定服务器的IP地址并监听某一个tcp端口来接收并处理HTTP请求，这样客户端（一般来说是IE, Firefox，Chrome这样的浏览器）就能够通过HTTP协议来获取服务器上的网页（HTML格式）、文档（PDF格式）、音频（MP4格式）、视频（MOV格式）等等资源。下图描述的就是这一过程：<br><img src="https://pic2.zhimg.com/904696074e077934e601f175913f42fd_b.png" alt=""></p>
+<p>HTTP服务器本质上也是一种应用程序——它通常运行在服务器之上，绑定服务器的IP地址并监听某一个tcp端口来接收并处理HTTP请求，这样客户端（一般来说是IE, Firefox，Chrome这样的浏览器）就能够通过HTTP协议来获取服务器上的网页（HTML格式）、文档（PDF格式）、音频（MP4格式）、视频（MOV格式）等等资源。下图描述的就是这一过程：<br><img src="http://img.blog.csdn.net/20170318215859007?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
 <p>不仅仅是Apache HTTP Server和Nginx，绝大多数编程语言所包含的类库中也都实现了简单的HTTP服务器方便开发者使用：</p>
 <p>HttpServer (Java HTTP Server )<br>Python SimpleHTTPServer</p>
 <p>使用这些类库能够非常容易的运行一个HTTP服务器，它们都能够通过绑定IP地址并监听tcp端口来提供HTTP服务。</p>
 <p>Apache Tomcat则是Apache基金会下的另外一个项目，与Apache HTTP Server相比，<strong>Tomcat能够动态的生成资源并返回到客户端</strong>。Apache HTTP Server和Nginx都能够将某一个文本文件的内容通过HTTP协议返回到客户端，但是这个文本文件的内容是固定的——也就是说无论何时、任何人访问它得到的内容都是完全相同的，这样的资源我们称之为静态资源。动态资源则与之相反，在不同的时间、不同的客户端访问得到的内容是不同的，例如：</p>
 <p>包含显示当前时间的页面<br>显示当前IP地址的页面</p>
-<p><strong>Apache HTTP Server和Nginx本身不支持生成动态页面，但它们可以通过其他模块来支持（例如通过Shell、PHP、Python脚本程序来动态生成内容）。</strong><br>如果想要使用Java程序来动态生成资源内容，使用这一类HTTP服务器很难做到，<strong>因为Java不是脚本语言啊</strong>。Java Servlet技术以及衍生的Java Server Pages技术可以让Java程序也具有处理HTTP请求并且返回内容（由程序动态控制）的能力，Tomcat正是支持运行Servlet/JSP应用程序的容器（Container）:<br><img src="https://pic3.zhimg.com/2651b72ce2170336d10ad17fd020ae7a_b.png" alt=""></p>
+<p><strong>Apache HTTP Server和Nginx本身不支持生成动态页面，但它们可以通过其他模块来支持（例如通过Shell、PHP、Python脚本程序来动态生成内容）。</strong><br>如果想要使用Java程序来动态生成资源内容，使用这一类HTTP服务器很难做到，<strong>因为Java不是脚本语言啊</strong>。Java Servlet技术以及衍生的Java Server Pages技术可以让Java程序也具有处理HTTP请求并且返回内容（由程序动态控制）的能力，Tomcat正是支持运行Servlet/JSP应用程序的容器（Container）:<br><img src="http://img.blog.csdn.net/20170318215919766?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
 <p>Tomcat运行在JVM之上，它和HTTP服务器一样，绑定IP地址并监听TCP端口，同时还包含以下指责：</p>
 <p>1.管理Servlet程序的生命周期<br>2.将URL映射到指定的Servlet进行处理<br>3.与Servlet程序合作处理HTTP请求——根据HTTP请求生成HttpServletResponse对象并传递给Servlet进行处理，将Servlet中的HttpServletResponse对象生成的内容返回给浏览器，所以Tomcat可以认为是HTTP服务器，不过这方面功能没有Apache HTTP Server和Nginx强就是了。</p>
 <p><strong>虽然Tomcat也可以认为是HTTP服务器，但通常它仍然会和Nginx配合在一起使用</strong>：<br><strong>动静态资源分离</strong>——运用Nginx的反向代理功能分发请求：所有动态资源的请求交给Tomcat，而静态资源的请求（例如图片、视频、CSS、JavaScript文件等）则直接由Nginx返回到浏览器，这样能大大减轻Tomcat的压力。</p>
