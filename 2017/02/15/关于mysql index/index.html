@@ -1,0 +1,610 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>关于mysql index | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="一、参考：What is an index in SQL? ，内容如下：
+An index is used to speed up searching in the database. MySQL have some good documentation on the subject (which is relevant for other SQL servers as well): http:/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于mysql index">
+<meta property="og:url" content="http://yoursite.com/2017/02/15/关于mysql index/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="一、参考：What is an index in SQL? ，内容如下：
+An index is used to speed up searching in the database. MySQL have some good documentation on the subject (which is relevant for other SQL servers as well): http:/">
+<meta property="og:image" content="http://img.blog.csdn.net/20170215212203066?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170216101947157?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170216102914880?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-03-18T15:03:44.793Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于mysql index">
+<meta name="twitter:description" content="一、参考：What is an index in SQL? ，内容如下：
+An index is used to speed up searching in the database. MySQL have some good documentation on the subject (which is relevant for other SQL servers as well): http:/">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170215212203066?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/02/15/关于mysql index/" title="关于mysql index" itemprop="url">关于mysql index</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2017-02-15T04:30:33.000Z" itemprop="datePublished"> Published 2017-02-15</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#重中之重："><span class="toc-number">1.</span> <span class="toc-text">重中之重：</span></a></li></ol>
+		
+		</div>
+		
+		<p>一、参考：<a href="http://stackoverflow.com/questions/2955459/what-is-an-index-in-sql" target="_blank" rel="external">What is an index in SQL?</a> ，内容如下：</p>
+<p>An index is used to speed up searching in the database. MySQL have some good documentation on the subject (which is relevant for other SQL servers as well): <a href="http://dev.mysql.com/doc/refman/5.0/en/mysql-indexes.html" target="_blank" rel="external">http://dev.mysql.com/doc/refman/5.0/en/mysql-indexes.html</a></p>
+<p>An index can be used to efficiently find all row matching some column in your query and then <strong>walk through only that subset of the table(have index)</strong> to find exact matches. If you don’t have indexes on any column in the WHERE clause, the SQL server <strong>have to walk through the whole table and check every row to see if it matches(no index)</strong>, which may be a slow operation on big tables.</p>
+<p>The index can also be a <strong>UNIQUE</strong> index, which means that <strong>you cannot have duplicate values in that column</strong>, or a <strong>PRIMARY KEY</strong> which in some storage engines defines where in the database file the value is stored.</p>
+<p>In MySQL you can use <strong>EXPLAIN</strong> in front of your SELECT statement to see if your query will make use of any index. This is a good start for troubleshooting performance problems. Read more here: <a href="http://dev.mysql.com/doc/refman/5.0/en/explain.html" target="_blank" rel="external">http://dev.mysql.com/doc/refman/5.0/en/explain.html</a></p>
+<p>二、参考：<a href="https://dev.mysql.com/doc/refman/5.7/en/mysql-indexes.html" target="_blank" rel="external">9.3.1 How MySQL Uses Indexes</a> ，内容如下：</p>
+<p>Indexes are used to find rows with specific column values quickly. Without an index, MySQL must begin with the first row and then read through the entire table to find the relevant rows. <strong>The larger the table, the more this costs(no index)</strong>. If the table has an index for the columns in question, MySQL can quickly determine the position to seek to in the middle of the data file without having to look at all the data. This is much faster than reading every row sequentially. </p>
+<p>Most MySQL indexes (<strong>PRIMARY KEY</strong>, <strong>UNIQUE</strong>, <strong>INDEX</strong>, and <strong>FULLTEXT</strong>) are stored in <strong>B-trees</strong>. </p>
+<p>Exceptions: Indexes on spatial data types use R-trees; MEMORY tables also support hash indexes; InnoDB uses inverted lists for FULLTEXT indexes. </p>
+<p>建索引有哪些<strong>优点</strong>呢？</p>
+<p>MySQL uses indexes for these operations: </p>
+<p>1.To find the rows matching a <strong>WHERE</strong> clause quickly. </p>
+<p>2.<strong>To eliminate rows from consideration（排除不必要的rows）</strong>. If there is a choice between <strong>multiple indexes</strong>, MySQL normally uses the index that finds the smallest number of rows (<strong>the most selective index（多个index中最有竞争力的） </strong>).</p>
+<p>3.If the table has a <strong>multiple-column index</strong>, <strong>any leftmost prefix of the index can be used by the optimizer to look up rows</strong>. For example, if you have a three-column index on (col1, col2, col3), you have indexed search capabilities on (col1), (col1, col2), and (col1, col2, col3).</p>
+<p>4.To retrieve rows from other tables when performing joins. <strong>MySQL can use indexes on columns more efficiently if they are declared as the same type and size</strong>. In this context, VARCHAR and CHAR are considered the same if they are declared as the same size. For example, VARCHAR(10) and CHAR(10) are the same size, but VARCHAR(10) and CHAR(15) are not. </p>
+<p>5.<strong>To find the MIN() or MAX() value for a specific indexed column key_col</strong>. This is optimized by a preprocessor that checks whether you are using WHERE key_part_N = constant on all key parts that occur before key_col in the index. In this case, MySQL does a single key lookup for each MIN() or MAX() expression and replaces it with a constant. If all expressions are replaced with constants, the query returns at once. For example: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT MIN(key_part2),MAX(key_part2)</span><br><span class="line">  FROM tbl_name WHERE key_part1=10;</span><br></pre></td></tr></table></figure>
+<p>6.<strong>To sort or group a table if the sorting or grouping is done on a leftmost prefix of a usable index</strong> (for example, ORDER BY key_part1, key_part2). If all key parts are followed by DESC, the key is read in reverse order.</p>
+<p>7.In some cases, a query can be optimized to retrieve values without consulting the data rows. (An index that provides all the necessary results for a query is called a covering index.) If a query uses from a table only columns that are included in some index, the selected values can be retrieved from the index tree for greater speed: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT key_part3 FROM tbl_name</span><br><span class="line">  WHERE key_part1=1</span><br></pre></td></tr></table></figure>
+<p>不适用情况：</p>
+<p>Indexes are less important for <strong>1.queries on small tables</strong>, or <strong>2.big tables where report queries process most or all of the rows</strong>. When a query needs to access most of the rows, reading sequentially is faster than working through an index. Sequential reads minimize disk seeks, even if not all the rows are needed for the query. <strong>当查询需要涉及到大部分rows时，顺序读取会更快</strong>。</p>
+<p>三、参考：<a href="http://article.denniswave.com/6337" target="_blank" rel="external">MySQL索引分析和優化</a>，内容如下：</p>
+<p>對於索引中的每一項，MySQL在內部為它保存一個數據文件中實際記錄所在位置的「指針」。因此，如果我們要查找name等於「Mike」記錄的peopleid（SQL命令為「SELECT peopleid FROM people WHERE name=’Mike’;」），MySQL能夠在name的索引中查找「Mike」值，然後直接轉到數據文件中相應的行，準確地返回該行的 peopleid（999）。在這個過程中，MySQL只需處理一個行就可以返回結果。如果沒有「name」列的索引，MySQL要掃瞄數據文件中的所有記錄，即1000個記錄！顯然，需要MySQL處理的記錄數量越少，則它完成任務的速度就越快。</p>
+<p><em>索引的類型</em></p>
+<p><strong>1.普通索引</strong></p>
+<p>這是最基本的索引類型，而且它沒有唯一性之類的限制。普通索引可以通過以下幾種方式創建：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">創建索引，例如CREATE INDEX &lt;索引的名字&gt; ON tablename (列的列表);</span><br><span class="line">修改表，例如ALTER TABLE tablename ADD INDEX [索引的名字] (列的列表);</span><br><span class="line">創建表的時候指定索引，例如CREATE TABLE tablename ( [...], INDEX [索引的名字] (列的列表));</span><br></pre></td></tr></table></figure>
+<p><strong>2.唯一性索引</strong></p>
+<p>這種索引和前面的「普通索引」基本相同，但有一個區別：索引列的所有值都只能出現一次，即必須唯一。唯一性索引可以用以下幾種方式創建：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">創建索引，例如CREATE UNIQUE INDEX &lt;索引的名字&gt; ON tablename (列的列表);</span><br><span class="line">修改表，例如ALTER TABLE tablename ADD UNIQUE [索引的名字] (列的列表);</span><br><span class="line">創建表的時候指定索引，例如CREATE TABLE tablename ( [...], UNIQUE [索引的名字] (列的列表));</span><br></pre></td></tr></table></figure>
+<p><strong>3.主鍵</strong></p>
+<p><strong>主鍵是一種唯一性索引，但它必須指定為「PRIMARY KEY」</strong>。如果你曾經用過AUTO_INCREMENT類型的列，你可能已經熟悉主鍵之類的概念了。主鍵一般在創建表的時候指定，例如「CREATE TABLE tablename ( […], PRIMARY KEY (列的列表) ); 」。但是，我們也可以通過修改表的方式加入主鍵，例如「ALTER TABLE tablename ADD PRIMARY KEY (列的列表); 」。<strong>每個表只能有一個主鍵</strong>。</p>
+<p><strong>4.全文索引</strong></p>
+<p>在 MySQL中，全文索引的索引類型為<strong>FULLTEXT</strong>。<strong>全文索引可以在VARCHAR或者TEXT類型的列上創建</strong>。它可以通過CREATE TABLE命令創建，也可以通過ALTER TABLE或CREATE INDEX命令創建。對於大規模的數據集，通過ALTER TABLE（或者CREATE INDEX）命令創建全文索引要比把記錄插入帶有全文索引的空表更快。</p>
+<p><em>單列索引與多列索引</em></p>
+<p>举例来说明，假設有這樣一個people表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE people ( peopleid SMALLINT NOT NULL AUTO_INCREMENT, firstname CHAR(50)</span><br><span class="line">NOT NULL, lastname CHAR(50) NOT NULL, age SMALLINT NOT NULL, townid SMALLINT NOT</span><br><span class="line">NULL, PRIMARY KEY (peopleid) );</span><br></pre></td></tr></table></figure>
+<p>例如，我們可能需要查找姓名為Mike Sullivan、年齡17歲用戶的peopleid（SQL命令為SELECT peopleid FROM people WHERE firstname=’Mike’ AND lastname=’Sullivan’ AND age=17;）。由於我們不想讓MySQL每次執行查詢就去掃瞄整個表，這裡需要考慮運用索引。</p>
+<p>首先，我們可以考慮在單個列上創建<strong>单列索引</strong>，比如firstname、lastname或者age列。如果我們創建firstname列的索引（<strong>ALTER TABLE people ADD INDEX firstname (firstname);</strong>），MySQL將通過這個索引迅速把搜索範圍限制到那些firstname=’Mike’的記錄，然後再在這個「中間結果集」上進行其他條件的搜索：它首先排除那些lastname不等於「Sullivan」的記錄，然後排除那些age不等於17的記錄。當記錄滿足所有搜索條件之後，MySQL就返回最終的搜索結果。</p>
+<p>有了单列索引，效率提高了很多，再看多列索引。</p>
+<p>為了提高搜索效率，我們需要考慮運用<strong>多列索引</strong>。如果為firstname、lastname和age這三個列創建一個多列索引，MySQL只需一次檢索就能夠找出正確的結果！下面是創建這個多列索引的SQL命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE people ADD INDEX fname_lname_age (firstname,lastname,age);</span><br></pre></td></tr></table></figure>
+<p>那麼，如果在firstname、lastname、age這三個列上分別創建單列索引，效果是否和創建一個firstname、lastname、age 的多列索引一樣呢？<strong>多个单列引用是否和多列引用一样？答案是否定的</strong>，兩者完全不同。<strong>當我們執行查詢的時候，MySQL只能使用一個索引</strong>。<strong>如果你有三個單列的索引，MySQL會試圖選擇一個限制最嚴格的索引</strong>。但是，即使是限制最嚴格的單列索引，它的限制能力也肯定遠遠低於firstname、lastname、age這三個列上的多列索引。</p>
+<p><em>最左前綴</em></p>
+<p>多列索引還有另外一個優點，它通過稱為最左前綴（Leftmost Prefixing）的概念體現出來。繼續考慮前面的例子，現在我們有一個firstname、lastname、age列上的多列索引，我們稱這個索引為fname_lname_age。當搜索條件是以下各種列的組合時，MySQL將使用fname_lname_age索引：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">firstname，lastname，age</span><br><span class="line">firstname，lastname</span><br><span class="line">firstname</span><br></pre></td></tr></table></figure>
+<p><strong>從另一方面理解，它相當於我們創建了(firstname，lastname，age)、(firstname，lastname)以及(firstname)這些列組合上的索引</strong>。下面這些查詢都能夠使用這個fname_lname_age索引：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SELECT peopleid FROM people WHERE firstname=&apos;Mike&apos; AND lastname=&apos;Sullivan&apos; AND age=&apos;17&apos;;</span><br><span class="line">SELECT peopleid FROM people WHERE firstname=&apos;Mike&apos; AND lastname=&apos;Sullivan&apos;;</span><br><span class="line">SELECT peopleid FROM people WHERE firstname=&apos;Mike&apos;;</span><br><span class="line"></span><br><span class="line">The following queries cannot use the index at all:</span><br><span class="line">SELECT peopleid FROM people WHERE lastname=&apos;Sullivan&apos;;</span><br><span class="line">SELECT peopleid FROM people WHERE age=&apos;17&apos;;</span><br><span class="line">SELECT peopleid FROM people WHERE lastname=&apos;Sullivan&apos; AND age=&apos;17&apos;;</span><br></pre></td></tr></table></figure>
+<p><em>選擇索引列</em></p>
+<p><strong>在性能優化過程中，選擇在哪些列上創建索引是最重要的步驟之一</strong>。可以考慮使用索引的主要有兩種類型的列：</p>
+<p>1.在WHERE子句中出現的列<br>2.在join子句中出現的列</p>
+<h2 id="重中之重："><a href="#重中之重：" class="headerlink" title="重中之重："></a>重中之重：</h2><p><strong>那麼，我們是否可以簡單地認為應該索引WHERE子句和join子句中出現的每一個列呢？差不多如此，但並不完全。</strong></p>
+<p>我們還必須考慮到對列進行比較的操作符類型。MySQL只有對以下操作符才使用索引：&lt;，&lt;=，=，&gt;，&gt;=，BETWEEN，IN，以及某些時候的LIKE。<strong>可以在LIKE操作中使用索引的情形是指另一個操作數不是以通配符（%或者_）開頭的情形</strong>。例如，「SELECT peopleid FROM people WHERE firstname LIKE ‘Mich%’;」這個查詢將使用索引，但「SELECT peopleid FROM people WHERE firstname LIKE ‘%ike’;」這個查詢不會使用索引。</p>
+<p><em>分析索引效率</em></p>
+<p>現在我們已經知道了一些如何選擇索引列的知識，但還無法判斷哪一個最有效。MySQL提供了一個內建的SQL命令幫助我們完成這個任務，這就是<strong>EXPLAIN命令</strong>。EXPLAIN命令的一般語法是：<strong>EXPLAIN <sql命令></sql命令></strong>。你可以在MySQL文檔找到有關該命令的更多說明。下面是一個例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN SELECT peopleid FROM people WHERE firstname=&apos;Mike&apos; AND lastname=&apos;Sullivan&apos; AND age=&apos;17&apos;;</span><br></pre></td></tr></table></figure>
+<p>這個命令將返回下面這種分析結果：</p>
+<p><img src="http://img.blog.csdn.net/20170215212203066?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>1.table<br>這是表的名字。</p>
+<p>2.type<br>連接操作的類型。</p>
+<p>3.possible_keys<br>可能可以利用的索引的名字。這裡的索引名字是創建索引時指定的索引暱稱</p>
+<p>4.key<br>它顯示了MySQL實際使用的索引的名字。如果它為空（或NULL），則MySQL不使用索引。</p>
+<p>5.key_len<br>索引中被使用部分的長度，以字節計。在本例中，key_len是102，其中firstname佔50字節，lastname佔50字節，age佔2字節。如果MySQL只使用索引中的firstname部分，則key_len將是50。</p>
+<p>6.ref<br>它顯示的是列的名字（或單詞「const」），MySQL將根據這些列來選擇行。在本例中，MySQL根據三個常量選擇行。</p>
+<p>7.rows<br>MySQL所認為的它在找到正確的結果之前必須掃瞄的記錄數。顯然，這裡最理想的數字就是1。</p>
+<p>8.extra<br>這裡可能出現許多不同的選項，其中大多數將對查詢產生負面影響。在本例中，MySQL只是提醒我們它將用WHERE子句限制搜索結果集。</p>
+<p>最新的EXPLAIN命令的输出格式解释请查看文档<a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html" target="_blank" rel="external">9.8.2 EXPLAIN Output Format</a>。</p>
+<p><em>索引的缺點</em></p>
+<p>缺点：</p>
+<p>1.首先，<strong>索引要佔用磁盤空間</strong>。通常情況下，這個問題不是很突出。但是，如果你創建每一種可能列組合的索引，索引文件體積的增長速度將遠遠超過數據文件。如果你有一個很大的表，索引文件的大小可能達到操作系統允許的最大文件限制。</p>
+<p>2.<strong>對於需要寫入數據的操作，比如DELETE、UPDATE以及INSERT操作，索引會降低它們的速度</strong>。這是因為MySQL不僅要把改動數據寫入數據文件，而且它還要把這些改動寫入索引文件。</p>
+<p>【結束語】在大型數據庫中， 索引是提高速度的一個關鍵因素。</p>
+<p>四、参考：<a href="http://tech.meituan.com/mysql-index.html" target="_blank" rel="external">MySQL索引原理及慢查询优化</a>，内容如下：</p>
+<p>我们知道一般的应用系统，<strong>读写比例在10:1左右</strong>，而且<strong>插入操作和一般的更新操作很少出现性能问题</strong>，遇到最多的，也是最容易出问题的，还是<strong>一些复杂的查询操作，所以查询语句的优化显然是重中之重</strong>。</p>
+<p><em>MySQL索引原理</em></p>
+<p><strong>1.索引目的</strong></p>
+<p>索引的目的在于提高查询效率，可以类比字典。</p>
+<p><strong>2.索引原理</strong></p>
+<p>除了词典，生活中随处可见索引的例子，如火车站的车次表、图书的目录等。它们的原理都是一样的，通过不断的缩小想要获得数据的范围来筛选出最终想要的结果，同时把随机的事件变成顺序的事件，也就是我们总是通过同一种查找方式来锁定数据。</p>
+<p><strong>3.磁盘IO与预读</strong></p>
+<p>前面提到了访问磁盘，那么这里先简单介绍一下<strong>磁盘IO</strong>和<strong>预读</strong>，磁盘读取数据靠的是机械运动，每次读取数据花费的时间可以分为<strong>寻道时间</strong>、<strong>旋转延迟</strong>、<strong>传输时间</strong>三个部分：</p>
+<p>1.寻道时间：磁臂移动到指定磁道所需要的时间，主流磁盘一般在5ms以下<br>2.旋转延迟：就是我们经常听说的磁盘转速，比如一个磁盘7200转，表示每分钟能转7200次，也就是说1秒钟能转120次，旋转延迟就是1/120/2 = 4.17ms<br>3.传输时间指的是从磁盘读出或将数据写入磁盘的时间，一般在零点几毫秒，相对于前两个时间可以忽略不计</p>
+<p>但是跟其他计算机硬件延迟比起来，就显得非常慢了。如下：<br><img src="http://img.blog.csdn.net/20170216101947157?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p><strong>通过预读来优化磁盘IO</strong>：考虑到磁盘IO是非常高昂的操作，计算机操作系统做了一些优化，当一次IO时，<strong>不光把当前磁盘地址的数据，而是把相邻的数据也都读取到内存缓冲区内</strong>，因为局部预读性原理告诉我们，当计算机访问一个地址的数据的时候，与其相邻的数据也会很快被访问到。每一次IO读取的数据我们称之为一页(page)。具体一页有多大数据跟操作系统有关，<strong>一般为4k或8k</strong>，也就是我们读取一页内的数据时候，实际上才发生了一次IO，这个理论对于索引的数据结构设计非常有帮助。</p>
+<p><strong>4.索引的数据结构</strong></p>
+<p>我们需要设计一种数据结构，它实现的功能是：每次查找数据时把磁盘IO次数控制在一个很小的数量级，最好是常数数量级。那么我们就想到如果一个高度可控的多路搜索树是否能满足需求呢？就这样，<strong>b+树</strong>应运而生。</p>
+<p><strong>5.详解b+树</strong></p>
+<p>该树的数据结构图为：</p>
+<p><img src="http://img.blog.csdn.net/20170216102914880?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>如上图，是一颗b+树，关于b+树的定义可以参见<a href="https://zh.wikipedia.org/wiki/B+%E6%A0%91" target="_blank" rel="external">B+树</a>，这里只说一些重点，浅蓝色的块我们称之为一个磁盘块，可以看到每个磁盘块包含几个数据项（深蓝色所示）和指针（黄色所示），如磁盘块1包含数据项17和35，包含指针P1、P2、P3，P1表示小于17的磁盘块，P2表示在17和35之间的磁盘块，P3表示大于35的磁盘块。<strong>真实的数据存在于叶子节点</strong>即3、5、9、10、13、15、28、29、36、60、75、79、90、99。<strong>非叶子节点只不存储真实的数据，只存储指引搜索方向的数据项</strong>，如17、35并不真实存在于数据表中。</p>
+<p><strong>6.b+树的查找过程</strong></p>
+<p>如图所示，如果要查找数据项29，那么首先会把磁盘块1由磁盘加载到内存，此时发生一次IO，在内存中用二分查找确定29在17和35之间，锁定磁盘块1的P2指针，内存时间因为非常短（相比磁盘的IO）可以忽略不计，通过磁盘块1的P2指针的磁盘地址把磁盘块3由磁盘加载到内存，发生第二次IO，29在26和30之间，锁定磁盘块3的P2指针，通过指针加载磁盘块8到内存，发生第三次IO，同时内存中做二分查找找到29，结束查询，总计三次IO。<strong>真实的情况是，3层的b+树可以表示上百万的数据，如果上百万的数据查找只需要三次IO，性能提高将是巨大的</strong>，如果没有索引，每个数据项都要发生一次IO，那么总共需要百万次的IO，显然成本非常非常高。</p>
+<p><strong>7.b+树性质</strong></p>
+<p>1.通过上面的分析，我们知道<strong>IO次数取决于b+数的高度h</strong>，假<strong>设当前数据表的数据为N</strong>，<strong>每个磁盘块的数据项的数量是m</strong>，<strong>则有h=㏒(m+1)N</strong>，当数据量N一定的情况下，m越大，h越小；而<strong>m = 磁盘块的大小 / 数据项的大小</strong>，磁盘块的大小也就是一个数据页的大小，是固定的，如果数据项占的空间越小，数据项的数量越多，树的高度越低。<strong>这就是为什么每个数据项，即索引字段要尽量的小</strong>，比如int占4字节，要比bigint8字节少一半。<strong>这也是为什么b+树要求把真实的数据放到叶子节点而不是内层节点，一旦放到内层节点，磁盘块的数据项会大幅度下降，导致树增高</strong>。当数据项等于1时将会退化成线性表。</p>
+<p>2.<strong>当b+树的数据项是复合的数据结构</strong>，比如(name,age,sex)的时候，<strong>b+数是按照从左到右的顺序来建立搜索树的</strong>，比如当(张三,20,F)这样的数据来检索的时候，b+树会优先比较name来确定下一步的所搜方向，如果name相同再依次比较age和sex，最后得到检索的数据；但当(20,F)这样的没有name的数据来的时候，b+树就不知道下一步该查哪个节点，因为建立搜索树的时候name就是第一个比较因子，必须要先根据name来搜索才能知道下一步去哪里查询。比如当(张三,F)这样的数据来检索时，b+树可以用name来指定搜索方向，但下一个字段age的缺失，所以只能把名字等于张三的数据都找到，然后再匹配性别是F的数据了， 这个是非常重要的性质，即<strong>索引的最左匹配特性</strong>。</p>
+<p><em>建索引的几大原则</em></p>
+<p>1.<strong>最左前缀匹配原则，非常重要的原则，mysql会一直向右匹配直到遇到范围查询(&gt;、&lt;、between、like)就停止匹配</strong>，比如a = 1 and b = 2 and c &gt; 3 and d = 4 如果建立(a,b,c,d)顺序的索引，d是用不到索引的，如果建立(a,b,d,c)的索引则都可以用到，a,b,d的顺序可以任意调整。</p>
+<p>注意是一直向右遇到<strong>范围查询</strong> 就停止匹配，这也是为什么阿里java规范中要求SQL语句中等值查询要在范围查询的前面的原因。</p>
+<p>2.<strong>=和in可以乱序</strong>，比如a = 1 and b = 2 and c = 3 <strong>建立(a,b,c)索引可以任意顺序，mysql的查询优化器会帮你优化成索引可以识别的形式</strong></p>
+<p>3.<strong>尽量选择区分度高的列作为索引,区分度的公式是count(distinct col)/count(*)，表示字段不重复的比例，比例越大我们扫描的记录数越少</strong>，唯一键的区分度是1，而一些状态、性别字段可能在大数据面前区分度就是0，那可能有人会问，这个比例有什么经验值吗？使用场景不同，这个值也很难确定，一般需要join的字段我们都要求是0.1以上，即平均1条扫描10条记录</p>
+<p>4.<strong>索引列不能参与计算，保持列“干净”</strong>，比如from_unixtime(create_time) = ’2014-05-29’就不能使用到索引，原因很简单，b+树中存的都是数据表中的字段值，但进行检索时，需要把所有元素都应用函数才能比较，显然成本太大。所以语句应该写成create_time =unix_timestamp(’2014-05-29’)</p>
+<p>5.<strong>尽量的扩展索引，不要新建索引</strong>。比如表中已经有a的索引，现在要加(a,b)的索引，那么只需要修改原来的索引即可</p>
+<p>到现在我渐渐明白了为什么阿里java规范中，要求SQL语句中，都是等值比较的情况下，要将区分度大的列排在前面，因为建表时也可能是基于这个原则的，这样表提供方和查询方实现了统一了。</p>
+<p><em>查询优化神器 - explain命令</em></p>
+<p>需要强调<strong>rows</strong>是核心指标，<strong>绝大部分rows小的语句执行一定很快</strong>（有例外，下面会讲到）。<strong>所以优化语句基本上都是在优化rows</strong>。</p>
+<p><em>慢查询优化基本步骤</em></p>
+<p>0.先运行看看是否真的很慢，注意设置SQL_NO_CACHE<br>1.<strong>where条件单表查，锁定最小返回记录表</strong>。这句话的意思是把查询语句的where都应用到表中返回的记录数最小的表开始查起，单表每个字段分别查询，看哪个字段的区分度最高<br>2.explain查看执行计划，是否与1预期一致（从锁定记录较少的表开始查询）<br>3.order by limit 形式的sql语句让排序的表优先查<br>4.了解业务方使用场景<br>5.加索引时参照建索引的几大原则<br>6.观察结果，不符合预期继续从0分析</p>
+<p><strong>明确应用场景</strong></p>
+<p>一般上我们认为区分度越高的列，越容易锁定更少的记录，但在一些特殊的情况下，这种理论是有局限性的。有一些列虽然总体上很平衡，但是在业务方短时间内能够保证不平衡，那么对于该查询也是可以做索引的。</p>
+<p>并不是所有语句都能优化，而往往我们优化时，由于SQL用例回归时落掉一些极端情况，会造成比原来还严重的后果。所以，第一：不要指望所有语句都能通过SQL优化，第二：不要过于自信，只针对具体case来优化，而忽略了更复杂的情况。</p>
+<p><em>写在后面的话</em></p>
+<p>本文以一个慢查询案例引入了MySQL索引原理、优化慢查询的一些方法论;并针对遇到的典型案例做了详细的分析。其实做了这么长时间的语句优化后才发现，任何数据库层面的优化都抵不上应用系统的优化，同样是MySQL，可以用来支撑Google/FaceBook/Taobao应用，但可能连你的个人网站都撑不住。套用最近比较流行的话：“查询容易，优化不易，且写且珍惜！”</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/后端开发/">后端开发</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2017/02/15/关于mysql index/" data-title="关于mysql index | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/02/20/深入理解Java虚拟机/" title="深入理解Java虚拟机">
+  <strong>上一篇：</strong><br/>
+  <span>
+  深入理解Java虚拟机</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/02/14/阿里java规约整理/"  title="阿里java规约整理">
+ <strong>下一篇：</strong><br/> 
+ <span>阿里java规约整理
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/02/15/关于mysql index/" data-title="关于mysql index" data-url="http://yoursite.com/2017/02/15/关于mysql index/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#重中之重："><span class="toc-number">1.</span> <span class="toc-text">重中之重：</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 16.67px;">Java编程思想读书笔记</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a> <a href="/tags/TECH/" style="font-size: 11.67px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 18.33px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.67px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 13.33px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

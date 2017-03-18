@@ -1,0 +1,798 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Spring in action--Part3-Spring in the back end | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="Chapter10.Hitting the database with Spring and JDBC
+
+You have probably dealt with database access in an application in the past. In practice, you’ll know that data access has many pitfalls. You have t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring in action--Part3-Spring in the back end">
+<meta property="og:url" content="http://yoursite.com/2016/10/18/Spring in action--Part3-Spring in the back end/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="Chapter10.Hitting the database with Spring and JDBC
+
+You have probably dealt with database access in an application in the past. In practice, you’ll know that data access has many pitfalls. You have t">
+<meta property="og:image" content="http://img.blog.csdn.net/20161018153724370">
+<meta property="og:image" content="http://img.blog.csdn.net/20161018163046912">
+<meta property="og:image" content="http://img.blog.csdn.net/20161018163421759">
+<meta property="og:image" content="http://img.blog.csdn.net/20161021161757312">
+<meta property="og:image" content="http://img.blog.csdn.net/20161021163059094">
+<meta property="og:image" content="http://img.blog.csdn.net/20161027162722173">
+<meta property="og:image" content="http://img.blog.csdn.net/20161027162754553">
+<meta property="og:image" content="http://img.blog.csdn.net/20161027164932094">
+<meta property="og:image" content="http://img.blog.csdn.net/20161028102154817">
+<meta property="og:image" content="http://img.blog.csdn.net/20161028102227927">
+<meta property="og:image" content="http://img.blog.csdn.net/20161028110449539">
+<meta property="og:updated_time" content="2017-03-18T14:38:20.158Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring in action--Part3-Spring in the back end">
+<meta name="twitter:description" content="Chapter10.Hitting the database with Spring and JDBC
+
+You have probably dealt with database access in an application in the past. In practice, you’ll know that data access has many pitfalls. You have t">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161018153724370">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/10/18/Spring in action--Part3-Spring in the back end/" title="Spring in action--Part3-Spring in the back end" itemprop="url">Spring in action--Part3-Spring in the back end</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-18T07:23:39.000Z" itemprop="datePublished"> Published 2016-10-18</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Chapter10.Hitting the database with Spring and JDBC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.1.</span> <span class="toc-text">10.1Learning Spring’s data-access philosophy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">10.1.1Getting to know Spring’s data-access exception hierarchy</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.</span> <span class="toc-text">10.1.2Templating data access</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.</span> <span class="toc-text">10.2Configuring a data source</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.1.</span> <span class="toc-text">10.2.1Using JNDI data sources</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.2.</span> <span class="toc-text">10.2.2Using a pooled data source</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.3.</span> <span class="toc-text">10.2.3Using JDBC driver-based data sources</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.4.</span> <span class="toc-text">10.2.4Using an embedded data source</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.5.</span> <span class="toc-text">10.2.5Using profiles to select a data source</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.4.</span> <span class="toc-text">10.3Using JDBC with Spring</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.4.1.</span> <span class="toc-text">10.3.1Tackling runaway JDBC code</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.4.2.</span> <span class="toc-text">10.3.2Working with JDBC templates</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.5.</span> <span class="toc-text">10.4Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Chapter11.Persisting data with object-relational mapping</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.1.</span> <span class="toc-text">11.1Integrating Hibernate with Spring</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.1.1.</span> <span class="toc-text">11.1.1Declaring a Hibernate session factory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.1.2.</span> <span class="toc-text">11.1.2Building Spring-free Hibernate</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.2.</span> <span class="toc-text">11.2Spring and the Java Persistence API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.3.</span> <span class="toc-text">11.3Automatic JPA repositories with Spring Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.</span> <span class="toc-text">11.4Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Chapter12.Working with NoSQL databases</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.1.</span> <span class="toc-text">12.1Persisting documents with MongoDB</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.1.1.</span> <span class="toc-text">12.1.1Enabling MongoDB</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.1.2.</span> <span class="toc-text">12.1.2Annotating model types for MongoDB persistence</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.1.3.</span> <span class="toc-text">12.1.3Accessing MongoDB with MongoTemplate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.1.4.</span> <span class="toc-text">12.1.4Writing a MongoDB repository</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.</span> <span class="toc-text">12.2Working with graph data in Neo4j</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.1.</span> <span class="toc-text">12.2.1Configuring Spring Data Neo4j</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.2.</span> <span class="toc-text">12.2.2Annotating graph entities</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.3.</span> <span class="toc-text">12.2.3Working with Neo4jTemplate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.4.</span> <span class="toc-text">12.2.4Creating automatic Neo4j repositories</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.</span> <span class="toc-text">12.3Working with key-value data in Redis</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.1.</span> <span class="toc-text">12.3.1Connecting to Redis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.2.</span> <span class="toc-text">12.3.2Working with RedisTemplate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.3.</span> <span class="toc-text">12.3.3Setting key and value serializers</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.4.</span> <span class="toc-text">12.4Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Chapter13.Caching data</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.1.</span> <span class="toc-text">13.1Enabling cache support</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.1.1.</span> <span class="toc-text">13.1.1Configuring a cache manager</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.2.</span> <span class="toc-text">13.2Annotating methods for caching</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.2.1.</span> <span class="toc-text">3.2.1Populating the cache</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.2.2.</span> <span class="toc-text">13.2.2Removing cache entries</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.3.</span> <span class="toc-text">13.3Declaring caching in XML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.4.</span> <span class="toc-text">13.4Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Chapter14.Securing methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.0.1.</span> <span class="toc-text">14.1Securing methods with annotations</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">5.0.1.1.</span> <span class="toc-text">14.1.1Restricting method access with @Secured</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">5.0.1.2.</span> <span class="toc-text">14.1.2Using JSR-250’s @RolesAllowed with Spring Security</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.0.2.</span> <span class="toc-text">14.2Using expressions for method-level security</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">5.0.2.1.</span> <span class="toc-text">14.2.1Expressing method access rules</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">5.0.2.2.</span> <span class="toc-text">14.2.2Filtering method inputs and outputs</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.0.3.</span> <span class="toc-text">14.3Summary</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1>Chapter10.Hitting the database with Spring and JDBC</h1>
+
+<p>You have probably dealt with database access in an application in the past. In practice, you’ll know that data access has many pitfalls. <strong>You have to initialize your data-access framework, open connections, handle various exceptions, and close connections.</strong> 没有Spring等框架的繁琐的工作。</p>
+<p>Because we strive for Good Things, we turn to Spring. Spring comes with a family of data-access frameworks that integrate with a variety of data-access technologies.</p>
+<p>As you develop the persistence layer of the Spittr application, you’re faced with some choices. You could use <strong>JDBC</strong>, <strong>Hibernate</strong>, <strong>the Java Persistence API (JPA)</strong>, or any of a number of <strong>persistence frameworks</strong>. Or you might consider one of the new breed of <strong>NoSQL databases</strong> (or schemaless databases, as I prefer to call them) that are popular these days.</p>
+<h3>10.1Learning Spring’s data-access philosophy</h3>
+
+<p>To avoid coupling the application to any particular data-access strategy, properly written repositories should expose their functionality through interfaces. Figure 10.1 shows the proper approach to designing your data-access tier.<br><img src="http://img.blog.csdn.net/20161018153724370" alt=""></p>
+<p><strong>INTERFACES AND SPRING</strong></p>
+<p>I believe that interfaces are key to writing loosely coupled code and that they should be used at all layers of an application, not just at the data-access layer. 接口的重要性。</p>
+<p>One way Spring helps you insulate your data-access tier from the rest of your application is by <strong>providing a consistent exception hierarchy that’s used across all of its supported persistence options</strong>.</p>
+<h4>10.1.1Getting to know Spring’s data-access exception hierarchy</h4>
+
+<p>Some common problems that might cause a <strong>SQLException</strong> to be thrown include these:</p>
+<p>1.The application is unable to connect to the database.<br>2.The query being performed has errors in its syntax.<br>3.The tables and/or columns referred to in the query don’t exist.<br>4.An attempt was made to insert or update values that violate a database constraint.</p>
+<p>这些错误都会导致<strong>SQLException</strong>，但是我们不能很好的定位到底是哪个错误，意味着在catch中也不能统一的处理。</p>
+<p><strong>Some persistence frameworks offer a richer hierarchy of exceptions</strong>. Hibernate, for example, offers almost two dozen different exceptions, each targeting a specific data-access problem. This makes it possible to write catch blocks for the exceptions that you want to deal with.</p>
+<p>Even so, Hibernate’s exceptions are specific to Hibernate. 这些异常只是对Hibernate适用。</p>
+<p>On one hand, JDBC’s exception hierarchy is too generic—it’s not much of a hierarchy at all. On the other hand, Hibernate’s exception hierarchy is proprietary to Hibernate. What we need is a hierarchy of data-access exceptions that are descriptive but not directly associated with a specific persistence framework.能够有这种中等颗粒度的异常就非常合适了。于是就有了SPRING PERSISTENCE EXCEPTIONS.</p>
+<p><strong>SPRING’S PERSISTENCE PLATFORM–AGNOSTIC EXCEPTIONS</strong></p>
+<p>Even though Spring’s exception hierarchy is far richer than JDBC’s simple SQLException, it isn’t associated with any particular persistence solution. This means you can count on Spring to throw a consistent set of exceptions, regardless of which persistence provider you choose. This helps to keep your persistence choice confined to the data-access layer.</p>
+<p><strong>Instead of forcing developers to write catch blocks (which are often left empty), Spring promotes the use of unchecked exceptions</strong>. 有些异常捕获没有意义。This leaves the decision of whether or not to catch an exception in your hands.</p>
+<p>To take advantage of Spring’s data-access exceptions, you must use one of Spring’s supported <strong>data-access templates</strong>. </p>
+<h3>10.1.2Templating data access</h3>
+
+<p>A template method defines the skeleton of a process. In the example, the process is moving luggage from departure city to arrival city. The process itself is fixed; it never changes. The overall sequence of events for handling luggage occurs the same way every time: luggage is checked in, luggage is loaded onto the plane, and so forth.<br>Some steps of the process are fixed as well—they happen the same way every time. When the plane arrives at its destination, every piece of luggage is unloaded one at a time and placed on a carousel to be taken to baggage claim.</p>
+<p><strong>In software terms, a template method delegates the implementation-specific portions of the process to an interface</strong>. Different implementations of this interface define specific implementations of this portion of the process.步骤固定，但是如果有些步骤需要我们干预的话，那么我们就是实现其接口，系统会调用接口，代理至我们具体的implementations。</p>
+<p>Spring separates the <strong>fixed</strong> and <strong>variable</strong> parts of the data-access process into two distinct classes: <strong>templates</strong> and <strong>callbacks</strong>.Templates manage the fixed part of the process, whereas your custom data-access code is handled in callbacks. Figure 10.2 shows the responsibilities of both classes.<br><img src="http://img.blog.csdn.net/20161018163046912" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20161018163421759" alt=""><br>不可能全讲啊，用时再找对应的template。<br>Most of Spring’s persistence support options depend on a data source, so before you can get started with declaring templates and repositories, you need to <strong>configure Spring with a data source</strong> to be able to connect to the database.</p>
+<h3>10.2Configuring a data source</h3>
+
+<p>Spring offers several options for configuring data-source beans in your Spring application, including these:</p>
+<p>1.Data sources that are defined by a JDBC driver<br>2.Data sources that are looked up by JNDI<br>3.Data sources that pool connections</p>
+<h4>10.2.1Using JNDI data sources</h4>
+
+<p>The benefit of configuring data sources in this way is that they <strong>can be managed completely external to the application</strong>, allowing the application to ask for a data source when it’s ready to access the database.Moreover, data sources managed in an application server are often pooled for greater performance and can be hot-swapped by system administrators.</p>
+<p>For example, if your application’s data source were configured in JNDI, you might use <code>&lt;jee:jndi-lookup&gt;</code> like this to wire it into Spring:<strong>XML配置</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;jee:jndi-lookup id=&quot;dataSource&quot;</span><br><span class="line">jndi-name=&quot;/jdbc/SpitterDS&quot;</span><br><span class="line">resource-ref=&quot;true&quot; /&gt;</span><br></pre></td></tr></table></figure></p>
+<p>If the application is running in a Java application server, you’ll want to set the <strong>resource-ref</strong> property to true so that the value given in <strong>jndi-name</strong> will be prepended with <strong>java:comp/env/</strong>.</p>
+<p>Alternatively, if you’re using <strong>Java configuration</strong>, you can use <strong>JndiObjectFactoryBean</strong> to look up the DataSource from JNDI:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public JndiObjectFactoryBean dataSource() &#123;</span><br><span class="line">JndiObjectFactoryBean jndiObjectFB = new JndiObjectFactoryBean();</span><br><span class="line">jndiObjectFB.setJndiName(&quot;jdbc/SpittrDS&quot;);</span><br><span class="line">jndiObjectFB.setResourceRef(true);</span><br><span class="line">jndiObjectFB.setProxyInterface(javax.sql.DataSource.class);</span><br><span class="line">return jndiObjectFB;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4>10.2.2Using a pooled data source</h4>
+
+<p>Although Spring doesn’t provide a pooled data source, plenty of suitable ones are available, including the following open source options:</p>
+<p>1.Apache Commons DBCP<br>2.c3p0<br>3.BoneCP</p>
+<p>For example, here’s how you might configure DBCP’s BasicDataSource:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot;</span><br><span class="line">p:driverClassName=&quot;org.h2.Driver&quot;</span><br><span class="line">p:url=&quot;jdbc:h2:tcp://localhost/~/spitter&quot;</span><br><span class="line">p:username=&quot;sa&quot;</span><br><span class="line">p:password=&quot;&quot;</span><br><span class="line">p:initialSize=&quot;5&quot;</span><br><span class="line">p:maxActive=&quot;10&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>java配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public BasicDataSource dataSource() &#123;</span><br><span class="line">BasicDataSource ds = new BasicDataSource();</span><br><span class="line">ds.setDriverClassName(&quot;org.h2.Driver&quot;);</span><br><span class="line">ds.setUrl(&quot;jdbc:h2:tcp://localhost/~/spitter&quot;);</span><br><span class="line">ds.setUsername(&quot;sa&quot;);</span><br><span class="line">ds.setPassword(&quot;&quot;);</span><br><span class="line">ds.setInitialSize(5);</span><br><span class="line">ds.setMaxActive(10);</span><br><span class="line">return ds;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4>10.2.3Using JDBC driver-based data sources</h4>
+
+<p>The simplest data source you can configure in Spring is one that’s defined through a JDBC driver. Spring offers three such data-source classes to choose from (all in the org.springframework.jdbc.datasource package):</p>
+<p>1.<strong>DriverManagerDataSource</strong>—Returns a new connection every time a connection is requested. Unlike DBCP’s BasicDataSource, the connections provided by DriverManagerDataSource aren’t pooled.</p>
+<p>2.<strong>SimpleDriverDataSource</strong>—Works much the same as DriverManagerDataSource except that it works with the JDBC driver directly to overcome class loading issues that may arise in certain environments, such as in an OSGi container.</p>
+<p>3.<strong>SingleConnectionDataSource</strong>—Returns the same connection every time a connection is requested. Although SingleConnectionDataSource isn’t exactly a pooled data source, you can think of it as a data source with a pool of exactly one connection.</p>
+<p>XML配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;dataSource&quot;</span><br><span class="line">class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;</span><br><span class="line">p:driverClassName=&quot;org.h2.Driver&quot;</span><br><span class="line">p:url=&quot;jdbc:h2:tcp://localhost/~/spitter&quot;</span><br><span class="line">p:username=&quot;sa&quot;</span><br><span class="line">p:password=&quot;&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>java配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public DataSource dataSource() &#123;</span><br><span class="line">DriverManagerDataSource ds = new DriverManagerDataSource();</span><br><span class="line">ds.setDriverClassName(&quot;org.h2.Driver&quot;);</span><br><span class="line">ds.setUrl(&quot;jdbc:h2:tcp://localhost/~/spitter&quot;);</span><br><span class="line">ds.setUsername(&quot;sa&quot;);</span><br><span class="line">ds.setPassword(&quot;&quot;);</span><br><span class="line">return ds;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>跟池化数据库的区别：<br>The only significant <strong>difference</strong> with these data source beans as compared to the pooling data-source beans is that because they don’t provide a connection pool, <strong>there are no pool configuration properties to set</strong>.</p>
+<p>但是非池化的数据库性能上有很大的劣势：</p>
+<p>Because <strong>SingleConnectionDataSource</strong> has one and only one database connection to work with, it doesn’t work well in multithreaded applications<br>and is best limited to use in testing.只有一个数据库连接，所以不适合用在多线程，最好只用来test。</p>
+<p>At the same time, even though <strong>DriverManagerDataSource</strong> and <strong>SimpleDriverDataSource</strong> are both capable of supporting multiple threads, they incur a <strong>performance cost for creating a new connection each time a connection is requested</strong>. Because of these limitations, I strongly <strong>recommend using pooled data sources</strong>.在性能这一点上，推荐使用池化数据库。</p>
+<h4>10.2.4Using an embedded data source</h4>
+
+<h4>10.2.5Using profiles to select a data source</h4>
+
+<h3>10.3Using JDBC with Spring</h3>
+
+<p>JDBC doesn’t require mastering another framework’s query language. It’s built on top of SQL, which is the data-access language. Plus, you can more finely tune the performance of your data access when you use JDBC than with practically any other technology. And JDBC allows you to take advantage of your database’s proprietary features, where other frameworks may discourage or flat-out prohibit this.</p>
+<p>What’s more, JDBC lets you work with data at a much lower level than the persistence frameworks. You’re in full control of how your application reads and manipulates data. This includes allowing you to access and manipulate individual columns in a database. This fine-grained approach to data access comes in handy in applications, such as reporting applications, where it doesn’t make sense to organize the data into objects just to then unwind it back into raw data.</p>
+<h4>10.3.1Tackling runaway JDBC code</h4>
+
+<h4>10.3.2Working with JDBC templates</h4>
+
+<h3>10.4Summary</h3>
+
+
+<h1>Chapter11.Persisting data with object-relational mapping</h1>
+
+<p>JDBC is the bike of the persistence world. It’s great for what it does, and for some jobs it works fine. But as applications become more complex, so do our persistence requirements. We need to be able to map object properties to database columns and have our statements and queries created for us, <strong>freeing us from typing an endless string of question marks</strong>. We also need features that are more sophisticated:（当项目变得复杂时，我们需要：）</p>
+<p>1.<strong>Lazy loading</strong>—As object graphs become more complex, you <strong>sometimes don’t want to fetch entire relationships immediately</strong>. To use a typical example, suppose you’re selecting a collection of PurchaseOrder objects, and each of these objects contains a collection of LineItem objects. If you’re only interested in PurchaseOrder attributes, it makes no sense to grab the LineItem data. That could be expensive. <strong>Lazy loading allows you to grab data only as it’s needed.</strong> 只取我们所需要的。</p>
+<p>2.<strong>Eager fetching</strong>—This is the opposite of lazy loading. Eager fetching allows you to grab an entire object graph in one query. In the cases where you know you need a PurchaseOrder object and its associated LineItems, <strong>eager fetching lets you get this from the database in one operation, saving you from costly round-trips</strong>.与1正好相反。</p>
+<p>3.<strong>Cascading</strong>—Sometimes changes to a database table should result in changes to other tables as well. Going back to the purchase order example, when an Order object is deleted, you also want to delete the associated LineItems from the database.能够动态的更新一些改动对另一些东西的影响。</p>
+<p>Several frameworks are available that provide these services. The general name for these services is <strong>object-relational mapping (ORM)</strong>. </p>
+<p>Spring provides support for several persistence frameworks, including <strong>Hibernate</strong>, <strong>iBATIS</strong>, <strong>Java Data Objects (JDO)</strong>, and the <strong>Java Persistence API (JPA)</strong>. As with Spring’s JDBC support, Spring’s support for ORM frameworks provides integration points to the frameworks as well as some additional services:</p>
+<h3>11.1Integrating Hibernate with Spring</h3>
+
+<h4>11.1.1Declaring a Hibernate session factory</h4>
+
+<p>Through the Hibernate <strong>Session</strong>, an application’s repository performs all of its persistence needs.</p>
+<p>The standard way to get a reference to a Hibernate Session object is <strong>through an implementation of Hibernate’s SessionFactory interface</strong>. Among other things, <strong>SessionFactory is responsible for opening, closing, and managing Hibernate Sessions</strong>.</p>
+<p>In Spring, the way to get a Hibernate SessionFactory is through one of Spring’s Hibernate session-factory beans. As of version 3.1, Spring comes with three sessionfactory beans to choose from:（从三个spring已经实现了SessionFactory接口的实现中选一种）</p>
+<p>1.org.springframework.orm.hibernate3.LocalSessionFactoryBean<br>2.org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean<br>3.org.springframework.orm.hibernate4.LocalSessionFactoryBean</p>
+<p>在具体的版本中怎么配置就略了。<br>With a Hibernate session factory bean declared in the Spring application context, you’re ready to start creating your repository classes.</p>
+<h4>11.1.2Building Spring-free Hibernate</h4>
+
+<p>In the early days of Spring and Hibernate, writing a repository class would involve working with Spring’s HibernateTemplate. <strong>HibernateTemplate would ensure that only one Hibernate session would be used per transaction</strong>. <strong>The downside of this approach is that your repository implementation would be directly coupled to Spring</strong>.</p>
+<p>The best practice now, however, is to take advantage of <strong>Hibernate contextual sessions</strong> and not use HibernateTemplate at all. This can be done by wiring a Hibernate SessionFactory directly into your repository and using it to obtain a session, as shown in the following listing.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">//Spring-free Hibernate repositories, enabled by //Hibernate sessions</span><br><span class="line">public HibernateSpitterRepository(SessionFactory sessionFactory) &#123;</span><br><span class="line">//Inject SessionFactory</span><br><span class="line">this.sessionFactory = sessionFactory;</span><br><span class="line">&#125;</span><br><span class="line">private Session currentSession() &#123;</span><br><span class="line">//Retrieve current Session from SessionFactory</span><br><span class="line">return sessionFactory.getCurrentSession();</span><br><span class="line">&#125;</span><br><span class="line">public long count() &#123;</span><br><span class="line">return findAll().size();</span><br><span class="line">&#125;</span><br><span class="line">public Spitter save(Spitter spitter) &#123;</span><br><span class="line">//Use current Session</span><br><span class="line">Serializable id = currentSession().save(spitter);</span><br><span class="line">return new Spitter((Long) id,</span><br><span class="line">spitter.getUsername(),</span><br><span class="line">spitter.getPassword(),</span><br><span class="line">spitter.getFullName(),</span><br><span class="line">spitter.getEmail(),</span><br><span class="line">spitter.isUpdateByEmail());</span><br><span class="line">&#125;</span><br><span class="line">public Spitter findOne(long id) &#123;</span><br><span class="line">return (Spitter) currentSession().get(Spitter.class, id);</span><br><span class="line">&#125;</span><br><span class="line">public Spitter findByUsername(String username) &#123;</span><br><span class="line">return (Spitter) currentSession()</span><br><span class="line">.createCriteria(Spitter.class)</span><br><span class="line">.add(Restrictions.eq(&quot;username&quot;, username))</span><br><span class="line">.list().get(0);</span><br><span class="line">&#125;</span><br><span class="line">public List&lt;Spitter&gt; findAll() &#123;</span><br><span class="line">return (List&lt;Spitter&gt;) currentSession()</span><br><span class="line">.createCriteria(Spitter.class).list();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3>11.2Spring and the Java Persistence API</h3>
+
+<h3>11.3Automatic JPA repositories with Spring Data</h3>
+
+<h3>11.4Summary</h3>
+
+<p>感觉hibernate和iBATIS就是简化了一些SQL语句。</p>
+<h1>Chapter12.Working with NoSQL databases</h1>
+
+<p><strong>Spring Data</strong> also supports several NoSQL databases, including MongoDB, Neo4j, and Redis.</p>
+<h3>12.1Persisting documents with MongoDB</h3>
+
+<p>Some kinds of data are best represented as <strong>documents</strong>. That is, rather than spread the data across multiple tables, nodes, or entities, it may make more sense to collect the information into denormalized structures (known as documents). Although two or more of these documents may be related to each other, generally documents are standalone entities. Databases that are finely tuned to work with documents in this way are known as <strong>document databases</strong>.</p>
+<p><strong>What document databases aren’t good for:</strong></p>
+<p>这里待总结非关系型数据库的优缺点。</p>
+<p>Spring Data MongoDB brings MongoDB to Spring applications in three ways:</p>
+<p>1.Annotations for object-to-document mapping<br>2.Template-based database access with <strong>MongoTemplate</strong><br>3.Automatic runtime repository generation</p>
+<h4>12.1.1Enabling MongoDB</h4>
+
+<h4>12.1.2Annotating model types for MongoDB persistence</h4>
+
+<p>MongoDB, however, doesn’t come with its own object-to-document mapping annotations. Spring Data MongoDB seized the opportunity to fill that gap with a handful of <strong>annotations that you can use to map your Java types to MongoDB documents（一个java对象对应一个documents）</strong>. Table 12.1 describes these annotations.<br><img src="http://img.blog.csdn.net/20161021161757312" alt=""><br>The next listing shows how you might annotate an Order class to be persisted in MongoDB.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">//Spring Data MongoDB annotations map Java types //to documents.</span><br><span class="line">package orders;</span><br><span class="line">import java.util.Collection;</span><br><span class="line">import java.util.LinkedHashSet;</span><br><span class="line">import org.springframework.data.annotation.Id;</span><br><span class="line">import org.springframework.data.mongodb.core.mapping.Document;</span><br><span class="line">import org.springframework.data.mongodb.core.mapping.Field;</span><br><span class="line">@Document//This is a document</span><br><span class="line">public class Order &#123;</span><br><span class="line">@Id</span><br><span class="line">private String id;//Designate the ID</span><br><span class="line">@Field(&quot;client&quot;)</span><br><span class="line">private String customer;//Override the default //field name</span><br><span class="line">private String type;</span><br><span class="line">private Collection&lt;Item&gt; items = new LinkedHashSet&lt;Item&gt;();</span><br><span class="line">public String getCustomer() &#123;</span><br><span class="line">return customer;</span><br><span class="line">&#125;</span><br><span class="line">public void setCustomer(String customer) &#123;</span><br><span class="line">this.customer = customer;</span><br><span class="line">&#125;</span><br><span class="line">public String getType() &#123;</span><br><span class="line">return type;</span><br><span class="line">&#125;</span><br><span class="line">public void setType(String type) &#123;</span><br><span class="line">this.type = type;</span><br><span class="line">&#125;</span><br><span class="line">public Collection&lt;Item&gt; getItems() &#123;</span><br><span class="line">return items;</span><br><span class="line">&#125;</span><br><span class="line">public void setItems(Collection&lt;Item&gt; items) &#123;</span><br><span class="line">this.items = items;</span><br><span class="line">&#125;</span><br><span class="line">public String getId() &#123;</span><br><span class="line">return id;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>As you can see, Order is annotated with <strong>@Document</strong>, enabling it to be persisted using MongoTemplate, an automatically generated repository, or both. Its id property is annotated with <strong>@Id</strong> to designate it as the ID of the document. In addition, the customer property is annotated with <strong>@Field</strong> so that when the document is persisted,<br>the customer property will be mapped to a field named <strong>client</strong>.相当于取别名。</p>
+<p>Notice that no other properties are annotated. Unless they’re marked as <strong>transient（这样就不会存入数据库）</strong>,all fields of the Java object will be persisted as fields of the document. And unless otherwise indicated with <strong>@Field（如果不取别名，所有name跟属性名是一样的。）</strong>, the document fields will have the same names as their Java property counterparts.</p>
+<p>As I said earlier, <strong>documents can be related to other documents, but that’s not what document databases are especially good at</strong>. In the case of the relationship between a purchase order and its line items, the line items are merely a nested part of the same order document (as shown in figure 12.1).<br>Therefore, there’s no need for any annotations to designate the relationship. In fact, the Item class itself isn’t annotated at all:因为非关系型数据库在关系上的表达力很弱，所以我们对于一个订单中的关联的items，我们并没有用非关系存储。<br><img src="http://img.blog.csdn.net/20161021163059094" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package orders;</span><br><span class="line">public class Item &#123;</span><br><span class="line">private Long id;</span><br><span class="line">private Order order;</span><br><span class="line">private String product;</span><br><span class="line">private double price;</span><br><span class="line">private int quantity;</span><br><span class="line">public Order getOrder() &#123;</span><br><span class="line">return order;</span><br><span class="line">&#125;</span><br><span class="line">public String getProduct() &#123;</span><br><span class="line">return product;</span><br><span class="line">&#125;</span><br><span class="line">public void setProduct(String product) &#123;</span><br><span class="line">this.product = product;</span><br><span class="line">&#125;</span><br><span class="line">public double getPrice() &#123;</span><br><span class="line">return price;</span><br><span class="line">&#125;</span><br><span class="line">public void setPrice(double price) &#123;</span><br><span class="line">this.price = price;</span><br><span class="line">&#125;</span><br><span class="line">public int getQuantity() &#123;</span><br><span class="line">return quantity;</span><br><span class="line">&#125;</span><br><span class="line">public void setQuantity(int quantity) &#123;</span><br><span class="line">this.quantity = quantity;</span><br><span class="line">&#125;</span><br><span class="line">public Long getId() &#123;</span><br><span class="line">return id;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>It’s not necessary to annotate Item with @Document, nor is it necessary to annotate one of its fields with @Id. <strong>That’s because you’ll never persist an Item as an independent document</strong>. <strong>It will always be a member of the Order document’s Item list and a nested element in that document</strong>.</p>
+<p>Now we have a Java domain type annotated for MongoDB persistence. Let’s see how you can use MongoTemplate to store a few of them.</p>
+<h4>12.1.3Accessing MongoDB with MongoTemplate</h4>
+
+<h4>12.1.4Writing a MongoDB repository</h4>
+
+
+<h3>12.2Working with graph data in Neo4j</h3>
+
+<p>Whereas document databases store data in coarse grained documents, graph databases store data in several fine-grained nodes that are connected with each other through relationships. A node in a graph database typically represents a concept in the database, having properties that describe the state of the node. Relationships connect two nodes and may carry properties of their own.</p>
+<p>At their simplest, graph databases are more general purpose than document databases, potentially being a schemaless alternative to relational databases. But because data is structured as a graph, it’s possible to traverse relationships to discover things about your data that would be difficult or even impossible with other kinds of databases.</p>
+<h4>12.2.1Configuring Spring Data Neo4j</h4>
+
+<h4>12.2.2Annotating graph entities</h4>
+
+<p>Neo4j defines two kinds of entities: <strong>nodes</strong> and <strong>relationships</strong>. Node entities typically represent the things in your application, whereas relationship entities define how those things are related.</p>
+<h4>12.2.3Working with Neo4jTemplate</h4>
+
+<h4>12.2.4Creating automatic Neo4j repositories</h4>
+
+<p>One of the most awesome things that most Spring Data projects do is automatically generate implementations for a repository interface. You’ve already seen this with Spring Data JPA and Spring Data MongoDB. Not to be left out, Spring Data Neo4j also supports automatic repository generation.</p>
+<h3>12.3Working with key-value data in Redis</h3>
+
+<p>Redis is a special kind of database known as <strong>a key value store</strong>. As the name implies, key-value stores keep key-value pairs. In fact, key-value stores share a lot in common with hash maps. To call them persistent hash maps would not be too great of an oversimplification.</p>
+<p>When you think about it, there aren’t too many kinds of queries that you can perform against a hash map … or a key-value store. <strong>You can store a value at a particular key, and you can fetch the value for a particular key</strong>. That’s about it. Consequently, Spring Data’s automatic repository support doesn’t make a lot of sense when applied to Redis. On the other hand, Spring Data’s other key feature, template-oriented data access, can come in handy when working with Redis.</p>
+<p>Spring Data Redis comes with a couple of template implementations for storing data to and fetching it from a Redis database. You’ll see how to use them soon. But to create one of Spring Data Redis’s templates, you’ll need a <strong>Redis connection factory</strong>.Fortunately, Spring Data Redis offers four to choose from.</p>
+<h4>12.3.1Connecting to Redis</h4>
+
+<p>A Redis connection factory produces connections to a Redis database server. </p>
+<h4>12.3.2Working with RedisTemplate</h4>
+
+<h4>12.3.3Setting key and value serializers</h4>
+
+
+<h3>12.4Summary</h3>
+
+<p>No matter what kind of database you choose, <strong>fetching data from the database is a costly operation</strong>. In fact, <strong>database queries are often the biggest performance bottlenecks</strong> in any application. Now that you’ve seen how to store and fetch data from a variety of data sources, let’s look at how to avoid that bottleneck. In the next chapter, you’ll see how to apply <strong>declarative caching to prevent unnecessary database fetches</strong>.</p>
+<h1>Chapter13.Caching data</h1>
+
+<p>Instead of asking the same question over and over, only to arrive at the same answer each time, it makes sense to ask once and remember that answer when it’s needed later.</p>
+<p><strong>Caching</strong> is a way to store frequently needed information so that it’s readily available when needed. In this chapter, we’ll look at Spring’s cache abstraction. Although Spring doesn’t implement a cache solution, it offers declarative support for caching that integrates with several popular caching implementations.</p>
+<h3>13.1Enabling cache support</h3>
+
+<p>Spring’s cache abstraction comes in two forms:</p>
+<p>1.Annotation-driven caching<br>2.XML-declared caching</p>
+<p>The most common way to use Spring’s cache abstraction is to annotate methods with annotations like <strong>@Cacheable</strong> and <strong>@CacheEvict</strong>.</p>
+<p>If you’re using Java configuration, you can enable annotation-driven caching by adding <strong>@EnableCaching</strong> to one of your configuration classes. The following listing shows the @EnableCaching annotation in action.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//Enabling annotation-driven caching with //@EnableCaching</span><br><span class="line">package com.habuma.cachefun;</span><br><span class="line">import org.springframework.cache.CacheManager;</span><br><span class="line">import org.springframework.cache.annotation.EnableCaching;</span><br><span class="line">import org.springframework.cache.concurrent.ConcurrentMapCacheManager;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">@Configuration</span><br><span class="line">@EnableCaching//Enable caching</span><br><span class="line">public class CachingConfig &#123;</span><br><span class="line">@Bean</span><br><span class="line">//Declare a cache manager</span><br><span class="line">public CacheManager cacheManager() &#123;</span><br><span class="line">return new ConcurrentMapCacheManager();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Fortunately, several great cache-manager options are available. Let’s look at a few of the most commonly used cache managers.</p>
+<h4>13.1.1Configuring a cache manager</h4>
+
+<p>Out of the box, Spring 3.1 comes with five cache manager implementations:</p>
+<p>1.SimpleCacheManager<br>2.NoOpCacheManager<br>3.ConcurrentMapCacheManager<br>4.CompositeCacheManager<br>5.EhCacheCacheManager</p>
+<p>Spring 3.2 introduced another cache manager for working with JCache (JSR-107) based cache providers. Outside of the core Spring Framework, <strong>Spring Data offers two more cache managers</strong>:</p>
+<p>1.<strong>RedisCacheManager</strong> (from Spring Data Redis)<br>2.<strong>GemfireCacheManager</strong> (from Spring Data GemFire)</p>
+<p>You must select and configure a cache manager as a bean in your Spring application context. </p>
+<p>Now let’s see how to configure some of Spring’s other cache managers, starting with <strong>EhCacheCacheManager</strong>.</p>
+<p><strong>CACHING WITH EHCACHE</strong></p>
+<p><strong>EhCacheCacheManager</strong> is easily configured in Spring:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//Configuring EhCacheCacheManager in Java //configuration</span><br><span class="line">package com.habuma.cachefun;</span><br><span class="line">import net.sf.ehcache.CacheManager;</span><br><span class="line">import org.springframework.cache.annotation.EnableCaching;</span><br><span class="line">import org.springframework.cache.ehcache.EhCacheCacheManager;</span><br><span class="line">import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">import org.springframework.core.io.ClassPathResource;</span><br><span class="line">@Configuration</span><br><span class="line">@EnableCaching</span><br><span class="line">public class CachingConfig &#123;</span><br><span class="line">@Bean</span><br><span class="line">public EhCacheCacheManager cacheManager(CacheManager cm) &#123;//Configure</span><br><span class="line">//EhCacheCacheManager</span><br><span class="line">return new EhCacheCacheManager(cm);</span><br><span class="line">&#125;</span><br><span class="line">@Bean</span><br><span class="line">//EhCacheManagerFactoryBean</span><br><span class="line">public EhCacheManagerFactoryBean ehcache() &#123;</span><br><span class="line">EhCacheManagerFactoryBean ehCacheFactoryBean =</span><br><span class="line">new EhCacheManagerFactoryBean();</span><br><span class="line">ehCacheFactoryBean.setConfigLocation(</span><br><span class="line">new ClassPathResource(&quot;com/habuma/spittr/cache/ehcache.xml&quot;));//缓存策略的配置文件</span><br><span class="line">return ehCacheFactoryBean;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码有点难懂，请阅读分析：</p>
+<p>The <strong>cacheManager()</strong> method in listing 13.3 <strong>creates an instance of EhCacheCacheManager</strong> by passing in an instance of an Ehcache <strong>CacheManager（这个是Ehcache的Manager）</strong>. This particular bit of injection can be confusing because both Spring and Ehcache define a CacheManager type. <strong>To be clear, Ehcache’s CacheManager is being injected into Spring’s EhCacheCacheManager (which implements Spring’s CacheManager implementation)</strong>.</p>
+<p>So that you’ll have an Ehcache CacheManager to inject, you <strong>must also declare a CacheManager bean</strong>. To make that easy, Spring provides an <strong>EhCacheManagerFactoryBean</strong> that generates an Ehcache CacheManager. The ehcache() method creates and returns an instance of EhCacheManagerFactoryBean. Because it’s a factory bean (that is, it implements Spring’s FactoryBean interface), the bean that is registered in the Spring<br>application context isn’t an instance of EhCacheManagerFactoryBean but rather is an instance of CacheManager, suitable for injection into EhCacheCacheManager.</p>
+<p>The contents of the <strong>ehcache.xml file</strong> vary from application to application, but you need to declare at least a minimal cache. For example, the following Ehcache configuration declares a cache named spittleCache with 50 MB of maximum heap storage and a time-to-live of 100 seconds.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;ehcache&gt;</span><br><span class="line">&lt;cache name=&quot;spittleCache&quot;</span><br><span class="line">maxBytesLocalHeap=&quot;50m&quot;</span><br><span class="line">timeToLiveSeconds=&quot;100&quot;&gt;</span><br><span class="line">&lt;/cache&gt;</span><br><span class="line">&lt;/ehcache&gt;</span><br></pre></td></tr></table></figure>
+<p>更多关于缓存配置的选项：<br><a href="http://ehcache.org/documentation/configuration" target="_blank" rel="external">http://ehcache.org/documentation/configuration</a></p>
+<p><strong>USING REDIS FOR CACHING</strong></p>
+<p>When you think about it, a cache entry is nothing more than a key-value pair where <strong>the key describes the operation and parameters from which the value was produced（天然合适做缓存）</strong>.<br>Therefore, it isn’t surprising to learn that Redis, which is a key-value store, is perfectly suited to be a cache store.</p>
+<p>So that Redis can be used to store cache entries for Spring’s caching abstraction, Spring Data Redis offers <strong>RedisCacheManager</strong>, an implementation of <strong>CacheManager</strong>.RedisCacheManager works with a <strong>Redis server</strong> via a <strong>RedisTemplate</strong> to <strong>store cache entries in Redis</strong>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">//Configuring a cache manager that stores cache //entries in a Redis server</span><br><span class="line">package com.myapp;</span><br><span class="line">import org.springframework.cache.CacheManager;</span><br><span class="line">import org.springframework.cache.annotation.EnableCaching;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.data.redis.cache.RedisCacheManager;</span><br><span class="line">import org.springframework.data.redis.connection.jedis</span><br><span class="line">.JedisConnectionFactory;</span><br><span class="line">import org.springframework.data.redis.core.RedisTemplate;</span><br><span class="line">@Configuration</span><br><span class="line">@EnableCaching</span><br><span class="line">public class CachingConfig &#123;</span><br><span class="line">@Bean</span><br><span class="line">public CacheManager cacheManager(RedisTemplate redisTemplate) &#123;</span><br><span class="line">//Redis cache manager bean</span><br><span class="line">return new RedisCacheManager(redisTemplate);</span><br><span class="line">&#125;</span><br><span class="line">@Bean</span><br><span class="line">//Redis connection factory bean</span><br><span class="line">public JedisConnectionFactory redisConnectionFactory() &#123;</span><br><span class="line">JedisConnectionFactory jedisConnectionFactory =</span><br><span class="line">new JedisConnectionFactory();</span><br><span class="line">jedisConnectionFactory.afterPropertiesSet();</span><br><span class="line">return jedisConnectionFactory;</span><br><span class="line">&#125;</span><br><span class="line">@Bean</span><br><span class="line">//RedisTemplate bean</span><br><span class="line">public RedisTemplate&lt;String, String&gt; redisTemplate(</span><br><span class="line">RedisConnectionFactory redisCF) &#123;</span><br><span class="line">RedisTemplate&lt;String, String&gt; redisTemplate =</span><br><span class="line">new RedisTemplate&lt;String, String&gt;();</span><br><span class="line">redisTemplate.setConnectionFactory(redisCF);</span><br><span class="line">redisTemplate.afterPropertiesSet();</span><br><span class="line">return redisTemplate;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>WORKING WITH MULTIPLE CACHE MANAGERS</strong></p>
+<p>如果要使用多种缓存策略，那么可以配置 CompositeCacheManager。</p>
+<p>The following listing shows how to create a CompositeCacheManager bean that iterates over a JCacheCacheManager, an EhCacheCacheManager, and a RedisCacheManager.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//CompositeCacheManager iterates over a list of //cache managers</span><br><span class="line">@Bean</span><br><span class="line">public CacheManager cacheManager(</span><br><span class="line">net.sf.ehcache.CacheManager cm,</span><br><span class="line">javax.cache.CacheManager jcm) &#123;</span><br><span class="line">//Create CompositeCacheManager</span><br><span class="line">CompositeCacheManager cacheManager = new CompositeCacheManager();</span><br><span class="line">List&lt;CacheManager&gt; managers = new ArrayList&lt;CacheManager&gt;();</span><br><span class="line">managers.add(new JCacheCacheManager(jcm));</span><br><span class="line">managers.add(new EhCacheCacheManager(cm))</span><br><span class="line">managers.add(new RedisCacheManager(redisTemplate()));</span><br><span class="line">//Add individual cache managers</span><br><span class="line">cacheManager.setCacheManagers(managers);</span><br><span class="line">return cacheManager;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Now that you have a cache manager configured and caching enabled, you’re ready to start <strong>applying caching rules to your bean methods</strong>. Let’s see how to use Spring’s caching annotations to define cache boundaries.</p>
+<h3>13.2Annotating methods for caching</h3>
+
+<p><img src="http://img.blog.csdn.net/20161027162722173" alt=""><br><img src="http://img.blog.csdn.net/20161027162754553" alt=""></p>
+<p>All the annotations in table 13.1 can be placed either on a <strong>method</strong> or on a <strong>class</strong>. When placed on a single method, the caching behavior prescribed by the annotation applies only to that method. If the annotation is placed at the class level, however, the caching behavior is applied to <strong>all methods in that class（如果是class级别则对全部的方法有效）</strong>.</p>
+<h4>3.2.1Populating the cache</h4>
+
+<p>As you can see, the <strong>@Cacheable</strong> and <strong>@CachePut</strong> annotations can both populate a<br>cache. They work in slightly different ways, though.</p>
+<p>@Cacheable looks for an entry in the cache first, preempting the method invocation if a matching entry is found. If no matching entry is found, the method is invoked and the value returned is put in the cache.先查找cache，有的话就不调用改方法了</p>
+<p>@CachePut, on the other hand, never checks for a matching value in the cache, always allows the target method to be invoked, and adds the returned value to the cache.总会被调用，并把结果添加到cache中</p>
+<p>@Cacheable and @CachePut share a common set of attributes, which are listed in table 13.2.<br><img src="http://img.blog.csdn.net/20161027164932094" alt=""><br>一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//Using @Cacheable to store and fetch values in //a cache</span><br><span class="line">//Cache this method&apos;s results</span><br><span class="line">@Cacheable(&quot;spittleCache&quot;)</span><br><span class="line">public Spittle findOne(long id) &#123;</span><br><span class="line">try &#123;</span><br><span class="line">return jdbcTemplate.queryForObject(</span><br><span class="line">SELECT_SPITTLE_BY_ID,</span><br><span class="line">new SpittleRowMapper(),</span><br><span class="line">id);</span><br><span class="line">&#125; catch (EmptyResultDataAccessException e) &#123;</span><br><span class="line">return null;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The cache key is the <strong>id parameter</strong> passed to the findOne() method.默认的cache key是：the default cache key is based on the parameters to the method .</p>
+<p>If a value is found for that key, the found value will be returned and the method won’t be invoked.</p>
+<p>如果是接口的话，可以在接口方法上添加注解来说明一些策略，这样在所有实现了该方法的类中，对应的方法都将应用该策略。</p>
+<p><strong>PUTTING VALUES IN THE CACHE</strong></p>
+<p>An <strong>@CachePut</strong>-annotated method is always invoked and its return value is placed in the cache. <strong>This offers a handy way to preload a cache before anyone comes asking</strong>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@CachePut(&quot;spittleCache&quot;)</span><br><span class="line">Spittle save(Spittle spittle);</span><br></pre></td></tr></table></figure>
+<p>There’s only one problem: <strong>the cache key</strong>. As I mentioned earlier, <strong>the default cache key is based on the parameters to the method</strong>. Because the only parameter to save() is a Spittle, it’s used as the cache key. Doesn’t it seem odd to place a Spittle in a<br>cache where the key is the same Spittle?</p>
+<p>Clearly, the default cache key isn’t what you want in this case. You need the cache key to be the ID of the newly saved Spittle, not the Spittle itself. So, you need to specify a key other than the default key. Let’s see how you can customize the cache key.</p>
+<p><strong>CUSTOMIZING THE CACHE KEY</strong><br>上面的代码中，我们想要其方法返回的对象的id作为cache key，那么怎么得到return value中的id属性呢？</p>
+<p>For the save() method, you need the key to be the id property from the Spittle that is returned. The #result expression will give you the returned Spittle. From that, you can reference the id property by setting the key attribute to <strong>#result.id</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@CachePut(value=&quot;spittleCache&quot;, key=&quot;#result.id&quot;)</span><br><span class="line">Spittle save(Spittle spittle);</span><br></pre></td></tr></table></figure>
+<p><strong>CONDITIONAL CACHING</strong></p>
+<p>@Cacheable and @CachePut offer two attributes for conditional caching: <strong>unless</strong> and <strong>condition</strong>. Both are given a SpEL expression. If the unless attribute’s SpEL expression evaluates to true, then the data returned from the cached method isn’t<br>placed in the cache. Similarly, if the condition attribute’s SpEL expression evaluates to false, then caching is effectively disabled for the method.</p>
+<p>As an example (albeit a contrived one), suppose you don’t want to cache any Spittle objects whose message property contains the text “NoCache”. To prevent such Spittles from being cached, you can set the unless attribute like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@Cacheable(value=&quot;spittleCache&quot;</span><br><span class="line">unless=&quot;#result.message.contains(&apos;NoCache&apos;)&quot;)</span><br><span class="line">Spittle findOne(long id);</span><br></pre></td></tr></table></figure>
+<p>The <strong>unless</strong> attribute prevents values from being written to the cache. <strong>But you may wish to disable caching altogether</strong>. That is, you may not want values added to the cache or fetched from the cache under certain conditions.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Cacheable(value=&quot;spittleCache&quot;</span><br><span class="line">unless=&quot;#result.message.contains(&apos;NoCache&apos;)&quot;</span><br><span class="line">condition=&quot;#id &gt;= 10&quot;)</span><br><span class="line">Spittle findOne(long id);</span><br></pre></td></tr></table></figure>
+<p>If findOne() is called with any value less than 10 as the parameter, <strong>the cache will not be searched, nor will the returned Spittle be placed in the cache（既不在cache中找，也不把结果放在cache中）</strong>. It will be as if there is no @Cacheable annotation on the method.</p>
+<p>总结unless与condition的不同与用法：<br>As you’ve seen in these examples, the <strong>unless</strong> attribute expression <strong>can refer to the return value by referring to #result</strong>. This is possible and useful because <strong>unless doesn’t start doing its job until a value is returned from the cached method</strong>. On the<br>other hand, <strong>condition</strong> has the job of disabling caching on the method. Therefore, <strong>it can’t wait until the method has completed to decide if it needs to shut down caching</strong>.This means its expression must be evaluated on the way into the method and that you <strong>can’t refer to the return value with #result（condition在方法调用之前就要判断，所以肯定不能引用#result）</strong>.</p>
+<p>已经能够像cache中写入了，那怎么将写入的值进行删除呢？看<strong>@CacheEvict</strong>。</p>
+<h4>13.2.2Removing cache entries</h4>
+
+<p><strong>@CacheEvict</strong> doesn’t add anything to the cache. On the contrary, if an @CacheEvict annotated method is called, <strong>one or more entries are removed from the cache</strong>.</p>
+<p>什么时候会用到呢？<br>Any time a cached value is <strong>no longer valid</strong>, you should make sure it’s removed from the cache so that future cache hits won’t return stale or otherwise nonexistent data.<br><img src="http://img.blog.csdn.net/20161028102154817" alt=""><br><img src="http://img.blog.csdn.net/20161028102227927" alt=""></p>
+<h3>13.3Declaring caching in XML</h3>
+
+<h3>13.4Summary</h3>
+
+
+<h1>Chapter14.Securing methods</h1>
+
+
+<h3>14.1Securing methods with annotations</h3>
+
+<p>Spring Security provides three different kinds of security annotations:</p>
+<p>1.Spring Security’s own <strong>@Secured</strong><br>2.JSR-250’s <strong>@RolesAllowed</strong><br>3.Expression-driven annotations, with <strong>@PreAuthorize</strong>, <strong>@PostAuthorize</strong>, <strong>@PreFilter</strong>, and <strong>@PostFilter</strong></p>
+<p>The @Secured and @RolesAllowed annotations are the simplest options, restricting access based on what authorities have been granted to the user. When you need more flexibility in defining security rules on methods, Spring Security offers @PreAuthorize<br>and @PostAuthorize. And @PreFilter/@PostFilter filter elements out of collections returned from or passed into a method.</p>
+<h4>14.1.1Restricting method access with @Secured</h4>
+
+<p>The key to enabling annotation-based method security in Spring is to annotate a configuration class with <strong>@EnableGlobalMethodSecurity</strong>, like this:先配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@EnableGlobalMethodSecurity(securedEnabled=true)</span><br><span class="line">public class MethodSecurityConfig</span><br><span class="line">extends GlobalMethodSecurityConfiguration &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>For example, if you haven’t already configured authentication in the web-layer security configuration, you may want to do that here by overriding the GlobalMethodSecurityConfiguration’s <strong>configure()</strong> method:重写configure方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">protected void configure(AuthenticationManagerBuilder auth)</span><br><span class="line">throws Exception &#123;</span><br><span class="line">auth</span><br><span class="line">.inMemoryAuthentication()</span><br><span class="line">.withUser(&quot;user&quot;).password(&quot;password&quot;).roles(&quot;USER&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除了override configure外，you’ll see how to override the GlobalMethodSecurityConfiguration’s <strong>createExpressionHandler()</strong> method to provide some custom security expression-handling behavior.</p>
+<p>When <strong>securedEnabled</strong> is <strong>true</strong>, a pointcut is created such that the Spring Security aspects will wrap bean methods that are annotated with <strong>@Secured</strong>. For example, consider this addSpittle() method that’s been annotated with @Secured:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Secured(&quot;ROLE_SPITTER&quot;)</span><br><span class="line">public void addSpittle(Spittle spittle) &#123;</span><br><span class="line">// ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>By passing in ROLE_SPITTER, you tell Spring Security to not allow the addSpittle() method to be invoked unless the authenticated user has ROLE_SPITTER as one of their granted authorities.如果string有多个，意思是必须满足至少其中的一个。如：<code>@Secured({&quot;ROLE_SPITTER&quot;, &quot;ROLE_ADMIN&quot;})</code></p>
+<p>如果不被授权的用户访问该方法，the aspect wrapping the method will throw one of Spring Security’s <strong>exceptions</strong> (probably a subclass of <strong>AuthenticationException</strong> or <strong>AccessDeniedException</strong>).</p>
+<p>If the secured method is invoked <strong>in the course of a web request（这种情况spring会自动处理）</strong>, the exception will be automatically handled by Spring Security’s filters. Otherwise, you’ll need to write the code to handle the exception.其他情况需要自己处理异常。</p>
+<p>One drawback of the <strong>@Secured</strong> annotation is that it’s a <strong>Spring-specific annotation</strong>.</p>
+<p>If you’re more comfortable using annotations defined <strong>in Java standards</strong>, then perhaps you should consider using <strong>@RolesAllowed</strong> instead.</p>
+<h4>14.1.2Using JSR-250’s @RolesAllowed with Spring Security</h4>
+
+<p>它的配置方法和使用方法跟@secured很相似。但是它无法使用SpEL语法来定义某些策略。</p>
+<h3>14.2Using expressions for method-level security</h3>
+
+<p>Sometimes security constraints depend on more than just whether a user has privileges or not.前面两种方式不能。</p>
+<p>Spring Security 3.0 introduced a handful of new annotations that use SpEL to enable even more interesting security constraints on methods. These new annotations are described in table 14.1.<br><img src="http://img.blog.csdn.net/20161028110449539" alt=""></p>
+<h4>14.2.1Expressing method access rules</h4>
+
+<p><strong>PREAUTHORIZING METHOD ACCESS</strong><br>可以基于入口参数定义策略<br>The String argument to @PreAuthorize is a SpEL expression. With <strong>SpEL expressions</strong> guiding access decisions, far more advanced security constraints can be written. </p>
+<p>For example, suppose that the average Spittr user can only write spittles of 140 characters or less, but premium users are allowed unlimited spittle lengths.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@PreAuthorize(</span><br><span class="line">&quot;(hasRole(&apos;ROLE_SPITTER&apos;) and #spittle.text.length() &lt;= 140)&quot;</span><br><span class="line">+&quot;or hasRole(&apos;ROLE_PREMIUM&apos;)&quot;)</span><br><span class="line">public void addSpittle(Spittle spittle) &#123;</span><br><span class="line">// ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The #spittle portion of the expression refers directly to the method parameter of the same name. </p>
+<p><strong>POSTAUTHORIZING METHOD ACCESS</strong><br>可以基于返回值定义策略</p>
+<p>For example, suppose that you wanted to secure the getSpittleById() method so that it only authorizes access if the Spittle object returned belongs to the authenticated user. There’s no way of knowing if a Spittle belongs to the current user until you’ve already fetched it. Therefore, getSpittleById() must execute first. If, after fetching the Spittle, it turns out to not belong to the current user, then a security<br>exception should be thrown.<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@PostAuthorize(&quot;returnObject.spitter.username == principal.username&quot;)</span><br><span class="line">public Spittle getSpittleById(long id) &#123;</span><br><span class="line">// ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>If the Spittle object has a Spitter whose username property is the same as the principal’s username, the Spittle will be returned to the caller. <strong>Otherwise, 1.an AccessDeniedException will be thrown, and 2.the caller won’t get to see the Spittle</strong>.</p>
+<h4>14.2.2Filtering method inputs and outputs</h4>
+
+<p><strong>POSTFILTERING METHOD RETURN VALUES</strong></p>
+<p><strong>@PostFilter</strong> evaluates that expression against each member of a collection being returned from the method, <strong>removing those members for whom the expression evaluates to false</strong>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@PreAuthorize(&quot;hasAnyRole(&#123;&apos;ROLE_SPITTER&apos;, &apos;ROLE_ADMIN&apos;&#125;)&quot;)</span><br><span class="line">@PostFilter( &quot;hasRole(&apos;ROLE_ADMIN&apos;) || &quot;</span><br><span class="line">+ &quot;filterObject.spitter.username == principal.name&quot;)</span><br><span class="line">public List&lt;Spittle&gt; getOffensiveSpittles() &#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>PREFILTERING METHOD PARAMETERS</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@PreAuthorize(&quot;hasAnyRole(&#123;&apos;ROLE_SPITTER&apos;, &apos;ROLE_ADMIN&apos;&#125;)&quot;)</span><br><span class="line">@PreFilter( &quot;hasRole(&apos;ROLE_ADMIN&apos;) || &quot;</span><br><span class="line">+ &quot;targetObject.spitter.username == principal.name&quot;)</span><br><span class="line">public void deleteSpittles(List&lt;Spittle&gt; spittles) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>DEFINING A PERMISSION EVALUATOR</strong></p>
+<h3>14.3Summary</h3>
+
+<p>Method-level security is an important complement to Spring Security’s web-level security, which we discussed in chapter 9. For non-web applications, method-level security is the front line of defense. When applied in a web application, method-level security backs up the security rules declared to secure web requests.</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Spring/">Spring</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/10/18/Spring in action--Part3-Spring in the back end/" data-title="Spring in action--Part3-Spring in the back end | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/10/23/21-并发/" title="21.并发">
+  <strong>上一篇：</strong><br/>
+  <span>
+  21.并发</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/10/09/Spring in action--Part2-Spring On The Web/"  title="Spring in action--Part2-Spring On The Web">
+ <strong>下一篇：</strong><br/> 
+ <span>Spring in action--Part2-Spring On The Web
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/10/18/Spring in action--Part3-Spring in the back end/" data-title="Spring in action--Part3-Spring in the back end" data-url="http://yoursite.com/2016/10/18/Spring in action--Part3-Spring in the back end/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Chapter10.Hitting the database with Spring and JDBC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.1.</span> <span class="toc-text">10.1Learning Spring’s data-access philosophy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">10.1.1Getting to know Spring’s data-access exception hierarchy</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.</span> <span class="toc-text">10.1.2Templating data access</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.</span> <span class="toc-text">10.2Configuring a data source</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.1.</span> <span class="toc-text">10.2.1Using JNDI data sources</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.2.</span> <span class="toc-text">10.2.2Using a pooled data source</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.3.</span> <span class="toc-text">10.2.3Using JDBC driver-based data sources</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.4.</span> <span class="toc-text">10.2.4Using an embedded data source</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.5.</span> <span class="toc-text">10.2.5Using profiles to select a data source</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.4.</span> <span class="toc-text">10.3Using JDBC with Spring</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.4.1.</span> <span class="toc-text">10.3.1Tackling runaway JDBC code</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.4.2.</span> <span class="toc-text">10.3.2Working with JDBC templates</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.5.</span> <span class="toc-text">10.4Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Chapter11.Persisting data with object-relational mapping</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.1.</span> <span class="toc-text">11.1Integrating Hibernate with Spring</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.1.1.</span> <span class="toc-text">11.1.1Declaring a Hibernate session factory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.1.2.</span> <span class="toc-text">11.1.2Building Spring-free Hibernate</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.2.</span> <span class="toc-text">11.2Spring and the Java Persistence API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.3.</span> <span class="toc-text">11.3Automatic JPA repositories with Spring Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.</span> <span class="toc-text">11.4Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Chapter12.Working with NoSQL databases</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.1.</span> <span class="toc-text">12.1Persisting documents with MongoDB</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.1.1.</span> <span class="toc-text">12.1.1Enabling MongoDB</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.1.2.</span> <span class="toc-text">12.1.2Annotating model types for MongoDB persistence</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.1.3.</span> <span class="toc-text">12.1.3Accessing MongoDB with MongoTemplate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.1.4.</span> <span class="toc-text">12.1.4Writing a MongoDB repository</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.</span> <span class="toc-text">12.2Working with graph data in Neo4j</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.1.</span> <span class="toc-text">12.2.1Configuring Spring Data Neo4j</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.2.</span> <span class="toc-text">12.2.2Annotating graph entities</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.3.</span> <span class="toc-text">12.2.3Working with Neo4jTemplate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.4.</span> <span class="toc-text">12.2.4Creating automatic Neo4j repositories</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.</span> <span class="toc-text">12.3Working with key-value data in Redis</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.1.</span> <span class="toc-text">12.3.1Connecting to Redis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.2.</span> <span class="toc-text">12.3.2Working with RedisTemplate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.3.</span> <span class="toc-text">12.3.3Setting key and value serializers</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.4.</span> <span class="toc-text">12.4Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Chapter13.Caching data</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.1.</span> <span class="toc-text">13.1Enabling cache support</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.1.1.</span> <span class="toc-text">13.1.1Configuring a cache manager</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.2.</span> <span class="toc-text">13.2Annotating methods for caching</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.2.1.</span> <span class="toc-text">3.2.1Populating the cache</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.2.2.</span> <span class="toc-text">13.2.2Removing cache entries</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.3.</span> <span class="toc-text">13.3Declaring caching in XML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.4.</span> <span class="toc-text">13.4Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Chapter14.Securing methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.0.1.</span> <span class="toc-text">14.1Securing methods with annotations</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">5.0.1.1.</span> <span class="toc-text">14.1.1Restricting method access with @Secured</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">5.0.1.2.</span> <span class="toc-text">14.1.2Using JSR-250’s @RolesAllowed with Spring Security</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.0.2.</span> <span class="toc-text">14.2Using expressions for method-level security</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">5.0.2.1.</span> <span class="toc-text">14.2.1Expressing method access rules</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">5.0.2.2.</span> <span class="toc-text">14.2.2Filtering method inputs and outputs</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.0.3.</span> <span class="toc-text">14.3Summary</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 16.67px;">Java编程思想读书笔记</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a> <a href="/tags/TECH/" style="font-size: 11.67px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 18.33px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.67px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 13.33px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

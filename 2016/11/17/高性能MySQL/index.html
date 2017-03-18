@@ -1,0 +1,646 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>高性能MySQL | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="去IOE：去掉IBM的小型机、Oracle数据库、EMC存储设备，代之以自己在开源软件基础上开发的系统。
+第一章：Mysql架构与历史Mysql最重要，最与众不同的的特性是它的存储引擎架构，这种架构的设计将查询处理（Query Processing）及其他系统任务（Server Task）和数据的存储/提取相分离。这种处理和存储分离的设计可以在使用时根据性能，特性，以及其他需求来选择数据存储的方式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高性能MySQL">
+<meta property="og:url" content="http://yoursite.com/2016/11/17/高性能MySQL/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="去IOE：去掉IBM的小型机、Oracle数据库、EMC存储设备，代之以自己在开源软件基础上开发的系统。
+第一章：Mysql架构与历史Mysql最重要，最与众不同的的特性是它的存储引擎架构，这种架构的设计将查询处理（Query Processing）及其他系统任务（Server Task）和数据的存储/提取相分离。这种处理和存储分离的设计可以在使用时根据性能，特性，以及其他需求来选择数据存储的方式">
+<meta property="og:image" content="http://img.blog.csdn.net/20161117102413369">
+<meta property="og:image" content="http://img.blog.csdn.net/20161117135843846">
+<meta property="og:updated_time" content="2017-03-18T14:57:16.025Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高性能MySQL">
+<meta name="twitter:description" content="去IOE：去掉IBM的小型机、Oracle数据库、EMC存储设备，代之以自己在开源软件基础上开发的系统。
+第一章：Mysql架构与历史Mysql最重要，最与众不同的的特性是它的存储引擎架构，这种架构的设计将查询处理（Query Processing）及其他系统任务（Server Task）和数据的存储/提取相分离。这种处理和存储分离的设计可以在使用时根据性能，特性，以及其他需求来选择数据存储的方式">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161117102413369">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/11/17/高性能MySQL/" title="高性能MySQL" itemprop="url">高性能MySQL</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-11-17T04:30:33.000Z" itemprop="datePublished"> Published 2016-11-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章：Mysql架构与历史"><span class="toc-number">1.</span> <span class="toc-text">第一章：Mysql架构与历史</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.1Mysql逻辑架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">1.1.1连接管理与安全性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">1.1.2优化与执行</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.2并发控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">1.2.1读写锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">1.2.2锁粒度</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.3事务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">1.3.1隔离级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">1.3.2死锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">1.3.3事务日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">1.3.4Mysql中的事务</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.4多版本并发控制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.5Mysql的存储引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">1.5.1InnoDB存储引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">1.5.2MyISAM存储引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">1.5.5选择合适的引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">1.5.6转换表的引擎</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.8总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第二章：Mysql基准测试"><span class="toc-number">1.</span> <span class="toc-text">第二章：Mysql基准测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">2.1为什么需要基准测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">2.2基准测试的策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">2.2.1测试何种指标</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">2.4基准测试工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">2.4.1集成式测试工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">2.4.2单组件式测试工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三章：服务器性能剖析"><span class="toc-number">1.</span> <span class="toc-text">第三章：服务器性能剖析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">3.1性能优化简介</span></a>
+		
+		</div>
+		
+		<p><strong>去IOE</strong>：<br>去掉IBM的小型机、Oracle数据库、EMC存储设备，代之以自己在开源软件基础上开发的系统。</p>
+<h2 id="第一章：Mysql架构与历史"><a href="#第一章：Mysql架构与历史" class="headerlink" title="第一章：Mysql架构与历史"></a>第一章：Mysql架构与历史</h2><p>Mysql最重要，最与众不同的的特性是它的<strong>存储引擎架构</strong>，这种架构的设计<strong>将查询处理（Query Processing）及其他系统任务（Server Task）和数据的存储/提取相分离</strong>。这种处理和存储分离的设计可以在使用时根据性能，特性，以及其他需求来选择数据存储的方式。</p>
+<h1>1.1Mysql逻辑架构</h1><br><img src="http://img.blog.csdn.net/20161117102413369" alt=""><br><br><strong>第一层</strong>：<br>并不是Mysql所独有的，大多数基于网络的客户端/服务器的工具或者服务都有类似的架构，比如连接处理，授权认证，安全等等。<br><br><strong>第二层</strong>：<br>大多数Mysql的核心服务功能都在这一层，包括查询解析，分析，优化，缓存以及所有内置函数（例如，日期，时间，数学和加密函数），所有跨存储引擎的功能都在这一层实现：存储过程，触发器，视图等。<br><br><strong>第三层</strong>：<br>包含了存储引擎，存储引擎负责Mysql中数据的存储和提取。和GNU/Linux下各种文件系统一样，每个存储引擎都有它的优势和劣势。<strong>服务器通过API与存储引擎进行通信，这些接口屏蔽了不同存储引擎之间的差异，使得这些差异对上层的查询过程透明</strong>。存储引擎API包含几十个底层函数，用于执行执行诸如“开始一个事务”等操作。但存储引擎不会去解析SQL（InnoDB是一个例外，它会解析外键定义，因为Mysql服务器本身没有实现该功能），不同存储引擎之间也不会相互通信，而是简单的响应上层服务器的请求。<br><br><h3>1.1.1连接管理与安全性</h3><br><br>每个客户端连接都会在服务器进程中拥有一个线程，这个连接的查询只会在这个<strong>单独的线程中</strong>执行。服务器会负责缓存线程，因此不需要为每一个新建的连接创建或者销毁线程。（Mysql5.5或者更新的版本提供了一个API，支持线程池（Thread Pooling）插件中，可以使用池中少量的线程来服务大量的连接）。<br><br><h3>1.1.2优化与执行</h3><br><br>Mysql会解析查询，并创建内部数据结构（解析树），然后对其进行各种优化，包括重写查询，决定表的读取顺序，以及选择合适的索引等。<br><br><strong>优化器并不关心表使用的是什么存储引擎，但存储引擎对于优化查询是有影响的</strong>。<br><br>对于SELECT语句，在解析查询之前，服务器会检查查询缓存（Query Cache），如果能够在其中找到对应的查询，服务器就不必再执行查询解析，优化和执行的整个过程，而是直接返回查询缓存中的结果集。<br><br><h1>1.2并发控制</h1>
+
+<p>无论何时，只要有多个查询需要在同一时刻修改数据，都会产生并发控制的问题。主要讨论两个层面的并发控制：<strong>1.服务器层</strong>，<strong>2.存储引擎层</strong>。</p>
+<h3>1.2.1读写锁</h3>
+
+<p>在处理并发读或者写时，可以通过实现一个由两种类型的锁组成的锁系统来解决问题。这两种类型的锁通常成为共享锁（shared lock）和排他锁（exclusive lock），也叫读锁（read lock）和写锁（write lock）。</p>
+<h3>1.2.2锁粒度</h3>
+
+<p>一种提高共享资源并发性的方式是<strong>让锁定对象更有选择性</strong>。任何时候，在给定的资源上，锁定的数据量越少，则系统的并发程度越高，想要相互之间不发生冲突即可。</p>
+<p>但锁不是越多越好，锁的各种操作都会增加系统的开销。</p>
+<p>Mysql提供了多种锁选择。每种Mysql存储引擎都可以实现自己的锁策略和锁粒度。</p>
+<p>将锁粒度固定在某个级别，可以为某些特定的应用场景提供更好的性能，但同时却会失去对另外一些应用场景的良好支持。下面介绍两种最重要的锁策略。</p>
+<p><strong>表锁（table lock）</strong></p>
+<p>表锁是Mysql中最基本的锁策略，并且是开销最小的策略。</p>
+<p><strong>行级锁（row lock）</strong></p>
+<p>行级锁可以<strong>最大程度地支持并发处理</strong>（同时也带来了最大的锁开销）。</p>
+<h1>1.3事务</h1>
+
+<p>除非系统通过严格的ACID测试，否则空谈事务的概念是不够的。ACID表示<strong>原子性（atomicity）</strong>,<strong>一致性（consistency）</strong>，<strong>隔离性（isolation）</strong>和<strong>持久性（durability）</strong>。</p>
+<p>就像锁粒度的升级会增加系统开销一样，<strong>这种事务处理过程中额外的安全性，也会需要数据库系统做更多的额外工作</strong>，一个实现了ACID的数据库，相比没有实现ACID的数据库，通常会需要更强的CPU处理能力，更大的内存和更多的磁盘空间。</p>
+<p>这也是Mysql的存储引擎架构可以发挥优势的地方，<strong>用户可以根据业务是否需要事务处理，来选择合适的存储引擎</strong>。</p>
+<h3>1.3.1隔离级别</h3>
+
+<p>在SQL标准中定义了<strong>四种隔离级别</strong>，每一种级别都规定了一个事务中所做的修改，哪些在事务内和事务间是可见的，哪些是不可见的。较低级别的隔离通常可以执行更高的并发，系统的开销也更低。</p>
+<p>四种隔离级别：</p>
+<p>1.<strong>READ UNCOMMITTED（未提交读）</strong></p>
+<p>其他事务可以读取未提交的数据，也被成为<strong>脏读（Dirty Read）</strong>。这个级别会导致很多问题，性能上也不会好太多，缺乏其他级别的很多好处，除非真的非常有必要，<strong>在实际应用中很少使用</strong>。</p>
+<p>2.<strong>READ COMMITTED（提交读）</strong></p>
+<p>READ COMMITTED满足前面提到的隔离性的简单定义：一个事务开始时，只能“看见”已经提交的事务所做的修改。换句话说，一个事务从开始直到提交之前，所做的任何修改对其他事务都是不可见的。也叫<strong>不可重复读</strong>。因为两次执行同样的查询，可能会得到不一样的结果。</p>
+<p>3.<strong>REPEATABLE READ（可重复读）</strong></p>
+<p>该级别保证了在同一个事务中多次读取同样的记录的结果是一致的。<strong>可重复读是Mysql的默认事务隔离级别</strong>。</p>
+<p>4.<strong>SERIALIZABLE（可串行化）</strong><br>SERIALIZABLE会在读取的每一行数据上偶加锁，所以可能导致大量的超时和锁争用的问题。<strong>实际中很少使用这个级别，只有在非常需要确保数据的一致性而且可以接收没有并发的情况下，才考虑采用该级别</strong>。</p>
+<p><img src="http://img.blog.csdn.net/20161117135843846" alt=""></p>
+<h3>1.3.2死锁</h3>
+
+<p>为了解决死锁的问题，数据库系统实现了各种死锁检测和死锁超时机制。越复杂的系统，比如InnoDB存储引擎，越能检测到死锁的循环依赖，并立即返回一个错误。</p>
+<h3>1.3.3事务日志</h3>
+
+<p>事务日志可以帮助提高事务的效率。</p>
+<h3>1.3.4Mysql中的事务</h3>
+
+<p>Mysql默认采用<strong>自动提交（AUTOCOMMIT）</strong>模式。</p>
+<p>也就是说，<strong>如果不是显式地开始一个事务，则每个查询都会被当做一个事务执行提交操作</strong>。</p>
+<p><strong>注意</strong>：<br>修改AUTOCOMMIT对于非事务型的表，比如MyISAM或者内存表，不会有任何影响。对于这类表来说，没有COMMIT或者ROLLBACK的概念，也可以说是相当于一直处于AUTOCOMMIT启用的模式。</p>
+<p>Mysql可以铜鼓执行 SET TRANSACTION LEVEL命令来设置隔离级别。新的隔离级别会在下一个事务开始的时候生效。可以在配置文件中设置整个数据库的隔离级别，也可以只改变当前会话的隔离级别。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET SESSION TRANSACTION ISLATION LEVEL READ COMMITTED//改变当前连接的隔离级别，另外的连接</span><br><span class="line">//不受影响</span><br></pre></td></tr></table></figure>
+<p>查看数据库信息的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">show variables;//返回全部的信息</span><br><span class="line">show variables like &quot;%isolation%&quot;;//返回包含特定</span><br><span class="line">//字符串的信息</span><br></pre></td></tr></table></figure>
+<p><strong>在事务中混合使用存储引擎</strong>：</p>
+<p><strong>Mysql服务器层不管理事务，事务是由下层的存储引擎实现的</strong>。</p>
+<p><strong>所以在同一个事务中，使用多种存储引擎是不可靠的</strong>。</p>
+<p>如果在事务中混合使用了事务型和非事务型的表，在正常情况下没有什么问题。<strong>但是！</strong>如果事务要回滚，非事务型的表上的变更就无法撤销，这会导致数据库处于不一致的状态，这种情况将很难修复。</p>
+<p><strong>所以，为每张表选择合适的存储引擎非常重要</strong>。</p>
+<p><strong>隐式和显式锁定</strong>：</p>
+<h1>1.4多版本并发控制</h1>
+
+<p>Mysql的大多数事务型存储引擎实现的都不是简单的行级锁。它们一般都同时实现了<strong>多版本并发控制（MVCC）</strong>。</p>
+<p>可以<strong>认为MVCC是行级锁的一个变种</strong>，但是它在很多情况下避免了加锁操作，因此开销更低。虽然实现机制有所不同，但大都实现了非阻塞的读操作，写操作也只锁定必要的行。</p>
+<h1>1.5Mysql的存储引擎</h1>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW TABLE STATUS;//显示表的相关信息</span><br></pre></td></tr></table></figure>
+<h3>1.5.1InnoDB存储引擎</h3>
+
+<p>InnoDB是Mysql的默认事务型引擎，它<strong>被设计用来处理大量的短期（short-lived）事务</strong>，短期事务大部分情况下是正常提交的，很少会被回滚。InnoDB的性能和自动崩溃恢复特性，使得它在非事务型存储的需求中也很流行。</p>
+<p><strong>除非有非常特别的原因需要使用其他的存储引擎，否则应该优先考虑InnoDB引擎</strong>。</p>
+<h3>1.5.2MyISAM存储引擎</h3>
+
+<p>还有其他很多的引擎</p>
+<h3>1.5.5选择合适的引擎</h3>
+
+<p>这么多存储引擎，该怎么选择？大部分情况下，InnoDB都是正确的选择，在Mysql5.5即以后都将InnoDB作为默认的存储引擎了。</p>
+<p><strong>除非万不得已，否则建议不要混合使用多种存储引擎</strong>。</p>
+<p>如果应用需要不同的存储引擎，请先考虑以下几个因素。</p>
+<p>1.<strong>事务</strong>：<br>如果需要事务支持，那么选InnoDB（或者XtraDB）。如果不需要事务，并且主要是SELECT和INSERT操作，那么MyISAM是不错的选择。</p>
+<p>2.<strong>备份</strong>：<br>如果可以定期关闭服务器来执行备份，那么备份的因素可以忽略。如果需要在线热备份，那么选择InnoDB就是基本的要求。</p>
+<p>3.崩溃恢复：<br>数据量比较大的时候，系统崩溃后如何快速恢复是一个需要考虑的问题。<strong>InnoDB这方面比MyISAM好很多</strong>。</p>
+<p>4.<strong>特有的特性</strong>：</p>
+<p><strong>下面有几个例子可以看看数据库存储引擎的选型问题</strong>：</p>
+<p>1.<strong>日志型应用</strong></p>
+<p>假设需要实时地记录一台中心电话机的每一通电话的日志到Mysql中，或者将网站的所有访问信息直接记录到表中。</p>
+<p>这类应用的特点是：<strong>对插入的速度有很高的要求，数据库不能成为瓶颈</strong>。<strong>MyISAM</strong>或者<strong>Archive</strong>存储引擎对这类应用比较合适，<strong>因为它们开销低，而且插入速度非常快</strong>。</p>
+<p>再深入一点，还需要对记录的日志做分析报表，这样，生成报表的SQL很有可能会导致插入效率明显降低，该怎么办呢？</p>
+<p><strong>方案一</strong>：<br>利用Mysql内置的复制方案将数据复制一份到备库，然后在备库上执行比较消耗时间和CPU的查询。这样主库只用于高效的插入工作，而备库上执行的查询也无须担心影响到日志的插入性能。</p>
+<p><strong>方案二</strong>：<br>在日志记录表的名字中包含年和月的信息，这样可以在已经没有插入操作的历史表上做频繁的查询操作，而不会干扰到最新的当前表上的插入操作。</p>
+<p>2.<strong>只读或者大部分情况下只读的表</strong></p>
+<p><strong>注意</strong>：</p>
+<p><strong>不要低估崩溃恢复问题的重要性</strong>，有些存储引擎不会保证讲数据安全地写入到磁盘中，而很多用户实际上并不清楚这样有多大的风险（<strong>MyISAM只将数据写入内存中，然后等待操作系统定期将数据刷出到硬盘上</strong>）。</p>
+<p>当设计上述类型的应用时，建议采用InnoDB。MyISAM引擎在一开始可能没有任何问题，但随着应用压力的上升，各种锁争用，崩溃后的数据丢失等问题会随之而来。</p>
+<p>3.<strong>订单处理</strong></p>
+<p>如果涉及订单处理，那么支持事务是必要选项。还有就是存储引擎对外键的支持情况。InnoDB是订单处理类应用的最佳选择。</p>
+<p>4.<strong>大数据量</strong></p>
+<p>什么样的数据量算大？我们创建或者管理的很多InnoDB数据库的数据量在<strong>3-5TB之间</strong>，或者更大，这时单台机器上的量，不是一个分片（shard）的量。运行得都很好，只要合理地选择硬件，做好物理设计，并为服务器的I/O做好规划就行。</p>
+<p>如果数据量增加到10TB之上，就需要建立数据仓库。<strong>Infobright</strong>是Mysql数据仓库最成功的解决方案。</p>
+<h3>1.5.6转换表的引擎</h3>
+
+<p><strong>注意</strong>：<br>如果转换表的存储引擎，将会失去和原引擎相关的所有特性。例如，如果将一张InnoDB表转换为MyISAM，然后再转换回InnoDB，原InnoDB表上所有的外键将丢失。</p>
+<p>有很多种方法可以将表的存储引擎转换为另外一种引擎。</p>
+<p>1.<strong>ALTER TABLE</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE mytable ENGINE=InnoDB;</span><br></pre></td></tr></table></figure>
+<p>上述语法可以适用于任何存储引擎，但有个问题，<strong>需要执行很长时间</strong>。</p>
+<p>2.<strong>导出与导入</strong></p>
+<p>使用<strong>mysqldump</strong>将数据导出到文件，然后修改文件中CREATE TABLE语句的存储引擎选项，注意同时修改表名，因为同一个数据库中不能存在相同的表名，即使使用不同的存储引擎。</p>
+<p>3.<strong>创建与查询（CREATE和SELECT）</strong></p>
+<p>第三种技术综合了第一种方法的高效和第二种方法的安全。代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE innodb_table LIKE myisam_table;</span><br><span class="line">ALTER TABLE inno_table ENGINE=InnoDB;</span><br><span class="line">INSERT INTO innodb_table SELECT * FROM myisam_table;</span><br></pre></td></tr></table></figure>
+<p>如果数据库量很大，可以分批处理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">START TRANSACTION；</span><br><span class="line">INSERT INTO innodb_table SELECT × FROM myisam_table WHERE id BETWEEN x AND y;</span><br><span class="line">COMMIT;</span><br></pre></td></tr></table></figure>
+<h1>1.8总结</h1>
+
+<p>Mysql拥有分层的架构，上层是服务器层的服务和查询执行引擎，下层则是存储引擎。</p>
+<h2 id="第二章：Mysql基准测试"><a href="#第二章：Mysql基准测试" class="headerlink" title="第二章：Mysql基准测试"></a>第二章：Mysql基准测试</h2><p>基准测试（benckmark）是针对系统设计的一种压力测试，通常的目标是掌握系统的行为。</p>
+<h1>2.1为什么需要基准测试</h1>
+
+<h1>2.2基准测试的策略</h1>
+
+<p>基准测试有两种主要的策略：一是针对整个系统的整体测试，另外是单独测试Mysql。这两种策略也被成为集成式（full-stack）以及单组件式（single-component）基准测试。</p>
+<h3>2.2.1测试何种指标</h3>
+
+<p>一般指标：</p>
+<p>1.<strong>吞吐量</strong></p>
+<p><strong>吞吐量指的是单位时间内的事务处理数</strong>。这类基准测试主要针对在线事务处理（OLTP）的吞吐量。非常适用于多用户的交互式应用。常用的测试单位是每秒事务数（TPS）。</p>
+<p>2.<strong>响应时间或者延迟</strong></p>
+<p>3.<strong>并发性</strong></p>
+<p>并发性是一个非常重要又经常被误解和误用的指标。例如，它经常被表示成多少用户在同一时间浏览同一个Web站点，经常使用的指标是有多少个会话（特别是一些论坛软件，已经让很多管理员错误地相信同时有成千上万的用户正在同时访问网站）。然而，HTTP协议是无状态的，大多数用户只是简单的读取浏览器上显示的信息，这并不等同于Web服务器的并发性。而且，Web服务器的并发性也不等同于数据库的并发性，而仅仅只表示会话存储机制可以处理多少数据的能力。<strong>Web服务器的并发性更准确的度量指标，应该是在任意时间有多少同时发生的并发请求</strong>。</p>
+<p>Web服务器的高并发，一般也会导致数据库的高并发，但服务器采用的语言和工具集对此都会有影响。<strong>注意不要将创建数据库连接和并发性搞混淆</strong>。一个设计良好的应用，同时可以打开成百上千个Mysql数据库服务器连接，但可能同时只有少数连接在执行查询，所以说，一个Web站点“同时有50000个用户访问”，但可能只有10-15个并发请求到Mysql数据库。</p>
+<h1>2.4基准测试工具</h1>
+
+<h3>2.4.1集成式测试工具</h3>
+
+<p>工具如下：</p>
+<p>1.ab</p>
+<p>ab是一个Apache HTTP服务器基准测试工具。可以测试HTTP服务器每秒最多可以处理多少请求。如果测试的是Web应用服务，这个结果可以转换成整个应用每秒可以满足多少请求。<strong>只能针对单个URL进行尽可能快的压力测试</strong>。</p>
+<p>2.http_load,JMeter等等，自己用时查吧</p>
+<h3>2.4.2单组件式测试工具</h3>
+
+<p>有一些可用的工具可以测试Mysql和Mysql系统的性能。</p>
+<p>工具如下；</p>
+<p>1.mysqlslap<br>2.MYSQL Benchmark Suite(sql-bench)<br>3.Super Smack<br>4.Database Test Suite<br>5.sysbench</p>
+<h2 id="第三章：服务器性能剖析"><a href="#第三章：服务器性能剖析" class="headerlink" title="第三章：服务器性能剖析"></a>第三章：服务器性能剖析</h2><p><strong>最常碰到的三个性能相关的服务请求是</strong>：</p>
+<p>1.如何确认服务器是否达到了性能最佳的状态<br>2.找出某条语句为什么执行不够快<br>3.诊断被用户描述成“停顿”，“堆积”，或者“卡死”的某些间歇性疑难故障</p>
+<h1>3.1性能优化简介</h1>
+
+<p><strong>我们将性能定义为完成某件任务所需要的时间度量，换句话说，性能即响应时间，这是一个重要的原则</strong>。</p>
+<p>还有另一个问题：<strong>什么是优化？</strong></p>
+<p>假如你认为性能优化是降低CPU利用率，那么可以减少对资源的使用。但这是一个陷阱，<strong>资源是用来消耗并用来工作的，所以有时候消耗更多的资源能够加快查询速度</strong>。</p>
+<p>同样，如果把性能优化仅仅看成是提升每秒查询量，这其实只是吞吐量优化。吞吐量的提升可以看做是性能优化的副产品。</p>
+<p>如果目标是降低响应时间，那么就需要理解为什么服务器执行查询需要这么多的时间，然后去减少或者消除那些对获得查询结果来说不必要的工作。</p>
+<p>这引出了优化的第二个原则：<strong>无法测量就无法有效地优化</strong>。所以第一步应该测量时间花在什么地方。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/后端开发/">后端开发</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/11/17/高性能MySQL/" data-title="高性能MySQL | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/11/22/Hadoop文档学习笔记/" title="Hadoop文档学习笔记">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Hadoop文档学习笔记</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/11/16/白帽子讲Web安全/"  title="白帽子讲Web安全">
+ <strong>下一篇：</strong><br/> 
+ <span>白帽子讲Web安全
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/11/17/高性能MySQL/" data-title="高性能MySQL" data-url="http://yoursite.com/2016/11/17/高性能MySQL/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章：Mysql架构与历史"><span class="toc-number">1.</span> <span class="toc-text">第一章：Mysql架构与历史</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.1Mysql逻辑架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">1.1.1连接管理与安全性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">1.1.2优化与执行</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.2并发控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">1.2.1读写锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">1.2.2锁粒度</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.3事务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">1.3.1隔离级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">1.3.2死锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">1.3.3事务日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">1.3.4Mysql中的事务</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.4多版本并发控制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.5Mysql的存储引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">1.5.1InnoDB存储引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">1.5.2MyISAM存储引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">1.5.5选择合适的引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">1.5.6转换表的引擎</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.8总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第二章：Mysql基准测试"><span class="toc-number">1.</span> <span class="toc-text">第二章：Mysql基准测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">2.1为什么需要基准测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">2.2基准测试的策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">2.2.1测试何种指标</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">2.4基准测试工具</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">2.4.1集成式测试工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">2.4.2单组件式测试工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三章：服务器性能剖析"><span class="toc-number">1.</span> <span class="toc-text">第三章：服务器性能剖析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">3.1性能优化简介</span></a>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 16.67px;">Java编程思想读书笔记</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a> <a href="/tags/TECH/" style="font-size: 11.67px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 18.33px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.67px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 13.33px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

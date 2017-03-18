@@ -1,0 +1,979 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Spring in action--Part1-Core Spring | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="全书章节
+Core SpringThe first part introduces you to the essentials of the Spring Framework. 
+Spring on the webPart 2 expands on that by showing how to build web applications with Spring. 
+Spring in the b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring in action--Part1-Core Spring">
+<meta property="og:url" content="http://yoursite.com/2016/10/03/Spring in action--Part1-Core Spring/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="全书章节
+Core SpringThe first part introduces you to the essentials of the Spring Framework. 
+Spring on the webPart 2 expands on that by showing how to build web applications with Spring. 
+Spring in the b">
+<meta property="og:image" content="http://img.blog.csdn.net/20161003170332065">
+<meta property="og:image" content="http://img.blog.csdn.net/20161003170640550">
+<meta property="og:image" content="http://img.blog.csdn.net/20161003204712177">
+<meta property="og:image" content="http://img.blog.csdn.net/20161003211539355">
+<meta property="og:image" content="http://img.blog.csdn.net/20161006191008659">
+<meta property="og:image" content="http://img.blog.csdn.net/20161006203133186">
+<meta property="og:image" content="http://img.blog.csdn.net/20161006214607447">
+<meta property="og:image" content="http://img.blog.csdn.net/20161006214906545">
+<meta property="og:image" content="http://img.blog.csdn.net/20161007184134430">
+<meta property="og:image" content="http://img.blog.csdn.net/20161007185110628">
+<meta property="og:image" content="http://img.blog.csdn.net/20161007185834294">
+<meta property="og:image" content="http://img.blog.csdn.net/20161007190052516">
+<meta property="og:image" content="http://img.blog.csdn.net/20161007191801118">
+<meta property="og:image" content="http://img.blog.csdn.net/20161007201422867">
+<meta property="og:image" content="http://img.blog.csdn.net/20161007204017747">
+<meta property="og:updated_time" content="2017-03-18T14:33:30.800Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring in action--Part1-Core Spring">
+<meta name="twitter:description" content="全书章节
+Core SpringThe first part introduces you to the essentials of the Spring Framework. 
+Spring on the webPart 2 expands on that by showing how to build web applications with Spring. 
+Spring in the b">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161003170332065">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/10/03/Spring in action--Part1-Core Spring/" title="Spring in action--Part1-Core Spring" itemprop="url">Spring in action--Part1-Core Spring</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-03T07:23:39.000Z" itemprop="datePublished"> Published 2016-10-03</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#全书章节"><span class="toc-number">1.</span> <span class="toc-text">全书章节</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Part1-Core-Spring"><span class="toc-number">2.</span> <span class="toc-text">Part1.Core Spring</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter1.Springing into action</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">1.1Simplifying Java development</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.1.</span> <span class="toc-text">1.1.2Injecting dependencies</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.2.</span> <span class="toc-text">1.1.3Applying aspects</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.3.</span> <span class="toc-text">1.1.4Eliminating boilerplate code with templates</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">1.2Containing your beans</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.1.</span> <span class="toc-text">1.2.1Working with an application context</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.2.</span> <span class="toc-text">1.2.2A bean’s life</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">1.3Surveying the Spring landscape</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.1.</span> <span class="toc-text">1.3.1Spring modules</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.2.</span> <span class="toc-text">1.3.2The Spring portfolio</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">1.5Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter2.Wiring beans</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">2.2Automatically wiring beans</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.1.</span> <span class="toc-text">2.2.2Naming a component-scanned bean</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.2.</span> <span class="toc-text">2.2.3Setting a base package for component scanning</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.3.</span> <span class="toc-text">2.2.4Annotating beans to be automatically wired</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.4.</span> <span class="toc-text">2.2.5Verifying automatic configuration</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">2.6Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter3.Advanced wiring</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">3.1Environments and profiles</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.1.</span> <span class="toc-text">3.1.1Configuring profile beans</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.2.</span> <span class="toc-text">3.1.2Activating profiles</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">3.2Conditional beans</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">3.3Addressing ambiguity in autowiring</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.1.</span> <span class="toc-text">3.3.1Designating a primary bean</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.2.</span> <span class="toc-text">3.3.2Qualifying autowired beans</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">3.4Scoping beans</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.1.</span> <span class="toc-text">3.4.1Working with request and session scope</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.2.</span> <span class="toc-text">3.4.2Declaring scoped proxies in XML</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.5.</span> <span class="toc-text">3.5Runtime value injection</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.5.1.</span> <span class="toc-text">3.5.1Injecting external values</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.5.2.</span> <span class="toc-text">3.5.2Wiring with the Spring Expression Language</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.6.</span> <span class="toc-text">3.6Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter4.Aspect-oriented Spring</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">4.1What is aspect-oriented programming?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.1.</span> <span class="toc-text">4.1.1Defining AOP terminology</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.2.</span> <span class="toc-text">4.1.2Spring’s AOP support</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">4.2Selecting join points with pointcuts</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.1.</span> <span class="toc-text">4.2.1Writing pointcuts</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.2.</span> <span class="toc-text">4.2.2 Selecting beans in pointcuts</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">4.3Creating annotated aspects</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.1.</span> <span class="toc-text">4.3.1Defining an aspect</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.2.</span> <span class="toc-text">4.3.2Creating around advice</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.3.</span> <span class="toc-text">4.3.3Handling parameters in advice</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.4.</span> <span class="toc-text">4.3.4Annotating introductions</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">4.4Declaring aspects in XML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.5.</span> <span class="toc-text">4.5Injecting AspectJ aspects</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.6.</span> <span class="toc-text">4.6Summary</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="全书章节"><a href="#全书章节" class="headerlink" title="全书章节"></a>全书章节</h2><ol>
+<li><strong>Core Spring</strong><br>The first part introduces you to the essentials of the Spring Framework. </li>
+<li><strong>Spring on the web</strong><br>Part 2 expands on that by showing how to build web applications with Spring. </li>
+<li><strong>Spring in the back end</strong><br>Part 3 steps behind the front end and shows where Spring fits in the back end of an application. </li>
+<li><strong>Integrating Spring</strong><br>The final part shows how Spring can be used to integrate with other applications and services. </li>
+</ol>
+<p> The Spring Framework was created with a very specific <strong>goal</strong> in mind—<strong>to make developing Java EE applications easier</strong>. </p>
+<p><strong>Spring Boot</strong> can take away much of the boilerplate configuration required in a Spring application,enabling you to focus on the business functionality.</p>
+<hr>
+<h2 id="Part1-Core-Spring"><a href="#Part1-Core-Spring" class="headerlink" title="Part1.Core Spring"></a>Part1.Core Spring</h2><p>its primary features are dependency injection (<strong>DI</strong>) and aspect-oriented programming (<strong>AOP</strong>).</p>
+<h1>Chapter1.Springing into action</h1>
+
+<p>A handful of rough spots, such as applets, Enterprise JavaBeans(EJB), Java Data Objects (JDO).Finally,Spring comes to the stage!</p>
+<h3>1.1Simplifying Java development</h3>
+
+<p>Spring was created to address the complexity of enterprise application development and makes it possible to use plain-vanilla <strong>JavaBeans</strong> to achieve things <strong>that were previously only possible with EJB</strong>.</p>
+<p>A bean by any other name… Although Spring uses the words bean and JavaBean liberally when referring to application components, <strong>this doesn’t mean a Spring component must follow the JavaBeans specification to the letter</strong>. <strong>A Spring component can be any type of POJO</strong>. In this book, I assume a loose definition of JavaBean, which is synonymous with POJO.</p>
+<p><strong>How does Spring simplify Java development?</strong><br>To back up its attack on Java complexity, Spring employs four key strategies:<br>1.Lightweight and minimally invasive development with POJOs<br>2.Loose coupling through DI and interface orientation<br>3.Declarative programming through aspects and common conventions<br>4.Eliminating boilerplate code(样板代码) with aspects and templates（模板）</p>
+<h4>1.1.2Injecting dependencies</h4>
+
+<p>Coupling is a two-headed beast. On the one hand, tightly coupled code is difficult<br>to test, difficult to reuse, and difficult to understand, and it typically exhibits “whack-amole” bug behavior (fixing one bug results in the creation of one or more new bugs).紧耦合引发坏处</p>
+<p>On the other hand, a certain amount of coupling is necessary—completely uncoupled<br>code doesn’t do anything. In order to do anything useful, classes need to know about each other somehow. Coupling is necessary but should be carefully managed.工程实现中不得不出现耦合。因此一定要松耦合！</p>
+<p><strong>With DI, objects are given their dependencies at creation time</strong> by some third party that coordinates each object in the system. </p>
+<p>对比：<br>Without DI：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package com.springinaction.knights;</span><br><span class="line">public class DamselRescuingKnight implements Knight &#123;</span><br><span class="line">private RescueDamselQuest quest;</span><br><span class="line">public DamselRescuingKnight() &#123;</span><br><span class="line">this.quest = new RescueDamselQuest();//跟RescueDamselQuest紧耦合</span><br><span class="line">&#125;</span><br><span class="line">public void embarkOnQuest() &#123;</span><br><span class="line">quest.embark();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>With DI:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package com.springinaction.knights;</span><br><span class="line">public class BraveKnight implements Knight &#123;</span><br><span class="line">private Quest quest;</span><br><span class="line">public BraveKnight(Quest quest) &#123;//Quest is injected</span><br><span class="line">this.quest = quest;</span><br><span class="line">&#125;</span><br><span class="line">public void embarkOnQuest() &#123;</span><br><span class="line">quest.embark();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>As you can see, BraveKnight, unlike DamselRescuingKnight, <strong>doesn’t create his own<br>quest</strong>. Instead, he’s given a quest at construction time as a constructor argument. This<br>is a type of DI known as <strong>constructor injection</strong>.(构造器注入)</p>
+<p>One of the most common ways a dependency is swapped out is with a <strong>mock implementation during testing</strong>. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">package com.springinaction.knights;</span><br><span class="line">import static org.mockito.Mockito.*;</span><br><span class="line">import org.junit.Test;</span><br><span class="line">public class BraveKnightTest &#123;</span><br><span class="line">@Test</span><br><span class="line">public void knightShouldEmbarkOnQuest() &#123;</span><br><span class="line">Quest mockQuest = mock(Quest.class);// create mock Quest</span><br><span class="line">BraveKnight knight = new BraveKnight(mockQuest);//inject mock Quest</span><br><span class="line">knight.embarkOnQuest();</span><br><span class="line">verify(mockQuest, times(1)).embark();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>injecting a quest into a knight</strong></p>
+<p>SlayDragonQuest如下：（BraveKnight在上面）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package com.springinaction.knights;</span><br><span class="line">import java.io.PrintStream;</span><br><span class="line">public class SlayDragonQuest implements Quest &#123;</span><br><span class="line">private PrintStream stream;</span><br><span class="line">public SlayDragonQuest(PrintStream stream) &#123;</span><br><span class="line">this.stream = stream;</span><br><span class="line">&#125;</span><br><span class="line">public void embark() &#123;</span><br><span class="line">stream.println(&quot;Embarking on quest to slay the dragon!&quot;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里梳理一下，有两个接口Knight，Quest。BraveKnight实现了Knight，在构造方法中需要传入参数Quest，并调用了quest的embark方法。SlayDragonQuest实现了Quest，在构造方法中需要传入参数PrintStream，具有embark方法。</p>
+<p>The big question here is:</p>
+<p>1.how can you give SlayDragonQuest to BraveKnight?<br>2.And how can you give a PrintStream to SlayDragonQuest?</p>
+<p>The act of creating associations between application components is commonly referred to as <strong>wiring</strong>. (绑定)</p>
+<p>绑定有很多方法：<br>1.XML</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans</span><br><span class="line">http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line">&lt;bean id=&quot;knight&quot; class=&quot;com.springinaction.knights.BraveKnight&quot;&gt;</span><br><span class="line">&lt;constructor-arg ref=&quot;quest&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;bean id=&quot;quest&quot; class=&quot;com.springinaction.knights.SlayDragonQuest&quot;&gt;</span><br><span class="line">&lt;constructor-arg value=&quot;#&#123;T(System).out&#125;&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>2.JAVA代码绑定</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package com.springinaction.knights.config;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">import com.springinaction.knights.BraveKnight;</span><br><span class="line">import com.springinaction.knights.Knight;</span><br><span class="line">import com.springinaction.knights.Quest;</span><br><span class="line">import com.springinaction.knights.SlayDragonQuest;</span><br><span class="line">@Configuration</span><br><span class="line">public class KnightConfig &#123;</span><br><span class="line">@Bean</span><br><span class="line">public Knight knight() &#123;</span><br><span class="line">return new BraveKnight(quest());</span><br><span class="line">&#125;</span><br><span class="line">@Bean</span><br><span class="line">public Quest quest() &#123;</span><br><span class="line">return new SlayDragonQuest(System.out);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>总结：</p>
+<p>Whether you use XML-based or Java-based configuration, the benefits of DI are the same. Although BraveKnight depends on a Quest, it doesn’t know what type of Quest it will be given or where that Quest will come from. Likewise, SlayDragonQuest depends on a PrintStream, but it isn’t coded with knowledge of how that PrintStream comes to be. </p>
+<p><strong>Only Spring, through its configuration, knows how all the pieces come together.</strong> This makes it possible to change those dependencies with no changes to the depending classes.</p>
+<p>不要纠结于绑定，后面还有更多的绑定方法，包括<strong>自动绑定</strong>。</p>
+<p><strong>seeing it work</strong><br>如果用了XML进行绑定，需要将XML导入到代码中嘛。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package com.springinaction.knights;</span><br><span class="line">import org.springframework.context.support.</span><br><span class="line">ClassPathXmlApplicationContext;</span><br><span class="line">public class KnightMain &#123;</span><br><span class="line">public static void main(String[] args) throws Exception &#123;</span><br><span class="line">ClassPathXmlApplicationContext context =  //load spring context</span><br><span class="line">new ClassPathXmlApplicationContext(</span><br><span class="line">&quot;META-INF/spring/knight.xml&quot;);</span><br><span class="line">Knight knight = context.getBean(Knight.class);  //get Knight bean</span><br><span class="line">knight.embarkOnQuest();  //use Knight</span><br><span class="line">context.close();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>For <strong>Java-based configurations</strong>, Spring offers <strong>AnnotationConfigApplicationContext</strong>.</p>
+<p>关于DI就介绍到这。下面介绍Spring另一大杀器。<br>Now let’s look at another of Spring’s Java-simplifying strategies: <strong>declarative programming through aspects</strong>.</p>
+<h4>1.1.3Applying aspects</h4>
+
+<p>Although DI makes it possible to tie software components together loosely, aspectoriented programming (AOP) enables you to <strong>capture functionality that’s used throughout your application in reusable components</strong>.</p>
+<p>AOP is often defined as a technique that promotes separation of concerns in a software system. Systems are composed of several components, each responsible for a specific piece of functionality. But often these components also carry additional responsibilities beyond their core functionality. System services such as logging, transaction management, and security often find their way into components whose core responsibilities is something else. These system services are commonly referred to as <strong>cross-cutting concerns(交叉业务)</strong> because they tend to cut across multiple components in a system.（因为它们总是分布在很多组件中）。</p>
+<p>By spreading these concerns across multiple components, you introduce two levels<br>of complexity to your code:</p>
+<p>1.实现系统级业务的代码在多个组件中都有重复的复制。这意味着如果你要改变这些业务逻辑，你就必须到各个模块中去修改。就算你把这些业务抽象成一个独立模块，其他模块只是调用它的一个方法，但是这个方法调用也还是分布在很多地方。</p>
+<p>2.你的组件会因为那些与自己核心业务无关的代码而变得杂乱。<br>如图：<br><img src="http://img.blog.csdn.net/20161003170332065" alt=""></p>
+<p>面向切面编程：<br><img src="http://img.blog.csdn.net/20161003170640550" alt=""></p>
+<p><strong>AOP in action</strong><br>还是举上面Kight和Quest的例子。考虑这样一种需求，我需要一个logging服务，在每次Quest调用embark之前加上一句话（before），在调用之后又加上一句话（after）。这种场景需求应该是很多的。我们很自然地想到这样实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//A Minstrel is a musically inclined logging system from medieval times.</span><br><span class="line"></span><br><span class="line">package com.springinaction.knights;</span><br><span class="line">import java.io.PrintStream;</span><br><span class="line">public class Minstrel &#123;</span><br><span class="line">private PrintStream stream;</span><br><span class="line">public Minstrel(PrintStream stream) &#123;</span><br><span class="line">this.stream = stream;</span><br><span class="line">&#125;</span><br><span class="line">public void singBeforeQuest() &#123;  //called before quest</span><br><span class="line">stream.println(&quot;Fa la la, the knight is so brave!&quot;);</span><br><span class="line">&#125;</span><br><span class="line">public void singAfterQuest() &#123;  //called after quest</span><br><span class="line">stream.println(&quot;Tee hee hee, the brave knight &quot; +</span><br><span class="line">&quot;did embark on a quest!&quot;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在BraveKnight中inject，然后调用这些方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//A BraveKnight that must call Minstrel methods</span><br><span class="line"></span><br><span class="line">package com.springinaction.knights;</span><br><span class="line">public class BraveKnight implements Knight &#123;</span><br><span class="line">private Quest quest;</span><br><span class="line">private Minstrel minstrel;</span><br><span class="line">public BraveKnight(Quest quest, Minstrel minstrel) &#123;</span><br><span class="line">this.quest = quest;</span><br><span class="line">this.minstrel = minstrel;</span><br><span class="line">&#125;</span><br><span class="line">public void embarkOnQuest() throws QuestException &#123;</span><br><span class="line">minstrel.singBeforeQuest();  //Should a knight manage his own minstrel?</span><br><span class="line">quest.embark();</span><br><span class="line">minstrel.singAfterQuest();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是，这样真的对吗？</p>
+<p>Is it really within the knight’s range of concern to manage his minstrel? It seems to me that minstrels should just do their job without having to be asked to do so. After all, that’s a minstrel’s job—to sing about the knight’s endeavors. Why should the knight have to keep reminding the minstrel?（不应该是minstrel自动添加上吗？为什么要knight去管理minstrel呢？所以上面的做法不对哦）</p>
+<p>应该利用AOP的思想，将其看做一个service。然后在Spring中进行配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;</span><br><span class="line">xsi:schemaLocation=&quot;http://www.springframework.org/schema/aop</span><br><span class="line">http://www.springframework.org/schema/aop/spring-aop-3.2.xsd</span><br><span class="line">http://www.springframework.org/schema/beans</span><br><span class="line">http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line">&lt;bean id=&quot;knight&quot; class=&quot;com.springinaction.knights.BraveKnight&quot;&gt;</span><br><span class="line">&lt;constructor-arg ref=&quot;quest&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;bean id=&quot;quest&quot; class=&quot;com.springinaction.knights.SlayDragonQuest&quot;&gt;</span><br><span class="line">&lt;constructor-arg value=&quot;#&#123;T(System).out&#125;&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;bean id=&quot;minstrel&quot; class=&quot;com.springinaction.knights.Minstrel&quot;&gt; //declare minstrel bean</span><br><span class="line">&lt;constructor-arg value=&quot;#&#123;T(System).out&#125;&quot; /&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">&lt;aop:config&gt;</span><br><span class="line">&lt;aop:aspect ref=&quot;minstrel&quot;&gt;</span><br><span class="line">&lt;aop:pointcut id=&quot;embark&quot;</span><br><span class="line">expression=&quot;execution(* *.embarkOnQuest(..))&quot;/&gt;  //define pointcut</span><br><span class="line">&lt;aop:before pointcut-ref=&quot;embark&quot;  //declare before advice</span><br><span class="line">method=&quot;singBeforeQuest&quot;/&gt;</span><br><span class="line">&lt;aop:after pointcut-ref=&quot;embark&quot;  //declare after advice</span><br><span class="line">method=&quot;singAfterQuest&quot;/&gt;</span><br><span class="line">&lt;/aop:aspect&gt;</span><br><span class="line">&lt;/aop:config&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<h4>1.1.4Eliminating boilerplate code with templates</h4>
+
+<p>样板代码是简单的，繁琐的，但又不得不写的无聊的代码。简单理解是很多功能实现的基本“套路”。比如跟JDBC打交道：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">public Employee getEmployeeById(long id) &#123;</span><br><span class="line">Connection conn = null;</span><br><span class="line">PreparedStatement stmt = null;</span><br><span class="line">ResultSet rs = null;</span><br><span class="line">try &#123;</span><br><span class="line">conn = dataSource.getConnection();</span><br><span class="line">stmt = conn.prepareStatement(</span><br><span class="line">&quot;select id, firstname, lastname, salary from &quot; +</span><br><span class="line">&quot;employee where id=?&quot;);  //select employee</span><br><span class="line">stmt.setLong(1, id);</span><br><span class="line">rs = stmt.executeQuery();</span><br><span class="line">Employee employee = null;</span><br><span class="line">if (rs.next()) &#123;</span><br><span class="line">employee = new Employee();  //create object from data</span><br><span class="line">employee.setId(rs.getLong(&quot;id&quot;));</span><br><span class="line">employee.setFirstName(rs.getString(&quot;firstname&quot;));</span><br><span class="line">employee.setLastName(rs.getString(&quot;lastname&quot;));</span><br><span class="line">employee.setSalary(rs.getBigDecimal(&quot;salary&quot;));</span><br><span class="line">&#125;</span><br><span class="line">return employee;</span><br><span class="line">&#125; catch (SQLException e) &#123;</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">if(rs != null) &#123;  //clean up mess</span><br><span class="line">try &#123;</span><br><span class="line">rs.close();</span><br><span class="line">&#125; catch(SQLException e) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">if(stmt != null) &#123;</span><br><span class="line">try &#123;</span><br><span class="line">stmt.close();</span><br><span class="line">&#125; catch(SQLException e) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">if(conn != null) &#123;</span><br><span class="line">try &#123;</span><br><span class="line">conn.close();</span><br><span class="line">&#125; catch(SQLException e) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>What’s most notable above is that much of it is the exact same code you’d write for pretty much any JDBC operation. Little of it has anything to do with querying for an employee, and much of it is JDBC <strong>boilerplate</strong>.</p>
+<p><strong>Spring seeks to eliminate boilerplate code by encapsulating it in templates.</strong></p>
+<p><strong>Templates instance:</strong><br>for JDBC，using Spring’s <strong>SimpleJdbcTemplate</strong> (a specialization of JdbcTemplate that takes advantage of Java 5 features)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//Templates let your code focus on the task at hand.</span><br><span class="line">public Employee getEmployeeById(long id) &#123;</span><br><span class="line">return jdbcTemplate.queryForObject(</span><br><span class="line">&quot;select id, firstname, lastname, salary &quot; +  //sql query</span><br><span class="line">&quot;from employee where id=?&quot;,</span><br><span class="line">new RowMapper&lt;Employee&gt;() &#123;</span><br><span class="line">public Employee mapRow(ResultSet rs,</span><br><span class="line">int rowNum) throws SQLException &#123;  //map results to object</span><br><span class="line">Employee employee = new Employee();</span><br><span class="line">employee.setId(rs.getLong(&quot;id&quot;));</span><br><span class="line">employee.setFirstName(rs.getString(&quot;firstname&quot;));</span><br><span class="line">employee.setLastName(rs.getString(&quot;lastname&quot;));</span><br><span class="line">employee.setSalary(rs.getBigDecimal(&quot;salary&quot;));</span><br><span class="line">return employee;</span><br><span class="line">&#125;</span><br><span class="line">&#125;,</span><br><span class="line">id);  //specify query parameter</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>总结：<br>I’ve shown you how Spring attacks complexity in Java development using POJO-oriented development, DI, aspects, and templates. Along the way, I showed you how to configure beans and aspects in XML-based configuration files. </p>
+<p><strong>But how do those files get loaded? And what are they loaded into?</strong></p>
+<p> Let’s look at the <strong>Spring container</strong>, the place <strong>where your application’s beans reside</strong>.</p>
+<h3>1.2Containing your beans</h3>
+
+<p>In a Spring-based application, <strong>your application objects live in the Spring container</strong>.The container creates the objects, wires them together, configures them, and manages their complete lifecycle from cradle to grave (or new to finalize(), as the case may be).</p>
+<p>There’s no single Spring container. Spring comes with several container implementations that can be categorized into <strong>two distinct types(分为两类)</strong>. <strong>1.Bean factories</strong> (defined by the org.springframework.beans.factory.BeanFactory interface) are the simplest of containers, providing basic support for DI. <strong>2.Application contexts</strong> (defined by the org.springframework.context.ApplicationContext interface) build on the notion<br>of a bean factory by providing application-framework services, such as the ability to resolve textual messages from a properties file and the ability to publish application events to interested event listeners.</p>
+<p>Although it’s possible to work with Spring using either bean factories or application contexts, <strong>bean factories are often too low-level for most applications.</strong> Therefore, <strong>application contexts are preferred over bean factories.</strong><br>我们把主要精力放在application contexts上就可以了。</p>
+<h4>1.2.1Working with an application context</h4>
+
+<p>Spring comes with several flavors of application context. Here are a few that you’ll most likely encounter:</p>
+<p>1.<strong>AnnotationConfigApplicationContext</strong>—Loads a Spring application context from one or more Java-based configuration classes</p>
+<p>2.<strong>AnnotationConfigWebApplicationContext</strong>—Loads a Spring web application context from one or more Java-based configuration classes</p>
+<p>3.<strong>ClassPathXmlApplicationContext</strong>—Loads a context definition from one or more XML files located in the classpath, treating context-definition files as classpath resources</p>
+<p>4.<strong>FileSystemXmlApplicationContext</strong>—Loads a context definition from one or more XML files in the filesystem</p>
+<p>5.<strong>XmlWebApplicationContext</strong>—Loads context definitions from one or more XML files contained in a web application</p>
+<p>load XML:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext context = new</span><br><span class="line">FileSystemXmlApplicationContext(&quot;c:/knight.xml&quot;);</span><br><span class="line"></span><br><span class="line">ApplicationContext context = new</span><br><span class="line">ClassPathXmlApplicationContext(&quot;knight.xml&quot;);</span><br><span class="line"></span><br><span class="line">ApplicationContext context = new AnnotationConfigApplicationContext(</span><br><span class="line">com.springinaction.knights.config.KnightConfig.class);</span><br></pre></td></tr></table></figure>
+<p>With an application context in hand, you can retrieve beans from the Spring container by calling the context’s <strong>getBean() method</strong>.</p>
+<h4>1.2.2A bean’s life</h4>
+
+<p><img src="http://img.blog.csdn.net/20161003204712177" alt=""></p>
+<p>更详细的说明：</p>
+<p>1.Spring instantiates the bean.</p>
+<p>2.Spring injects values and bean references into the bean’s properties.</p>
+<p>3.If the bean implements BeanNameAware, Spring passes the bean’s ID to the setBeanName() method.</p>
+<p>4.If the bean implements BeanFactoryAware, Spring calls the setBeanFactory() method, passing in the bean factory itself.</p>
+<p>5.If the bean implements ApplicationContextAware, Spring calls the setApplicationContext() method, passing in a reference to the enclosing application context.</p>
+<p>6.If the bean implements the BeanPostProcessor interface, Spring calls its postProcessBeforeInitialization() method.</p>
+<p>7.If the bean implements the InitializingBean interface, Spring calls its afterPropertiesSet() method. Similarly, if the bean was declared with an initmethod, then the specified initialization method is called.</p>
+<p>8.If the bean implements BeanPostProcessor, Spring calls its postProcessAfterInitialization() method.</p>
+<p>9.At this point, the bean is ready to be used by the application and remains in the application context until the application context is destroyed.</p>
+<p>10.If the bean implements the DisposableBean interface, Spring calls its destroy() method. Likewise, if the bean was declared with a destroy-method, the specified method is called.</p>
+<h3>1.3Surveying the Spring landscape</h3>
+
+<h4>1.3.1Spring modules</h4>
+
+<p><img src="http://img.blog.csdn.net/20161003211539355" alt=""></p>
+<p>下面我将一个一个分析：<br><strong>1.CORE SPRING CONTAINER</strong><br>We’ll discuss the core module throughout this book, starting in chapter 2 where we’ll dig deep into Spring DI.<br><strong>2.SPRING’S AOP MODULE</strong><br>We’ll dig into Spring’s AOP support in chapter 4.<br><strong>3.DATA ACCESS AND INTEGRATION</strong><br>You’ll see how Spring’s template-based JDBC abstraction can greatly simplify JDBC code when we look at Spring data access in chapter 10.<br><strong>4.WEB AND REMOTING</strong><br>We’ll look at Spring’s MVC framework in chapters 5–7.<br>In chapter 15, we’ll check out Spring remoting. And you’ll learn how to create and consume REST APIs in chapter 16.<br><strong>5.INSTRUMENTATION</strong><br>Spring’s instrumentation module includes <strong>support for adding agents to the JVM</strong>. Specifically, it provides a weaving agent for Tomcat that transforms class files as they’re loaded by the classloader.<br>The instrumentation provided by this module <strong>has a narrow set of use cases</strong> and <strong>we won’t be dealing with this module at all in this book</strong>.<br><strong>6.TESTING</strong></p>
+<h4>1.3.2The Spring portfolio</h4>
+
+<p>The whole Spring portfolio includes several frameworks and libraries that build on the core Spring Framework and on each other.</p>
+<p>比如：<br><strong>SPRING WEB FLOW</strong><br>Spring Web Flow builds on Spring’s core MVC framework to provide support for building conversational, flow-based web applications that guide users toward a goal (think wizards or shopping carts). We’ll talk more about Spring Web Flow in chapter 8.</p>
+<p><strong>SPRING WEB SERVICES</strong><br>Spring Web Services offers a contract-first web services model where service implementations are written to satisfy the service contract.</p>
+<p><strong>SPRING SECURITY</strong><br>You’ll see how to add Spring Security to an application’s web layer in chapter 9. We’ll<br>return to Spring Security again in chapter 14 to examine how to secure method invocations. </p>
+<p><strong>SPRING INTEGRATION</strong><br><strong>SPRING BATCH</strong><br><strong>SPRING SOCIAL</strong><br><strong>SPRING MOBILE</strong><br><strong>SPRING FOR ANDROID</strong><br><strong>SPRING DATA</strong><br>Spring Data makes it easy to work with all kinds of databases in Spring.<br>Whether you’re using a document database like MongoDB, a graph database such as Neo4j, or even a traditional relational database, Spring Data offers a simplified programming model for persistence.</p>
+<p>We’ll look at using Spring Data to simplify Java Persistence API (JPA) development in chapter 11 and then expand the discussion to include a few NoSQL databases in chapter 12.</p>
+<p><strong>SPRING BOOT</strong><br>Spring Boot is an exciting new project that takes an opinionated view of developing with Spring to <strong>simplify Spring itself</strong>.<br>We’ll look at Spring Boot near the end of the book in chapter 21.</p>
+<h3>1.5Summary</h3>
+
+<p>You should now have a good idea of what Spring brings to the table. Spring aims to make enterprise Java development easier and to promote loosely coupled code. Vital to this are <strong>dependency injection</strong> and <strong>aspect-oriented programming</strong>.</p>
+<h1>Chapter2.Wiring beans</h1>
+
+<p>As you saw in chapter 1, the traditional approach to creating associations between application objects (via construction or lookup) leads to complicated code that’s difficult to reuse and unit-test.</p>
+<p>In Spring, objects aren’t responsible for finding or creating the other objects that they need to do their jobs. Instead, <strong>the container gives them references to the objects that they collaborate with</strong>. An order-manager component, for example, may need a credit-card authorizer—but it doesn’t have to create the credit-card authorizer. It just needs to <strong>show up empty-handed</strong>, and it’s given a credit-card authorizer to work with.</p>
+<p>When it comes to expressing a bean wiring specification,Spring is incredibly flexible, offering three primary wiring mechanisms:</p>
+<p>1.Explicit configuration in XML（显式）<br>2.Explicit configuration in Java（显式）<br>3.Implicit bean discovery and automatic wiring（隐式）</p>
+<p>Spring’s configuration styles are <strong>mix-and-match（三种可以混合使用）</strong>, so you could choose XML to wire up some beans, use Spring’s Java-based configuration (JavaConfig) for other beans, and let other beans be automatically discovered by Spring.</p>
+<p>Even so, my recommendation is to lean on <strong>automatic configuration（推荐使用自动绑定）</strong> as much as you can. The less configuration you have to do explicitly, the better.</p>
+<h3>2.2Automatically wiring beans</h3>
+
+<p>Spring attacks automatic wiring from two angles:</p>
+<p>1.<strong>Component scanning</strong>—Spring automatically discovers beans to be created in the application context.<br>2.<strong>Autowiring</strong>—Spring automatically satisfies bean dependencies.</p>
+<p>举例说明<strong>自动绑定</strong>：</p>
+<p>1.先定义接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//The CompactDisc interface defines the concept of a CD in Java.</span><br><span class="line">package soundsystem;</span><br><span class="line">public interface CompactDisc &#123;</span><br><span class="line">void play();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.实现接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//@CompactDisc-annotated SgtPeppers implements CompactDisc</span><br><span class="line">package soundsystem;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line">@Component</span><br><span class="line">public class SgtPeppers implements CompactDisc &#123;</span><br><span class="line">private String title = &quot;Sgt. Pepper&apos;s Lonely Hearts Club Band&quot;;</span><br><span class="line">private String artist = &quot;The Beatles&quot;;</span><br><span class="line">public void play() &#123;</span><br><span class="line">System.out.println(&quot;Playing &quot; + title + &quot; by &quot; + artist);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>What you should take note of is that SgtPeppers is annotated with <strong>@Component</strong>. This simple annotation identifies this class as a component class and serves as a clue to Spring that a bean should be created for the class. There’s no need to explicitly configure a SgtPeppers bean; Spring will do it for you because this class is annotated with @Component.</p>
+<p>3.默认情况下，Component scanning是没有打开的。因此还得打开此功能，这样Spring才能发现Component嘛。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//@ComponentScan enables component scanning</span><br><span class="line">package soundsystem;  //与定义的Component在同一个package下</span><br><span class="line">import org.springframework.context.annotation.ComponentScan;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">@Configuration</span><br><span class="line">@ComponentScan  //寻找同package下及子目录下的所有Component</span><br><span class="line">public class CDPlayerConfig &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.最后我们可以写一个JUnitTest看是否发现了该Component。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package soundsystem;</span><br><span class="line">import static org.junit.Assert.*;</span><br><span class="line">import org.junit.Test;</span><br><span class="line">import org.junit.runner.RunWith;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.test.context.ContextConfiguration;</span><br><span class="line">import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;</span><br><span class="line">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="line">@ContextConfiguration(classes=CDPlayerConfig.class)</span><br><span class="line">public class CDPlayerTest &#123;</span><br><span class="line">@Autowired</span><br><span class="line">private CompactDisc cd;</span><br><span class="line">@Test</span><br><span class="line">public void cdShouldNotBeNull() &#123;</span><br><span class="line">assertNotNull(cd);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试流程：</p>
+<p>CDPlayerTest takes advantage of Spring’s <strong>SpringJUnit4ClassRunner</strong> to have a Spring application context automatically created when the test starts. And the <strong>@ContextConfiguration</strong> annotation tells it to load its configuration from the <strong>CDPlayerConfig</strong> class. Because that configuration class includes <strong>@ComponentScan</strong>, the resulting application context should include the CompactDisc bean.</p>
+<p>To prove that, the test has a property of type CompactDisc that is annotated with <strong>@Autowired</strong> to <strong>inject the CompactDisc bean into the test</strong>. (I’ll talk more about @Autowired in a moment.) Finally, a simple test method asserts that the cd property isn’t null. If it’s not null, that means Spring was able to discover the CompactDisc class, automatically create it as a bean in the Spring application context, and inject it into the test.</p>
+<h4>2.2.2Naming a component-scanned bean</h4>
+
+<p>Spring中每个bean都有一个id,在自动绑定中如果没有特备指定，那么他的id是第一个字母小写后的单词，比如上面的SgtPeppers，它的bean id为sgtPeppers。也可以自己指定id：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Component(&quot;lonelyHeartsClub&quot;)</span><br><span class="line">public class SgtPeppers implements CompactDisc &#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4>2.2.3Setting a base package for component scanning</h4>
+
+<p>One common reason for explicitly setting the base package is so that you can <strong>keep all of your configuration code in a package of its own</strong>, separate from the rest of your application’s code. In that case, the default base package won’t do.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@ComponentScan(&quot;soundsystem&quot;)</span><br><span class="line">public class CDPlayerConfig &#123;&#125;</span><br><span class="line"></span><br><span class="line">//或者指定多个basePackages</span><br><span class="line">@Configuration</span><br><span class="line">@ComponentScan(basePackages=&#123;&quot;soundsystem&quot;, &quot;video&quot;&#125;)</span><br><span class="line">public class CDPlayerConfig &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>因为用String可能不太安全，所以又提供了另一种方法。@ComponentScan also offers you the option of specifying them via classes or interfaces that are in the packages:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@ComponentScan(basePackageClasses=&#123;CDPlayer.class, DVDPlayer.class&#125;)</span><br><span class="line">public class CDPlayerConfig &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的意思是将这两个class所在的package作为basePackages。Whatever packages those classes are in will be used as the base package for component scanning.Although I’ve specified component classes for basePackageClasses, you might <strong>consider creating an empty marker interface in the packages to be scanned（技巧）</strong>.</p>
+<p>If all the objects in your applications were standalone and had no dependencies, like the SgtPeppers bean, then component scanning would be everything you need. But many objects lean on other objects for help to get their job done. You need a way to wire up your component-scanned beans with any dependencies they have.</p>
+<h4>2.2.4Annotating beans to be automatically wired</h4>
+
+<p>Put succinctly, autowiring is a means of letting Spring automatically satisfy a bean’s dependencies by finding other beans in the application context that are a match to the bean’s needs. To indicate that autowiring should be performed, you can use Spring’s <strong>@Autowired</strong> annotation.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//Injecting a CompactDisc into a CDPlayer bean using autowiring</span><br><span class="line">package soundsystem;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line">@Component</span><br><span class="line">public class CDPlayer implements MediaPlayer &#123;</span><br><span class="line">private CompactDisc cd;</span><br><span class="line">@Autowired</span><br><span class="line">public CDPlayer(CompactDisc cd) &#123;</span><br><span class="line">this.cd = cd;</span><br><span class="line">&#125;</span><br><span class="line">public void play() &#123;</span><br><span class="line">cd.play();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于没有beans情况：</p>
+<p>If there are <strong>no matching beans</strong>, Spring will throw an exception as the application context is being created. <strong>To avoid that exception</strong>, you can set the required attribute on @Autowired to false:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Autowired(required=false)</span><br><span class="line">public CDPlayer(CompactDisc cd) &#123;</span><br><span class="line">this.cd = cd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是这样做，要小心啊，如果不检查是否null，可能会出现空指针异常，因为没有绑定嘛。</p>
+<p>对于有多beans情况：</p>
+<p>In the event that <strong>multiple beans can satisfy the dependency</strong>, Spring will throw an exception indicating <strong>ambiguity in selecting a bean for autowiring</strong>. We’ll talk more about managing ambiguity in autowiring later, in chapter 3.</p>
+<h4>2.2.5Verifying automatic configuration</h4>
+
+<p>单元测试看是否都成功绑定了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package soundsystem;</span><br><span class="line">import static org.junit.Assert.*;</span><br><span class="line">import org.junit.Rule;</span><br><span class="line">import org.junit.Test;</span><br><span class="line">import org.junit.contrib.java.lang.system.StandardOutputStreamLog;</span><br><span class="line">import org.junit.runner.RunWith;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.test.context.ContextConfiguration;</span><br><span class="line">import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;</span><br><span class="line">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="line">@ContextConfiguration(classes=CDPlayerConfig.class)</span><br><span class="line">public class CDPlayerTest &#123;</span><br><span class="line">@Rule</span><br><span class="line">public final StandardOutputStreamLog log =</span><br><span class="line">new StandardOutputStreamLog();</span><br><span class="line">@Autowired</span><br><span class="line">private MediaPlayer player;</span><br><span class="line">@Autowired</span><br><span class="line">private CompactDisc cd;</span><br><span class="line">@Test</span><br><span class="line">public void cdShouldNotBeNull() &#123;</span><br><span class="line">assertNotNull(cd);</span><br><span class="line">&#125;</span><br><span class="line">@Test</span><br><span class="line">public void play() &#123;</span><br><span class="line">player.play();</span><br><span class="line">assertEquals(</span><br><span class="line">&quot;Playing Sgt. Pepper&apos;s Lonely Hearts Club Band&quot; +</span><br><span class="line">&quot; by The Beatles\n&quot;,</span><br><span class="line">log.getLog());</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3>2.6Summary</h3>
+
+<p>I’ve also strongly recommended that you favor <strong>automatic configuration(best)</strong> as much as possible to <strong>avoid the maintenance costs involved with explicit configuration</strong>. But when you must explicitly configure Spring, you should favor <strong>Java-based configuration(better)</strong>— which is more powerful, type-safe, and refactorable—<strong>over XML configuration(good)</strong>.</p>
+<h1>Chapter3.Advanced wiring</h1>
+
+<h3>3.1Environments and profiles</h3>
+
+<p>One of the most challenging things about developing software is transitioning an application from one environment to another. Certain environment-specific choices made for development aren’t appropriate or won’t work when the application <strong>transitions from development to production</strong>. </p>
+<p>其中一种解决方法，比较传统：<br>One way of doing this is to <strong>configure each bean in a separate configuration class (or XML file)</strong> and then <strong>make a build-time decision</strong> (perhaps using Maven profiles) about which to compile into the deployable application. The problem with this solution is that it requires that the application be rebuilt for each environment. A rebuild might not be that big a problem when going from development to QA. But requiring a rebuild between QA and production has the potential to introduce bugs and cause an epidemic of ulcers among the members of your QA team.</p>
+<p>Fortunately, Spring has a solution that doesn’t require a rebuild.</p>
+<h4>3.1.1Configuring profile beans</h4>
+
+<p>Spring’s solution for environment-specific beans isn’t much different from build-time solutions.</p>
+<p>But rather than make that decision at build time, Spring waits to <strong>make the decision at runtime</strong>. Consequently, the same deployment unit (perhaps a WAR file) will work in all environments without being rebuilt.例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@Profile(&quot;dev&quot;)  //重点</span><br><span class="line">public class DevelopmentProfileConfig &#123;</span><br><span class="line">@Bean(destroyMethod=&quot;shutdown&quot;)</span><br><span class="line">public DataSource dataSource() &#123;</span><br><span class="line">return new EmbeddedDatabaseBuilder()</span><br><span class="line">.setType(EmbeddedDatabaseType.H2)</span><br><span class="line">.addScript(&quot;classpath:schema.sql&quot;)</span><br><span class="line">.addScript(&quot;classpath:test-data.sql&quot;)</span><br><span class="line">.build();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The importance of <strong>@Profile(“dev”)</strong>.It tells Spring that the beans in this configuration class should be created only if the dev profile is active. If the dev profile isn’t active, then the @Bean methods will be ignored.<br>你可能会有其他的configuration class：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@Profile(&quot;prod&quot;)  //重点</span><br><span class="line">public class ProductionProfileConfig &#123;</span><br><span class="line">@Bean</span><br><span class="line">public DataSource dataSource() &#123;</span><br><span class="line">JndiObjectFactoryBean jndiObjectFactoryBean =</span><br><span class="line">new JndiObjectFactoryBean();</span><br><span class="line">jndiObjectFactoryBean.setJndiName(&quot;jdbc/myDS&quot;);</span><br><span class="line">jndiObjectFactoryBean.setResourceRef(true);</span><br><span class="line">jndiObjectFactoryBean.setProxyInterface(</span><br><span class="line">javax.sql.DataSource.class);</span><br><span class="line">return (DataSource) jndiObjectFactoryBean.getObject();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样不同环境下，就能够选用不同的configuration啦。</p>
+<p>Starting with Spring 3.2, however, you can use @Profile <strong>at the method level（3.1以前只能是class level，如上面）</strong>, alongside the @Bean annotation.</p>
+<p>例如，上面的可以综合下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//The @Profile annotation wires beans based on active files</span><br><span class="line">@Configuration</span><br><span class="line">public class DataSourceConfig &#123;</span><br><span class="line">@Bean(destroyMethod=&quot;shutdown&quot;)</span><br><span class="line">@Profile(&quot;dev&quot;)  //Wired for “dev” profile</span><br><span class="line">public DataSource embeddedDataSource() &#123;</span><br><span class="line">return new EmbeddedDatabaseBuilder()</span><br><span class="line">.setType(EmbeddedDatabaseType.H2)</span><br><span class="line">.addScript(&quot;classpath:schema.sql&quot;)</span><br><span class="line">.addScript(&quot;classpath:test-data.sql&quot;)</span><br><span class="line">.build();</span><br><span class="line">&#125;</span><br><span class="line">@Bean</span><br><span class="line">@Profile(&quot;prod&quot;)  //Wired for “prod” profile</span><br><span class="line">public DataSource jndiDataSource() &#123;</span><br><span class="line">JndiObjectFactoryBean jndiObjectFactoryBean =</span><br><span class="line">new JndiObjectFactoryBean();</span><br><span class="line">jndiObjectFactoryBean.setJndiName(&quot;jdbc/myDS&quot;);</span><br><span class="line">jndiObjectFactoryBean.setResourceRef(true);</span><br><span class="line">jndiObjectFactoryBean.setProxyInterface(javax.sql.DataSource.class);</span><br><span class="line">return (DataSource) jndiObjectFactoryBean.getObject();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>补充：Any bean that isn’t given a profile will always be created, regardless of what profile is active.没有标记profile的bean肯定什么情况都会被创建呀。</p>
+<p><strong>CONFIGURING PROFILES IN XML（与上面功能一样）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">xmlns:jdbc=&quot;http://www.springframework.org/schema/jdbc&quot;</span><br><span class="line">xmlns:jee=&quot;http://www.springframework.org/schema/jee&quot;</span><br><span class="line">xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</span><br><span class="line">xsi:schemaLocation=&quot;</span><br><span class="line">http://www.springframework.org/schema/jee</span><br><span class="line">http://www.springframework.org/schema/jee/spring-jee.xsd</span><br><span class="line">http://www.springframework.org/schema/jdbc</span><br><span class="line">http://www.springframework.org/schema/jdbc/spring-jdbc.xsd</span><br><span class="line">http://www.springframework.org/schema/beans</span><br><span class="line">http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line">&lt;beans profile=&quot;dev&quot;&gt;  //“dev” profile beans</span><br><span class="line">&lt;jdbc:embedded-database id=&quot;dataSource&quot;&gt;</span><br><span class="line">&lt;jdbc:script location=&quot;classpath:schema.sql&quot; /&gt;</span><br><span class="line">&lt;jdbc:script location=&quot;classpath:test-data.sql&quot; /&gt;</span><br><span class="line">&lt;/jdbc:embedded-database&gt;</span><br><span class="line">&lt;/beans&gt;</span><br><span class="line">&lt;beans profile=&quot;qa&quot;&gt;  //“qa” profile beans</span><br><span class="line">&lt;bean id=&quot;dataSource&quot;</span><br><span class="line">class=&quot;org.apache.commons.dbcp.BasicDataSource&quot;</span><br><span class="line">destroy-method=&quot;close&quot;</span><br><span class="line">p:url=&quot;jdbc:h2:tcp://dbserver/~/test&quot;</span><br><span class="line">p:driverClassName=&quot;org.h2.Driver&quot;</span><br><span class="line">p:username=&quot;sa&quot;</span><br><span class="line">p:password=&quot;password&quot;</span><br><span class="line">p:initialSize=&quot;20&quot;</span><br><span class="line">p:maxActive=&quot;30&quot; /&gt;</span><br><span class="line">&lt;/beans&gt;</span><br><span class="line">&lt;beans profile=&quot;prod&quot;&gt;  //“prod” profile beans</span><br><span class="line">&lt;jee:jndi-lookup id=&quot;dataSource&quot;</span><br><span class="line">jndi-name=&quot;jdbc/myDatabase&quot;</span><br><span class="line">resource-ref=&quot;true&quot;</span><br><span class="line">proxy-interface=&quot;javax.sql.DataSource&quot; /&gt;</span><br><span class="line">&lt;/beans&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+<p>既然当profile is active的时候，对应的bean就会被创建，那么<strong>how do you make a profile active?</strong></p>
+<h4>3.1.2Activating profiles</h4>
+
+<p>优先级：<br>Spring honors two separate properties when determining which profiles are active: spring.profiles.active and spring.profiles.default. <strong>1.If spring.profiles.active is set</strong>, then its value determines which profiles are active. But if spring.profiles.active isn’t set, then Spring looks to <strong>2.spring.profiles.default</strong>. If neither spring.profiles.active nor spring.profiles.default is set, then <strong>3.there are no active profiles</strong>, and only those beans that aren’t defined as being in a profile are created.</p>
+<p><strong>作者偏好：</strong><br>One approach that I like is to set <strong>spring.profiles.default</strong> to the development profile using parameters on DispatcherServlet and in the servlet context (for the sake of ContextLoaderListener). For example, a web application’s <strong>web.xml</strong> file might set spring.profiles.default as shown in the next listing.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">//Setting default profiles in a web application’s web.xml file</span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app version=&quot;2.5&quot;</span><br><span class="line">xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot;</span><br><span class="line">xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee</span><br><span class="line">http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot;&gt;</span><br><span class="line">&lt;context-param&gt;</span><br><span class="line">&lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</span><br><span class="line">&lt;param-value&gt;/WEB-INF/spring/root-context.xml&lt;/param-value&gt;</span><br><span class="line">&lt;/context-param&gt;</span><br><span class="line">&lt;context-param&gt;</span><br><span class="line">&lt;param-name&gt;spring.profiles.default&lt;/param-name&gt;//Set default profile for context</span><br><span class="line">&lt;param-value&gt;dev&lt;/param-value&gt;</span><br><span class="line">&lt;/context-param&gt;</span><br><span class="line">&lt;listener&gt;</span><br><span class="line">&lt;listener-class&gt;</span><br><span class="line">org.springframework.web.context.ContextLoaderListener</span><br><span class="line">&lt;/listener-class&gt;</span><br><span class="line">&lt;/listener&gt;</span><br><span class="line">&lt;servlet&gt;</span><br><span class="line">&lt;servlet-name&gt;appServlet&lt;/servlet-name&gt;</span><br><span class="line">&lt;servlet-class&gt;</span><br><span class="line">org.springframework.web.servlet.DispatcherServlet</span><br><span class="line">&lt;/servlet-class&gt;</span><br><span class="line">&lt;init-param&gt;</span><br><span class="line">&lt;param-name&gt;spring.profiles.default&lt;/param-name&gt;  //Set default profile for servlet</span><br><span class="line">&lt;param-value&gt;dev&lt;/param-value&gt;</span><br><span class="line">&lt;/init-param&gt;</span><br><span class="line">&lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</span><br><span class="line">&lt;/servlet&gt;</span><br><span class="line">&lt;servlet-mapping&gt;</span><br><span class="line">&lt;servlet-name&gt;appServlet&lt;/servlet-name&gt;</span><br><span class="line">&lt;url-pattern&gt;/&lt;/url-pattern&gt;</span><br><span class="line">&lt;/servlet-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
+<p>With spring.profiles.default set this way, any developer can retrieve the application code from source control and run it using development settings (such as an embedded database) without any additional configuration.（方便了开发人员，或者说是<strong>在开发环节</strong>）</p>
+<p><strong>到了QA等环节：</strong><br>Then, when the application is deployed in a QA, production, or other environment, the person responsible for deploying it can <strong>set spring.profiles.active</strong> using system properties, environment variables, or JNDI as appropriate. When spring.profiles.active is set, it doesn’t matter what spring.profiles.default is set to; the profiles set in spring.profiles.active take precedence.</p>
+<p>补充：You can <strong>activate multiple profiles at the same time</strong> by listing the profile names, separated by commas. Of course, it probably doesn’t make much sense to enable both dev and prod profiles at the same time, <strong>but you could enable multiple orthogonal profiles simultaneously</strong>.</p>
+<p><strong>TESTING WITH PROFILES</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//在测试中选择开启何种profile</span><br><span class="line">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="line">@ContextConfiguration(classes=&#123;PersistenceTestConfig.class&#125;)</span><br><span class="line">@ActiveProfiles(&quot;dev&quot;)</span><br><span class="line">public class PersistenceTest &#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Spring profiles are a great way to conditionally define beans where the condition is based on which profile is active. But <strong>Spring 4 offers a more general-purpose mechanism for conditional bean definitions</strong> where the condition is up to you. Let’s see how to define conditional beans using <strong>Spring 4</strong> and the <strong>@Conditional</strong> annotation.更加通用的conditional bean机制！</p>
+<h3>3.2Conditional beans</h3>
+
+<p>Suppose you want one or more beans to be configured if and only if some library is available in the application’s classpath. Or let’s say you want a bean to be created only if a certain other bean is also declared. Maybe you want a bean to be created if and only if a specific environment variable is set.更加细颗粒度的condition。</p>
+<p>For example, suppose you have a class named MagicBean that you only want Spring to instantiate if a magic environment property has been set. If the environment has no such property, then the MagicBean should be ignored. The following listing shows a configuration that conditionally configures the MagicBean using @Conditional.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//Conditionally configuring a bean</span><br><span class="line">@Bean</span><br><span class="line">@Conditional(MagicExistsCondition.class)  //Conditionally create bean</span><br><span class="line">public MagicBean magicBean() &#123;</span><br><span class="line">return new MagicBean();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//Condition是Spring系统写好的，只需要MagicExistsCondition实现该接口即可</span><br><span class="line">public interface Condition &#123;</span><br><span class="line">boolean matches(ConditionContext ctxt,</span><br><span class="line">AnnotatedTypeMetadata metadata);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The class given to @Conditional can be any type that <strong>implements the Condition interface</strong>.</p>
+<p>For this example, you need to create an implementation of Condition that hinges its decision on the presence of a magic property in the environment. The next listing shows <strong>MagicExistsCondition</strong>, an implementation of Condition that does the trick.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//Checking for the presence of magic in a Condition</span><br><span class="line">package com.habuma.restfun;</span><br><span class="line">import org.springframework.context.annotation.Condition;</span><br><span class="line">import org.springframework.context.annotation.ConditionContext;</span><br><span class="line">import org.springframework.core.type.AnnotatedTypeMetadata;</span><br><span class="line">import org.springframework.util.ClassUtils;</span><br><span class="line">public class MagicExistsCondition implements Condition &#123;</span><br><span class="line">public boolean matches(</span><br><span class="line">ConditionContext context, AnnotatedTypeMetadata metadata) &#123;</span><br><span class="line">Environment env = context.getEnvironment();</span><br><span class="line">return env.containsProperty(&quot;magic&quot;);  //Check for “magic” property</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This results in true being returned from matches().Consequently, the condition is met, and any beans whose @Conditional annotation refers to MagicExistsCondition will be created.</p>
+<p>其中，Condition中参数ConditionContext，AnnotatedTypeMetadata也是两个接口，部分方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//每个方法具体的作用可以再看书</span><br><span class="line"></span><br><span class="line">public interface ConditionContext &#123;</span><br><span class="line">BeanDefinitionRegistry getRegistry();</span><br><span class="line">ConfigurableListableBeanFactory getBeanFactory();</span><br><span class="line">Environment getEnvironment();</span><br><span class="line">ResourceLoader getResourceLoader();</span><br><span class="line">ClassLoader getClassLoader();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public interface AnnotatedTypeMetadata &#123;</span><br><span class="line">boolean isAnnotated(String annotationType);</span><br><span class="line">Map&lt;String, Object&gt; getAnnotationAttributes(String annotationType);</span><br><span class="line">Map&lt;String, Object&gt; getAnnotationAttributes(</span><br><span class="line">String annotationType, boolean classValuesAsString);</span><br><span class="line">MultiValueMap&lt;String, Object&gt; getAllAnnotationAttributes(</span><br><span class="line">String annotationType);</span><br><span class="line">MultiValueMap&lt;String, Object&gt; getAllAnnotationAttributes(</span><br><span class="line">String annotationType, boolean classValuesAsString);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于ConditionContext来说，可以：</p>
+<p>1.Check for bean definitions via the BeanDefinitionRegistry returned from getRegistry().</p>
+<p>2.Check for the presence of beans, and even dig into bean properties via the ConfigurableListableBeanFactory returned from getBeanFactory().</p>
+<p>3.Check for the presence and values of environment variables via the Environment retrieved from getEnvironment().</p>
+<p>4.Read and inspect the contents of resources loaded via the ResourceLoader returned from getResourceLoader().</p>
+<p>5.Load and check for the presence of classes via the ClassLoader returned from getClassLoader().</p>
+<p>Interestingly, starting with Spring 4, the @Profile annotation has been refactored to be based on @Conditional and the Condition interface.下面看如何通过Condition实现Profile。</p>
+<p>The @Profile annotation looks like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Target(&#123;ElementType.TYPE, ElementType.METHOD&#125;)</span><br><span class="line">@Documented</span><br><span class="line">@Conditional(ProfileCondition.class)  //通过ProfileCondition来进行配置</span><br><span class="line">public @interface Profile &#123;</span><br><span class="line">String[] value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>As shown next, ProfileCondition implements Condition and considers several factors from both <strong>ConditionContext</strong> and <strong>AnnotatedTypeMetadata</strong> in making its decision.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//ProfileCondition checking whether a bean profile is acceptable</span><br><span class="line">class ProfileCondition implements Condition &#123;</span><br><span class="line">public boolean matches(</span><br><span class="line">ConditionContext context, AnnotatedTypeMetadata metadata) &#123;</span><br><span class="line">if (context.getEnvironment() != null) &#123;</span><br><span class="line">MultiValueMap&lt;String, Object&gt; attrs =</span><br><span class="line">metadata.getAllAnnotationAttributes(Profile.class.getName());</span><br><span class="line">if (attrs != null) &#123;</span><br><span class="line">for (Object value : attrs.get(&quot;value&quot;)) &#123;</span><br><span class="line">if (context.getEnvironment()</span><br><span class="line">.acceptsProfiles(((String[]) value))) &#123;</span><br><span class="line">return true;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">return false;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">return true;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3>3.3Addressing ambiguity in autowiring</h3>
+
+<p>For those times when ambiguity does happen, however, Spring offers a couple of options. You can declare one of the candidate beans <strong>as the primary choice</strong>, or you can <strong>use qualifiers to help Spring narrow its choices to a single candidate</strong>.</p>
+<h4>3.3.1Designating a primary bean</h4>
+
+<p>3种方法：<br>1.here’s how you might declare the @Component-annotated IceCream bean as the primary choice:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//自动绑定用法</span><br><span class="line">@Component</span><br><span class="line">@Primary</span><br><span class="line">public class IceCream implements Dessert &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>2.if you’re declaring the IceCream bean explicitly <strong>in Java configuration</strong>, the @Bean method might look like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">@Primary</span><br><span class="line">public Dessert iceCream() &#123;</span><br><span class="line">return new IceCream();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.XML configuration：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;iceCream&quot;</span><br><span class="line">class=&quot;com.desserteater.IceCream&quot;</span><br><span class="line">primary=&quot;true&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>Just as Spring couldn’t choose among multiple candidate beans, it can’t choose among multiple primary beans. Clearly, when more than one bean is designated as primary, there are no primary candidates. For a more powerful ambiguity-busting mechanism, let’s look at <strong>qualifiers</strong>.但有多个Primary时，又没有办法选择了，悲剧。</p>
+<h4>3.3.2Qualifying autowired beans</h4>
+
+<p>In contrast, Spring’s qualifiers apply a narrowing operation to all candidate beans, ultimately arriving at the single bean that meets the prescribed qualifications. If ambiguity still exists after applying all qualifiers, <strong>you can always apply more qualifiers to narrow the choices further</strong>.</p>
+<p>先来个简单的规则：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//在多个实现中匹配iceCream</span><br><span class="line">@Autowired</span><br><span class="line">@Qualifier(&quot;iceCream&quot;)</span><br><span class="line">public void setDessert(Dessert dessert) &#123;</span><br><span class="line">this.dessert = dessert;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@Qualifier(“iceCream”) refers to the bean created when component-scanning created an instance of the <strong>IceCream class</strong>.但是这样太紧耦合了！</p>
+<p>The problem is that you specified a qualifier on setDessert() that is tightly coupled to the class name of the bean being injected. <strong>Any change to that class name will render the qualifier ineffective</strong>.</p>
+<p><strong>CREATING CUSTOM QUALIFIERS</strong></p>
+<p><strong>Instead of relying on the bean ID as the qualifier</strong>, you can assign your own qualifier to<br>a bean. All you need to do is place the @Qualifier annotation on the bean declaration. For example, it can be applied alongside @Component like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">@Qualifier(&quot;cold&quot;)</span><br><span class="line">public class IceCream implements Dessert &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>Because it’s <strong>not coupled to the class name</strong>, you can refactor the name of the IceCream class all you want without worrying about breaking autowiring. </p>
+<p><strong>DEFINING CUSTOM QUALIFIER ANNOTATIONS</strong></p>
+<p>但是这样还是可能重复啊，比如两个实现类都是@Qualifier(“cold”)。但是Spring又不允许多个@Qualifier。There’s no way you can use @Qualifier (at least not directly) to narrow the list of autowiring candidates to a single choice.</p>
+<p>那么我们需要自己制造一些像@Qualifier一样的注解，然后再进行分类，就行了。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//cold</span><br><span class="line">@Target(&#123;ElementType.CONSTRUCTOR, ElementType.FIELD,</span><br><span class="line">ElementType.METHOD, ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Qualifier</span><br><span class="line">public @interface Cold &#123; &#125;</span><br><span class="line"></span><br><span class="line">//creamy</span><br><span class="line">@Target(&#123;ElementType.CONSTRUCTOR, ElementType.FIELD,</span><br><span class="line">ElementType.METHOD, ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Qualifier</span><br><span class="line">public @interface Creamy &#123; &#125;</span><br></pre></td></tr></table></figure>
+<p>然后我们就可以将其注解到具体的Component中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//这样我们就能够更加细粒度的区分IceCream和Popsicle了</span><br><span class="line">@Component</span><br><span class="line">@Cold</span><br><span class="line">@Creamy</span><br><span class="line">public class IceCream implements Dessert &#123; ... &#125;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">@Cold</span><br><span class="line">@Fruity</span><br><span class="line">public class Popsicle implements Dessert &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>最后，再自动绑定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//这里传入的就是IceCream了</span><br><span class="line">@Autowired</span><br><span class="line">@Cold</span><br><span class="line">@Creamy</span><br><span class="line">public void setDessert(Dessert dessert) &#123;  </span><br><span class="line">this.dessert = dessert;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>By defining custom qualifier annotations, you’re able to use multiple qualifiers together with no limitations or complaints from the Java compiler. Also, your custom annotations are more type-safe than using the raw @Qualifier annotation and specifying the qualifier as a String.</p>
+<p>Take a closer look at the setDessert() method and how it’s annotated. Nowhere do you explicitly say that you want that method to be autowired with the IceCream bean. Instead, you identify the desired bean by its traits, @Cold and @Creamy. <strong>Thus setDessert() remains decoupled from any specific Dessert implementation.（在自动绑定的时候也有解耦）</strong> <strong>Any bean that satisfies those traits will do fine.</strong> It just so happens that in your current selection of Dessert implementations, the IceCream bean is the single matching candidate.</p>
+<h3>3.4Scoping beans</h3>
+
+<p><strong>By default</strong>, all beans created in the Spring application context are created as <strong>singletons</strong>. That is to say, no matter how many times a given bean is injected into other beans, it’s always the same instance that is injected each time.</p>
+<p>Spring defines several scopes under which a bean can be created, including the following:</p>
+<p>1.<strong>Singleton</strong>—One instance of the bean is created for the entire application.<br>2.<strong>Prototype</strong>—One instance of the bean is created every time the bean is injected into or retrieved from the Spring application context.<br>3.<strong>Session</strong>—In a web application, one instance of the bean is created for each session.<br>4.<strong>Request</strong>—In a web application, one instance of the bean is created for each request.</p>
+<p>To select an alternative type, you can use the <strong>@Scope</strong> annotation, either in conjunction with the <strong>@Component</strong> annotation or with the <strong>@Bean</strong> annotation.</p>
+<p>for example:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//1.auto</span><br><span class="line">@Component</span><br><span class="line">@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)</span><br><span class="line">public class Notepad &#123; ... &#125;</span><br><span class="line"></span><br><span class="line">//2.java configuration</span><br><span class="line">@Bean</span><br><span class="line">@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)</span><br><span class="line">public Notepad notepad() &#123;</span><br><span class="line">return new Notepad();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//3.XML</span><br><span class="line">&lt;bean id=&quot;notepad&quot;</span><br><span class="line">class=&quot;com.myapp.Notepad&quot;</span><br><span class="line">scope=&quot;prototype&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<h4>3.4.1Working with request and session scope</h4>
+
+<p>In a web application, it may be useful to instantiate a bean that’s shared within the scope of a given request or session. For instance, in a typical e-commerce application, you may have a bean that represents the user’s shopping cart. If the shopping cart bean is a singleton, then all users will be adding products to the same cart. On the other hand, if the shopping cart is prototype-scoped, then products added to the cart in one area of the application may not be available in another part of the application where a different prototype-scoped shopping cart was injected.</p>
+<p>In the case of a shopping cart bean, session scope makes the most sense, because it’s most directly attached to a given user. To apply session scope, you can use the @Scope annotation in a way similar to how you specified prototype scope:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">@Scope(</span><br><span class="line">value=WebApplicationContext.SCOPE_SESSION,</span><br><span class="line">proxyMode=ScopedProxyMode.INTERFACES)</span><br><span class="line">public ShoppingCart cart() &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>Notice that @Scope also has a <strong>proxyMode</strong> attribute set to ScopedProxyMode.INTERFACES.<br>This attribute addresses a problem encountered <strong>when injecting a session- or requestscoped bean into a singleton-scoped bean</strong>. </p>
+<p>到底是什么问题呢？考虑下面代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class StoreService &#123;</span><br><span class="line">@Autowired</span><br><span class="line">public void setShoppingCart(ShoppingCart shoppingCart) &#123;</span><br><span class="line">this.shoppingCart = shoppingCart;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Because StoreService is a singleton bean, it will be created as the Spring application<br>context is loaded.</strong> As it’s created, Spring will attempt to inject ShoppingCart into the setShoppingCart() method. But the ShoppingCart bean, being session scoped, doesn’t exist yet. There won’t be an instance of ShoppingCart until a user comes along and a session is created.一句话就是，在StoreService创建后，想要注入ShoppingCart的时候，ShoppingCart根本有可能不存在。</p>
+<p>Moreover, there will be many instances of ShoppingCart: one per user. You don’t want Spring to inject just any single instance of ShoppingCart into StoreService. You want StoreService to work with the ShoppingCart instance for whichever session happens to be in play when StoreService needs to work with the shopping cart.而且，理想情况是，不盲目地注入，哪个ShoppingCart正在工作，就注入哪一个。</p>
+<p>如果是interface，proxyMode就应该是ScopedProxyMode.INTERFACES。<br>如果是具体的class，proxyMode就应该是ScopedProxyMode.TARGET_CLASS。</p>
+<p>原理如下图：<br><img src="http://img.blog.csdn.net/20161006191008659" alt=""></p>
+<h4>3.4.2Declaring scoped proxies in XML</h4><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;cart&quot;</span><br><span class="line">class=&quot;com.myapp.ShoppingCart&quot;</span><br><span class="line">scope=&quot;session&quot;&gt;</span><br><span class="line">&lt;aop:scoped-proxy proxy-target-class=&quot;false&quot; /&gt;  //interface</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure><br><br>By default, it uses CGLib to create a target class proxy.<br><br><h3>3.5Runtime value injection</h3><br><br>When we talk about dependency injection and wiring, we’re often talking about wiring a bean reference into a property or constructor argument of another bean. 前面讨论的，<strong>It’s often about associating one object with another object</strong>.<br><br>比如前面一般的套路是：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public CompactDisc sgtPeppers() &#123;</span><br><span class="line">return new BlankDisc(</span><br><span class="line">&quot;Sgt. Pepper&apos;s Lonely Hearts Club Band&quot;,</span><br><span class="line">&quot;The Beatles&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>Sometimes <strong>hard-coded values（我的理解是，直接在代码或者XML中写死了的，比如上面的代码）</strong> are fine. Other times, however, you may want to avoid hard-coded values and let the values be determined at runtime. For those cases, Spring offers two ways of evaluating values at runtime:<br><br>1.Property placeholders<br>2.The Spring Expression Language (SpEL)<br><br>You’ll soon see that the application of these two techniques is similar, although their purposes and behavior are different.<br><br><h4>3.5.1Injecting external values</h4>
+
+<p><strong>The simplest way to resolve external values in Spring is to declare a property source and retrieve the properties via the Spring Environment</strong>.<br>For example, the following listing shows a basic Spring configuration class that uses external properties to wire up a BlankDisc bean.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@PropertySource(&quot;classpath:/com/soundsystem/app.properties&quot;)//Declare a property source</span><br><span class="line">public class ExpressiveConfig &#123;</span><br><span class="line">@Autowired</span><br><span class="line">Environment env;</span><br><span class="line">@Bean</span><br><span class="line">public BlankDisc disc() &#123;</span><br><span class="line">return new BlankDisc(</span><br><span class="line">env.getProperty(&quot;disc.title&quot;),  //Retrieve property values</span><br><span class="line">env.getProperty(&quot;disc.artist&quot;));</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>In this example, @PropertySource references a file named app.properties in the classpath. It might look something like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">disc.title=Sgt. Peppers Lonely Hearts Club Band</span><br><span class="line">disc.artist=The Beatles</span><br></pre></td></tr></table></figure>
+<p>应该很好理解，就是将值存入一个配置文件中，然后读取之。</p>
+<p><strong>DIGGING INTO SPRING’S ENVIRONMENT</strong></p>
+<p>Retrieving properties directly from Environment is handy, especially when you’re wiring beans in Java configuration. But Spring also offers the option of wiring properties with placeholder values that are resolved from a property source.</p>
+<p><strong>RESOLVING PROPERTY PLACEHOLDERS</strong></p>
+<p>感觉套路和实现的功能跟上面大同小异。</p>
+<p>Resolving external properties is one way to defer value resolution until runtime, but its focus is finely tuned on resolving properties, by name, from Spring’s Environment and property sources. </p>
+<p><strong>Spring Expression Language, on the other hand, offers a more general way of calculating values for injection at runtime</strong>.</p>
+<h4>3.5.2Wiring with the Spring Expression Language</h4>
+
+<p>SpEL has a lot of tricks up its sleeves, including the following:</p>
+<p>1.The ability to reference beans by their IDs<br>2.Invoking methods and accessing properties on objects<br>3.Mathematical, relational, and logical operations on values<br>4.Regular expression matching<br>5.Collection manipulation</p>
+<p>As you’ll see later in this book, SpEL can also be used for purposes other than dependency injection. Spring Security, for example, supports defining security constraints using SpEL expressions. And if you’re using Thymeleaf templates as the views in your Spring MVC application, those templates can use SpEL expressions to reference model data.除了DI外，SpEl还有更多的实用功能，我的理解，它应该是一种描述语言，在很多地方都有用。</p>
+<p><strong>A FEW SPEL EXAMPLES</strong></p>
+<p>The first thing to know is that SpEL expressions are framed with <strong>#{ … }</strong>, much as property placeholders are framed with ${ … }. </p>
+<p>举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#123;T(System).currentTimeMillis()&#125;</span><br></pre></td></tr></table></figure>
+<p>Ultimately this expression evaluates to the current time in milliseconds at the moment when the expression is evaluated. The T() operator evaluates java.lang.System as a type so that the staticcurrentTimeMillis() method can be invoked.</p>
+<p>SpEL expressions can also refer to other beans or properties on those beans. For example, the following expression evaluates to the value of the artist property on a bean whose ID is sgtPeppers:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#123;sgtPeppers.artist&#125;</span><br></pre></td></tr></table></figure>
+<p>You can also refer to system properties via the systemProperties object:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#123;systemProperties[&apos;disc.title&apos;]&#125;</span><br></pre></td></tr></table></figure>
+<p>When injecting properties and constructor arguments on beans that are created via <strong>component-scanning</strong>, you can use the <strong>@Value</strong> annotation, much as you saw earlier with property placeholders. Rather than use a placeholder expression, however, you use a SpEL expression. For example, here’s what the BlankDisc constructor might look like, drawing the album title and artist from system properties:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public BlankDisc(</span><br><span class="line">@Value(&quot;#&#123;systemProperties[&apos;disc.title&apos;]&#125;&quot;) String title,</span><br><span class="line">@Value(&quot;#&#123;systemProperties[&apos;disc.artist&apos;]&#125;&quot;) String artist) &#123;</span><br><span class="line">this.title = title;</span><br><span class="line">this.artist = artist;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>let’s go over some of the primitive expressions supported in SpEL.</p>
+<p><strong>EXPRESSING LITERAL VALUES</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//简单内置举例</span><br><span class="line">#&#123;3.14159&#125;</span><br><span class="line">#&#123;9.87E4&#125;  //等于98,700</span><br><span class="line">#&#123;&apos;Hello&apos;&#125;</span><br><span class="line">#&#123;false&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>REFERENCING BEANS, PROPERTIES, AND METHODS</strong></p>
+<p>Another basic thing that a SpEL expression can do is <strong>reference another bean by its ID</strong>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//举例</span><br><span class="line">#&#123;sgtPeppers&#125;  //wire one bean into another bean’s property</span><br><span class="line">#&#123;sgtPeppers.artist&#125;  //refer to the artist property of the sgtPeppers bean</span><br><span class="line">#&#123;artistSelector.selectArtist()&#125;  //call methods on a bean</span><br><span class="line"></span><br><span class="line">#&#123;artistSelector.selectArtist().toUpperCase()&#125;</span><br><span class="line">//more safe</span><br><span class="line">#&#123;artistSelector.selectArtist()?.toUpperCase()&#125;</span><br></pre></td></tr></table></figure>
+<p>This operator makes sure the item to its left isn’t null before accessing the thing on its right. So, if selectArtist() returns null, then SpEL won’t even try to invoke toUpperCase(). The expression will evaluate to null.</p>
+<p><strong>WORKING WITH TYPES IN EXPRESSIONS</strong></p>
+<p> The real value of the T() operator is that it gives you access to static methods and constants on the evaluated type.<br> For example, suppose you need to wire the value of pi into a bean property. The following SpEL expression does the trick:<code>T(java.lang.Math).PI</code>静态方法：<code>T(java.lang.Math).random()</code></p>
+<p><strong>SPEL OPERATORS</strong></p>
+<p> <img src="http://img.blog.csdn.net/20161006203133186" alt=""><br> 比较简单</p>
+<p><strong>EVALUATING REGULAR EXPRESSIONS</strong><br>To demonstrate, suppose you want to check whether a String contains a valid email address. In that case, you can apply matches like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#123;admin.email matches &apos;[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.com&apos;&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>EVALUATING COLLECTIONS</strong></p>
+<p>Some of SpEL’s most amazing tricks involve working with <strong>collections</strong> and <strong>arrays</strong>. The most basic thing you can do is reference a single element from a list:<code>#{jukebox.songs[4].title}</code></p>
+<p>To spice things up a bit, I suppose you could randomly select a song from the jukebox:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#123;jukebox.songs[T(java.lang.Math).random() *jukebox.songs.size()].title&#125;</span><br></pre></td></tr></table></figure>
+<p>SpEL also offers a <strong>selection operator (.?[])</strong> to filter a collection into a subset of the collection. </p>
+<p>As a demonstration, suppose you want a list of all songs in the jukebox where the artist property is Aerosmith. The following expression uses the selection operator to arrive at the list of available Aerosmith songs:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#123;jukebox.songs.?[artist eq &apos;Aerosmith&apos;]&#125;</span><br></pre></td></tr></table></figure>
+<p>SpEL also offers two other selection operations: <strong>.^[] for selecting the first matching entry</strong> and <strong>.$[] for selecting the last matching entry</strong>. To demonstrate, consider this expression, which finds the first song in the list whose artist property is Aerosmith:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#123;jukebox.songs.^[artist eq &apos;Aerosmith&apos;]&#125;</span><br></pre></td></tr></table></figure>
+<p>Finally, SpEL offers a <strong>projection operator (.![]) to project properties from the elements in the collection onto a new collection</strong>.<br>As an example, suppose you don’t want a collection of the song objects, but a collection of all the song titles. The following expression projects the title property into a new collection of Strings:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#123;jukebox.songs.![title]&#125;</span><br></pre></td></tr></table></figure>
+<p>Naturally, the projection operator can be combined with any of SpEL’s other operators, including the selection operator. For example, you could use this expression to obtain a list of all of Aerosmith’s songs:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#123;jukebox.songs.?[artist eq &apos;Aerosmith&apos;].![title]&#125;</span><br></pre></td></tr></table></figure>
+<p>忠告：Take care not to get too clever with your expressions. The more clever your expressions become, the more important it will be to test them. </p>
+<h3>3.6Summary</h3>
+
+<h1>Chapter4.Aspect-oriented Spring</h1>
+
+<p>In chapter 2, you learned how to use dependency injection to manage and configure application objects. Whereas DI helps you decouple application objects from each other, <strong>AOP helps you decouple cross-cutting concerns from the objects they affect</strong>.</p>
+<h3>4.1What is aspect-oriented programming?</h3>
+
+<p><img src="http://img.blog.csdn.net/20161006214607447" alt=""><br>A common object-oriented technique for reusing common functionality is to apply <strong>inheritance</strong> or <strong>delegation</strong>. But inheritance can lead to a brittle object hierarchy if the same base class is used throughout an application, and delegation can be cumbersome because complicated calls to the delegate object may be required.</p>
+<h4>4.1.1Defining AOP terminology</h4>
+
+<p>Like most technologies, AOP has its own jargon. Aspects are often described in terms of <strong>advice</strong>, <strong>pointcuts</strong>, and <strong>join points</strong>. Figure 4.2 illustrates how these concepts are tied together.<br><img src="http://img.blog.csdn.net/20161006214906545" alt=""></p>
+<p><strong>ADVICE</strong></p>
+<p>Likewise, aspects have a purpose—a job they’re meant to do. In AOP terms, the job of an aspect is called advice.Advice defines both the <strong>what</strong> and the <strong>when</strong> of an aspect.</p>
+<p>Spring aspects can work with five kinds of advice:</p>
+<p>1.<strong>Before</strong>—The advice functionality takes place before the advised method is invoked.<br>2.<strong>After</strong>—The advice functionality takes place after the advised method completes,regardless of the outcome.<br>3.<strong>After-returning</strong>—The advice functionality takes place after the advised method successfully completes.<br>4.<strong>After-throwing</strong>—The advice functionality takes place after the advised method throws an exception.<br>5.<strong>Around</strong>—The advice wraps the advised method, providing some functionality before and after the advised method is invoked.</p>
+<p><strong>JOIN POINTS</strong></p>
+<p>Your application may have thousands of opportunities for advice to be applied. These opportunities are known as join points. <strong>A join point is a point in the execution of the application where an aspect can be plugged in</strong>. <strong>This point could be a method being called, an exception being thrown, or even a field being modified</strong>. These are the points where your aspect’s code can be inserted into the normal flow of your application to add new behavior.</p>
+<p><strong>POINTCUTS</strong></p>
+<p>It’s not possible for any one meter reader to visit all houses serviced by the electric company. Instead, each one is assigned a subset of all the houses to visit. Likewise, an aspect doesn’t necessarily advise all join points in an application. <strong>Pointcuts help narrow down the join points advised by an aspect</strong>.</p>
+<p>If <strong>advice</strong> defines the <strong>what</strong> and <strong>when</strong> of aspects, then <strong>pointcuts</strong> define the <strong>where</strong>.</p>
+<p>Often you specify these pointcuts using <strong>explicit class and method names</strong> or through <strong>regular expressions that define matching class and method name patterns</strong>. Some AOP frameworks allow you to create dynamic pointcuts that determine whether to apply advice based on runtime decisions, such as the value of method parameters.</p>
+<p><strong>ASPECTS</strong></p>
+<p>When a meter reader starts his day, he knows both what he’s supposed to do (report electricity usage) and which houses to collect that information from. Thus he knows everything he needs to know to get his job done.</p>
+<p><strong>An aspect is the merger of advice and pointcuts</strong>. </p>
+<p>Taken together, advice and pointcuts define everything there is to know about an aspect—<strong>what</strong> it does and <strong>where</strong> and <strong>when</strong> it does it.</p>
+<p>我的理解，ADVICE定义了一些动作（what）以及动作的时间（when），POINTCUTS定义了where（精确到具体的class的具体的method中）。所以，这两个一结合就定义了一个ASPECTS。</p>
+<p><strong>INTRODUCTIONS</strong></p>
+<p><strong>An introduction allows you to add new methods or attributes to existing classes</strong>. For example, you could create an Auditable advice class that keeps the state of when an object was last modified.</p>
+<p><strong>WEAVING</strong></p>
+<p><strong>Weaving is the process of applying aspects to a target object to create a new proxied object</strong>. The aspects are woven into the target object at the specified join points. The weaving can take place at several points in the target object’s lifetime:</p>
+<p>1.<strong>Compile time</strong>—Aspects are woven in when the target class is compiled. This requires a special compiler. AspectJ’s weaving compiler weaves aspects this way.<br>2.<strong>Class load time</strong>—<strong>Aspects are woven in when the target class is loaded into the JVM</strong>. This requires a special ClassLoader that enhances the target class’s bytecode before the class is introduced into the application. AspectJ 5’s load-time weaving (LTW) support weaves aspects this way.<br>3.<strong>Runtime</strong>—Aspects are woven in sometime during the execution of the application. Typically, an AOP container dynamically generates a proxy object that delegates to the target object while weaving in the aspects. This is how Spring AOP aspects are woven.</p>
+<p>The key concept you should take from this is that <strong>pointcuts define which join points get advised</strong>.</p>
+<h4>4.1.2Spring’s AOP support</h4>
+
+<p>Spring’s support for AOP comes in four styles:</p>
+<p>1.Classic Spring proxy-based AOP<br>2.Pure-POJO aspects<br>3.@AspectJ annotation-driven aspects<br>4.Injected AspectJ aspects (available in all versions of Spring)</p>
+<p>When held up against simple declarative AOP and annotation-based AOP, Spring’s classic AOP seems bulky and overcomplicated. Therefore, I <strong>won’t be covering classic Spring AOP</strong>.</p>
+<p>We’ll explore more of these Spring AOP techniques in this chapter. But before we get started, it’s important to understand <strong>a few key points of Spring’s AOP framework</strong>.</p>
+<p><strong>SPRING ADVICE IS WRITTEN IN JAVA</strong></p>
+<p><img src="http://img.blog.csdn.net/20161007184134430" alt=""></p>
+<p><strong>SPRING ADVISES OBJECTS AT RUNTIME</strong></p>
+<p>Spring doesn’t create a proxied object until that proxied bean is needed by the application. If you’re using an ApplicationContext, the proxied objects will be created when it loads all the beans from the BeanFactory. Because Spring creates proxies at runtime, you don’t need a special compiler to weave aspects in Spring’s AOP.</p>
+<p><strong>SPRING ONLY SUPPORTS METHOD JOIN POINTS</strong></p>
+<p>Method interception should suit most, if not all, of your needs. If you find yourself in need of more than method interception, you’ll want to complement Spring AOP with AspectJ.</p>
+<p>Now you have a general idea of what AOP does and how it’s supported by Spring. It’s time to <strong>get your hands dirty</strong> creating aspects in Spring. Let’s start with Spring’s declarative AOP model.</p>
+<h3>4.2Selecting join points with pointcuts</h3>
+
+<p>In Spring AOP, pointcuts are defined <strong>using AspectJ’s pointcut expression language</strong>. If you’re already familiar with AspectJ, then defining pointcuts in Spring should feel natural.</p>
+<p>The most important thing to know about AspectJ pointcuts as they pertain to Spring AOP is that Spring only supports a subset of the pointcut designators available in AspectJ. Table 4.1 lists the AspectJ pointcut designators that are supported in Spring AOP.<br><img src="http://img.blog.csdn.net/20161007185110628" alt=""></p>
+<p>As you browse through the supported designators, note that the <strong>execution designator</strong> is the <strong>only one</strong> that actually <strong>performs matches</strong>. The <strong>other designators</strong> are used to limit those matches. This means <strong>execution</strong> is the <strong>primary designator</strong> you’ll use in every pointcut definition you write. You’ll use the <strong>other designators</strong> to <strong>constrain the pointcut’s reach</strong>.</p>
+<h4>4.2.1Writing pointcuts</h4>
+
+<p>To demonstrate aspects in Spring, you need something to be the subject of the aspect’s pointcuts. For that purpose, let’s define a Performance interface:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">package concert;</span><br><span class="line">public interface Performance &#123;</span><br><span class="line">public void perform();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Performance represents any kind of live performance, such as a stage play, a movie, or a concert. Let’s say that you want to write an aspect that triggers off Performance’s perform() method. Figure 4.4 shows a pointcut expression that can be used to apply advice whenever the perform() method is executed.<br><img src="http://img.blog.csdn.net/20161007185834294" alt=""></p>
+<p>Now let’s suppose that you want to confine the reach of that pointcut to only the concert package. In that case, you can limit the match by tacking on a within() designator, as shown in figure 4.5.<br><img src="http://img.blog.csdn.net/20161007190052516" alt=""></p>
+<h4>4.2.2 Selecting beans in pointcuts</h4>
+
+<p>In addition to the designators listed in table 4.1, Spring adds a bean() designator that lets you identify beans by their ID in a pointcut expression. bean() takes a bean ID or name as an argument and limits the pointcut’s effect to that specific bean.<br>For example, consider the following pointcut:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execution(* concert.Performance.perform()) and bean(&apos;woodstock&apos;)</span><br></pre></td></tr></table></figure>
+<p>Here you’re saying that you want to apply aspect advice to the execution of Performance’s <strong>perform() method</strong>, <strong>but limited to the bean whose ID is woodstock</strong>.</p>
+<p>Now that we’ve covered the basics of writing pointcuts, let’s see how to write the advice and declare the aspects that use those pointcuts.</p>
+<h3>4.3Creating annotated aspects</h3>
+
+<p>You’ve already defined the Performance interface as the subject of your aspect’s pointcuts. Now let’s <strong>use AspectJ annotations to create an aspect</strong>.</p>
+<h4>4.3.1Defining an aspect</h4>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//Audience class: an aspect that watches a performance</span><br><span class="line">package concert;</span><br><span class="line">import org.aspectj.lang.annotation.AfterReturning;</span><br><span class="line">import org.aspectj.lang.annotation.AfterThrowing;</span><br><span class="line">import org.aspectj.lang.annotation.Aspect;</span><br><span class="line">import org.aspectj.lang.annotation.Before;</span><br><span class="line">@Aspect</span><br><span class="line">public class Audience &#123;</span><br><span class="line">@Before(&quot;execution(** concert.Performance.perform(..))&quot;)  //Before performance</span><br><span class="line">public void silenceCellPhones() &#123;</span><br><span class="line">System.out.println(&quot;Silencing cell phones&quot;);</span><br><span class="line">&#125;</span><br><span class="line">@Before(&quot;execution(** concert.Performance.perform(..))&quot;)  //Before performance</span><br><span class="line">public void takeSeats() &#123;</span><br><span class="line">System.out.println(&quot;Taking seats&quot;);</span><br><span class="line">&#125;</span><br><span class="line">@AfterReturning(&quot;execution(** concert.Performance.perform(..))&quot;)  //After performance</span><br><span class="line">public void applause() &#123;</span><br><span class="line">System.out.println(&quot;CLAP CLAP CLAP!!!&quot;);</span><br><span class="line">&#125;</span><br><span class="line">@AfterThrowing(&quot;execution(** concert.Performance.perform(..))&quot;)//After bad performance</span><br><span class="line">public void demandRefund() &#123;</span><br><span class="line">System.out.println(&quot;Demanding a refund&quot;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Notice how the Audience class is annotated with <strong>@Aspect</strong>. <strong>This annotation indicates that Audience isn’t just any POJO—it’s an aspect</strong>. </p>
+<p>As you can see, those methods are annotated with advice annotations to indicate <strong>when</strong> those methods should be called. AspectJ provides five annotations for defining advice, as listed in table 4.2.<br><img src="http://img.blog.csdn.net/20161007191801118" alt=""></p>
+<p>It’s a shame that you had to repeat that same pointcut expression four times.It’d be nice if you could define the pointcut once and then reference it every time you need it.上面的相同的表达式重复了4次。<br>Fortunately, there’s a way: the <strong>@Pointcut</strong> annotation defines a reusable pointcut within an @AspectJ aspect. The next listing shows the Audience aspect, updated to use @Pointcut.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">package concert;</span><br><span class="line">import org.aspectj.lang.annotation.AfterReturning;</span><br><span class="line">import org.aspectj.lang.annotation.AfterThrowing;</span><br><span class="line">import org.aspectj.lang.annotation.Aspect;</span><br><span class="line">import org.aspectj.lang.annotation.Before;</span><br><span class="line">import org.aspectj.lang.annotation.Pointcut;</span><br><span class="line">@Aspect</span><br><span class="line">public class Audience &#123;</span><br><span class="line">@Pointcut(&quot;execution(** concert.Performance.perform(..))&quot;)  //Define named pointcut</span><br><span class="line">public void performance() &#123;&#125;</span><br><span class="line">@Before(&quot;performance()&quot;)</span><br><span class="line">public void silenceCellPhones() &#123;</span><br><span class="line">System.out.println(&quot;Silencing cell phones&quot;);</span><br><span class="line">&#125;</span><br><span class="line">@Before(&quot;performance()&quot;)</span><br><span class="line">public void takeSeats() &#123;</span><br><span class="line">System.out.println(&quot;Taking seats&quot;);</span><br><span class="line">&#125;</span><br><span class="line">@AfterReturning(&quot;performance()&quot;)</span><br><span class="line">public void applause() &#123;</span><br><span class="line">System.out.println(&quot;CLAP CLAP CLAP!!!&quot;);</span><br><span class="line">&#125;</span><br><span class="line">@AfterThrowing(&quot;performance()&quot;)</span><br><span class="line">public void demandRefund() &#123;</span><br><span class="line">System.out.println(&quot;Demanding a refund&quot;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The body of the performance() method is irrelevant and, in fact, should be empty. The method itself is just a marker, giving the @Pointcut annotation something to attach itself to.</p>
+<p>Note that aside from the annotations and the no-op performance() method, <strong>the Audience class is essentially a POJO</strong>. Its methods can be called just like methods on any other Java class. Its methods can be individually unit-tested just as in any other Java class. Audience is just another Java class that happens to be annotated to be used as an aspect. And, just like any other Java class, it can be wired as a bean in Spring:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public Audience audience() &#123;</span><br><span class="line">return new Audience();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>If you were to stop here, Audience would only be a bean in the Spring container. Even though it’s annotated with AspectJ annotations, it wouldn’t be treated as an aspect without something that interpreted those annotations and created the proxies that turn it into an aspect.如果没有proxies，那么Audience就只会被当成一个bean。</p>
+<p>If you’re using <strong>JavaConfig</strong>, you can turn on <strong>auto-proxying</strong> by applying the <strong>@EnableAspectJAutoProxy</strong> annotation at the class level of the configuration class. The following configuration class shows how to enable auto-proxying in JavaConfig.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">package concert;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.ComponentScan;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">import org.springframework.context.annotation.EnableAspectJAutoProxy;</span><br><span class="line">@Configuration</span><br><span class="line">@EnableAspectJAutoProxy  //Enable AspectJ auto-proxying</span><br><span class="line">@ComponentScan</span><br><span class="line">public class ConcertConfig &#123;</span><br><span class="line">@Bean</span><br><span class="line">public Audience audience() &#123;  //Declare Audience bean</span><br><span class="line">return new Audience();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4>4.3.2Creating around advice</h4>
+
+<p>Around advice is the most powerful advice type. It allows you to write logic that completely wraps the advised method. It’s essentially like writing both before advice and after advice in a single advice method.<br>改写上面的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">package concert;</span><br><span class="line">import org.aspectj.lang.ProceedingJoinPoint;</span><br><span class="line">import org.aspectj.lang.annotation.Around;</span><br><span class="line">import org.aspectj.lang.annotation.Aspect;</span><br><span class="line">import org.aspectj.lang.annotation.Pointcut;</span><br><span class="line">@Aspect</span><br><span class="line">public class Audience &#123;</span><br><span class="line">@Pointcut(&quot;execution(** concert.Performance.perform(..))&quot;)  //Declare named pointcut</span><br><span class="line">public void performance() &#123;&#125;</span><br><span class="line">@Around(&quot;performance()&quot;)  //Around advice method</span><br><span class="line">public void watchPerformance(ProceedingJoinPoint jp) &#123;</span><br><span class="line">try &#123;</span><br><span class="line">System.out.println(&quot;Silencing cell phones&quot;);</span><br><span class="line">System.out.println(&quot;Taking seats&quot;);</span><br><span class="line">jp.proceed();</span><br><span class="line">System.out.println(&quot;CLAP CLAP CLAP!!!&quot;);</span><br><span class="line">&#125; catch (Throwable e) &#123;</span><br><span class="line">System.out.println(&quot;Demanding a refund&quot;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>As you can see, the effect of this advice is identical to what you did earlier with before and after advice. But here it’s all in a single advice method, whereas before it was spread across four distinct advice methods.</p>
+<h4>4.3.3Handling parameters in advice</h4>
+
+<p>What if your aspect was to advise a method that does take parameters? Could the aspect access the parameters that are passed into the method and use them?有参数的情况</p>
+<p>To illustrate, let’s revisit the BlankDisc class from section 2.4.4. As it is, the play() method cycles through all the tracks and calls playTrack() for each track. But you could call the playTrack() method directly to play an individual track.</p>
+<p>Suppose you want to keep a count of how many times each track is played. One way to do this is to change the playTrack() method to directly keep track of that count each time it’s called. But track-counting logic is a separate concern from playing a track and therefore doesn’t belong in the playTrack() method. This looks like a job for an aspect.</p>
+<p>下面是一个带参数的一个完整的例子，仔细看。<br>To keep a running count of how many times a track is played, let’s create <strong>TrackCounter</strong>, an aspect that advises playTrack(). The following listing shows just such an aspect.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package soundsystem;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import org.aspectj.lang.annotation.Aspect;</span><br><span class="line">import org.aspectj.lang.annotation.Before;</span><br><span class="line">import org.aspectj.lang.annotation.Pointcut;</span><br><span class="line">@Aspect</span><br><span class="line">public class TrackCounter &#123;</span><br><span class="line">private Map&lt;Integer, Integer&gt; trackCounts =</span><br><span class="line">new HashMap&lt;Integer, Integer&gt;();</span><br><span class="line">@Pointcut(</span><br><span class="line">&quot;execution(* soundsystem.CompactDisc.playTrack(int)) &quot; +//Advise the playTrack() method</span><br><span class="line">&quot;&amp;&amp; args(trackNumber)&quot;)</span><br><span class="line">public void trackPlayed(int trackNumber) &#123;&#125;</span><br><span class="line">@Before(&quot;trackPlayed(trackNumber)&quot;)  //Count a track before it’s played</span><br><span class="line">public void countTrack(int trackNumber) &#123;</span><br><span class="line">int currentCount = getPlayCount(trackNumber);</span><br><span class="line">trackCounts.put(trackNumber, currentCount + 1);</span><br><span class="line">&#125;</span><br><span class="line">public int getPlayCount(int trackNumber) &#123;</span><br><span class="line">return trackCounts.containsKey(trackNumber)</span><br><span class="line">? trackCounts.get(trackNumber) : 0;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过上面的代码可以看出，aspect相当于一种服务，它实现了在一些方法的前后等时间节点上做出一些功能处理。例如，在演出前关闭手机，演出成功后鼓掌，以及在播放前统计播放次数然后加1。<br><img src="http://img.blog.csdn.net/20161007201422867" alt=""></p>
+<p>The thing to <strong>focus</strong> on in the figure is the <strong>args(trackNumber) qualifier</strong> in the pointcut expression. <strong>This indicates that 1. any int argument that is passed into the execution of playTrack() should also be passed into the advice. 2. The parameter name, trackNumber, also matches the parameter in the pointcut method signature</strong>.</p>
+<p>Now you can <strong>1. configure BlankDisc and TrackCounter as beans</strong> in the Spring configuration and <strong>2. enable AspectJ auto-proxying</strong>, as shown next.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package soundsystem;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">import org.springframework.context.annotation.EnableAspectJAutoProxy;</span><br><span class="line">@Configuration</span><br><span class="line">@EnableAspectJAutoProxy  //Enable AspectJ auto-proxying</span><br><span class="line">public class TrackCounterConfig &#123;</span><br><span class="line">@Bean</span><br><span class="line">public CompactDisc sgtPeppers() &#123;  //CompactDisc bean</span><br><span class="line">BlankDisc cd = new BlankDisc();</span><br><span class="line">cd.setTitle(&quot;Sgt. Pepper&apos;s Lonely Hearts Club Band&quot;);</span><br><span class="line">cd.setArtist(&quot;The Beatles&quot;);</span><br><span class="line">List&lt;String&gt; tracks = new ArrayList&lt;String&gt;();</span><br><span class="line">tracks.add(&quot;Sgt. Pepper&apos;s Lonely Hearts Club Band&quot;);</span><br><span class="line">tracks.add(&quot;With a Little Help from My Friends&quot;);</span><br><span class="line">tracks.add(&quot;Lucy in the Sky with Diamonds&quot;);</span><br><span class="line">tracks.add(&quot;Getting Better&quot;);</span><br><span class="line">tracks.add(&quot;Fixing a Hole&quot;);</span><br><span class="line">// ...other tracks omitted for brevity...</span><br><span class="line">cd.setTracks(tracks);</span><br><span class="line">return cd;</span><br><span class="line">&#125;</span><br><span class="line">@Bean</span><br><span class="line">public TrackCounter trackCounter() &#123;  //TrackCounter bean</span><br><span class="line">return new TrackCounter();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Finally, to prove that this all works, you can write the following simple test. It plays a few tracks and then asserts the play count through the TrackCounter bean.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">//Testing the TrackCounter aspect</span><br><span class="line">package soundsystem;</span><br><span class="line">import static org.junit.Assert.*;</span><br><span class="line">import org.junit.Assert;</span><br><span class="line">import org.junit.Rule;</span><br><span class="line">import org.junit.Test;</span><br><span class="line">import org.junit.contrib.java.lang.system.StandardOutputStreamLog;</span><br><span class="line">import org.junit.runner.RunWith;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.test.context.ContextConfiguration;</span><br><span class="line">import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;</span><br><span class="line">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="line">@ContextConfiguration(classes=TrackCounterConfig.class)</span><br><span class="line">public class TrackCounterTest &#123;</span><br><span class="line">@Rule</span><br><span class="line">public final StandardOutputStreamLog log =</span><br><span class="line">new StandardOutputStreamLog();</span><br><span class="line">@Autowired</span><br><span class="line">private CompactDisc cd;</span><br><span class="line">@Autowired</span><br><span class="line">private TrackCounter counter;</span><br><span class="line">@Test</span><br><span class="line">public void testTrackCounter() &#123;</span><br><span class="line">cd.playTrack(1);  //Play some tracks</span><br><span class="line">cd.playTrack(2);</span><br><span class="line">cd.playTrack(3);</span><br><span class="line">cd.playTrack(3);</span><br><span class="line">cd.playTrack(3);</span><br><span class="line">cd.playTrack(3);</span><br><span class="line">cd.playTrack(7);</span><br><span class="line">cd.playTrack(7);</span><br><span class="line">assertEquals(1, counter.getPlayCount(1));  //Assert the expected counts</span><br><span class="line">assertEquals(1, counter.getPlayCount(2));</span><br><span class="line">assertEquals(4, counter.getPlayCount(3));</span><br><span class="line">assertEquals(0, counter.getPlayCount(4));</span><br><span class="line">assertEquals(0, counter.getPlayCount(5));</span><br><span class="line">assertEquals(0, counter.getPlayCount(6));</span><br><span class="line">assertEquals(2, counter.getPlayCount(7));</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The aspects you’ve worked with thus far wrap existing methods on the advised object. But method wrapping is just one of the tricks that aspects can perform. Let’s see how to write aspects that <strong>introduce completely new functionality into an advised object</strong>.</p>
+<h4>4.3.4Annotating introductions</h4>
+
+<p>Some languages, such as Ruby and Groovy, have the notion of open classes. <strong>They make it possible to add new methods to an object or class without directly changing the definition of those objects or classes</strong>. Unfortunately, <strong>Java isn’t that dynamic</strong>. <strong>Once a class has been compiled, there’s little you can do to append new functionality to it</strong>.</p>
+<p>In fact, using an AOP concept known as <strong>introduction</strong>, <strong>aspects can attach new methods to Spring beans</strong>.</p>
+<p>Recall that in Spring, aspects are proxies that implement the same interfaces as the beans they wrap. What if, in addition to implementing those interfaces, the proxy is also exposed through some new interface? Then any bean that’s advised by the aspect will appear to implement the new interface, even if its underlying implementation class doesn’t. Figure 4.7 illustrates how this works.</p>
+<p><img src="http://img.blog.csdn.net/20161007204017747" alt=""></p>
+<p>Notice that when a method on the introduced interface is called, the proxy delegates the call to some other object that provides the implementation of the new interface. Effectively, this gives you one bean whose implementation is split across multiple classes.</p>
+<p>Putting this idea to work, let’s say you want to introduce the following <strong>Encoreable</strong> interface to any implementation of <strong>Performance</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">package concert;</span><br><span class="line">public interface Encoreable &#123;</span><br><span class="line">void performEncore();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Fortunately, AOP introductions can help you without compromising design choices or requiring invasive changes to the existing implementations. To pull it off, you create a new aspect:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">package concert;</span><br><span class="line">import org.aspectj.lang.annotation.Aspect;</span><br><span class="line">import org.aspectj.lang.annotation.DeclareParents;</span><br><span class="line">@Aspect</span><br><span class="line">public class EncoreableIntroducer &#123;</span><br><span class="line">@DeclareParents(value=&quot;concert.Performance+&quot;,</span><br><span class="line">defaultImpl=DefaultEncoreable.class)</span><br><span class="line">public static Encoreable encoreable;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>As you can see, EncoreableIntroducer is an aspect. But unlike the aspects you’ve created so far, it doesn’t provide before, after, or around advice. <strong>Instead, it introduces the Encoreable interface to Performance beans using the @DeclareParents annotation</strong>.</p>
+<p>The <strong>@DeclareParents</strong> annotation is made up of three parts:</p>
+<p>1.The <strong>value</strong> attribute identifies the kinds of beans that should be introduced with the interface. In this case, that’s anything that implements the Performance interface. (<strong>The plus sign at the end specifies any subtype of Performance</strong>, as opposed to Performance itself.)<br>2.The <strong>defaultImpl</strong> attribute identifies the class that will provide the implementation for the introduction. Here you’re saying that <strong>DefaultEncoreable</strong> will provide that implementation.<br>3.The <strong>static property</strong> that is annotated by @DeclareParents specifies the interface that’s to be introduced. In this case, you’re introducing the Encoreable interface.</p>
+<h3>4.4Declaring aspects in XML</h3>
+
+<p>功能一样，换成XML实现方式而已。</p>
+<h3>4.5Injecting AspectJ aspects</h3>
+
+<p>Although Spring AOP is sufficient for many applications of aspects, it’s a weak AOP solution when contrasted with AspectJ. AspectJ offers many types of pointcuts that aren’t possible with Spring AOP. </p>
+<p>Constructor pointcuts, for example, are convenient when you need to apply advice on the creation of an object. Unlike constructors in some other object-oriented languages, Java constructors are different from normal methods. This makes Spring’s proxy-based AOP woefully inadequate for advising the creation of an object.</p>
+<p><strong>For the most part, AspectJ aspects are independent of Spring</strong>. Although they can be woven into any Java-based application, including Spring applications, <strong>there’s little involvement on Spring’s part in applying AspectJ aspects</strong>.</p>
+<p>But any well-designed and meaningful aspect will likely depend on other classes to assist in its work. If an aspect depends on one or more classes when executing its advice, you can instantiate those collaborating objects with the aspect itself. Or, better yet, you can use Spring’s dependency injection to inject beans into AspectJ aspects.</p>
+<p>然后介绍了具体的做法，用到再看。</p>
+<h3>4.6Summary</h3>
+
+<p><strong>AOP is a powerful complement to object-oriented programming</strong>.</p>
+<p>第一部分完结！</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Spring/">Spring</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/10/03/Spring in action--Part1-Core Spring/" data-title="Spring in action--Part1-Core Spring | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/10/09/Spring in action--Part2-Spring On The Web/" title="Spring in action--Part2-Spring On The Web">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Spring in action--Part2-Spring On The Web</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/09/28/Nginx学习笔记/"  title="Nginx学习笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>Nginx学习笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/10/03/Spring in action--Part1-Core Spring/" data-title="Spring in action--Part1-Core Spring" data-url="http://yoursite.com/2016/10/03/Spring in action--Part1-Core Spring/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#全书章节"><span class="toc-number">1.</span> <span class="toc-text">全书章节</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Part1-Core-Spring"><span class="toc-number">2.</span> <span class="toc-text">Part1.Core Spring</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter1.Springing into action</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">1.1Simplifying Java development</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.1.</span> <span class="toc-text">1.1.2Injecting dependencies</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.2.</span> <span class="toc-text">1.1.3Applying aspects</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.3.</span> <span class="toc-text">1.1.4Eliminating boilerplate code with templates</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">1.2Containing your beans</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.1.</span> <span class="toc-text">1.2.1Working with an application context</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.2.</span> <span class="toc-text">1.2.2A bean’s life</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">1.3Surveying the Spring landscape</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.1.</span> <span class="toc-text">1.3.1Spring modules</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.2.</span> <span class="toc-text">1.3.2The Spring portfolio</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">1.5Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter2.Wiring beans</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">2.2Automatically wiring beans</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.1.</span> <span class="toc-text">2.2.2Naming a component-scanned bean</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.2.</span> <span class="toc-text">2.2.3Setting a base package for component scanning</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.3.</span> <span class="toc-text">2.2.4Annotating beans to be automatically wired</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.4.</span> <span class="toc-text">2.2.5Verifying automatic configuration</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">2.6Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter3.Advanced wiring</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">3.1Environments and profiles</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.1.</span> <span class="toc-text">3.1.1Configuring profile beans</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.2.</span> <span class="toc-text">3.1.2Activating profiles</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">3.2Conditional beans</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">3.3Addressing ambiguity in autowiring</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.1.</span> <span class="toc-text">3.3.1Designating a primary bean</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.2.</span> <span class="toc-text">3.3.2Qualifying autowired beans</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">3.4Scoping beans</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.1.</span> <span class="toc-text">3.4.1Working with request and session scope</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.2.</span> <span class="toc-text">3.4.2Declaring scoped proxies in XML</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.5.</span> <span class="toc-text">3.5Runtime value injection</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.5.1.</span> <span class="toc-text">3.5.1Injecting external values</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.5.2.</span> <span class="toc-text">3.5.2Wiring with the Spring Expression Language</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.6.</span> <span class="toc-text">3.6Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter4.Aspect-oriented Spring</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">4.1What is aspect-oriented programming?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.1.</span> <span class="toc-text">4.1.1Defining AOP terminology</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.2.</span> <span class="toc-text">4.1.2Spring’s AOP support</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">4.2Selecting join points with pointcuts</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.1.</span> <span class="toc-text">4.2.1Writing pointcuts</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.2.</span> <span class="toc-text">4.2.2 Selecting beans in pointcuts</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">4.3Creating annotated aspects</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.1.</span> <span class="toc-text">4.3.1Defining an aspect</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.2.</span> <span class="toc-text">4.3.2Creating around advice</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.3.</span> <span class="toc-text">4.3.3Handling parameters in advice</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.4.</span> <span class="toc-text">4.3.4Annotating introductions</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">4.4Declaring aspects in XML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.5.</span> <span class="toc-text">4.5Injecting AspectJ aspects</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.6.</span> <span class="toc-text">4.6Summary</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 16.67px;">Java编程思想读书笔记</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a> <a href="/tags/TECH/" style="font-size: 11.67px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 18.33px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.67px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 13.33px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

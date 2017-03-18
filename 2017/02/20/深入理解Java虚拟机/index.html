@@ -1,0 +1,1012 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>深入理解Java虚拟机 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="Part1.走近javaPart2.自动内存管理机制Chapter2.java内存区域与内存溢出异常
+
+
+2.1概述
+
+java与c++之间有一堵由内存动态分配和垃圾收集技术所围成的“高墙”。java程序员把内存控制的权利交给了java虚拟机。
+2.2运行时数据区域
+
+图例：
+
+2.2.1程序计数器
+程序计数器（prgram counter register）可以看做是当前线程所执行的字节码的行号">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解Java虚拟机">
+<meta property="og:url" content="http://yoursite.com/2017/02/20/深入理解Java虚拟机/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="Part1.走近javaPart2.自动内存管理机制Chapter2.java内存区域与内存溢出异常
+
+
+2.1概述
+
+java与c++之间有一堵由内存动态分配和垃圾收集技术所围成的“高墙”。java程序员把内存控制的权利交给了java虚拟机。
+2.2运行时数据区域
+
+图例：
+
+2.2.1程序计数器
+程序计数器（prgram counter register）可以看做是当前线程所执行的字节码的行号">
+<meta property="og:image" content="http://img.blog.csdn.net/20170220102452933?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170220145135471?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170220145323512?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-03-18T15:04:26.089Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解Java虚拟机">
+<meta name="twitter:description" content="Part1.走近javaPart2.自动内存管理机制Chapter2.java内存区域与内存溢出异常
+
+
+2.1概述
+
+java与c++之间有一堵由内存动态分配和垃圾收集技术所围成的“高墙”。java程序员把内存控制的权利交给了java虚拟机。
+2.2运行时数据区域
+
+图例：
+
+2.2.1程序计数器
+程序计数器（prgram counter register）可以看做是当前线程所执行的字节码的行号">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170220102452933?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/02/20/深入理解Java虚拟机/" title="深入理解Java虚拟机" itemprop="url">深入理解Java虚拟机</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2017-02-20T04:30:33.000Z" itemprop="datePublished"> Published 2017-02-20</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Part1-走近java"><span class="toc-number">1.</span> <span class="toc-text">Part1.走近java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Part2-自动内存管理机制"><span class="toc-number">2.</span> <span class="toc-text">Part2.自动内存管理机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Chapter2.java内存区域与内存溢出异常</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.</span> <span class="toc-text">2.1概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.2.</span> <span class="toc-text">2.2运行时数据区域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.3.</span> <span class="toc-text">2.3HotSpot虚拟机对象探秘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.4.</span> <span class="toc-text">2.4实战：OOM异常</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Chapter3.垃圾收集器与内存分配策略
+3.1概述
+
+GC需要完成的3件事情：1.哪些内存需要回收？2.什么时候回收？3.如何回收？
+虚拟机内存中伴随线程，私有的是：
+1.程序计数器2.虚拟机栈3.本地方法栈
+栈中的栈帧伴随着方法的进入和退出执行着出栈和入栈操作。每一个栈帧中分配多少内存基本上是在类结构确定下来时就已知的。这几个区域内就不需要过多考虑回收的问题了，因为方法结束或者线程结束时，内存自然就随着回收了。
+而1.java堆和2.方法区则不一样。我们只有在程序处于运行期间时才能知道创建哪些对象，这部分内存的分配和回收都是动态的，垃圾收集器所关注的是这部分内存。
+3.2怎样判断对象已死
+
+3.2.1引用计数算法
+引用计数的实现简单，但主流的虚拟机没有选用引用计数算法管理内存，其中最主要的原因是它难以解决对象之间相互循环引用的问题。例如：
+123456789101112131415public class Main {    private Object instance = null;    private static final int _1MB = 1024*1024;    private byte[] bigSize = new byte[2*_1MB];    public static void main(String[] args) {        Main a = new Main();        Main b = new Main();        a.instance = b;        b.instance = a;        a = null;        b = null;        System.gc();    }}
+输出并没有报错，说明并不是使用引用计数算法来进行的垃圾回收。
+3.2.2可达性分析算法
+这个算法的基本思想就是通过一系列的称为”GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引用链（reference chain），当一个对象到”GC Roots”没有任何引用链相连时，即该对象不可用了。
+在java语言中，可作为”GC Roots”的对象包括：
+1.虚拟机栈（栈帧中的本地变量表）中引用的对象2.方法区中类静态属性引用的对象3.方法区中常量引用的对象4.本地方法栈中JNI(即Native方法)引用的对象
+可看出，可作为”GC Roots”的对象一般都不怎么改变。
+3.2.3再谈引用
+判断对象是否存活都与”引用”有关。
+除了有没有被引用这种场景外，我们还有这样的场景：当内存空间还足够时，保留在内存中；如果内存空间在进行垃圾收集后还是非常紧张，则可以抛弃这些对象。很多系统的缓存功能都符合这样的应用场景。
+几种引用：
+1.强引用，在代码中普遍存在。只要强引用存在，垃圾收集器永远不会回收被引用的对象。
+2.软引用是用来描述一些还有用但并不是非必须的对象。回收时机：在系统将要发生内存溢出异常之前，将会把这些对象列进垃圾回收范围之中进行第二次回收。如果回收之后还没有足够的内存，才会抛出内存异常。
+3.弱引用，回收时机：只能生存到下一次垃圾收集发生之前。当垃圾收集器工作时，无论当前内存是否足够，都会回收掉只被弱引用关联的对象。
+4.虚引用，一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用来获取一个对象实例。为一个对象设置虚引用关联的唯一目的是，能在这个对象被收集器回收时收到一个系统通知。
+3.2.4生存还是死亡
+即使可达性分析算法中不可达的对象，也只是处于”缓刑”阶段，要真正宣告一个对象死亡，至少要经历两次标记过程。
+这个过程中，finalize()方法是对象逃离死亡命运的最后一次机会。但注意，任何一个对象的finalize()方法都只会被系统自动调用一次，同时虚拟机只是会触发finalize()这个方法，但并不保证会等待它运行结束。
+但是，尽量不要用finalize()方法，它只是java刚刚诞生时为了使c/c++程序员更容易接收所做出的一个妥协。
+3.2.5回收方法区
+永久代的垃圾收集主要回收两个部分内容=1.废弃常量和2.无用的类。
+以常量池中字面量的回收为例：假如有一个字符串”abc”已经进入了常量池，但是当前系统没有一个String对象叫做”abc”，而且没有其他地方引用了它，那么垃圾回收就会回收它。
+判断一个类是否是”无用的类”的条件很苛刻，需要同时满足下面三条：
+1.该类所有的实例都已经被回收，也就是java堆中不存在该类的任何实例。2.加载该类的ClassLoader已经被回收3.该类对应的java.lang.Class对象没有任何地方被引用，无法在任何地方通过反射来访问该类的方法。
+3.3垃圾收集算法
+
+3.3.1清除-标记算法
+最基础的收集算法是“标记-清除”（Mark-Sweep）算法，它分为两个阶段：
+1.标记出所有需要回收的对象2.标记完成后统一回收
+该算法有两个问题：
+1.一个是效率问题，标记和清除两个过程的效率都不高2.另一个是空间问题，标记清除之后会产生大量不连续的内存碎片，空间碎片太多可能会导致以后在程序运行过程中需要分配较大对象时，无法找到足够的连续内存而不得不提前触发另一次垃圾收集动作。
+3.3.2复制算法
+为了解决效率问题以及空间问题，一种称为“复制”的收集算法出现了。
+现在商业虚拟机都采用这种收集算法来回收新生代，因为据统计，新生代中的对象有98%是“朝生夕死”的，而复制算法非常适用于存活率低的场景。
+HotSpot虚拟机默认Eden和Survivor的大小比例是8:1，也就是每次新生代中可用空间为整个新生代容量的90%，只有10%的内存会被“浪费”。
+当然，98%只是一般场景的统计数据。我们没有办法保证每次回收都只有不多于10%的对象存活，遇到极端情况怎么办呢？这需要其他内存（这里指老年代）进行分配担保（handle promotion）。
+复制算法是在知道对象存活率这个事实上，然后设计出来的非常好的算法，很美丽！
+3.3.3标记-整理算法
+如何对象存活率高，那么复制算法就不再适用了。
+根据老年代的特点，该算法分为两个阶段：
+1.标记，跟标记-清除算法的标记过程一样2.整理，让所有存活的对象都向一端移动，然后直接清理掉边界以外的内存。
+3.3.4分代收集算法
+当前商业虚拟机的垃圾收集都采用“分代收集”（Generational Collection）算法，一般是把java堆分为新生代和老年代。新生代采用复制算法，老年代采用“标记-整理”算法。
+3.4HotSpot的算法实现
+
+3.4.1枚举根节点
+可作为GC Roots的节点主要是全局性的引用（例如常量或类静态属性）与执行上下文（例如栈帧中的本地变量表）中。
+但是现在的方法区都很大，不可能逐个检查里面的应用。另外，可达性分析对执行时间的敏感还体现在GC停顿上，因为这项分析工作必须在一个能确保一致性的快照中进行。
+“一致性”是指在整个分析期间整个执行系统看起来就像被冻结在某个时间点上，不可以出现对象引用关系还在变化的情况。这点是导致GC进行时必须停顿所有java执行线程（sun将其称为“stop the world”）。
+由于主流jvm都使用准确式GC，所以并不需要检查完所有的执行上下文和全局引用位置，虚拟机应当是有办法直接得知哪些地方存放这对象引用。
+在HotSpot中，是使用一组称为OopMap的数据结构来得到这个目的的，在类加载后，HotSpot就把对象内什么偏移量上是什么类型的数据计算出来，在JIT编译过程中，也会在特定的位置记录下栈或寄存器中哪些位置是引用。这样，GC在扫描时就可以直接得知这些信息了。
+简而言之，不用逐个检查方法区，就可以得到哪些位置是引用。
+3.4.2安全点
+另一个难点：导致OopMap内容变化的指令非常多，为每一条指令都生成对应的OopMap不现实，并且需要大量的空间。
+实际上，HotSpot只是在“特定位置”记录了这些信息。这些位置称为安全点（safepoint），即程序执行时并非在所有地方都能停顿下来开始GC，只有在到达安全点时才能暂停。
+safepoint的选定既不能太少以至于让GC等待时间太长，也不能过于频繁以至于过分增大运行时的负荷。所以，安全点的选定基本上是以程序“是否具有让程序长时间执行的特征”为标准进行选定的。
+从这里可以知道，启动GC回收算法并不是定义一个回调当内存不够时然后进行清理，而是，在特定的位置，来判断内存是否足够。
+对于safepoint，另一个需要考虑的问题是如何在GC发生时让所有线程（这里不包括执行JNI调用的线程）都“跑”到最近的安全点上再停顿下来。为什么要跑到最近的安全点上呢？因为这些安全点存有OopMap啊，方便枚举根节点。
+3.4.3安全区域
+使用safepoint似乎已经完美地解决了如何进入GC的问题。safepoint机制保证了程序执行时，在不太长的时间内就会遇到可进入GC的safepoint。但是，程序“不执行”的时候呢？比如在多线程的情况下没有被分配到时间片，这种情况需要安全区域（safe region）来解决。
+安全区域是指在一段代码片段之中，引用关系不会发生变化。在这个区域中的任意地方开始GC都是安全的，可以将safe region看成是被扩展了的safepoint。
+在线程执行到safe region中的代码时，首先标识自己已经进入了safe region，那样，当在这段时间里jvm要发起GC时，就不用管标识自己为safe region状态的线程了。在线程要离开safe region时，它要检查系统是否已经完成了根节点枚举（或者是整个GC过程），如果完成了，那线程就继续执行，否则就必须等待直到可以安全离开safe region的信号为止。
+3.5垃圾收集器
+
+如果收集算法是内存回收的方法论，那么垃圾收集器技术内存回收的具体实现。主要分析CMS和G1这两款相对复杂的收集器，了解他们的部分运作细节。
+3.5.6CMS收集器
+</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">
+3.1概述
+
+GC需要完成的3件事情：1.哪些内存需要回收？2.什么时候回收？3.如何回收？
+虚拟机内存中伴随线程，私有的是：
+1.程序计数器2.虚拟机栈3.本地方法栈
+栈中的栈帧伴随着方法的进入和退出执行着出栈和入栈操作。每一个栈帧中分配多少内存基本上是在类结构确定下来时就已知的。这几个区域内就不需要过多考虑回收的问题了，因为方法结束或者线程结束时，内存自然就随着回收了。
+而1.java堆和2.方法区则不一样。我们只有在程序处于运行期间时才能知道创建哪些对象，这部分内存的分配和回收都是动态的，垃圾收集器所关注的是这部分内存。
+3.2怎样判断对象已死
+
+3.2.1引用计数算法
+引用计数的实现简单，但主流的虚拟机没有选用引用计数算法管理内存，其中最主要的原因是它难以解决对象之间相互循环引用的问题。例如：
+123456789101112131415public class Main {    private Object instance = null;    private static final int _1MB = 1024*1024;    private byte[] bigSize = new byte[2*_1MB];    public static void main(String[] args) {        Main a = new Main();        Main b = new Main();        a.instance = b;        b.instance = a;        a = null;        b = null;        System.gc();    }}
+输出并没有报错，说明并不是使用引用计数算法来进行的垃圾回收。
+3.2.2可达性分析算法
+这个算法的基本思想就是通过一系列的称为”GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引用链（reference chain），当一个对象到”GC Roots”没有任何引用链相连时，即该对象不可用了。
+在java语言中，可作为”GC Roots”的对象包括：
+1.虚拟机栈（栈帧中的本地变量表）中引用的对象2.方法区中类静态属性引用的对象3.方法区中常量引用的对象4.本地方法栈中JNI(即Native方法)引用的对象
+可看出，可作为”GC Roots”的对象一般都不怎么改变。
+3.2.3再谈引用
+判断对象是否存活都与”引用”有关。
+除了有没有被引用这种场景外，我们还有这样的场景：当内存空间还足够时，保留在内存中；如果内存空间在进行垃圾收集后还是非常紧张，则可以抛弃这些对象。很多系统的缓存功能都符合这样的应用场景。
+几种引用：
+1.强引用，在代码中普遍存在。只要强引用存在，垃圾收集器永远不会回收被引用的对象。
+2.软引用是用来描述一些还有用但并不是非必须的对象。回收时机：在系统将要发生内存溢出异常之前，将会把这些对象列进垃圾回收范围之中进行第二次回收。如果回收之后还没有足够的内存，才会抛出内存异常。
+3.弱引用，回收时机：只能生存到下一次垃圾收集发生之前。当垃圾收集器工作时，无论当前内存是否足够，都会回收掉只被弱引用关联的对象。
+4.虚引用，一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用来获取一个对象实例。为一个对象设置虚引用关联的唯一目的是，能在这个对象被收集器回收时收到一个系统通知。
+3.2.4生存还是死亡
+即使可达性分析算法中不可达的对象，也只是处于”缓刑”阶段，要真正宣告一个对象死亡，至少要经历两次标记过程。
+这个过程中，finalize()方法是对象逃离死亡命运的最后一次机会。但注意，任何一个对象的finalize()方法都只会被系统自动调用一次，同时虚拟机只是会触发finalize()这个方法，但并不保证会等待它运行结束。
+但是，尽量不要用finalize()方法，它只是java刚刚诞生时为了使c/c++程序员更容易接收所做出的一个妥协。
+3.2.5回收方法区
+永久代的垃圾收集主要回收两个部分内容=1.废弃常量和2.无用的类。
+以常量池中字面量的回收为例：假如有一个字符串”abc”已经进入了常量池，但是当前系统没有一个String对象叫做”abc”，而且没有其他地方引用了它，那么垃圾回收就会回收它。
+判断一个类是否是”无用的类”的条件很苛刻，需要同时满足下面三条：
+1.该类所有的实例都已经被回收，也就是java堆中不存在该类的任何实例。2.加载该类的ClassLoader已经被回收3.该类对应的java.lang.Class对象没有任何地方被引用，无法在任何地方通过反射来访问该类的方法。
+3.3垃圾收集算法
+
+3.3.1清除-标记算法
+最基础的收集算法是“标记-清除”（Mark-Sweep）算法，它分为两个阶段：
+1.标记出所有需要回收的对象2.标记完成后统一回收
+该算法有两个问题：
+1.一个是效率问题，标记和清除两个过程的效率都不高2.另一个是空间问题，标记清除之后会产生大量不连续的内存碎片，空间碎片太多可能会导致以后在程序运行过程中需要分配较大对象时，无法找到足够的连续内存而不得不提前触发另一次垃圾收集动作。
+3.3.2复制算法
+为了解决效率问题以及空间问题，一种称为“复制”的收集算法出现了。
+现在商业虚拟机都采用这种收集算法来回收新生代，因为据统计，新生代中的对象有98%是“朝生夕死”的，而复制算法非常适用于存活率低的场景。
+HotSpot虚拟机默认Eden和Survivor的大小比例是8:1，也就是每次新生代中可用空间为整个新生代容量的90%，只有10%的内存会被“浪费”。
+当然，98%只是一般场景的统计数据。我们没有办法保证每次回收都只有不多于10%的对象存活，遇到极端情况怎么办呢？这需要其他内存（这里指老年代）进行分配担保（handle promotion）。
+复制算法是在知道对象存活率这个事实上，然后设计出来的非常好的算法，很美丽！
+3.3.3标记-整理算法
+如何对象存活率高，那么复制算法就不再适用了。
+根据老年代的特点，该算法分为两个阶段：
+1.标记，跟标记-清除算法的标记过程一样2.整理，让所有存活的对象都向一端移动，然后直接清理掉边界以外的内存。
+3.3.4分代收集算法
+当前商业虚拟机的垃圾收集都采用“分代收集”（Generational Collection）算法，一般是把java堆分为新生代和老年代。新生代采用复制算法，老年代采用“标记-整理”算法。
+3.4HotSpot的算法实现
+
+3.4.1枚举根节点
+可作为GC Roots的节点主要是全局性的引用（例如常量或类静态属性）与执行上下文（例如栈帧中的本地变量表）中。
+但是现在的方法区都很大，不可能逐个检查里面的应用。另外，可达性分析对执行时间的敏感还体现在GC停顿上，因为这项分析工作必须在一个能确保一致性的快照中进行。
+“一致性”是指在整个分析期间整个执行系统看起来就像被冻结在某个时间点上，不可以出现对象引用关系还在变化的情况。这点是导致GC进行时必须停顿所有java执行线程（sun将其称为“stop the world”）。
+由于主流jvm都使用准确式GC，所以并不需要检查完所有的执行上下文和全局引用位置，虚拟机应当是有办法直接得知哪些地方存放这对象引用。
+在HotSpot中，是使用一组称为OopMap的数据结构来得到这个目的的，在类加载后，HotSpot就把对象内什么偏移量上是什么类型的数据计算出来，在JIT编译过程中，也会在特定的位置记录下栈或寄存器中哪些位置是引用。这样，GC在扫描时就可以直接得知这些信息了。
+简而言之，不用逐个检查方法区，就可以得到哪些位置是引用。
+3.4.2安全点
+另一个难点：导致OopMap内容变化的指令非常多，为每一条指令都生成对应的OopMap不现实，并且需要大量的空间。
+实际上，HotSpot只是在“特定位置”记录了这些信息。这些位置称为安全点（safepoint），即程序执行时并非在所有地方都能停顿下来开始GC，只有在到达安全点时才能暂停。
+safepoint的选定既不能太少以至于让GC等待时间太长，也不能过于频繁以至于过分增大运行时的负荷。所以，安全点的选定基本上是以程序“是否具有让程序长时间执行的特征”为标准进行选定的。
+从这里可以知道，启动GC回收算法并不是定义一个回调当内存不够时然后进行清理，而是，在特定的位置，来判断内存是否足够。
+对于safepoint，另一个需要考虑的问题是如何在GC发生时让所有线程（这里不包括执行JNI调用的线程）都“跑”到最近的安全点上再停顿下来。为什么要跑到最近的安全点上呢？因为这些安全点存有OopMap啊，方便枚举根节点。
+3.4.3安全区域
+使用safepoint似乎已经完美地解决了如何进入GC的问题。safepoint机制保证了程序执行时，在不太长的时间内就会遇到可进入GC的safepoint。但是，程序“不执行”的时候呢？比如在多线程的情况下没有被分配到时间片，这种情况需要安全区域（safe region）来解决。
+安全区域是指在一段代码片段之中，引用关系不会发生变化。在这个区域中的任意地方开始GC都是安全的，可以将safe region看成是被扩展了的safepoint。
+在线程执行到safe region中的代码时，首先标识自己已经进入了safe region，那样，当在这段时间里jvm要发起GC时，就不用管标识自己为safe region状态的线程了。在线程要离开safe region时，它要检查系统是否已经完成了根节点枚举（或者是整个GC过程），如果完成了，那线程就继续执行，否则就必须等待直到可以安全离开safe region的信号为止。
+3.5垃圾收集器
+
+如果收集算法是内存回收的方法论，那么垃圾收集器技术内存回收的具体实现。主要分析CMS和G1这两款相对复杂的收集器，了解他们的部分运作细节。
+3.5.6CMS收集器
+</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.1.</span> <span class="toc-text">3.1概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.2.</span> <span class="toc-text">3.2怎样判断对象已死</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.3.</span> <span class="toc-text">3.3垃圾收集算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.4.</span> <span class="toc-text">3.4HotSpot的算法实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.5.</span> <span class="toc-text">3.5垃圾收集器</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="Part1-走近java"><a href="#Part1-走近java" class="headerlink" title="Part1.走近java"></a>Part1.走近java</h2><h2 id="Part2-自动内存管理机制"><a href="#Part2-自动内存管理机制" class="headerlink" title="Part2.自动内存管理机制"></a>Part2.自动内存管理机制</h2><h2>Chapter2.java内存区域与内存溢出异常</h2>
+
+
+<h3>2.1概述</h3>
+
+<p>java与c++之间有一堵由内存动态分配和垃圾收集技术所围成的“高墙”。java程序员把内存控制的权利交给了java虚拟机。</p>
+<h3>2.2运行时数据区域</h3>
+
+<p>图例：</p>
+<p><img src="http://img.blog.csdn.net/20170220102452933?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p><em>2.2.1程序计数器</em></p>
+<p>程序计数器（prgram counter register）可以看做是<strong>当前线程所执行的字节码的行号指示器</strong>。字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。</p>
+<p>由于java虚拟机的多线程是通过线程轮流切换分配处理器执行时间的方式来实现的，在任何一个确定的时刻，一个处理器（对于多核处理器来说是一个内核）都只会执行一条线程中的指令。</p>
+<p><strong>因此，对于每条线程，都需要有一个独立的程序计数器</strong>。</p>
+<p>如果线程正在执行的是一个<strong>java方法</strong>，这个计数器记录的是<strong>正在执行的虚拟机字节码指令的地址</strong> ，如果是执行的是Native方法，则为空（Undefined）。</p>
+<p><strong>程序计数器是唯一一个在java虚拟机中没有规定任何OOM error的区域</strong>。</p>
+<p><em>2.2.2java虚拟机栈</em></p>
+<p><strong>java虚拟机栈也是线程私有的</strong>。</p>
+<p>虚拟机栈描述的是java方法执行的内存模型：<strong>每个方法在执行的同时都会创建一个栈帧（stack frame）</strong>。</p>
+<p>栈帧用于存储局部变量表，操作数栈，动态链接，方法出口等信息。<strong>每一个方法从调用直至执行完成的过程，都对应着一个栈帧在虚拟机栈中入栈到出栈的过程</strong>。</p>
+<p>通常java程序员所说的“堆栈”中的“栈”就是这个虚拟机栈，或者说是虚拟机栈中局部变量表部分。</p>
+<p><strong>局部变量表所需的内存空间在编译期间完成分配</strong>，当进入一个方法时，这个方法需要在帧中分配多大的局部变量空间是确定的，在方法运行期间不会改变局部变量表的大小。<strong>分配的大小确定</strong>。</p>
+<p>在规范中，对这个区域规定了两种异常：</p>
+<p>1.如果线程请求的栈深度大于虚拟机所允许的深度，将抛出StackOverflowError<br>2.虚拟机栈可以动态扩展，如果扩展时无法申请到足够的内存，将抛出OOM error</p>
+<p><em>2.2.3本地方法栈</em></p>
+<p>本地方法栈与虚拟机所发挥的作用是非常相似的，他们之间的区别是虚拟机执行java方法（也就是字节码）服务，而本地方法栈则为虚拟机使用到的Native方法服务。</p>
+<p><em>2.2.4java堆</em></p>
+<p>对于大多数应用来说，<strong>java堆（java heap）是java虚拟机所管理的内存中最大的一块</strong>。</p>
+<p><strong>java堆是被所有线程共享的的一块内存区域</strong>，在虚拟机启动时创建。此内存区域的<strong>唯一目的</strong>就是<strong>存放对象实例</strong>，几乎所有实例对象实例都在这里分配内存。</p>
+<p>java堆是垃圾收集器管理的主要区域，因此很多时候也被称为”GC堆”。</p>
+<p><em>2.2.5方法区</em></p>
+<p>方法区与java堆一样，是<strong>各个线程共享的内存区域</strong>，它用于存储已被虚拟机加载的<strong>1.类信息</strong>，<strong>2.常量</strong>，<strong>3.静态变量</strong>，<strong>4.即时编译器编译后的代码</strong>等数据。</p>
+<p>对于习惯在HotSpot虚拟机上开发，部署程序的开发者来说，<strong>很多人更愿意把方法区称为”永久代”，但本质上两者并不等价，仅仅是因为HotSpot虚拟机选择把GC分代收集扩展到方法区</strong>，或者说使用永久代来实现方法区而已，这样垃圾收集器可以像管理java堆一样管理这部分内存，能够省去专门为方法区编写内存管理代码的工作。</p>
+<p>但使用永久代来实现方法区，现在看来并不是一个好主意，因为这样更容易遇到内存溢出的问题。现在也渐渐不使用永久代来实现了。</p>
+<p><strong>方法区的内存回收主要是针对常量池的回收和对类型的卸载</strong>，一般来说，这个区域的回收不是很好，尤其是类型的卸载，条件比较苛刻，但是对这块区域的回收是有必要的。</p>
+<p><em>2.2.6运行时常量池</em></p>
+<p><strong>运行时常量池是方法区的一部分</strong>。</p>
+<p>Class文件除了有类的版本，字段，方法，接口等描述信息外，还有一项信息是常量池，用于存放编译期生成的<strong>1.各种字面量</strong>和<strong>2.符号引用</strong>。</p>
+<p>不过，一般来说，除了保存Class文件中描述的符号引用外，还会把翻译出来的<strong>3.直接引用</strong>也存储在运行时常量池中。</p>
+<p><strong>运行时常量池</strong>相对于Class文件常量池的另外一个重要特征是<strong>具备动态性</strong>，java语言并不要求常量一定只有编译期才能产生，也就是并非预置入Class文件中常量池的内容才能进入方法区运行时常量池，运行期间也可能将新的常量放入池中，这种特性被开发人员利用得比较多的便是String类的intern()方法。</p>
+<p><em>2.2.7直接内存</em></p>
+<h3>2.3HotSpot虚拟机对象探秘</h3>
+
+<p>基于实用原则，以常用的HotSpot虚拟机和常用的内存区域java堆为例，探讨对象分配，布局和访问的过程。</p>
+<p><em>2.3.1对象的创建</em></p>
+<p>对象创建步骤：</p>
+<p>1.在遇到new 指令时，首先去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载，解析和初始化过。<strong>如果没有，那么先执行相应的类加载过程</strong>。</p>
+<p>2.在类加载检查通过后，接下来虚拟机将为新生对象分配内存。对象所需的大小在类加载完成后就可以完全确定了。分配内存的方式应根据内存是否规整有两种方式：1.指针碰撞，2.空闲列表。<strong>而java堆是否规整又由所采用的垃圾收集器是否带有压缩整理功能决定</strong>。</p>
+<p>另一个需要考虑的问题是，创建对象是非常频繁的行为，即使是仅仅修改指针所指向的位置，<strong>在并发情况下并不是线程安全的</strong>。比如：可能出现正在给对象A分配内存，指针还没来得及修改，对象B又同时使用原来的指针来分配内存的情况。</p>
+<p>解决有两种方案：</p>
+<p>1.对分配动作进行同步处理，保证更新操作的原子性。<br>2.每个线程在java堆中预先分配一小块内存，称为本地线程分配缓冲（Thread Local Allocation Buffer,TLAB）。只有在TLAB用完时，才需要同步锁定。这个方法避免了每次微小的分配对象的动作都要进行同步。</p>
+<p><strong>内存分配完成后，虚拟机需要将分配的内存空间都初始化为零值</strong>（不包括对象头），这一步操作是保证对象的实例字段在java代码中可以不赋初值就可以直接使用，程序能访问到这些字段的数据类型所对应的零值。</p>
+<p>3.接下来，虚拟机要对对象进行必要的设置，例如这个对象是哪个类的实例，如何才能找到类的元数据信息，对象的哈希码，对象的GC分代年龄等信息。这些信息存放在对象的对象头(Object Header)中。</p>
+<p>在上面工作完成之后，从虚拟机的视角来看，一个新的对象已经产生了，但从java程序的视角看，对象创建才刚刚开始—<code>&lt;init&gt;</code>方法都还没有执行，所有的字段都还为零。</p>
+<p><em>2.3.2对象的内存布局</em></p>
+<p>对象在内存中存储的布局可以分为3块区域：<strong>1.对象头</strong>（Header），<strong>2.实例数据</strong>（Instance Data），<strong>3.对齐填充</strong>（Padding）。</p>
+<p><strong>对象头包括2部分信息</strong>：</p>
+<p>1.用于存储<strong>对象自身的运行时数据</strong>，如哈希码，GC分代年龄等，官方称为”Mark Word”。</p>
+<p>2.<strong>类型指针</strong>，即对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。如果对象是一个java数组，那在对象头中还必须有一块用于记录数组长度的数据，因为虚拟机可以通过普通java对象的元数据信息确定java对象的大小，但是从数组的元数据中却无法确定数组的大小。</p>
+<p><strong>实例数据部分是对象真正存储的有效信息</strong>，也是在程序代码中所定义的各种类型的字段内容。</p>
+<p>对齐填充不是必然的，仅仅起着占位符的作用。</p>
+<p><em>2.3.3对象的访问定位</em></p>
+<p>建立对象是为了使用对象，我们的java程序需要<strong>通过栈上的reference数据来操作堆上的具体对象</strong>。对象的访问方式有<strong>1.使用句柄</strong>和<strong>2.使用直接指针</strong>两种。</p>
+<p>1.如果使用句柄访问的话，那么java堆中将会划分出一块内存来作为句柄池，reference中存储的就是对象的句柄地址，在句柄中包含了对象实例数据与类型数据各自的具体地址信息。如图：<br><img src="http://img.blog.csdn.net/20170220145135471?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>2.使用直接指针访问，那么java堆对象的布局中就必须考虑如何放置访问类型数据的相关信息，而reference中存储的直接就是对象地址。如图：<br><img src="http://img.blog.csdn.net/20170220145323512?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>两种方式比较：</p>
+<p>句柄：优点是reference中存储的是稳定的句柄地址，在对象被移动（垃圾收集时移动对象是非常普遍的行为）时只会改变句柄中的实例数据指针，而reference本身不需要修改。</p>
+<p>直接指针：优点是速度更快，节省了一次指针定位的时间开销，由于对象的访问在java中非常频繁，因此这类开销积少成多也是可观的。HotSpot是使用直接指针访问的。</p>
+<h3>2.4实战：OOM异常</h3>
+
+<p><em>2.4.1java堆溢出</em></p>
+<p>java堆用于存放对象实例，只要不断地创建对象，并且保证GC Roots到对象之间有可达路径来避免被回收，那么在对象数量到达最大堆的容量限制后就会产生内存溢出异常。代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line">    static class OOMObject&#123;&#125;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;OOMObject&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        while(true)&#123;</span><br><span class="line">            list.add(new OOMObject());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>异常信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.OutOfMemoryError: Java heap space</span><br></pre></td></tr></table></figure>
+<p>当出现问题时要区分到底是内存泄露(Memory Leak)还是内存溢出(Memory Overflow)。</p>
+<p>如果是内存泄露，可进一步通过工具查看泄露对象到GC Roots相关联并导致垃圾收集器无法自动回收它们的。如果不存在泄露，就是内存中的对象确实都还必须存活着。</p>
+<p><em>2.4.2虚拟机栈和本地方法栈溢出</em></p>
+<p>关于栈，规范中描述了两种异常：<br>1.线程请求的栈深度大于虚拟机允许的最大深度，StackOverflowError异常。<br>2.在扩展栈时无法申请到足够的内存空间，OOM error。<br>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    private int stackLength = 1;</span><br><span class="line">    private void stackLeak()&#123;</span><br><span class="line">        stackLength++;</span><br><span class="line">        stackLeak();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Main main = new Main();</span><br><span class="line">        try&#123;</span><br><span class="line">            main.stackLeak();</span><br><span class="line">        &#125;catch (Throwable e)&#123;</span><br><span class="line">            System.out.println(main.stackLength);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实验证实：在单线程下，无论是上述哪种情况，都是抛StackOverflowError异常。</p>
+<p>通过不断地创建线程的方式倒是可以产生内存溢出异常，但是这样产生的内存溢出异常与栈空间是否足够大并不存在任何联系，准确的说，在这种情况下，为每个线程的栈分配的内存越大，反而越容易产生内存溢出异常。</p>
+<p>原因：操作系统对每个进程的内存都是有限制的。每个线程分配的栈容量越大，可以建立的线程数量就越少，建立线程就越容易把剩下的内存耗尽。这种情况下，对于32位系统，如果不能减少线程数或者更换64位虚拟机的情况下，可以通过减少最大堆和减少栈容量来换取更多的线程。<strong>即通过”减少内存”来解决内存溢出</strong>！代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    private static void dontStop()&#123;</span><br><span class="line">        while(true)&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        while(true)&#123;</span><br><span class="line">            Thread thread = new Thread(new Runnable() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public void run() &#123;</span><br><span class="line">                    dontStop();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            thread.start();</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>2.4.3方法区和运行时常量池溢出</em></p>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        List&lt;String&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">        int i=0;</span><br><span class="line">        while(true)&#123;</span><br><span class="line">            list.add(String.valueOf(i++).intern());</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于String.intern()的测试，JDK为1.8，代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        String str1 = new StringBuilder(&quot;计算机&quot;).append(&quot;软件&quot;).toString();</span><br><span class="line">        System.out.println(str1.intern() == str1);</span><br><span class="line">        String str2 = new StringBuilder(&quot;ja&quot;).append(&quot;va&quot;).toString();</span><br><span class="line">        System.out.println(str2.intern() == str2);</span><br><span class="line">        String str3 = new StringBuilder(&quot;计算机&quot;).append(&quot;软件&quot;).toString();</span><br><span class="line">        System.out.println(str3.intern() == str1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">true</span><br><span class="line">false</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<p>intern()方法（1.7以后）：如果String是第一次出现，则将其加入常量池并记录其地址，假设为A；如果不是第一次出现，返回地址A。</p>
+<p>方法区用于存放Class的相关信息，如类名，访问修饰符，常量池，字段描述，方法描述等。对于这些区域的测试，基本的思路是运行时产生大量的类去填满方法区，直到溢出。</p>
+<p>方法区溢出是比较常见的内存溢出异常，一个类要被垃圾收集器回收掉，判定条件是比较苛刻的。<strong>在经常产生大量Class的应用中，需要特别注意类的回收情况</strong>。常见的场景有：大量JSP或动态产生JSP文件的应用（JSP第一次运行时需要编译为java类），基于OSGi的应用。</p>
+<p><em>2.4.4本机直接内存溢出</em></p>
+<p></p><h2>Chapter3.垃圾收集器与内存分配策略<h2><p></p>
+<h3>3.1概述</h3>
+
+<p>GC需要完成的3件事情：<br>1.哪些内存需要回收？<br>2.什么时候回收？<br>3.如何回收？</p>
+<p><strong>虚拟机内存中伴随线程，私有的是</strong>：</p>
+<p>1.程序计数器<br>2.虚拟机栈<br>3.本地方法栈</p>
+<p>栈中的栈帧伴随着方法的进入和退出执行着出栈和入栈操作。每一个栈帧中分配多少内存基本上是在类结构确定下来时就已知的。这几个区域内就不需要过多考虑回收的问题了，因为方法结束或者线程结束时，内存自然就随着回收了。</p>
+<p>而<strong>1.java堆</strong>和<strong>2.方法区</strong>则不一样。我们只有在程序处于运行期间时才能知道创建哪些对象，这部分内存的分配和回收都是动态的，垃圾收集器所关注的是这部分内存。</p>
+<h3>3.2怎样判断对象已死</h3>
+
+<p><em>3.2.1引用计数算法</em></p>
+<p>引用计数的实现简单，但主流的虚拟机没有选用引用计数算法管理内存，其中最主要的原因是它<strong>难以解决对象之间相互循环引用的问题</strong>。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line">    private Object instance = null;</span><br><span class="line">    private static final int _1MB = 1024*1024;</span><br><span class="line">    private byte[] bigSize = new byte[2*_1MB];</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Main a = new Main();</span><br><span class="line">        Main b = new Main();</span><br><span class="line">        a.instance = b;</span><br><span class="line">        b.instance = a;</span><br><span class="line">        a = null;</span><br><span class="line">        b = null;</span><br><span class="line">        System.gc();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出并没有报错，说明并不是使用引用计数算法来进行的垃圾回收。</p>
+<p><em>3.2.2可达性分析算法</em></p>
+<p>这个算法的基本思想就是<strong>通过一系列的称为”GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引用链（reference chain），当一个对象到”GC Roots”没有任何引用链相连时，即该对象不可用了</strong>。</p>
+<p>在java语言中，<strong>可作为”GC Roots”的对象包括</strong>：</p>
+<p>1.虚拟机栈（栈帧中的本地变量表）中引用的对象<br>2.方法区中类静态属性引用的对象<br>3.方法区中常量引用的对象<br>4.本地方法栈中JNI(即Native方法)引用的对象</p>
+<p><strong>可看出，可作为”GC Roots”的对象一般都不怎么改变</strong>。</p>
+<p><em>3.2.3再谈引用</em></p>
+<p>判断对象是否存活都与”引用”有关。</p>
+<p>除了有没有被引用这种场景外，我们还有这样的场景：当内存空间还足够时，保留在内存中；如果内存空间在进行垃圾收集后还是非常紧张，则可以抛弃这些对象。很多系统的缓存功能都符合这样的应用场景。</p>
+<p>几种引用：</p>
+<p>1.<strong>强引用</strong>，在代码中普遍存在。只要强引用存在，垃圾收集器永远不会回收被引用的对象。</p>
+<p>2.软引用是用来描述一些还有用但并不是非必须的对象。<strong>回收时机：在系统将要发生内存溢出异常之前</strong>，将会把这些对象列进垃圾回收范围之中进行第二次回收。如果回收之后还没有足够的内存，才会抛出内存异常。</p>
+<p>3.弱引用，回收时机：只能生存到下一次垃圾收集发生之前。当垃圾收集器工作时，无论当前内存是否足够，都会回收掉只被弱引用关联的对象。</p>
+<p>4.虚引用，一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用来获取一个对象实例。为一个对象设置虚引用关联的<strong>唯一目的</strong>是，<strong>能在这个对象被收集器回收时收到一个系统通知</strong>。</p>
+<p><em>3.2.4生存还是死亡</em></p>
+<p>即使可达性分析算法中不可达的对象，也只是处于”缓刑”阶段，要真正宣告一个对象死亡，至少要<strong>经历两次标记过程</strong>。</p>
+<p>这个过程中，finalize()方法是对象逃离死亡命运的最后一次机会。但注意，任何一个对象的finalize()方法都只会被系统自动调用一次，同时虚拟机只是会触发finalize()这个方法，但并不保证会等待它运行结束。</p>
+<p>但是，尽量不要用finalize()方法，它只是java刚刚诞生时为了使c/c++程序员更容易接收所做出的一个妥协。</p>
+<p><em>3.2.5回收方法区</em></p>
+<p>永久代的垃圾收集主要回收两个部分内容=<strong>1.废弃常量</strong>和<strong>2.无用的类</strong>。</p>
+<p>以常量池中字面量的回收为例：假如有一个字符串”abc”已经进入了常量池，但是当前系统没有一个String对象叫做”abc”，而且没有其他地方引用了它，那么垃圾回收就会回收它。</p>
+<p>判断一个类是否是”无用的类”的条件很苛刻，需要同时满足下面三条：</p>
+<p>1.该类所有的实例都已经被回收，也就是java堆中不存在该类的任何实例。<br>2.加载该类的ClassLoader已经被回收<br>3.该类对应的java.lang.Class对象没有任何地方被引用，无法在任何地方通过反射来访问该类的方法。</p>
+<h3>3.3垃圾收集算法</h3>
+
+<p><em>3.3.1清除-标记算法</em></p>
+<p>最基础的收集算法是“标记-清除”（Mark-Sweep）算法，它分为两个阶段：</p>
+<p>1.标记出所有需要回收的对象<br>2.标记完成后统一回收</p>
+<p>该算法有两个问题：</p>
+<p>1.一个是<strong>效率问题</strong>，标记和清除两个过程的效率都不高<br>2.另一个是<strong>空间问题</strong>，标记清除之后会产生大量不连续的内存碎片，空间碎片太多可能会导致以后在程序运行过程中需要<strong>分配较大对象时</strong>，无法找到足够的连续内存而不得不提前触发另一次垃圾收集动作。</p>
+<p><em>3.3.2复制算法</em></p>
+<p>为了解决效率问题以及空间问题，一种称为“复制”的收集算法出现了。</p>
+<p>现在商业虚拟机都采用这种<strong>收集算法来回收新生代</strong>，因为据统计，新生代中的对象有98%是“朝生夕死”的，而<strong>复制算法非常适用于存活率低的场景</strong>。</p>
+<p>HotSpot虚拟机默认Eden和Survivor的大小比例是8:1，也就是每次新生代中可用空间为整个新生代容量的90%，只有10%的内存会被“浪费”。</p>
+<p>当然，98%只是一般场景的统计数据。我们没有办法保证每次回收都只有不多于10%的对象存活，遇到极端情况怎么办呢？这<strong>需要其他内存（这里指老年代）进行分配担保（handle promotion）</strong>。</p>
+<p>复制算法是在知道对象存活率这个事实上，然后设计出来的非常好的算法，很美丽！</p>
+<p><em>3.3.3标记-整理算法</em></p>
+<p>如何对象存活率高，那么复制算法就不再适用了。</p>
+<p>根据<strong>老年代</strong>的特点，该算法分为两个阶段：</p>
+<p>1.<strong>标记</strong>，跟标记-清除算法的标记过程一样<br>2.<strong>整理</strong>，让所有存活的对象都向一端移动，然后直接清理掉边界以外的内存。</p>
+<p><em>3.3.4分代收集算法</em></p>
+<p>当前商业虚拟机的垃圾收集都采用“分代收集”（Generational Collection）算法，<strong>一般是把java堆分为新生代和老年代</strong>。新生代采用复制算法，老年代采用“标记-整理”算法。</p>
+<h3>3.4HotSpot的算法实现</h3>
+
+<p><em>3.4.1枚举根节点</em></p>
+<p>可作为GC Roots的节点主要是全局性的引用（例如常量或类静态属性）与执行上下文（例如栈帧中的本地变量表）中。</p>
+<p>但是现在的方法区都很大，不可能逐个检查里面的应用。另外，可达性分析对执行时间的敏感还体现在<strong>GC停顿</strong>上，因为这项分析工作必须在一个能确保一致性的快照中进行。</p>
+<p>“一致性”是指在整个分析期间整个执行系统看起来就像被冻结在某个时间点上，不可以出现对象引用关系还在变化的情况。这点是导致GC进行时必须停顿所有java执行线程（sun将其称为<strong>“stop the world”</strong>）。</p>
+<p>由于主流jvm都使用准确式GC，所以并不需要检查完所有的执行上下文和全局引用位置，虚拟机应当是有办法直接得知哪些地方存放这对象引用。</p>
+<p><strong>在HotSpot中，是使用一组称为OopMap的数据结构来得到这个目的的</strong>，<strong>在类加载后</strong>，HotSpot就把对象内什么偏移量上是什么类型的数据计算出来，在JIT编译过程中，也会在特定的位置记录下栈或寄存器中哪些位置是引用。这样，GC在扫描时就可以直接得知这些信息了。</p>
+<p>简而言之，不用逐个检查方法区，就可以得到哪些位置是引用。</p>
+<p><em>3.4.2安全点</em></p>
+<p>另一个难点：导致OopMap内容变化的指令非常多，为每一条指令都生成对应的OopMap不现实，并且需要大量的空间。</p>
+<p>实际上，HotSpot只是在<strong>“特定位置”</strong>记录了这些信息。这些位置称为安全点（safepoint），即<strong>程序执行时并非在所有地方都能停顿下来开始GC，只有在到达安全点时才能暂停</strong>。</p>
+<p>safepoint的选定既不能太少以至于让GC等待时间太长，也不能过于频繁以至于过分增大运行时的负荷。所以，安全点的选定基本上是以程序“是否具有让程序长时间执行的特征”为标准进行选定的。</p>
+<p>从这里可以知道，启动GC回收算法并不是定义一个回调当内存不够时然后进行清理，而是，在特定的位置，来判断内存是否足够。</p>
+<p>对于safepoint，另一个需要考虑的问题是如何在GC发生时让所有线程（这里不包括执行JNI调用的线程）都“跑”到最近的安全点上再停顿下来。为什么要跑到最近的安全点上呢？因为这些安全点存有OopMap啊，方便枚举根节点。</p>
+<p><em>3.4.3安全区域</em></p>
+<p>使用safepoint似乎已经完美地解决了如何进入GC的问题。<strong>safepoint机制保证了程序执行时，在不太长的时间内就会遇到可进入GC的safepoint</strong>。但是，程序“不执行”的时候呢？比如在多线程的情况下没有被分配到时间片，这种情况需要<strong>安全区域（safe region）</strong>来解决。</p>
+<p>安全区域是指在一段代码片段之中，引用关系不会发生变化。在这个区域中的任意地方开始GC都是安全的，可以将safe region看成是被扩展了的safepoint。</p>
+<p>在线程执行到safe region中的代码时，首先标识自己已经进入了safe region，那样，当在这段时间里jvm要发起GC时，就不用管标识自己为safe region状态的线程了。在线程要离开safe region时，它要检查系统是否已经完成了根节点枚举（或者是整个GC过程），如果完成了，那线程就继续执行，否则就必须等待直到可以安全离开safe region的信号为止。</p>
+<h3>3.5垃圾收集器</h3>
+
+<p>如果收集算法是内存回收的方法论，那么垃圾收集器技术内存回收的具体实现。主要分析CMS和G1这两款相对复杂的收集器，了解他们的部分运作细节。</p>
+<p><em>3.5.6CMS收集器</em></p>
+</h2></h2>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2017/02/20/深入理解Java虚拟机/" data-title="深入理解Java虚拟机 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/02/24/SpringBoot+Thymeleaf+iBatis开发项目/" title="SpringBoot+Thymeleaf+iBatis开发项目">
+  <strong>上一篇：</strong><br/>
+  <span>
+  SpringBoot+Thymeleaf+iBatis开发项目</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/02/15/关于mysql index/"  title="关于mysql index">
+ <strong>下一篇：</strong><br/> 
+ <span>关于mysql index
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2017/02/20/深入理解Java虚拟机/" data-title="深入理解Java虚拟机" data-url="http://yoursite.com/2017/02/20/深入理解Java虚拟机/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Part1-走近java"><span class="toc-number">1.</span> <span class="toc-text">Part1.走近java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Part2-自动内存管理机制"><span class="toc-number">2.</span> <span class="toc-text">Part2.自动内存管理机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Chapter2.java内存区域与内存溢出异常</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.</span> <span class="toc-text">2.1概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.2.</span> <span class="toc-text">2.2运行时数据区域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.3.</span> <span class="toc-text">2.3HotSpot虚拟机对象探秘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.4.</span> <span class="toc-text">2.4实战：OOM异常</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Chapter3.垃圾收集器与内存分配策略
+3.1概述
+
+GC需要完成的3件事情：1.哪些内存需要回收？2.什么时候回收？3.如何回收？
+虚拟机内存中伴随线程，私有的是：
+1.程序计数器2.虚拟机栈3.本地方法栈
+栈中的栈帧伴随着方法的进入和退出执行着出栈和入栈操作。每一个栈帧中分配多少内存基本上是在类结构确定下来时就已知的。这几个区域内就不需要过多考虑回收的问题了，因为方法结束或者线程结束时，内存自然就随着回收了。
+而1.java堆和2.方法区则不一样。我们只有在程序处于运行期间时才能知道创建哪些对象，这部分内存的分配和回收都是动态的，垃圾收集器所关注的是这部分内存。
+3.2怎样判断对象已死
+
+3.2.1引用计数算法
+引用计数的实现简单，但主流的虚拟机没有选用引用计数算法管理内存，其中最主要的原因是它难以解决对象之间相互循环引用的问题。例如：
+123456789101112131415public class Main {    private Object instance = null;    private static final int _1MB = 1024*1024;    private byte[] bigSize = new byte[2*_1MB];    public static void main(String[] args) {        Main a = new Main();        Main b = new Main();        a.instance = b;        b.instance = a;        a = null;        b = null;        System.gc();    }}
+输出并没有报错，说明并不是使用引用计数算法来进行的垃圾回收。
+3.2.2可达性分析算法
+这个算法的基本思想就是通过一系列的称为”GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引用链（reference chain），当一个对象到”GC Roots”没有任何引用链相连时，即该对象不可用了。
+在java语言中，可作为”GC Roots”的对象包括：
+1.虚拟机栈（栈帧中的本地变量表）中引用的对象2.方法区中类静态属性引用的对象3.方法区中常量引用的对象4.本地方法栈中JNI(即Native方法)引用的对象
+可看出，可作为”GC Roots”的对象一般都不怎么改变。
+3.2.3再谈引用
+判断对象是否存活都与”引用”有关。
+除了有没有被引用这种场景外，我们还有这样的场景：当内存空间还足够时，保留在内存中；如果内存空间在进行垃圾收集后还是非常紧张，则可以抛弃这些对象。很多系统的缓存功能都符合这样的应用场景。
+几种引用：
+1.强引用，在代码中普遍存在。只要强引用存在，垃圾收集器永远不会回收被引用的对象。
+2.软引用是用来描述一些还有用但并不是非必须的对象。回收时机：在系统将要发生内存溢出异常之前，将会把这些对象列进垃圾回收范围之中进行第二次回收。如果回收之后还没有足够的内存，才会抛出内存异常。
+3.弱引用，回收时机：只能生存到下一次垃圾收集发生之前。当垃圾收集器工作时，无论当前内存是否足够，都会回收掉只被弱引用关联的对象。
+4.虚引用，一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用来获取一个对象实例。为一个对象设置虚引用关联的唯一目的是，能在这个对象被收集器回收时收到一个系统通知。
+3.2.4生存还是死亡
+即使可达性分析算法中不可达的对象，也只是处于”缓刑”阶段，要真正宣告一个对象死亡，至少要经历两次标记过程。
+这个过程中，finalize()方法是对象逃离死亡命运的最后一次机会。但注意，任何一个对象的finalize()方法都只会被系统自动调用一次，同时虚拟机只是会触发finalize()这个方法，但并不保证会等待它运行结束。
+但是，尽量不要用finalize()方法，它只是java刚刚诞生时为了使c/c++程序员更容易接收所做出的一个妥协。
+3.2.5回收方法区
+永久代的垃圾收集主要回收两个部分内容=1.废弃常量和2.无用的类。
+以常量池中字面量的回收为例：假如有一个字符串”abc”已经进入了常量池，但是当前系统没有一个String对象叫做”abc”，而且没有其他地方引用了它，那么垃圾回收就会回收它。
+判断一个类是否是”无用的类”的条件很苛刻，需要同时满足下面三条：
+1.该类所有的实例都已经被回收，也就是java堆中不存在该类的任何实例。2.加载该类的ClassLoader已经被回收3.该类对应的java.lang.Class对象没有任何地方被引用，无法在任何地方通过反射来访问该类的方法。
+3.3垃圾收集算法
+
+3.3.1清除-标记算法
+最基础的收集算法是“标记-清除”（Mark-Sweep）算法，它分为两个阶段：
+1.标记出所有需要回收的对象2.标记完成后统一回收
+该算法有两个问题：
+1.一个是效率问题，标记和清除两个过程的效率都不高2.另一个是空间问题，标记清除之后会产生大量不连续的内存碎片，空间碎片太多可能会导致以后在程序运行过程中需要分配较大对象时，无法找到足够的连续内存而不得不提前触发另一次垃圾收集动作。
+3.3.2复制算法
+为了解决效率问题以及空间问题，一种称为“复制”的收集算法出现了。
+现在商业虚拟机都采用这种收集算法来回收新生代，因为据统计，新生代中的对象有98%是“朝生夕死”的，而复制算法非常适用于存活率低的场景。
+HotSpot虚拟机默认Eden和Survivor的大小比例是8:1，也就是每次新生代中可用空间为整个新生代容量的90%，只有10%的内存会被“浪费”。
+当然，98%只是一般场景的统计数据。我们没有办法保证每次回收都只有不多于10%的对象存活，遇到极端情况怎么办呢？这需要其他内存（这里指老年代）进行分配担保（handle promotion）。
+复制算法是在知道对象存活率这个事实上，然后设计出来的非常好的算法，很美丽！
+3.3.3标记-整理算法
+如何对象存活率高，那么复制算法就不再适用了。
+根据老年代的特点，该算法分为两个阶段：
+1.标记，跟标记-清除算法的标记过程一样2.整理，让所有存活的对象都向一端移动，然后直接清理掉边界以外的内存。
+3.3.4分代收集算法
+当前商业虚拟机的垃圾收集都采用“分代收集”（Generational Collection）算法，一般是把java堆分为新生代和老年代。新生代采用复制算法，老年代采用“标记-整理”算法。
+3.4HotSpot的算法实现
+
+3.4.1枚举根节点
+可作为GC Roots的节点主要是全局性的引用（例如常量或类静态属性）与执行上下文（例如栈帧中的本地变量表）中。
+但是现在的方法区都很大，不可能逐个检查里面的应用。另外，可达性分析对执行时间的敏感还体现在GC停顿上，因为这项分析工作必须在一个能确保一致性的快照中进行。
+“一致性”是指在整个分析期间整个执行系统看起来就像被冻结在某个时间点上，不可以出现对象引用关系还在变化的情况。这点是导致GC进行时必须停顿所有java执行线程（sun将其称为“stop the world”）。
+由于主流jvm都使用准确式GC，所以并不需要检查完所有的执行上下文和全局引用位置，虚拟机应当是有办法直接得知哪些地方存放这对象引用。
+在HotSpot中，是使用一组称为OopMap的数据结构来得到这个目的的，在类加载后，HotSpot就把对象内什么偏移量上是什么类型的数据计算出来，在JIT编译过程中，也会在特定的位置记录下栈或寄存器中哪些位置是引用。这样，GC在扫描时就可以直接得知这些信息了。
+简而言之，不用逐个检查方法区，就可以得到哪些位置是引用。
+3.4.2安全点
+另一个难点：导致OopMap内容变化的指令非常多，为每一条指令都生成对应的OopMap不现实，并且需要大量的空间。
+实际上，HotSpot只是在“特定位置”记录了这些信息。这些位置称为安全点（safepoint），即程序执行时并非在所有地方都能停顿下来开始GC，只有在到达安全点时才能暂停。
+safepoint的选定既不能太少以至于让GC等待时间太长，也不能过于频繁以至于过分增大运行时的负荷。所以，安全点的选定基本上是以程序“是否具有让程序长时间执行的特征”为标准进行选定的。
+从这里可以知道，启动GC回收算法并不是定义一个回调当内存不够时然后进行清理，而是，在特定的位置，来判断内存是否足够。
+对于safepoint，另一个需要考虑的问题是如何在GC发生时让所有线程（这里不包括执行JNI调用的线程）都“跑”到最近的安全点上再停顿下来。为什么要跑到最近的安全点上呢？因为这些安全点存有OopMap啊，方便枚举根节点。
+3.4.3安全区域
+使用safepoint似乎已经完美地解决了如何进入GC的问题。safepoint机制保证了程序执行时，在不太长的时间内就会遇到可进入GC的safepoint。但是，程序“不执行”的时候呢？比如在多线程的情况下没有被分配到时间片，这种情况需要安全区域（safe region）来解决。
+安全区域是指在一段代码片段之中，引用关系不会发生变化。在这个区域中的任意地方开始GC都是安全的，可以将safe region看成是被扩展了的safepoint。
+在线程执行到safe region中的代码时，首先标识自己已经进入了safe region，那样，当在这段时间里jvm要发起GC时，就不用管标识自己为safe region状态的线程了。在线程要离开safe region时，它要检查系统是否已经完成了根节点枚举（或者是整个GC过程），如果完成了，那线程就继续执行，否则就必须等待直到可以安全离开safe region的信号为止。
+3.5垃圾收集器
+
+如果收集算法是内存回收的方法论，那么垃圾收集器技术内存回收的具体实现。主要分析CMS和G1这两款相对复杂的收集器，了解他们的部分运作细节。
+3.5.6CMS收集器
+</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">
+3.1概述
+
+GC需要完成的3件事情：1.哪些内存需要回收？2.什么时候回收？3.如何回收？
+虚拟机内存中伴随线程，私有的是：
+1.程序计数器2.虚拟机栈3.本地方法栈
+栈中的栈帧伴随着方法的进入和退出执行着出栈和入栈操作。每一个栈帧中分配多少内存基本上是在类结构确定下来时就已知的。这几个区域内就不需要过多考虑回收的问题了，因为方法结束或者线程结束时，内存自然就随着回收了。
+而1.java堆和2.方法区则不一样。我们只有在程序处于运行期间时才能知道创建哪些对象，这部分内存的分配和回收都是动态的，垃圾收集器所关注的是这部分内存。
+3.2怎样判断对象已死
+
+3.2.1引用计数算法
+引用计数的实现简单，但主流的虚拟机没有选用引用计数算法管理内存，其中最主要的原因是它难以解决对象之间相互循环引用的问题。例如：
+123456789101112131415public class Main {    private Object instance = null;    private static final int _1MB = 1024*1024;    private byte[] bigSize = new byte[2*_1MB];    public static void main(String[] args) {        Main a = new Main();        Main b = new Main();        a.instance = b;        b.instance = a;        a = null;        b = null;        System.gc();    }}
+输出并没有报错，说明并不是使用引用计数算法来进行的垃圾回收。
+3.2.2可达性分析算法
+这个算法的基本思想就是通过一系列的称为”GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引用链（reference chain），当一个对象到”GC Roots”没有任何引用链相连时，即该对象不可用了。
+在java语言中，可作为”GC Roots”的对象包括：
+1.虚拟机栈（栈帧中的本地变量表）中引用的对象2.方法区中类静态属性引用的对象3.方法区中常量引用的对象4.本地方法栈中JNI(即Native方法)引用的对象
+可看出，可作为”GC Roots”的对象一般都不怎么改变。
+3.2.3再谈引用
+判断对象是否存活都与”引用”有关。
+除了有没有被引用这种场景外，我们还有这样的场景：当内存空间还足够时，保留在内存中；如果内存空间在进行垃圾收集后还是非常紧张，则可以抛弃这些对象。很多系统的缓存功能都符合这样的应用场景。
+几种引用：
+1.强引用，在代码中普遍存在。只要强引用存在，垃圾收集器永远不会回收被引用的对象。
+2.软引用是用来描述一些还有用但并不是非必须的对象。回收时机：在系统将要发生内存溢出异常之前，将会把这些对象列进垃圾回收范围之中进行第二次回收。如果回收之后还没有足够的内存，才会抛出内存异常。
+3.弱引用，回收时机：只能生存到下一次垃圾收集发生之前。当垃圾收集器工作时，无论当前内存是否足够，都会回收掉只被弱引用关联的对象。
+4.虚引用，一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用来获取一个对象实例。为一个对象设置虚引用关联的唯一目的是，能在这个对象被收集器回收时收到一个系统通知。
+3.2.4生存还是死亡
+即使可达性分析算法中不可达的对象，也只是处于”缓刑”阶段，要真正宣告一个对象死亡，至少要经历两次标记过程。
+这个过程中，finalize()方法是对象逃离死亡命运的最后一次机会。但注意，任何一个对象的finalize()方法都只会被系统自动调用一次，同时虚拟机只是会触发finalize()这个方法，但并不保证会等待它运行结束。
+但是，尽量不要用finalize()方法，它只是java刚刚诞生时为了使c/c++程序员更容易接收所做出的一个妥协。
+3.2.5回收方法区
+永久代的垃圾收集主要回收两个部分内容=1.废弃常量和2.无用的类。
+以常量池中字面量的回收为例：假如有一个字符串”abc”已经进入了常量池，但是当前系统没有一个String对象叫做”abc”，而且没有其他地方引用了它，那么垃圾回收就会回收它。
+判断一个类是否是”无用的类”的条件很苛刻，需要同时满足下面三条：
+1.该类所有的实例都已经被回收，也就是java堆中不存在该类的任何实例。2.加载该类的ClassLoader已经被回收3.该类对应的java.lang.Class对象没有任何地方被引用，无法在任何地方通过反射来访问该类的方法。
+3.3垃圾收集算法
+
+3.3.1清除-标记算法
+最基础的收集算法是“标记-清除”（Mark-Sweep）算法，它分为两个阶段：
+1.标记出所有需要回收的对象2.标记完成后统一回收
+该算法有两个问题：
+1.一个是效率问题，标记和清除两个过程的效率都不高2.另一个是空间问题，标记清除之后会产生大量不连续的内存碎片，空间碎片太多可能会导致以后在程序运行过程中需要分配较大对象时，无法找到足够的连续内存而不得不提前触发另一次垃圾收集动作。
+3.3.2复制算法
+为了解决效率问题以及空间问题，一种称为“复制”的收集算法出现了。
+现在商业虚拟机都采用这种收集算法来回收新生代，因为据统计，新生代中的对象有98%是“朝生夕死”的，而复制算法非常适用于存活率低的场景。
+HotSpot虚拟机默认Eden和Survivor的大小比例是8:1，也就是每次新生代中可用空间为整个新生代容量的90%，只有10%的内存会被“浪费”。
+当然，98%只是一般场景的统计数据。我们没有办法保证每次回收都只有不多于10%的对象存活，遇到极端情况怎么办呢？这需要其他内存（这里指老年代）进行分配担保（handle promotion）。
+复制算法是在知道对象存活率这个事实上，然后设计出来的非常好的算法，很美丽！
+3.3.3标记-整理算法
+如何对象存活率高，那么复制算法就不再适用了。
+根据老年代的特点，该算法分为两个阶段：
+1.标记，跟标记-清除算法的标记过程一样2.整理，让所有存活的对象都向一端移动，然后直接清理掉边界以外的内存。
+3.3.4分代收集算法
+当前商业虚拟机的垃圾收集都采用“分代收集”（Generational Collection）算法，一般是把java堆分为新生代和老年代。新生代采用复制算法，老年代采用“标记-整理”算法。
+3.4HotSpot的算法实现
+
+3.4.1枚举根节点
+可作为GC Roots的节点主要是全局性的引用（例如常量或类静态属性）与执行上下文（例如栈帧中的本地变量表）中。
+但是现在的方法区都很大，不可能逐个检查里面的应用。另外，可达性分析对执行时间的敏感还体现在GC停顿上，因为这项分析工作必须在一个能确保一致性的快照中进行。
+“一致性”是指在整个分析期间整个执行系统看起来就像被冻结在某个时间点上，不可以出现对象引用关系还在变化的情况。这点是导致GC进行时必须停顿所有java执行线程（sun将其称为“stop the world”）。
+由于主流jvm都使用准确式GC，所以并不需要检查完所有的执行上下文和全局引用位置，虚拟机应当是有办法直接得知哪些地方存放这对象引用。
+在HotSpot中，是使用一组称为OopMap的数据结构来得到这个目的的，在类加载后，HotSpot就把对象内什么偏移量上是什么类型的数据计算出来，在JIT编译过程中，也会在特定的位置记录下栈或寄存器中哪些位置是引用。这样，GC在扫描时就可以直接得知这些信息了。
+简而言之，不用逐个检查方法区，就可以得到哪些位置是引用。
+3.4.2安全点
+另一个难点：导致OopMap内容变化的指令非常多，为每一条指令都生成对应的OopMap不现实，并且需要大量的空间。
+实际上，HotSpot只是在“特定位置”记录了这些信息。这些位置称为安全点（safepoint），即程序执行时并非在所有地方都能停顿下来开始GC，只有在到达安全点时才能暂停。
+safepoint的选定既不能太少以至于让GC等待时间太长，也不能过于频繁以至于过分增大运行时的负荷。所以，安全点的选定基本上是以程序“是否具有让程序长时间执行的特征”为标准进行选定的。
+从这里可以知道，启动GC回收算法并不是定义一个回调当内存不够时然后进行清理，而是，在特定的位置，来判断内存是否足够。
+对于safepoint，另一个需要考虑的问题是如何在GC发生时让所有线程（这里不包括执行JNI调用的线程）都“跑”到最近的安全点上再停顿下来。为什么要跑到最近的安全点上呢？因为这些安全点存有OopMap啊，方便枚举根节点。
+3.4.3安全区域
+使用safepoint似乎已经完美地解决了如何进入GC的问题。safepoint机制保证了程序执行时，在不太长的时间内就会遇到可进入GC的safepoint。但是，程序“不执行”的时候呢？比如在多线程的情况下没有被分配到时间片，这种情况需要安全区域（safe region）来解决。
+安全区域是指在一段代码片段之中，引用关系不会发生变化。在这个区域中的任意地方开始GC都是安全的，可以将safe region看成是被扩展了的safepoint。
+在线程执行到safe region中的代码时，首先标识自己已经进入了safe region，那样，当在这段时间里jvm要发起GC时，就不用管标识自己为safe region状态的线程了。在线程要离开safe region时，它要检查系统是否已经完成了根节点枚举（或者是整个GC过程），如果完成了，那线程就继续执行，否则就必须等待直到可以安全离开safe region的信号为止。
+3.5垃圾收集器
+
+如果收集算法是内存回收的方法论，那么垃圾收集器技术内存回收的具体实现。主要分析CMS和G1这两款相对复杂的收集器，了解他们的部分运作细节。
+3.5.6CMS收集器
+</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.1.</span> <span class="toc-text">3.1概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.2.</span> <span class="toc-text">3.2怎样判断对象已死</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.3.</span> <span class="toc-text">3.3垃圾收集算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.4.</span> <span class="toc-text">3.4HotSpot的算法实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.5.</span> <span class="toc-text">3.5垃圾收集器</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 16.67px;">Java编程思想读书笔记</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a> <a href="/tags/TECH/" style="font-size: 11.67px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 18.33px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.67px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 13.33px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

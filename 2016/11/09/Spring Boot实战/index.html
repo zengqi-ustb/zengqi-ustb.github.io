@@ -1,0 +1,675 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Spring Boot实战 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="Spring在java EE开发中是实际意义上的标准，但我们在开发Spring的时候可能会遇到以下令人头疼的问题：
+1.大量配置文件的定义。2.与第三方软件整合的技术问题。
+Spring每个版本的退出都以减少配置作为自己的主要目标，例如：
+1.推出@Component，@Service，@Repository，@Controller注解在类上声明Bean2.推出@Configuration，@Be">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot实战">
+<meta property="og:url" content="http://yoursite.com/2016/11/09/Spring Boot实战/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="Spring在java EE开发中是实际意义上的标准，但我们在开发Spring的时候可能会遇到以下令人头疼的问题：
+1.大量配置文件的定义。2.与第三方软件整合的技术问题。
+Spring每个版本的退出都以减少配置作为自己的主要目标，例如：
+1.推出@Component，@Service，@Repository，@Controller注解在类上声明Bean2.推出@Configuration，@Be">
+<meta property="og:updated_time" content="2017-03-18T14:55:27.232Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Boot实战">
+<meta name="twitter:description" content="Spring在java EE开发中是实际意义上的标准，但我们在开发Spring的时候可能会遇到以下令人头疼的问题：
+1.大量配置文件的定义。2.与第三方软件整合的技术问题。
+Spring每个版本的退出都以减少配置作为自己的主要目标，例如：
+1.推出@Component，@Service，@Repository，@Controller注解在类上声明Bean2.推出@Configuration，@Be">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/11/09/Spring Boot实战/" title="Spring Boot实战" itemprop="url">Spring Boot实战</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-11-09T04:30:33.000Z" itemprop="datePublished"> Published 2016-11-09</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一部分-点睛Spring-4-x"><span class="toc-number">1.</span> <span class="toc-text">第一部分.点睛Spring 4.x</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter1.Spring基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter2.Spring常用配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter3.Spring高级话题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第二部分-点睛Spring-MVC-4-x"><span class="toc-number">1.</span> <span class="toc-text">第二部分.点睛Spring MVC 4.x</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter4.Spring MVC基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter5.Spring基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter6.Spring Boot核心</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter7.Spring Boot的Web开发</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter8.Spring Boot的数据访问</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter9.企业级开发</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter10.Spring Boot开发部署与测试</span></a>
+		
+		</div>
+		
+		<p>Spring在java EE开发中是实际意义上的标准，但我们在开发Spring的时候可能会遇到以下令人头疼的问题：</p>
+<p>1.大量配置文件的定义。<br>2.与第三方软件整合的技术问题。</p>
+<p>Spring每个版本的退出都以减少配置作为自己的主要目标，例如：</p>
+<p>1.推出@Component，@Service，@Repository，@Controller注解在类上声明Bean<br>2.推出@Configuration，@Bean的java配置来替代xml配置。</p>
+<p>Spring Boot具有以下特征：</p>
+<p>1.遵循“习惯优于配置”的原则，使用Spring Boot只需要很少的配置。大部分可以使用默认配置。<br>2.项目快速搭建，可无配置整合第三方框架。<br>3.可完全不使用xml配置，只使用<strong>自动配置</strong>和<strong>java config</strong>。<br>4.内嵌servlet容器，应用可用jar包运行。<br>5.运行中应用状态的监控。</p>
+<p>虽然Spring Boot给我们带来了类似于脚本语言开发的效率，但Spring Boot里没有使用如何让你意外的技术，<strong>完全是一个单纯的基于Spring的应用</strong>。<strong>如，Spring Boot的自动配置是通过Spring 4.x 的@Conditional注解来实现的</strong>。</p>
+<h2 id="第一部分-点睛Spring-4-x"><a href="#第一部分-点睛Spring-4-x" class="headerlink" title="第一部分.点睛Spring 4.x"></a>第一部分.点睛Spring 4.x</h2><h1>Chapter1.Spring基础</h1><br>Spring的简史：<br><br>1.xml配置<br><br>在Spring 1.x时代，使用Spring开发满眼都是xml配置的Bean，随着项目的扩大，我们需要xml配置文件分放到不同的配置文件里，那时候需要频繁地在开发的类和配置文件中切换。<br><br>2.注解配置<br><br>在Spring 2.x时代，随着JDK 1.5带来的注解支持，Spring提供了声明Bean的注解（如@Component，@Service），大大减少了配置量。这时Spring圈子里存在着一种争论：注解配置和xml配置究竟哪个好？<strong>我们最终的选择是应用的基本配置（如数据库配置）用xml，业务配置用注解</strong>。<br><br>3.java配置<br><br>Spring3.x到现在，Spring提供了java配置的能力，使用java配置可以让你更理解你配置的Bean。我们目前刚好处于这个时代，Spring 4.x和Spring Boot都推荐使用java配置，所以我们在本书通篇将使用java配置。<br><br><strong>Spring使用简单的POJO（plain old java object，即无任何限制的普通java对象）来进行企业化开发，每一个被Spring管理的java对象都称之为Bean</strong>。而Spring提供了一个IoC容器用来初始化对象，解决对象间的依赖管理和对象的使用。<br><br>Spring的生态：<br><br>1.Spring Boot：使用默认开发配置来实现快速开发<br>2.Spring Data：对主流的关系型和NoSQL数据库的支持<br>3.Spring Security：通过认证和授权保护应用<br>4.Spring Web Flow：基于Spring MVC提供基于向导流程式的Web应用开发<br>5.Spring Web Services：提供了基于协议有限的SOAP/Web服务<br>6.Spring Session：提供一个API及实现来管理用户会话信息<br>等等，还有很多。<br><br><strong>Spring框架本身有四大原则</strong>：<br><br>1.使用POJO进行轻量级和最小侵入式开发<br>2.通过依赖注入和基于接口编程实现松耦合<br>3.通过AOP和默认习惯进行声明式编程<br>4.通过AOP和模板（template）减少模块化代码<br><br>我们经常说的控制翻转（inversion of control-IOC）和依赖注入（dependency injection-DI）在Spring环境下是等同的概念，控制翻转是通过依赖注入实现的。<strong>所谓的依赖注入指的是容器负责创建对象和维护对象间的依赖关系，而不是通过对象本身自己的创建和解决自己的依赖</strong>。比如典型的：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">MyBean bean;</span><br></pre></td></tr></table></figure><br><br>而不是自己new出一个对象<br><br><strong>声明Bean</strong>的注解：<br><br>1.@Component组件，没有明确的角色<br>2.Service在业务逻辑层（service层）使用<br>3.@Repository在数据访问层（dao层）使用<br>4.@Controller在展现层（MVC-&gt;Spring MVC）使用<br><br><strong>注入Bean</strong>的注解：<br><br>1.@Autowired，Spring提供的注解（推荐使用）<br>2.@Inject，JSR-330提供<br>3.@Resource，JSR-250提供<br><br>注入Bean的注解可以注解在set方法上或者属性上，不过最好是在属性上，优点是代码更少，层次更清晰。<br><br>@Configuration声明当前类是一个配置类。<br><br>使用@ComponentScan，自动扫描包名下所有使用@Service，@Component，@Compository，@Controller的类，并注册为Bean。<br><br>java配置是通过@Configuation和@Bean来实现的。<br><br><strong>@Configuration</strong>声明当前类时一个配置类，相当于一个Spring配置的xml文件。<br><strong>@Bean</strong>注解在方法上，声明当前方法的返回值为一个Bean。<br><br>何时使用java配置或者注解配置呢？<br>我们的原则是：<strong>全局配置使用java配置（如数据库相关配置，MVC相关配置），业务Bean的配置使用注解配置</strong>。<br><br><strong>AOP</strong>：面向切面编程，相对于OOP面向对象编程<br><br>Spring的AOP的存在的目的是为了解耦。<strong>AOP可以让一组类共享相同的行为</strong>。在OOP中只能通过继承类和实现接口，来使代码的耦合度增强，且类继承只能为单继承，阻碍更多行为添加到一组类上，AOP弥补了OOP的不足。<br><br><strong>注解</strong>：<strong>注解本身是没有功能的</strong>，就和xml一样。注解和xml都是一种元数据，元数据即解释数据的数据，这就是所谓的配置。<br><br><h1>Chapter2.Spring常用配置</h1>
+
+<p><strong>Scope描述的是Spring容器如何新建Bean的实例的</strong>。有以下几种，通过@Scope注解来实现：</p>
+<p>1.<strong>Singleton</strong>：一个Spring容器中只有一个Bean的实例，<strong>此为Spring的默认配置，全容器共享一个实例</strong>。<br>2.<strong>Prototype</strong>：每次调用新建一个Bean的实例。<br>3.<strong>Request</strong>：Web项目中，给每一个http request新建一个Bean实例。<br>4.<strong>Session</strong>：Web项目中，给每一个http session新建一个Bean实例。</p>
+<p>Spring EL-Spring表达式语言，支持在xml和注解中使用表达式，类似于JSP的EL表达式语言。</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//注入普通字符串</span><br><span class="line">@Value(&quot;I Love You!&quot;) //1</span><br><span class="line">private String normal;</span><br><span class="line">//注入操作系统属性</span><br><span class="line">@Value(&quot;#&#123;systemProperties[&apos;os.name&apos;]&#125;&quot;) //2</span><br><span class="line">private String osName;</span><br><span class="line">//注入表达式结果</span><br><span class="line">@Value(&quot;#&#123; T(java.lang.Math).random() * 100.0 &#125;&quot;) //3</span><br><span class="line">private double randomNumber;</span><br></pre></td></tr></table></figure>
+<p>在实际开发的时候，经常会遇到Bean在使用使用之前或者之后做些必要的操作。在使用java配置和注解配置下提供了如下两种方式：</p>
+<p>1.java配置方式：使用@Bean的<strong>initMethod</strong>和<strong>destroyMethod</strong><br>2.注解方式：利用JSR-250的<strong>@PostConstruct</strong>和<strong>@PreDestroy</strong></p>
+<p><strong>Spring的事件（Application Event）</strong>为Bean与Bean之间的消息通信提供了支持。当一个Bean处理完一个任务之后，希望另外一个Bean知道并能做相应的处理，这时我们就需要让另一个Bean监听当前Bean说发送的事件。</p>
+<p>Spring的事件需要遵循如下流程：</p>
+<p>1.自定义事件，继承ApplicationEvent<br>2.定义事件监听器，实现ApplicationListener<br>3.使用容器发布事件</p>
+<p>具体例子看书籍源码即可。</p>
+<h1>Chapter3.Spring高级话题</h1>
+
+<p>Spring的依赖注入的最大亮点就是你所有的Bean对容器Spring容器的存在是没有意识的。即你可以将你的容器替换成别的容器。</p>
+<p>但在实际项目中，不可避免要用到Spring容器本身的功能资源，这时你的Bean必须要意识到Spring容器的存在，才能调用Spring说提供的资源，这就是所谓的Spring Aware。其实，<strong>Spring Aware</strong>本来就是Spring设计用来框架内部使用的，若使用了Spring Aware，你的Bean将会和Spring框架耦合。</p>
+<p><strong>Spring Aware的目的是为了让Bean获得Spring容器的服务</strong>。</p>
+<p><strong>多线程</strong>：</p>
+<p>Spring通过任务执行器（TaskExecutor）来实现多线程和并发编程。使用ThreadPoolTaskExecutor可实现一个基于线程池的TaskExecutor。而实际开发中任务一般是非阻碍的，即异步的，所以我们要在配置类中通过@EnableAsync开启对异步任务的支持。并通过在实际执行的Bean方法中使用@Async注解来声明其是一个异步任务。</p>
+<p><strong>计划任务</strong>：</p>
+<p>计划任务在Spring中的实现变得异常的简单。首先通过在配置类注解<strong>@EnableScheduling</strong>来开启对计划任务的支持，然后在要执行任务的方法上注解<strong>@Scheduled</strong>，声明这是一个计划任务。</p>
+<p>Spring通过@Scheduled支持多种类型的计划任务，包含cron，fixDeley，fixedRate等。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//每个5秒执行一次</span><br><span class="line">@Scheduled(fixedRate=5000)</span><br><span class="line">//UNIX或LINUX系统下的定时任务</span><br><span class="line">@Scheduled(cron=&quot;0 28 11 ? * *&quot;)</span><br></pre></td></tr></table></figure>
+<p><strong>组合注解和元注解</strong>：</p>
+<p>注解的大量使用，尤其相同的多个注解用到各个类或方法中，会相当繁琐。这就是所谓的样板代码，是Spring设计原则中要消除的代码。</p>
+<p>所谓<strong>元注解</strong>其实就是可以注解到别的注解上的注解，被注解的注解称之为<strong>组合注解</strong>。</p>
+<p><strong>@Enable*注解</strong>：</p>
+<p>通过观察@Enable*注解的源码，我们发现所有的注解都有一个@Import注解，@Import是用来导入配置类的，这也就意味着这些自动开启的实现其实是导入了一些自动配置的Bean。这些导入的配置主要分为三种类型：</p>
+<p>1.直接导入配置类<br>2.依据调价选择配置类<br>3.动态注册Bean</p>
+<h2 id="第二部分-点睛Spring-MVC-4-x"><a href="#第二部分-点睛Spring-MVC-4-x" class="headerlink" title="第二部分.点睛Spring MVC 4.x"></a>第二部分.点睛Spring MVC 4.x</h2><h1>Chapter4.Spring MVC基础</h1><br>分清MVC和三层架构的不同：<br><br><strong>MVC</strong>：Model+View+Controller（数据模型+视图+控制器）<br><br><strong>三层架构</strong>：Presentation tier+Application tier+Data tier（展现层+应用层+数据访问层）<br><br><strong>实际的MVC只存在三层架构中的展现层</strong>，M实际上是数据模型，是包含数据的对象。在Spring MVC中，有一个专门的类叫Model，用来和V之间的数据交互、传值；V指的是视图页面，包含JSP，Thymeleaf等。C当然就是控制器（Spring MVC的注解@Controller类）。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//Spring MVC配置</span><br><span class="line">@Configuration</span><br><span class="line">@EnableWebMvc</span><br><span class="line">@EnableScheduling</span><br><span class="line">@ComponentScan(&quot;com.wisely.highlight_springmvc4&quot;)</span><br><span class="line">public class MyMvcConfig extends WebMvcConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">	@Bean</span><br><span class="line">	public InternalResourceViewResolver viewResolver() &#123;</span><br><span class="line">		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();</span><br><span class="line">		viewResolver.setPrefix(&quot;/WEB-INF/classes/views/&quot;);</span><br><span class="line">		viewResolver.setSuffix(&quot;.jsp&quot;);</span><br><span class="line">		viewResolver.setViewClass(JstlView.class);</span><br><span class="line">		return viewResolver;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>注意这里对路径前缀的配置为/WEB-INF/classes/views/，不是和我们的开发的目录一样。因为看到的页面效果是运行时而不是开发时的代码，运行时代码会将我们的页面自动编写到/WEB-INF/classes/views/（因为我把JSP文件放在了/resources/views目录下）下。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Controller</span><br><span class="line">public class HelloController &#123;</span><br><span class="line">	</span><br><span class="line">	@RequestMapping(&quot;/index&quot;)</span><br><span class="line">	public  String hello()&#123;</span><br><span class="line"></span><br><span class="line">		return &quot;index&quot;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>通过上面的ViewResolver的Bean配置，返回值为index，说明我们的页面放置的路径为/WEB-INF/classes/views/index.jsp。<br><br><strong>Spring MVC的常用注解</strong>：<br><br>1.@Controller<br>2.@RequestMapping<br>3.@RequestBody<br>@RequestBody允许request的参数在request体中，而不是在直接链接在地址后面。<br>4.@ResponseBody<br>@ResponseBody支持将返回值放在response体内，而不是返回一个页面。<br>5.@PathVariable<br>6.@RestController<br>是一个组合注解，组合了@Controller和@ReponseBody。<br><br>示例：<br>添加jackson即相关依赖，获得对象和json或xml之间的转化。<br><br><strong>特别指出</strong>：在实际项目中，我们主要支持json数据，没必要同时支持json和xml，因为json比xml更简洁，而且也更推荐。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class DemoObj &#123;</span><br><span class="line">	private Long id;</span><br><span class="line">	private String name;</span><br><span class="line">	</span><br><span class="line">	//jackson对对象和json做转换时一定需要此空构造</span><br><span class="line">	public DemoObj() &#123;</span><br><span class="line">		super();</span><br><span class="line">	&#125;</span><br><span class="line">	public DemoObj(Long id, String name) &#123;</span><br><span class="line">		super();</span><br><span class="line">		this.id = id;</span><br><span class="line">		this.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	public Long getId() &#123;</span><br><span class="line">		return id;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setId(Long id) &#123;</span><br><span class="line">		this.id = id;</span><br><span class="line">	&#125;</span><br><span class="line">	public String getName() &#123;</span><br><span class="line">		return name;</span><br><span class="line">	&#125;</span><br><span class="line">	public void setName(String name) &#123;</span><br><span class="line">		this.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>演示@Controller控制器：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">@Controller // 1</span><br><span class="line">@RequestMapping(&quot;/anno&quot;) //2</span><br><span class="line">public class DemoAnnoController &#123;</span><br><span class="line"></span><br><span class="line">	@RequestMapping(produces = &quot;text/plain;charset=UTF-8&quot;)	// 3</span><br><span class="line">	public @ResponseBody String index(HttpServletRequest request) &#123; // 4</span><br><span class="line">		return &quot;url:&quot; + request.getRequestURL() + &quot; can access&quot;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@RequestMapping(value = &quot;/pathvar/&#123;str&#125;&quot;, produces = &quot;text/plain;charset=UTF-8&quot;)// 5</span><br><span class="line">	public @ResponseBody String demoPathVar(@PathVariable String str, //3</span><br><span class="line">			HttpServletRequest request) &#123;</span><br><span class="line">		return &quot;url:&quot; + request.getRequestURL() + &quot; can access,str: &quot; + str;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@RequestMapping(value = &quot;/requestParam&quot;, produces = &quot;text/plain;charset=UTF-8&quot;) </span><br><span class="line">	//6演示常规的request参数获取，访问路径</span><br><span class="line">	//为/anno/requestParam?id=1</span><br><span class="line">	public @ResponseBody String passRequestParam(Long id,</span><br><span class="line">			HttpServletRequest request) &#123;</span><br><span class="line">		</span><br><span class="line">		return &quot;url:&quot; + request.getRequestURL() + &quot; can access,id: &quot; + id;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@RequestMapping(value = &quot;/obj&quot;, produces = &quot;application/json;charset=UTF-8&quot;)</span><br><span class="line">	//演示解释参数到对象，访问路径为/anno/obj?id=1&amp;name=xx</span><br><span class="line">	@ResponseBody //8</span><br><span class="line">	public String passObj(DemoObj obj, HttpServletRequest request) &#123;</span><br><span class="line">		</span><br><span class="line">		 return &quot;url:&quot; + request.getRequestURL() </span><br><span class="line">		 			+ &quot; can access, obj id: &quot; + obj.getId()+&quot; obj name:&quot; + obj.getName();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@RequestMapping(value = &#123; &quot;/name1&quot;, &quot;/name2&quot; &#125;, produces = &quot;text/plain;charset=UTF-8&quot;)//9</span><br><span class="line">	public @ResponseBody String remove(HttpServletRequest request) &#123;</span><br><span class="line">		</span><br><span class="line">		return &quot;url:&quot; + request.getRequestURL() + &quot; can access&quot;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>演示@RestController控制器：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@RestController //1</span><br><span class="line">@RequestMapping(&quot;/rest&quot;)</span><br><span class="line">public class DemoRestController &#123;</span><br><span class="line">	</span><br><span class="line">	@RequestMapping(value = &quot;/getjson&quot;,</span><br><span class="line">			produces=&#123;&quot;application/json;charset=UTF-8&quot;&#125;) //2</span><br><span class="line">	public DemoObj getjson (DemoObj obj)&#123;</span><br><span class="line">	//直接返回对象，对象会自动转换称json</span><br><span class="line">		return new DemoObj(obj.getId()+1, obj.getName()+&quot;yy&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	@RequestMapping(value = &quot;/getxml&quot;,</span><br><span class="line">			produces=&#123;&quot;application/xml;charset=UTF-8&quot;&#125;)//4返回数据的媒体类型为xml</span><br><span class="line">	public DemoObj getxml(DemoObj obj)&#123;</span><br><span class="line">		return new DemoObj(obj.getId()+1, obj.getName()+&quot;yy&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><strong>Spring MVC的基本配置</strong>：<br><br>Spring MVC的定制配置需要我们的配置类继承一个WebMvcConfigureAdapter类，并在此类使用@EnableWebMvc注解，来开启对Spring MVC的配置支持，这样我们就可以重写这个类的方法，完成我们的常用配置。<br><br><br><strong>静态资源映射</strong>：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">//1开启Spring MVC支持，若无此句，重写</span><br><span class="line">//WebMvcConfigurerAdapter方法无效</span><br><span class="line">@EnableWebMvc</span><br><span class="line">@EnableScheduling</span><br><span class="line">@ComponentScan(&quot;com.wisely.highlight_springmvc4&quot;)</span><br><span class="line">public class MyMvcConfig extends WebMvcConfigurerAdapter &#123;// 2重写方法进行配置</span><br><span class="line"></span><br><span class="line">	@Bean</span><br><span class="line">	public InternalResourceViewResolver viewResolver() &#123;</span><br><span class="line">		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();</span><br><span class="line">		viewResolver.setPrefix(&quot;/WEB-INF/classes/views/&quot;);</span><br><span class="line">		viewResolver.setSuffix(&quot;.jsp&quot;);</span><br><span class="line">		viewResolver.setViewClass(JstlView.class);</span><br><span class="line">		return viewResolver;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public void addResourceHandlers(ResourceHandlerRegistry registry) &#123;</span><br><span class="line"></span><br><span class="line">		</span><br><span class="line">//addResourceLocations指的是文件放置的目录，</span><br><span class="line">//addResourceHandler指的是对外暴露的访问路径</span><br><span class="line">registry.addResourceHandler(&quot;/assets/**&quot;).addResourceLocations(</span><br><span class="line">				&quot;classpath:/assets/&quot;);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><strong>快捷的ViewController</strong>：<br>我们在配置页面转向的时候使用下面的代码：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&quot;/index&quot;)</span><br><span class="line">public Stirng hello()&#123;</span><br><span class="line">return &quot;hello&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>如果只是单纯的转向，没有其他的业务逻辑的话，这样写很麻烦，我们可以通过重写addViewControllers来简化配置：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@override</span><br><span class="line">public void addViewControllers(ViewControllerRegistry registry)&#123;</span><br><span class="line">registry.addViewController(&quot;/index&quot;).setViewName(&quot;index&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>文件上传配置：<br><br>在Spring的控制器中，通过MultipartFile file来接收文件，通过MultipartFile[] files接收多个文件上传。<br><br><strong>服务器端推送技术</strong>：<br><br>服务器推送技术在日常生活中较为常用，很多人早期的方案是使用Ajax向服务器轮询消息，这种方式的轮询频率不好控制，所以大大增加了服务器的压力。<br><br>本节的服务器端推送方案都是基于：<strong>当客户端向服务端发送请求，服务端会抓住这个请求不放，等有数据更新的时候才返回给客户端，当客户端接收到消息后，再向服务端发送请求，周而复始。这种方式的好处是大大减少了服务器的请求数量，大大减少了服务器的压力</strong>。<br><br><strong>Spring MVC的测试</strong>：<br><br>为了测试Web项目通常不需要启动项目，我们需要一些Servlet相关的模拟对象。比如：MockMVC，MockHttpServletRequest，MockHttpServletResponse，MockHttpSession等。<br><br><strong>测试驱动开发（TDD）</strong>：<br><br>我们按照需求先写一个自己预期结果的测试用例，这个测试用例刚开始肯定是失败的测试，随着不断的编码和重构，最终让测试用例通过测试。这样才能保证软件的质量和可控性。<br><br>我们主要借助的是<strong>JUnit</strong>来进行测试。<br>演示测试：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="line">@ContextConfiguration(classes = &#123;MyMvcConfig.class&#125;)</span><br><span class="line">@WebAppConfiguration(&quot;src/main/resources&quot;) //1</span><br><span class="line">public class TestControllerIntegrationTests &#123;</span><br><span class="line">	private MockMvc mockMvc; //2</span><br><span class="line">	</span><br><span class="line">	@Autowired</span><br><span class="line">	private DemoService demoService;//3</span><br><span class="line">	</span><br><span class="line">	@Autowired </span><br><span class="line">	WebApplicationContext wac; //4</span><br><span class="line">	</span><br><span class="line">    @Autowired </span><br><span class="line">    MockHttpSession session; //5</span><br><span class="line">    </span><br><span class="line">    @Autowired </span><br><span class="line">    MockHttpServletRequest request; //6</span><br><span class="line">    </span><br><span class="line">    @Before //7在测试开始前进行的初始化工作</span><br><span class="line">    public void setup() &#123;</span><br><span class="line">    	mockMvc =</span><br><span class="line">    			MockMvcBuilders.webAppContextSetup(this.wac).build(); //2</span><br><span class="line">    	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testNormalController() throws Exception&#123;</span><br><span class="line">		mockMvc.perform(get(&quot;/normal&quot;)) //8</span><br><span class="line">				.andExpect(status().isOk())//9</span><br><span class="line">				.andExpect(view().name(&quot;page&quot;))//10</span><br><span class="line">				.andExpect(forwardedUrl(&quot;/WEB-INF/classes/views/page.jsp&quot;))//11</span><br><span class="line">				.andExpect(model().attribute(&quot;msg&quot;, demoService.saySomething()));//12</span><br><span class="line">				</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testRestController() throws Exception&#123;</span><br><span class="line">		mockMvc.perform(get(&quot;/testRest&quot;)) //13</span><br><span class="line">        .andExpect(status().isOk())</span><br><span class="line">         .andExpect(content().contentType(&quot;text/plain;charset=UTF-8&quot;))//14</span><br><span class="line">        .andExpect(content().string(demoService.saySomething()));//15</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>第三部分.实战Spring Boot<br>——————<br><br><h1>Chapter5.Spring基础</h1><br>Spring Boot：<br>它使用”习惯优于配置”（项目中存在大量的配置，此外还内置一个习惯性的配置，让你无须手动进行配置）的理念让你的项目快速运行起来。使用Spring Boot很容易创建一个独立运行（运行jar，内嵌servlet容器），准生产级别的给予Spring框架的项目，使用Spring Boot你可以不用或者只需很少的Spring配置。<br><br>Spring Boot核心功能：<br><br>1.独立运行的Spring项目<br><br>2.内嵌Servlet容器<br><br>3.提供starter简化Maven配置<br>这个确实很方便，不用自己手动添加很多依赖<br><br>4.自动配置Spring<br><strong>Spring Boot会根据在类路径中的jar包，类，为jar包里的类自动配置bean，这样会极大地减少我们要使用的配置</strong>。当然，Sping Boot只是考虑了大多数的开发场景，并不是所有的场景，若在实际中需要自动配置Bean，而Spring Boot没有提供支持，那么可以自定义自动配置。（见Spring运行原理）<br><br>5.准生产的应用监控<br>Spring提供基于http，ssh，telnet对运行时的项目进行监控<br><br>6.无代码生成和xml配置<br>Spring 4.x提倡使用java配置和注解配置组合，而Spring Boot不需要任何xml配置即可实现Spring的所有配置。<br><br><strong>一个小技巧</strong>：<br>在InteliJ IDEA中创建Spring项目时，选择新建Spring Initializer项目，可以添加各种starter，然后会在maven中自动添加依赖，很方便。<br><br><strong>@SpringBootApplication是Spring Boot项目的核心注解，主要目的是开启自动配置</strong>。<br><br><h1>Chapter6.Spring Boot核心</h1>
+
+<p>@SpringBootApplication是个组合注解，源码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;ElementType.TYPE&#125;)</span><br><span class="line">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Inherited</span><br><span class="line">@SpringBootConfiguration</span><br><span class="line">@EnableAutoConfiguration</span><br><span class="line">@ComponentScan(</span><br><span class="line">    excludeFilters = &#123;@Filter(</span><br><span class="line">    type = FilterType.CUSTOM,</span><br><span class="line">    classes = &#123;TypeExcludeFilter.class&#125;</span><br><span class="line">)&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p><strong>Spring Boot的配置文件</strong>：</p>
+<p>Spring Boot使用一个全局的配置文件application.properties或application.yml，放置在/src/main/resources目录或者类路径下的/config下。这里面的配置非常多，<a href="http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html" target="_blank" rel="external">参见官方给出的附录</a>。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//将tomcat默认端口号8080改为9090，并将默认的访问路径&quot;/&quot;</span><br><span class="line">//修改为&quot;//hellohost&quot;</span><br><span class="line">server.port=9090</span><br><span class="line">server.context-path=/hellohost</span><br></pre></td></tr></table></figure>
+<p><strong>常规属性配置</strong>：</p>
+<p>我们之前讲过在常规Spring环境下，注入properites文件里的值的方式，通过@PropertySource指明properties文件的位置，然后通过@Value注入值。在Spring Boot里，我们只需在application.properties中定义属性，然后使用@Value注入即可。</p>
+<p><strong>类型安全的配置（基于properties）</strong>：</p>
+<p>上例中使用@Value注入每个配置在实际项目中会显得很麻烦，因为要写@Value注入很多次啊。</p>
+<p>下面是一个进化版，能够通过<strong>@ConfigurationProperties</strong>将properties属性和一个Bean及其属性关联，从而实现类型安全的配置。例如：在application.properties上添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">author.name =zeng</span><br><span class="line">author.age = 24</span><br></pre></td></tr></table></figure>
+<p>当然也可以新建一个properties文件，这就需要我们在@ConfigurationProperties的属性locations里面指定properties的位置，且需要在入口类上配置。</p>
+<p>类型安全的Bean：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">@ConfigurationProperties(prefix = &quot;author&quot;) //1 </span><br><span class="line">public class AuthorSettings &#123;</span><br><span class="line">    private String name;</span><br><span class="line">    private Long age;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Long getAge() &#123;</span><br><span class="line">        return age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setAge(Long age) &#123;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过prefix指定配置的前缀，通过locations制定文件的位置。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@ConfigurationProperties(prefix = &quot;author&quot;,locations=&#123;&quot;classpath:config/author.properties&quot;&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>日志配置</strong>：</p>
+<p>默认情况下，Spring Boot使用Logback作为日志框架。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># LOGGING</span><br><span class="line">logging.config= # Location of the logging configuration file. For instance `classpath:logback.xml` for Logback</span><br><span class="line">logging.exception-conversion-word=%wEx # Conversion word used when logging exceptions.</span><br><span class="line">logging.file= # Log file name. For instance `myapp.log`</span><br><span class="line">logging.level.*= # Log levels severity mapping. For instance `logging.level.org.springframework=DEBUG`</span><br><span class="line">logging.path= # Location of the log file. For instance `/var/log`</span><br><span class="line">logging.pattern.console= # Appender pattern for output to the console. Only supported with the default logback setup.</span><br><span class="line">logging.pattern.file= # Appender pattern for output to the file. Only supported with the default logback setup.</span><br><span class="line">logging.pattern.level= # Appender pattern for log level (default %5p). Only supported with the default logback setup.</span><br><span class="line">logging.register-shutdown-hook=false # Register a shutdown hook for the logging system when it is initialized.</span><br></pre></td></tr></table></figure>
+<p><strong>Spring Boot运行原理</strong>：</p>
+<p>在前面我们了解到Spring 4.x提供了基于条件来配置Bean的能力，其实Spring Boot的神奇的实现也是基于这一原理的。</p>
+<p>关于Spring Boot的运作原理，还是要回归到@SpringBootApplication注解上来，这个注解是一个组合注解，前面已经演示过了，它的核心功能是由@EnableAutoConfiguration注解来提供的。</p>
+<h1>Chapter7.Spring Boot的Web开发</h1>
+
+<p>Spring Boot提供了spring-boot-starter-web为Web开发予以支持，spring-boot-starter-web为我们提供了嵌入的Tomcat以及Spring MVC的依赖。而Web相关的自动配置存储在org.springframework.web下。从这些文件名可以看出：</p>
+<p>1.ServerPropertiesAutoConfiguration和ServerPropertes自动配置内嵌的Servlet容器</p>
+<p>2.HttpEncodingAutoConfiguration和HttpEncodingProperties用来自动配置http的编码</p>
+<p>3.MultipartAutoConfiguration和MultipartProperties用来自自动配置上传文件的属性</p>
+<p>4.JacksonHttpMessageConvertersConfiguration用来自动配置mappingJackson2HttpMessageConverter和mappingJackson2XmlHttpMessageConverter。</p>
+<p>5.WebMvcAutoConfiguration和WebMvcProperties配置Spring MVC。</p>
+<p><strong>Thymeleaf与Spring MVC的集成</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public TemplateResolver templateResovler()&#123;</span><br><span class="line">    TemplateResovler templateResovler = new ServletContextTemplateResovler();</span><br><span class="line">    templateResovler.setPrefix(&quot;/WEB-INF/templates&quot;);</span><br><span class="line">    templateResovler.setSuffix(&quot;.html&quot;);</span><br><span class="line">    templateResovler.setTemplateMode(&quot;HTML5&quot;);</span><br><span class="line">    return templateResovler;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Bean</span><br><span class="line">public SpringTemplateEngine templateEngine()&#123;</span><br><span class="line">    SpringTemplateEngine templateEngine = new SpringTemplateEngine();</span><br><span class="line">    templateEngine.setTemplateResovler(templateResovler());</span><br><span class="line">    return templateEngine;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Bean</span><br><span class="line">public ThymeleafViewResovler thymeleafVewResolver()&#123;</span><br><span class="line">    ThymeleafViewResolver thymeleafVewResolver = new ThymeleafViewResovler();</span><br><span class="line">    ThymeleafViewResovler.setTemplateEngine(templateEngine());</span><br><span class="line">    return ThymeleafViewResovler;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在Spring MVC中虽然有引擎，让配置变得不那么麻烦，但还是太繁琐了啊。看看Spring Boot吧。</p>
+<p><strong>Thymeleaf与Spring Boot的集成</strong>：</p>
+<p>上一部分的一切配置在Spring Boot中一切都是不需要的。Spring Boot通过org.springframework.boot.autoconfigure.thymeleaf包对Thymeleaf进行了自动配置。我们只需要在application.properties中进行适当的配置即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># THYMELEAF (ThymeleafAutoConfiguration)</span><br><span class="line">spring.thymeleaf.cache=true # Enable template caching.</span><br><span class="line">spring.thymeleaf.check-template=true # Check that the template exists before rendering it.</span><br><span class="line">spring.thymeleaf.check-template-location=true # Check that the templates location exists.</span><br><span class="line">spring.thymeleaf.content-type=text/html # Content-Type value.</span><br><span class="line">spring.thymeleaf.enabled=true # Enable MVC Thymeleaf view resolution.</span><br><span class="line">spring.thymeleaf.encoding=UTF-8 # Template encoding.</span><br><span class="line">spring.thymeleaf.excluded-view-names= # Comma-separated list of view names that should be excluded from resolution.</span><br><span class="line">spring.thymeleaf.mode=HTML5 # Template mode to be applied to templates. See also StandardTemplateModeHandlers.</span><br><span class="line">spring.thymeleaf.prefix=classpath:/templates/ # Prefix that gets prepended to view names when building a URL.</span><br><span class="line">spring.thymeleaf.suffix=.html # Suffix that gets appended to view names when building a URL.</span><br><span class="line">spring.thymeleaf.template-resolver-order= # Order of the template resolver in the chain.</span><br><span class="line">spring.thymeleaf.view-names= # Comma-separated list of view names that can be resolved.</span><br></pre></td></tr></table></figure>
+<p><strong>接管Spring Boot的Web配置</strong>：</p>
+<p><strong>好好读读下面两段话</strong>：</p>
+<p>如果Spring Boot提供的Spring MVC默认配置不符合你的需求，则可以通过一个配置类（注解有@Configuration）加上@EnableWebMvc注解来实现完全自己控制的MVC配置。这种情况，<strong>这种方法不推荐</strong>。</p>
+<p>当然，在通常情况下，Spring Boot的自动配置是符合我们大多数需求的。在你既需要保留Spring Boot提供的便利，又需要增加自己的额外的配置的时候，<strong>可以定义一个配置类并继承WebMvcConfigurerAdapter，无须使用@EnableWebMvc注解。然后按照第4章讲的Spring MVC的配置方法来添加Spring Boot为我们所做的其他配置</strong>。</p>
+<p>关键点是：可以通过Spring MVC的配置方法来配置Spring Boot。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class WebMvcConfig extends WebMvcConfigurerAdapter&#123;</span><br><span class="line"></span><br><span class="line">@override</span><br><span class="line">public void addViewControllers(ViewControllerRegistry registry)&#123;</span><br><span class="line">	registry.addViewController(&quot;/xx&quot;).addViewName(&quot;xx&quot;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>值得指出的是</strong>：在这里重写的addViewController方法，并不会覆盖WebMvcAutoConfiguration中的addViewControllers（<strong>在源码中</strong>，默认的有一个配置，Spring Boot将”/“映射到index.html），<strong>这也就意味着我们的配置和Spring Boot的自动配置同时有效，这也是我们推荐添加自己的MVC配置的方式</strong>。</p>
+<p><strong>WebSocket</strong>：</p>
+<p><strong>WebSocket为浏览器和服务端提供了双工异步通信的功能，即浏览器可以向服务端发送消息，服务端也可以向浏览器发送消息</strong>。</p>
+<p>WebSocket是通过一个socket来实现双工异步通信能力的。但是直接使用WebSocket协议会显得非常繁琐，我们会使用它的子协议STOMP，它是一个更高级别的协议，STOMP协议使用一个基于帧（frame）的格式来定义信息，与HTTP的request和response类似（具有类似于@RequestMapping的@MessageMapping）。</p>
+<p>1.<strong>广播式</strong>：<br>广播式即服务端有消息时，会将消息发送给所有连接了当前endpoint的浏览器。</p>
+<p>2.<strong>点对点式</strong>：<br>广播式有自己的应用场景，但是广播式不能解决我们一个常见的场景，即消息由谁发送，由谁接收的问题。</p>
+<p><strong>基于Bootstrap和AngularJS的现代Web应用</strong>：</p>
+<p>现代的B/S系统有下面几个特色：</p>
+<p>1.<strong>单页面应用</strong></p>
+<p>单页面应用（single-page application，简称SPA）值的是一种类似于原生客户端软件的更流畅的用户体验页面。</p>
+<p><strong>在单页面的应用中，所有的资源（HTML，JavaScript，CSS）都是按需动态加载到页面上的，且不需要服务端控制页面的转向</strong>。</p>
+<p>2.<strong>响应式设计</strong></p>
+<p>响应式设计（Responsive web design，简称RWD）指的是不同的设备访问相同的页面的时候，得到不同的页面视图，而得到的视图是适应当前屏幕的。</p>
+<p>3.<strong>数据导向</strong></p>
+<p><strong>数据导向是对于页面导向而言的，页面上的数据获得是通过消费后台的REST服务来实现的，而不是通过服务器渲染的动态界面（如JSP）来实现的，一般数据交换使用的格式是JSON</strong>。</p>
+<p><strong>AngularJS</strong>：</p>
+<p>HTML一般是用来申明静态页面的，但是通常情况下我们希望页面是基于数据动态生成的，<strong>这也是我们很多服务器端模板引擎出现的原因，而AngularJS可以只通过前端技术就实现动态的页面</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@SpringBootApplication</span><br><span class="line">public class Ch77Application &#123;</span><br><span class="line">	</span><br><span class="line">	@RequestMapping(value=&quot;/search&quot;,produces=&#123;MediaType.APPLICATION_JSON_VALUE&#125;)</span><br><span class="line">	public Person search(String personName)&#123;</span><br><span class="line">		</span><br><span class="line">		return new Person(personName, 32, &quot;hefei&quot;);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(Ch77Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码我们模拟一个查询，即接收前台传入的personName，然后返回Person类，因为我们使用的是@RestController，且返回值类型是Person，所以Spring MVC会自动将对象输出为JSON。注意代码中的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">produces=&#123;MediaType.APPLICATION_JSON_VALUE&#125;</span><br></pre></td></tr></table></figure>
+<h1>Chapter8.Spring Boot的数据访问</h1>
+
+<p>Spring Data为我们使用统一的API来对很多数据存储技术（比如关系性和非关系型数据库）进行数据访问操作提供了支持。这是Spring通过提供<strong>Spring Data Commons</strong>项目来实现的，它是上述各种Spring Data项目的依赖。Spring Data Commons让我们在使用关系型或非关系型数据访问技术时都使用基于Spring的统一标准，该标准包含CURD（创建，获取，更新，删除），查询，排序和分页的相关操作。</p>
+<p>Spring Data Commons的一个重要概念：<strong>Spring Data Repository抽象</strong>。使用Spring Data Repository可以极大地减少数据访问层的代码。既然是数据访问操作的统一标准，那肯定是定义了各种各样和数据访问有关的接口，Spring Data Repository抽象的根接口是<strong>Repository接口</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public interface Repository&lt;T,ID extends Serializable&gt;&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>子接口CurdRepository定义了和CRUD操作相关的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public interface CurdRepository&lt;T,ID extends Serializable&gt; extends Repository&lt;T,ID&gt;&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>CurdRepository的子接口PagingAndSortingRepository定义了与分页和排序操作相关的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public interface PagingAndSortingRepository&lt;T,ID extends Serializable&gt; extends CurdRepository&lt;T,ID&gt;&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Docker</strong>：</p>
+<p>Docker是一个<strong>轻量级容器技术</strong>，类似于虚拟机技术。Docker是直接运行在当前操作系统（Linux）上，而不是运行在虚拟机中，但也实现了虚拟机技术的资源隔离，性能远远高于虚拟机技术。</p>
+<p><strong>Docker支持将软件编译成一个镜像（image），在这个镜像里做好对软件的各种配置，然后发布这个镜像，使用者可以运行这个镜像，运行中的镜像称之为容器（container）</strong>，容器的启动是非常快的，一般以秒为单位。举例来说，有点像我们平时安装的ghost系统，系统安装后软件都有了，虽然完全不是一种东西，但是思路是类似的。</p>
+<p>需要指出的是，Docker并不是为开发测试方便而提供的小工具，而是可以用于实际生产环境的一种极好的部署方式。</p>
+<p>Spring Data提供了一个初始化数据的功能：放置在类路径下的<strong>schema.sql</strong>文件会自动用来初始化表结构；放置在类路径下的<strong>data.sql</strong>文件会自动用来填充数据。</p>
+<p><strong>定义映射实体类</strong>：<br>Hibernate支持自动将实体类映射为数据表格：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">@Entity //1</span><br><span class="line">@NamedQuery(name = &quot;Person.withNameAndAddressNamedQuery&quot;,</span><br><span class="line">query = &quot;select p from Person p where p.name=?1 and address=?2&quot;)</span><br><span class="line">public class Person &#123;</span><br><span class="line">	@Id //2</span><br><span class="line">	@GeneratedValue //3</span><br><span class="line">	private Long id;</span><br><span class="line">	</span><br><span class="line">	private String name;</span><br><span class="line">	</span><br><span class="line">	private Integer age;</span><br><span class="line">	</span><br><span class="line">	private String address;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	public Person() &#123;</span><br><span class="line">		super();</span><br><span class="line">	&#125;</span><br><span class="line">	public Person(Long id, String name, Integer age, String address) &#123;</span><br><span class="line">		super();</span><br><span class="line">		this.id = id;</span><br><span class="line">		this.name = name;</span><br><span class="line">		this.age = age;</span><br><span class="line">		this.address = address;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解释：<br><strong>@Entity</strong>注解指明这是一个和数据库表映射的实体类<br><strong>@Id</strong>注解指明这个属性映射为数据库的主键<br><strong>@GeneratedValue</strong>注解默认使用主键生成方式为自增，hibernate会为我们自动生成一个名为HIBERNATE_SEQUENCE的序列</p>
+<p>在此例中，使用的注解也许和平时使用的注解实体类不大一样，比如没有使用<strong>@Table（实体类映射表名）</strong>，<strong>@Column（属性映射字段名）</strong>注解。这是因为我们<strong>采用的是正向工程通过实体类生成表结构，而不是通过逆向工程从表结构生成数据库</strong>。</p>
+<p><strong>Spring的事务机制</strong>：</p>
+<p>所有的数据访问技术都有事务处理机制，这些技术提供了API用来开启事务，提交事务来完成数据操作，或者在发生错误的时候回滚数据。</p>
+<p>Spring的事务机制是用统一的机制来处理不同数据访问技术的事务处理。Spring的事务机制提供了一个PlatformTransactionManager接口，不同的数据访问技术的事务使用不同的接口实现：</p>
+<p>1.JDBC：DataSourceTransactionManager<br>2.JPA：JpaTransactionManager<br>3.Hibernate：HibernateTransactionManager<br>4.JDO：JdoTransactionManager<br>5.分布式事务：JtaTransactionManager</p>
+<p><strong>数据缓存Cache</strong>：</p>
+<p><strong>一个程序的瓶颈在于数据库</strong>，内存的速度是远远大于硬盘的。</p>
+<p>Spring支持的CacheManager：</p>
+<p>1.SimpleCacheManager：使用简单的Collection来存储缓存，主要用来测试用途<br>2.EhCacheManager：使用EhCache作为缓存技术<br>3.RedisCacheManager：使用Redis作为缓存技术</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//@CachePut缓存新增或者更新的数据到缓存，其中缓存名为people，数据的key是person的id</span><br><span class="line">@CachePut(value=&quot;people&quot;,key=&quot;#person.id&quot;)</span><br><span class="line">public Person save(Person person)&#123;&#125;  </span><br><span class="line">//@CacheEvict从缓存people中删除key为id的数据</span><br><span class="line">@CacheEvict(value=&quot;people&quot;)</span><br><span class="line">public void remove(Long id)&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>弄清@Caching，@Cacheable，@CachePut，@CacheEvict等其他更多缓存注解的概念。</p>
+<p><strong>Redis</strong>：</p>
+<p>Redis是一个<strong>基于键值对的开源内存数据存储</strong>，当然Redis也可以做数据缓存。</p>
+<p>更多文档可移步<a href="http://projects.spring.io/spring-data-redis/" target="_blank" rel="external">Spring Data Redis官方文档</a>。</p>
+<p>示例：<br>1.实体类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class Person implements Serializable&#123;</span><br><span class="line"></span><br><span class="line">	private static final long serialVersionUID = 1L;</span><br><span class="line">	</span><br><span class="line">	private String id;</span><br><span class="line">	private String name;</span><br><span class="line">	private Integer age;</span><br><span class="line">	</span><br><span class="line">	public Person() &#123;</span><br><span class="line">		super();</span><br><span class="line">	&#125;</span><br><span class="line">	public Person(String id,String name, Integer age) &#123;</span><br><span class="line">		super();</span><br><span class="line">		this.id = id;</span><br><span class="line">		this.name = name;</span><br><span class="line">		this.age = age;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>必须用时间序列化接口，因为使用Jackson做序列化需要一个空构造。</p>
+<p>2.数据访问：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">@Repository</span><br><span class="line">public class PersonDao &#123;</span><br><span class="line">	</span><br><span class="line">	@Autowired</span><br><span class="line">	StringRedisTemplate stringRedisTemplate; //1</span><br><span class="line">	</span><br><span class="line">	@Resource(name=&quot;stringRedisTemplate&quot;)</span><br><span class="line">	ValueOperations&lt;String,String&gt; valOpsStr; //3</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	@Autowired</span><br><span class="line">	RedisTemplate&lt;Object, Object&gt; redisTemplate; //2</span><br><span class="line">	</span><br><span class="line">	@Resource(name=&quot;redisTemplate&quot;)</span><br><span class="line">	ValueOperations&lt;Object, Object&gt; valOps; //4</span><br><span class="line">	</span><br><span class="line">	public void stringRedisTemplateDemo()&#123; //5</span><br><span class="line">		valOpsStr.set(&quot;xx&quot;, &quot;yy&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	public void save(Person person)&#123; //6</span><br><span class="line">		valOps.set(person.getId(),person);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public String getString()&#123;//7</span><br><span class="line">		return valOpsStr.get(&quot;xx&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public Person getPerson()&#123;//8</span><br><span class="line">		return (Person) valOps.get(&quot;1&quot;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Spring Boot为我们自动配置了RedisTemplate，而RedisTemplate使用的是JdkSerializationRedisSerializer，这个对我们演示Reids Client很不直观，因为JdkSerializationRedisSerializer使用二进制形式存储数据，在此我们将自己配置RedisTemplate并定义Serializer。</p>
+<p>3.自定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">public class Ch862Application &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(Ch862Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //自定义</span><br><span class="line">    @Bean</span><br><span class="line">    @SuppressWarnings(&#123; &quot;rawtypes&quot;, &quot;unchecked&quot; &#125;)</span><br><span class="line">	public RedisTemplate&lt;Object, Object&gt; redisTemplate(RedisConnectionFactory redisConnectionFactory)</span><br><span class="line">			throws UnknownHostException &#123;</span><br><span class="line">		RedisTemplate&lt;Object, Object&gt; template = new RedisTemplate&lt;Object, Object&gt;();</span><br><span class="line">		template.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">		</span><br><span class="line">		Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);  </span><br><span class="line">		ObjectMapper om = new ObjectMapper();  </span><br><span class="line">        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);  </span><br><span class="line">        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);  </span><br><span class="line">        jackson2JsonRedisSerializer.setObjectMapper(om);  </span><br><span class="line">        </span><br><span class="line">        template.setValueSerializer(jackson2JsonRedisSerializer); //1设置value的序列化采用</span><br><span class="line">        //Jackson2JsonRedisSerializer</span><br><span class="line">        template.setKeySerializer(new StringRedisSerializer()); //2设置key的序列化采用</span><br><span class="line">        //StringRedisSerializer</span><br><span class="line">        </span><br><span class="line">        template.afterPropertiesSet();  </span><br><span class="line">		return template;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4.控制器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class DataController &#123;</span><br><span class="line">	</span><br><span class="line">	@Autowired</span><br><span class="line">	PersonDao personDao;</span><br><span class="line">	</span><br><span class="line">	@RequestMapping(&quot;/set&quot;) //1</span><br><span class="line">	public void set()&#123;</span><br><span class="line">		Person person = new Person(&quot;1&quot;,&quot;wyf&quot;, 32);</span><br><span class="line">		personDao.save(person);</span><br><span class="line">		personDao.stringRedisTemplateDemo();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@RequestMapping(&quot;/getStr&quot;) //2</span><br><span class="line">	public String getStr()&#123;</span><br><span class="line">		return personDao.getString();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@RequestMapping(&quot;/getPerson&quot;) //3</span><br><span class="line">	public Person getPerson()&#123;</span><br><span class="line">		return personDao.getPerson();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1>Chapter9.企业级开发</h1>
+
+<p><strong>Spring Security</strong>：</p>
+<p><strong>配置</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@configuration</span><br><span class="line">@EnableWebSecurity</span><br><span class="line">public class WebSecurityConfig extends WebSecurityConfigureAdapter&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>安全框架的两个重要概念：<strong>1.认证（authentication）</strong>和<strong>2.授权(authorization)</strong>。认证即确认用户可以访问当前系统；授权即确定用户在当前系统下所拥有的功能权限。</p>
+<p><strong>用户认证</strong>：</p>
+<p>认证需要我们有一套用户数据的来源，而授权则是对于某个用户有相应的角色权限。在Spring Security中我们通过重写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protected void configure(AutheticationManagerBuilder auth)</span><br></pre></td></tr></table></figure>
+<p>来实现。</p>
+<p>分为三种：<br>1.内存中的用户<br>2.JDBC中的用户<br>3.通用的用户</p>
+<p><strong>请求授权</strong>：</p>
+<p>在Spring Security中我们通过重写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protected void configure(HttpSecurity http)</span><br></pre></td></tr></table></figure>
+<p>来实现请求拦截的。</p>
+<p>Spring Security使用下面匹配器来匹配请求路径：</p>
+<p>1.<strong>antMachers</strong>:使用Ant风格的路径匹配<br>2.<strong>regexMachers</strong>:使用正则表达式匹配<br>3.<strong>anyRequest</strong>：匹配所有请求路径</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@override</span><br><span class="line">protected void configure(HttpSecurity http)throws Exception&#123;</span><br><span class="line">http.authorizeRequests()//1开始请求权限配置</span><br><span class="line">.antMatchers(&quot;/admin/**&quot;).hasRole(&quot;ROLE_ADMIN&quot;)//2</span><br><span class="line">.antMatchers(&quot;/user/**&quot;).hasRole(&quot;ROLE_ADMIN&quot;,&quot;ROLE_USER&quot;)//3</span><br><span class="line">.anyRequest().authenticated();//4其余所有的请求都需要认证（登陆后）才可访问</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Spring Boot的测试</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">//主类</span><br><span class="line">@SpringBootApplication</span><br><span class="line">public class Ch104Application &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(Ch104Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//测试类</span><br><span class="line">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="line">//使用@SpringApplicationConfiguration代替</span><br><span class="line">//@ContextConfiguration来配置</span><br><span class="line">//Spring Boot的Application Context</span><br><span class="line">@SpringApplicationConfiguration(classes = Ch104Application.class) </span><br><span class="line">@WebAppConfiguration</span><br><span class="line">@Transactional //2</span><br><span class="line">public class Ch104ApplicationTests &#123;</span><br><span class="line">	@Autowired</span><br><span class="line">	PersonRepository personRepository;</span><br><span class="line">	</span><br><span class="line">	MockMvc mvc;</span><br><span class="line">	</span><br><span class="line">	@Autowired </span><br><span class="line">	WebApplicationContext webApplicationContext;</span><br><span class="line">	</span><br><span class="line">	String expectedJson;</span><br><span class="line">	</span><br><span class="line">	@Before //3</span><br><span class="line">	public void setUp() throws JsonProcessingException&#123; </span><br><span class="line">		Person p1 = new Person(&quot;wyf&quot;);</span><br><span class="line">		Person p2 = new Person(&quot;wisely&quot;);</span><br><span class="line">		personRepository.save(p1);</span><br><span class="line">		personRepository.save(p2);</span><br><span class="line">		</span><br><span class="line">		expectedJson =Obj2Json(personRepository.findAll()); //4</span><br><span class="line">		mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	protected String Obj2Json(Object obj) throws JsonProcessingException&#123;//5</span><br><span class="line">		ObjectMapper mapper = new ObjectMapper();</span><br><span class="line">		return mapper.writeValueAsString(obj);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	@Test</span><br><span class="line">	public void testPersonController() throws Exception &#123;</span><br><span class="line">		String uri=&quot;/person&quot;;</span><br><span class="line">		MvcResult result = mvc.perform(MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON))</span><br><span class="line">																.andReturn(); //6</span><br><span class="line">		int status = result.getResponse().getStatus(); //7</span><br><span class="line">		String content = result.getResponse().getContentAsString(); //8</span><br><span class="line">		</span><br><span class="line">		Assert.assertEquals(&quot;错误，正确的返回值为200&quot;,200, status); //9</span><br><span class="line">		Assert.assertEquals(&quot;错误，返回值和预期返回值不一致&quot;, expectedJson,content); //10</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1>Chapter10.Spring Boot开发部署与测试</h1>
+
+<p><strong>部署形式</strong>：<br>1.jar形式</p>
+<p><strong>注册为Linux服务</strong>：<br>Linux下运行的软件我们通常把它注册为<strong>服务</strong>，这样我们就可以通过命令开启，关闭以及保持开机启动等功能。</p>
+<p>将jar注册为服务（在CentOS上）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//其中zeng就是我们服务名</span><br><span class="line">sudo ln -s /dir/zeng-1-0.jar /etc/init.d/zeng</span><br></pre></td></tr></table></figure>
+<p>启动服务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service zeng start</span><br></pre></td></tr></table></figure>
+<p>停止服务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service zeng stop</span><br></pre></td></tr></table></figure>
+<p>服务状态：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service zeng status</span><br></pre></td></tr></table></figure>
+<p>开机启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chkconfig zeng on</span><br></pre></td></tr></table></figure>
+<p>The End！</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Spring/">Spring</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/11/09/Spring Boot实战/" data-title="Spring Boot实战 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/11/16/白帽子讲Web安全/" title="白帽子讲Web安全">
+  <strong>上一篇：</strong><br/>
+  <span>
+  白帽子讲Web安全</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/10/28/Spring in action--Part4-Integrating Spring/"  title="Spring in action--Part4-Integrating Spring">
+ <strong>下一篇：</strong><br/> 
+ <span>Spring in action--Part4-Integrating Spring
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/11/09/Spring Boot实战/" data-title="Spring Boot实战" data-url="http://yoursite.com/2016/11/09/Spring Boot实战/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一部分-点睛Spring-4-x"><span class="toc-number">1.</span> <span class="toc-text">第一部分.点睛Spring 4.x</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter1.Spring基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter2.Spring常用配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter3.Spring高级话题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第二部分-点睛Spring-MVC-4-x"><span class="toc-number">1.</span> <span class="toc-text">第二部分.点睛Spring MVC 4.x</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter4.Spring MVC基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter5.Spring基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter6.Spring Boot核心</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter7.Spring Boot的Web开发</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter8.Spring Boot的数据访问</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter9.企业级开发</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Chapter10.Spring Boot开发部署与测试</span></a>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 16.67px;">Java编程思想读书笔记</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a> <a href="/tags/TECH/" style="font-size: 11.67px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 18.33px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.67px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 13.33px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

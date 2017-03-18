@@ -1,0 +1,632 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>算法设计与分析基础 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="To All Of You：
+一个人在接受科技教育时能得到的最珍贵的收获是能够终身受用的通用智能工具。
+在讨论算法的书籍中，一般会采用两种方案中的一种：
+1.第一种方案是按照问题的类型对算法进行分类。这类教材安排了不同的章节分别讨论排序，查找，图等算法。这种做法的优点是，对于解决同一问题的不同算法，它能够立即比较这些算法的效率。其缺点在于，由于过于强调问题的类型，它忽略了对算法设计技术的讨论。
+2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法设计与分析基础">
+<meta property="og:url" content="http://yoursite.com/2016/12/21/算法设计与分析基础/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="To All Of You：
+一个人在接受科技教育时能得到的最珍贵的收获是能够终身受用的通用智能工具。
+在讨论算法的书籍中，一般会采用两种方案中的一种：
+1.第一种方案是按照问题的类型对算法进行分类。这类教材安排了不同的章节分别讨论排序，查找，图等算法。这种做法的优点是，对于解决同一问题的不同算法，它能够立即比较这些算法的效率。其缺点在于，由于过于强调问题的类型，它忽略了对算法设计技术的讨论。
+2">
+<meta property="og:image" content="http://img.blog.csdn.net/20161221135508982?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-03-18T15:01:53.561Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法设计与分析基础">
+<meta name="twitter:description" content="To All Of You：
+一个人在接受科技教育时能得到的最珍贵的收获是能够终身受用的通用智能工具。
+在讨论算法的书籍中，一般会采用两种方案中的一种：
+1.第一种方案是按照问题的类型对算法进行分类。这类教材安排了不同的章节分别讨论排序，查找，图等算法。这种做法的优点是，对于解决同一问题的不同算法，它能够立即比较这些算法的效率。其缺点在于，由于过于强调问题的类型，它忽略了对算法设计技术的讨论。
+2">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161221135508982?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/12/21/算法设计与分析基础/" title="算法设计与分析基础" itemprop="url">算法设计与分析基础</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-12-21T04:30:33.000Z" itemprop="datePublished"> Published 2016-12-21</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章：绪论"><span class="toc-number">1.</span> <span class="toc-text">第一章：绪论</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.1什么是算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.2算法问题求解基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第四章：减治法"><span class="toc-number">1.</span> <span class="toc-text">第四章：减治法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">4.1插入排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">4.2拓扑排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">4.3生成组合对象的算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">4.4减常因子算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">4.5减可变规模算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第五章：分治法"><span class="toc-number">1.</span> <span class="toc-text">第五章：分治法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">5.1合并排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">5.2快速排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">二叉树遍历及其相关特性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第六章：变治法"><span class="toc-number">1.</span> <span class="toc-text">第六章：变治法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">6.1预排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">6.3平衡查找树</span></a>
+		
+		</div>
+		
+		<p>To All Of You：</p>
+<p><em>一个人在接受科技教育时能得到的最珍贵的收获是能够终身受用的通用智能工具</em>。</p>
+<p>在讨论算法的书籍中，一般会采用两种方案中的一种：</p>
+<p>1.<strong>第一种方案是按照问题的类型对算法进行分类</strong>。这类教材安排了不同的章节分别讨论排序，查找，图等算法。这种做法的优点是，对于解决同一问题的不同算法，它能够立即比较这些算法的效率。其缺点在于，由于过于强调问题的类型，它忽略了对算法设计技术的讨论。</p>
+<p>2.<strong>第二种方案围绕着算法设计技术来组织章节</strong>。在这种结构中，即使算法来自于不同的计算领域，如果它们采用相同的设计技术，就会被编成一组。</p>
+<h2 id="第一章：绪论"><a href="#第一章：绪论" class="headerlink" title="第一章：绪论"></a>第一章：绪论</h2><h1>1.1什么是算法</h1>
+
+<p>为了阐明算法的概念，本节将以三种方法为例来解决同一个问题，即计算两个整数的最大公约数。这些例子会帮助我们阐明以下要点：</p>
+<p>1.算法的每一个步骤都必须<strong>没有歧义</strong>，不能有半点儿含糊<br>2.必须认真确定算法所处理的<strong>输入的值域</strong><br>3.同一算法可以用几种不同的形式来描述<br>4.同一问题，可能存在几种不同的算法<br>5.针对同一问题的算法可能基于完全不同的解题思路，而且解题速度也会有显著不同</p>
+<p>用于计算gcd(m,n)的欧几里得算法：<br>1.如果n=0，返回m的值作为结果，同时过程结束；否则进入第二步<br>2.m除以n，将余数赋给r<br>3.将n的值赋给m，将r的值赋给n，返回第一步</p>
+<h1>1.2算法问题求解基础</h1>
+
+<p>对于一些算法，证明正确是非常简单的，对于一些复杂的算法，一般采用的正确方法是数学归纳法。</p>
+<p>我们希望算法具有一些<strong>好的特性</strong>：</p>
+<p>1.正确性<br>2.时间效率<br>3.空间效率<br>4.简单性<br>5.一般性</p>
+<p>一般性包含两层意思：1.算法所解决问题的一般性2.算法所接受输入的一般性。</p>
+<h2 id="第四章：减治法"><a href="#第四章：减治法" class="headerlink" title="第四章：减治法"></a>第四章：减治法</h2><p>减治（decrease-and-conquer）技术利用了一个问题给定实例的解和同样问题较小实例的解之间的某种关系。一旦建立了这种关系，我们既可以<strong>从顶到下（递归）</strong>，也可以<strong>从底向上（迭代）</strong>来运用这种关系。</p>
+<p>减治法有<strong>三种主要的变化形式</strong>：</p>
+<p>1.减去一个常量<br>2.减去一个常量因子<br>3.减去的规模是可变的</p>
+<p>在<strong>减常量</strong>（decrease-by-a-constant）变化形式中，每次迭代总是从实例中减去一个相同的常量。一般来说，这个常量等于1（T(n)变为T(n-1)），但减其他的常量也偶尔出现。</p>
+<p><strong>减常因子</strong>（decrease-by-a-constant-factor）意味着在算法的每次迭代中，总是从实例的规模中减去一个相同的常数因子。在大多数情况下，常数因子等于2（T(n)变为T(N/2)）。</p>
+<p><strong>减可变规模</strong>（variable-size-decrease）变化形式中，每次迭代时，规模减小的模式是不同的。例如：<code>gcd(m,n) = gcd(n,m mod n)</code>。</p>
+<h1>4.1插入排序</h1>
+
+<p>如何利用减一技术对一个数组排序？假设前面n-1个数已经有序，然后构造出n个有序的数。<strong>插入排序</strong>啊！</p>
+<h1>4.2拓扑排序</h1>
+
+<p>复习图：<strong>邻接矩阵</strong>和<strong>邻接链表</strong>仍然是两种表示图的主要手段。</p>
+<p>用这两种方法表示时，无向图和有向图只有两个显著的差异：</p>
+<p>1.有向图的邻接矩阵不一定表现出对称性<br>2.有向图的一条边在图的邻接表中只有一个相应的节点（不是两个）</p>
+<p>一个五门必修课的集合{c1,c2,c3,c4,c5}，学生必须在某个阶段修完这几门课程。可以按照任何次序学习这些课程，只要满足下面的条件：c1,c2没有任何条件，修完c1和c2才能修c3，修改c3才能修c4，而修完c3和c4才能修c5.应该按照什么顺序来学习这些课程呢？</p>
+<p>这种状况可以用一个图来建模，它的节点代表课程，有向边表示先决条件。如图：<br><img src="http://img.blog.csdn.net/20161221135508982?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p><strong>问题转换</strong>：就上面的问题，其实是说，是否可以按照一种序列列出它的顶点，使得对于图中每一条边来说，边的初始起点总是排在边的结束顶点之前。这个问题叫<strong>拓扑排序</strong>！</p>
+<p>为了使拓扑排序成为可能，无环有向图不仅是必要条件，而且是充分条件。也就是说，<strong>如果一个图没有回路，对它来说，拓扑排序是有解的</strong>。</p>
+<p><strong>1.第一种算法是深度优先查找的一个简单应用</strong>：执行一次DFS遍历，并记住顶点变成死端（即退出）的顺序。将该次序反过来就得到拓扑排序的一个解，当然，在拓扑排序时不能遇到回边。</p>
+<p>这个算法为什么有效呢？当一个顶点v退出DFS栈时，在比v更早出栈的顶点中，不可能存在顶点u拥有一条从u到v的边（否则，(u,v)是一条回边）。所以，在退栈的队列中，任何这样的顶点u都会排在v的后面，并且在逆序队列中会排在v的前面。</p>
+<p><strong>2.第二种算法基于减一技术的一个直接实现</strong>：不断地做这样一件事，在余下的有向图中求出一个<strong>源（source）</strong>，它是一个没有输入边的顶点，然后把它和所有从它出发的边都删除。（如果有多个源，可以任意选择一个。如果这样的源不存在。算法停止，因为该问题无解）。顶点被删除的次序就是拓扑排序问题的一个解。</p>
+<h1>4.3生成组合对象的算法</h1>
+
+<p>组合对象中最重要的类型就是排列，组合和给定集合的子集。</p>
+<p><em>1.生成排列</em>：</p>
+<p>通过使用<strong>移动元素（务必了解这个概念）</strong>这个概念，我们可以给出所谓的<strong>Johnson-Trotter算法</strong>的描述，<strong>它算是用来生成排列最有效的方法了</strong>。伪代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">算法	Johnson-Trotter(n)</span><br><span class="line">	//实现用来生成排列的Johnson-Trotter算法</span><br><span class="line">	//输入：一个正整数</span><br><span class="line">	//输出：&#123;1,2,...,n&#125;的所有排列的列表</span><br><span class="line"></span><br><span class="line">	将第一个排列初始化为1,2,...,n（头部箭头都向左）</span><br><span class="line">	while 存在一个移动元素 do</span><br><span class="line">	求最大的移动元素k</span><br><span class="line">	把k和它箭头指向的相邻元素互换</span><br><span class="line">	调转所有大于k的元素的方向</span><br><span class="line">	将新排列添加到列表中</span><br></pre></td></tr></table></figure>
+<p>有人说Johnson-Trotter算法生成的排列的次序不是非常自然。例如排列n,n-1,…1的自然位置应该是列表的最后一个。将排列按照升序排列，这样被称为<strong>字典序</strong>。下面是实现字典序的伪代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">算法	LexicographicPermute(n)</span><br><span class="line">	//以字典序生成排列</span><br><span class="line">	//输入：一个正整数n</span><br><span class="line">	//输出：&#123;1,2,...,n&#125;的所有排列的列表</span><br><span class="line"></span><br><span class="line">	初始化第一个排列为1,2,...,n</span><br><span class="line">	while 最后一个排列有两个连续升序的元素 do</span><br><span class="line">	找出使得a(i)&lt;a(i+1)的最大的i //a(i+1)&gt;a(i+2)&gt;...&gt;a(n)</span><br><span class="line">	找到使得a(i)&lt;a(j)的最大索引j //j&gt;=i+1,因为a(i)&lt;a(i+1)</span><br><span class="line">	交换a(i)和a(j) //a(i+1)到a(n)仍保持降序</span><br><span class="line">	将a(i+1)到a(n)的元素反序</span><br><span class="line">	将这个新排列添加到列表中</span><br></pre></td></tr></table></figure>
+<p><em>2.生成子集</em>：</p>
+<p>有一个直接解决该问题的简洁方法，它是基于这样一种关系：n个元素集合A={a1,a2,…,an}的所有2的n次方个子集和长度为n的所有2的n次方个位串之间的一一对应关系。</p>
+<p>下面是递归生成二进制反射格雷码的伪代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">算法 BRGC(n)</span><br><span class="line">	//递归生成n位的二进制反射格雷码</span><br><span class="line">	//输入：一个正整数n</span><br><span class="line">	//输出：所有长度为n的格雷码位串列表</span><br><span class="line">	if n=1 ,表L包含位串0和1</span><br><span class="line">	else 调用BRGC(n-1)生成长度为n-1的位串列表L1</span><br><span class="line">	把表L1倒序后复制给表L2</span><br><span class="line">	把0加到L1中每个位串的前面</span><br><span class="line">	把1加到L2中每个位串的前面</span><br><span class="line">	把表L2添加到表L1后面得到表L</span><br><span class="line">return L</span><br></pre></td></tr></table></figure>
+<p>要注意的是，二进制反射格雷码是循环的：它的最后一个位串与第一个位串只相差一位；对于中间的生成码，之间也只相差一位。</p>
+<h1>4.4减常因子算法</h1>
+
+<p>1.折半查找<br>2.假币问题<br>3.俄式乘法<br>该乘法的思想：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//n为偶数</span><br><span class="line">n*m = (n/2)*2m</span><br><span class="line">//n为奇数</span><br><span class="line">n*m = (n-1)/2*2m+m</span><br></pre></td></tr></table></figure>
+<p>这样递归的调用就可以算出结果。该算法只包括折半，加倍和相加这几个简单的操作。使用移位就可以完成二进制数的折半和加倍，在机器层次上，这些都属于最基本的操作。</p>
+<h1>4.5减可变规模算法</h1>
+
+<p><em>1.计算中值和选择问题</em></p>
+<p>选择问题是求一个n个数列表的第k个最小元素的问题。这个数字被成为第k个顺序统计量。对于k=1或k=n，问题退化为最小和最大元素问题。</p>
+<p>显然，为了找出第k个最小的元素，我们可以先对数组排序，然后再从输出中找出第k个元素。但是，<strong>杀鸡需用牛刀？</strong>只是找第k个最小元素，我们并不需要排序（除非查询的次数很多，并且每次k都不一样，但那是属于预排序优化的内容了，后面会讲），我们可以采用<strong>划分（partitioning）</strong>的思路，使左边包含所有小于p的元素，紧接着是中轴（pivot）p本身，再接着是所有大于或等于p的元素。中轴的选择可以随机选，也可以简单指定为第一个元素。实现划分的一种算法的伪代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">算法 LomutoPartition(A[l,...,r])</span><br><span class="line">	//采用Lomuto算法，用第一个元素作为中轴对子数组进行划分</span><br><span class="line">	//输入：数组A[0,...,n]的一个子数组A[l,...,r]，它由左右的索引l和r(l&lt;=r)定义</span><br><span class="line">	//输出：A[l,...,r]的划分和中轴的新位置</span><br><span class="line">	p&lt;-A[l] //中轴元素</span><br><span class="line">	s&lt;-l</span><br><span class="line">	for i&lt;-l+1 to r do</span><br><span class="line">		if(A[i]&lt;p)&#123;</span><br><span class="line">		s&lt;-s+1；swap[A[s],A[i]]</span><br><span class="line">		&#125;</span><br><span class="line">	swap[A[l],A[s]]</span><br><span class="line">	return s;</span><br></pre></td></tr></table></figure>
+<p>用索引s来记录for循环到目前为止，最后一个小于p的元素的位置，那么s+1就是大于或等于p的第一个位置，如果遇到小于p的元素，每次与之交换。</p>
+<p>那么我们如何来寻找第k个最小元素呢？先<strong>划分</strong>，如果s&gt;k-1，就是数组左边部分第k小的元素，如果s&lt;k-1，就是数组右边部分的第(k-s)小元素。我们虽然没有彻底解决问题，但是问题的规模缩小了。这个算法称为<strong>快速选择（quickselect）</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">算法 Quickselect(A[l,...,r],k)</span><br><span class="line">	//用基于划分的递归算法解决选择问题</span><br><span class="line">	//输入：可排序数组A[l,...,r]和整数k（1&lt;=k&lt;=r-l+1）</span><br><span class="line">	//输出：A[l,...,r]中第k小元素的值</span><br><span class="line">	s&lt;-LomutoPartition(A[l,...,r])//或者另一个划分算法</span><br><span class="line">	if s=l+k-1 return A[s]</span><br><span class="line">	else if s&gt;l+k-1 Quickselect(A[l,...,s-1],k)</span><br><span class="line">	else Quickselect(A[s+1,...,r],l+k-1-s)</span><br></pre></td></tr></table></figure>
+<p>快速选择的效率如何？对一个n元素数组进行划分总是要n-1次键值比较。如果不需要更多迭代就能得到分割位置而使问题得解，在这种<strong>最好情况</strong>下，<strong>Cost(best) = n-1 = O(n)</strong>。但是，算法也可以产生极度不平衡的划分，这个划分一部分为空，另一部分包含n-1个元素，这意味着在<strong>最坏情况</strong>下，Cost(worst) = (n-1)+(n-2)+…+1 = (n-1)<em>n/2 = <em>*O(n^2)</em></em>。</p>
+<p><em>2.二叉查找树的查找和插入</em></p>
+<h2 id="第五章：分治法"><a href="#第五章：分治法" class="headerlink" title="第五章：分治法"></a>第五章：分治法</h2><p>分治法是按照以下方案工作的：</p>
+<p>1.将一个问题划分为同一类型的若干子问题，子问题最好规模相同<br>2.对这些子问题求解（一般使用递归方法，但在问题规模足够小时，有时也会利用另一个算法）<br>3.有必要的话，合并这些子问题的解，以得到原始问题的答案</p>
+<p>分治法对于<strong>并行计算</strong>是非常理想的，因为各个子问题都可以由各自的CPU同时计算。</p>
+<p><strong>主定理</strong>：</p>
+<p>假设有递推关系式：T(n) = aT(n/b)+f(n),其中a&gt;=1,b&gt;1,f(n) = O(n^d)。其中，n为问题规模，a为递推的子问题数量，n/b为每个子问题的规模（假设每个子问题的规模基本一样），f(n)为递推以外进行的计算工作。</p>
+<p>那么：T(n) = </p>
+<p>1.O(n^d)，当a小于b^d时<br>2.O(n^d*log(n))，当a等于b^d时<br>3.O(n^(logb(a)))，当a大于b^d时</p>
+<p>例如二叉树遍历中，T(n) = 2T(n/2)+1,a=2,b=2,d=0,属于情况三，那么T(n) = O(n)。<br>例如归并排序中，T(n) = 2T(n/2)+O(n),a=2,b=2,d=1,属于情况二，那么T(n) = O(nlogn)。</p>
+<p>参考<a href="https://zh.wikipedia.org/wiki/%E4%B8%BB%E5%AE%9A%E7%90%86" target="_blank" rel="external">主定理-维基百科</a>。</p>
+<h1>5.1合并排序</h1>
+
+<p>合并排序太熟了，可以参考<a href="http://quiz.geeksforgeeks.org/merge-sort/" target="_blank" rel="external">Merge Sort</a>。</p>
+<p>合并排序的效率如何呢？合并排序的递推关系式为：<code>当n&gt;1时，C(n)=2C(n/2)+Cmerge(n),C(1)=0</code>。<br>最坏情况下，<code>Cmerge(n)=n-1</code><br>由主定理可以得到最坏情况下：<code>Cworst(n)=O(nlogn)</code></p>
+<p>合并排序在最坏情况下的键值比较次数十分接近基于比较的排序算法在理论上能够达到的<strong>最少次数</strong>。相比于两个高级排序算法-快速排序和堆排序，合并排序的一个显著<strong>优点</strong>在于其<strong>稳定性</strong>。合并排序的主要<strong>缺点</strong>就是该算法需要线性的<strong>额外空间</strong>。</p>
+<p>合并排序有两类主要的变化形式（努力变得更好）：</p>
+<p>1.算法可以<strong>自下而上</strong>合并数组的一个个元素对，然后再合并这些有序对，这就<strong>避免了使用堆栈处理递归调用时的时间和空间开销</strong>。</p>
+<p>2.可以将数组划分为待排序的多个部分，再对他们递归进行排序，最后将其合并在一起。，这个方案<strong>尤其适合对存放在二级存储空间的文件进行排序</strong>，也被称为<strong>多路合并排序</strong>。（想想一个含有20亿个数的文件，如何排序嘛，用这个方法还是比较可以的）</p>
+<h1>5.2快速排序</h1>
+
+<p>不像合并排序是按照元素在数组中的位置对它们进行划分，快速排序按照元素的值对它们进行划分。注意它与合并排序的不同之处：</p>
+<p>在<strong>合并排序</strong>算法中，将问题划分为两个子问题是很快的，<strong>算法的主要工作在于合并子问题的解</strong>。<br>在<strong>快速排序</strong>算法中，<strong>算法的主要工作在于划分阶段</strong>，而不需要再去合并子问题的解。</p>
+<p>快速排序的伪代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">算法 Quicksort(A[l,...,r])</span><br><span class="line">	//用Quicksort对数组排序</span><br><span class="line">	//输入：数组A[0,...,n-1]的一个子数组A[l,...,r]，它由左右的索引l和r(l&lt;=r)定义</span><br><span class="line">	//输出：非降序的子数组A[l,...,r]</span><br><span class="line">	if l&lt;r</span><br><span class="line">		s&lt;-Partition(A[l,...,r]) //s是分裂位置</span><br><span class="line">		Quicksort(A[l,...,s-1])</span><br><span class="line">		Quicksort(A[s+1,...,r])</span><br></pre></td></tr></table></figure>
+<p>对于划分算法，可以使用4.5节讨论的Lomuto划分。</p>
+<p>快速排序在平均情况下，仅比最优情况多执行39%的比较操作。此外，它的最内层循环效率非常高，使得<strong>在处理随机排列的数组时，我们的速度要比合并排序快</strong>（对于堆排序也是如此）。</p>
+<p>一些快速排序的改进：</p>
+<p>1.<em>更好的中轴选择方法</em>。例如<strong>随机快速排序</strong>，使用随机元素作为中轴；<strong>三平均划分法</strong>，以最左边，最右边，中间元素的中位数最为中轴。</p>
+<p>2.<em>在数组足够小时</em>（对大多数计算机而言，元素数为5-15），<strong>改用插入排序方法</strong>。或者根本就不再对小数组进行排序，而是在快速排序结束后再使用插入排序对整个近似有序的数组进行排序。</p>
+<p>3.<em>一些划分方法的改进</em>。例如三路划分，将数组分为三段，每段元素分别为小于，等于，大于中轴的元素。</p>
+<h1>二叉树遍历及其相关特性</h1>
+
+<p>分治思想：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">算法 Height(T)</span><br><span class="line">	//递归计算二叉树的高度</span><br><span class="line">	//输入：一颗二叉树T</span><br><span class="line">	//输出：T的高度</span><br><span class="line">	if T=null return -1</span><br><span class="line">	else return max&#123;Height(T(left),Height(Tright))&#125;+1</span><br></pre></td></tr></table></figure>
+<p>对于A(n(T))，我们有下面的递推式：<code>当n(T)&gt;0时，A(n(T))=A(n(Tleft))+A(n(Tright))+1,A(0)=0</code>。</p>
+<p>在上面的算法中，加法运算并不是该算法中执行最频繁的操作。<strong>检查树是否为空</strong>，才是该算法的典型操作。例如，对于一颗单节点的树来说，执行比较T=null的次数和加法运算的次数分别为3和1。</p>
+<p>很容易发现，对于扩展树的每一个内部节点，Height算法都要执行一次加法运算，而且不论对外部节点还是内部节点，该算法都要执行因此比较运算。</p>
+<p>对于任何非空的<strong>完全二叉树</strong>，设n和x分别表示父母节点和叶节点的数量。<br>有下列的关系：<code>2n+1=x+n==&gt;x=n+1</code>。</p>
+<p>回到Height算法中，检查树是否为空的比较操作为2n+1，加法操作为n。</p>
+<p>显然，并不是所有关于二叉树的算法都需要遍历左右两颗子树。例如，二叉树的查找，插入，和删除操作只需要遍历两颗子树中的一颗。因此，我们并没有将它们作为分治技术的应用，而是作为减可变规模技术的一个例子。</p>
+<p>一个关于递推式解复杂度的技巧：</p>
+<p><strong>反向替换法</strong>：<br>递推式为：<code>当n&gt;1时，M(n)=3M(n/2),M(1)=1</code>，当n=2^k时，M(2^k)=3M(2^(k-1))=…=3^k。因为k=log2(n),所以，M(n)=3^(log2(n))=n^(log2(3))。</p>
+<h2 id="第六章：变治法"><a href="#第六章：变治法" class="headerlink" title="第六章：变治法"></a>第六章：变治法</h2><p>根据我们对问题实例的变换方式，变治思想有3种主要的类型：</p>
+<p>1.变换为同样问题的一个更简单或者更方便的实例—称之为<strong>实例化简</strong>。<br>2.变换为同样实例的不同表现—<strong>改变表现</strong>。<br>3.变换为另一个问题的实例，这种问题的算法是已知的—称之为<strong>问题化简</strong>。</p>
+<h1>6.1预排序</h1>
+
+<p>实际上，对于排序算法的兴趣很大程度上是因为这样的一个事实：如果列表时有序的，许多关于列表的问题更容易求解。</p>
+<p>合并排序和快速排序，前者总是属于O（nlogn），后者在平均情况下也是O（nlogn），但在最坏情况下是平方级的。</p>
+<p>当我们要在同一个列表中进行<strong>多次查找（在非排序下很耗时的操作）</strong>，在预排序上花费的时间应该是值得的。</p>
+<h1>6.3平衡查找树</h1>
+
+<p>二叉查找树—一种<strong>实现字典的重要数据结构</strong>。二叉树节点所包含的元素来自可排序项的集合，每个节点一个元素，使得所有左子树中的元素都小于树根节点的元素，而所有右子树中的元素都大于树根节点的元素。</p>
+<p>请注意，把一个集合变换为一颗二叉查找树，是改变表现技术的一个实例。这种变换与字典的简单实现（例如数组）相比，有什么优势呢？<strong>我们赢得了查找，插入和删除的时间效率，这些都属于O(logn)。但这仅仅在平均情况下成立</strong>，在最差情况下，这些操作属于O(n)，因为这种树可能会退化成一种严重不平衡的树，树的高度等于n-1。所以，还要时刻地保持平衡。</p>
+<p>为了既保留二叉查找树的好特性，有能够避免它退化成最差情况，主流的有两种方案：</p>
+<p>1.第一种属于<em>实例化简</em>的类型：<strong>把一颗不平衡的二叉查找树转变为平衡的形式</strong>。一颗<strong>AVL树</strong>要求它的每个节点的左右子树高度差不能超过1。一颗<strong>红黑树</strong>能够容忍同一节点的一颗子树的高度是另一颗子树的两倍。如果一个节点的插入或者删除产生了一颗违背评分要求的树，我们从一系列称为<strong>旋转</strong>的特定变换中选择一种，重新构造这颗树，使得这棵树满足平衡的要求。</p>
+<p>2.第二种属于<em>改变表现</em>的类型：它允许一颗查找树的单个节点中不止包含一个元素。这种树的特例是<strong>2-3树</strong>，<strong>2-3-4树</strong>，以及更一般和更重要的<strong>B树</strong>。<strong>它们的区别在于查找树的单个节点中能够容纳的元素个数</strong>。</p>
+<p><em>AVL树</em>：</p>
+<p>定义：一颗AVL树是一颗二叉查找树，其中每个节点的平衡因子（balance factor）定义为该节点左子树和右子树的高度差，等于0，-1或1。一颗空树的高度定义为-1。</p>
+<p>AVL树的<strong>旋转</strong>，是以某节点为根的子树的一个本地变换，该节点的平衡要么变成了+2，要么变成了-2。如果有若干个这样的节点，我们先找出最靠近新插入的叶子的不平衡节点，然后旋转以该节点为根的子树。只存在4种类型的旋转，实际上，其中两种又是另外两种的镜像。分别为：1.右单转2.左单转3.左右双转4.右左双转。</p>
+<p>请注意，虽然旋转可以在常量时间内完成，但它并不是无足轻重的变换。</p>
+<p>AVL树的<strong>效率</strong>如何？就像所有的查找树一样，最关键的特性是<strong>树的高度</strong>。</p>
+<p>AVL树的缺点是频繁的旋转，需要维护树的节点的平衡以及总体上的复杂性，尤其是删除操作。<strong>这些缺点阻碍了AVL树成为实现字典的标准结构（总之一句话，AVL条件太苛刻）</strong>。</p>
+<p>AVL树的代码实现：</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/数据结构与算法分析/">数据结构与算法分析</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/12/21/算法设计与分析基础/" data-title="算法设计与分析基础 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2017/02/14/阿里java规约整理/" title="阿里java规约整理">
+  <strong>上一篇：</strong><br/>
+  <span>
+  阿里java规约整理</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/12/06/Java解惑/"  title="Java解惑">
+ <strong>下一篇：</strong><br/> 
+ <span>Java解惑
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/12/21/算法设计与分析基础/" data-title="算法设计与分析基础" data-url="http://yoursite.com/2016/12/21/算法设计与分析基础/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章：绪论"><span class="toc-number">1.</span> <span class="toc-text">第一章：绪论</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.1什么是算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.2算法问题求解基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第四章：减治法"><span class="toc-number">1.</span> <span class="toc-text">第四章：减治法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">4.1插入排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">4.2拓扑排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">4.3生成组合对象的算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">4.4减常因子算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">4.5减可变规模算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第五章：分治法"><span class="toc-number">1.</span> <span class="toc-text">第五章：分治法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">5.1合并排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">5.2快速排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">二叉树遍历及其相关特性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第六章：变治法"><span class="toc-number">1.</span> <span class="toc-text">第六章：变治法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">6.1预排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">6.3平衡查找树</span></a>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 16.67px;">Java编程思想读书笔记</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a> <a href="/tags/TECH/" style="font-size: 11.67px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 18.33px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.67px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 13.33px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

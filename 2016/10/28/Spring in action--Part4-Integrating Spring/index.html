@@ -1,0 +1,920 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Spring in action--Part4-Integrating Spring | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="Chapter15.Working with remote services
+
+Several remoting technologies are available to you as a Java developer, including these:
+1.Remote Method Invocation (RMI)2.Caucho’s Hessian and Burlap3.Spring’s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring in action--Part4-Integrating Spring">
+<meta property="og:url" content="http://yoursite.com/2016/10/28/Spring in action--Part4-Integrating Spring/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="Chapter15.Working with remote services
+
+Several remoting technologies are available to you as a Java developer, including these:
+1.Remote Method Invocation (RMI)2.Caucho’s Hessian and Burlap3.Spring’s">
+<meta property="og:image" content="http://img.blog.csdn.net/20161028135912365">
+<meta property="og:image" content="http://img.blog.csdn.net/20161028140130087">
+<meta property="og:image" content="http://img.blog.csdn.net/20161028140339605">
+<meta property="og:image" content="http://img.blog.csdn.net/20161028140429786">
+<meta property="og:image" content="http://img.blog.csdn.net/20161028142307536">
+<meta property="og:image" content="http://img.blog.csdn.net/20161028143712369">
+<meta property="og:image" content="http://img.blog.csdn.net/20161028150411904">
+<meta property="og:image" content="http://img.blog.csdn.net/20161028152117650">
+<meta property="og:image" content="http://img.blog.csdn.net/20161029212437334">
+<meta property="og:image" content="http://img.blog.csdn.net/20161029212504624">
+<meta property="og:image" content="http://img.blog.csdn.net/20161030134626377">
+<meta property="og:image" content="http://img.blog.csdn.net/20161030150511531">
+<meta property="og:image" content="http://img.blog.csdn.net/20161030150706550">
+<meta property="og:image" content="http://img.blog.csdn.net/20161031111014216">
+<meta property="og:image" content="http://img.blog.csdn.net/20161031111433330">
+<meta property="og:image" content="http://img.blog.csdn.net/20161031142919990">
+<meta property="og:image" content="http://img.blog.csdn.net/20161031143703274">
+<meta property="og:image" content="http://img.blog.csdn.net/20161031144655732">
+<meta property="og:image" content="http://img.blog.csdn.net/20161031150912975">
+<meta property="og:image" content="http://img.blog.csdn.net/20161101101658918">
+<meta property="og:image" content="http://img.blog.csdn.net/20161101104239605">
+<meta property="og:image" content="http://img.blog.csdn.net/20161101104312294">
+<meta property="og:image" content="http://img.blog.csdn.net/20161101143957905">
+<meta property="og:image" content="http://img.blog.csdn.net/20161101144052949">
+<meta property="og:image" content="http://img.blog.csdn.net/20161101144153685">
+<meta property="og:image" content="http://img.blog.csdn.net/20161101155332392">
+<meta property="og:updated_time" content="2017-03-18T14:39:29.600Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring in action--Part4-Integrating Spring">
+<meta name="twitter:description" content="Chapter15.Working with remote services
+
+Several remoting technologies are available to you as a Java developer, including these:
+1.Remote Method Invocation (RMI)2.Caucho’s Hessian and Burlap3.Spring’s">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161028135912365">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/10/28/Spring in action--Part4-Integrating Spring/" title="Spring in action--Part4-Integrating Spring" itemprop="url">Spring in action--Part4-Integrating Spring</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-28T07:23:39.000Z" itemprop="datePublished"> Published 2016-10-28</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Chapter15.Working with remote services</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.1.</span> <span class="toc-text">15.1An overview of Spring remoting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.</span> <span class="toc-text">15.2Working with RMI</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">15.2.1Exporting an RMI service</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">15.2.2Wiring an RMI service</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.</span> <span class="toc-text">15.3Exposing remote services with Hessian and Burlap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.4.</span> <span class="toc-text">15.4Using Spring’s HttpInvoker</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.4.1.</span> <span class="toc-text">15.4.1Exposing beans as HTTP services</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.4.2.</span> <span class="toc-text">15.4.2Accessing services via HTTP</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.5.</span> <span class="toc-text">15.5Publishing and consuming web services</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.6.</span> <span class="toc-text">15.6Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Chapter16.Creating REST APIs with Spring MVC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.1.</span> <span class="toc-text">16.1Getting REST</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.1.1.</span> <span class="toc-text">16.1.1The fundamentals of REST</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.1.2.</span> <span class="toc-text">16.1.2How Spring supports REST</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.2.</span> <span class="toc-text">16.2Creating your first REST endpoint</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.2.1.</span> <span class="toc-text">16.2.1Negotiating resource representation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.2.2.</span> <span class="toc-text">16.2.2Working with HTTP message converters</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.3.</span> <span class="toc-text">16.3Serving more than resources</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.3.1.</span> <span class="toc-text">16.3.1Communicating errors to the client</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.3.2.</span> <span class="toc-text">16.3.2Setting headers in the response</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.</span> <span class="toc-text">16.4Consuming REST resources</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.1.</span> <span class="toc-text">16.4.1 Exploring RestTemplate’s operations</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.2.</span> <span class="toc-text">16.4.2GETting resources</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.3.</span> <span class="toc-text">16.4.3Retrieving resources</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.4.</span> <span class="toc-text">16.4.4Extracting response metadata</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.5.</span> <span class="toc-text">16.4.5PUTting resources</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.6.</span> <span class="toc-text">14.4.6DELETEing resources</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.7.</span> <span class="toc-text">16.4.7POSTing resource data</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.8.</span> <span class="toc-text">16.4.8Receiving object responses from POST requests</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.9.</span> <span class="toc-text">16.4.9Receiving a resource location after a POST request</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.10.</span> <span class="toc-text">16.4.10Exchanging resources</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.5.</span> <span class="toc-text">16.5Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Chapter17.Messaging in Spring</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.1.</span> <span class="toc-text">17.1A brief introduction to asynchronous messaging</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.1.1.</span> <span class="toc-text">17.1.1Sending messages</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.1.2.</span> <span class="toc-text">17.1.2Assessing the benefits of asynchronous messaging</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.</span> <span class="toc-text">17.2Sending messages with JMS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.1.</span> <span class="toc-text">17.2.1Setting up a message broker in Spring</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.2.</span> <span class="toc-text">17.2.2Using Spring’s JMS template</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.3.</span> <span class="toc-text">17.2.3Creating message-driven POJOs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.4.</span> <span class="toc-text">17.2.4Using message-based RPC</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.</span> <span class="toc-text">17.3Messaging with AMQP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.1.</span> <span class="toc-text">17.3.1A brief introduction to AMQP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.2.</span> <span class="toc-text">17.3.2Configuring Spring for AMQP messaging</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.3.</span> <span class="toc-text">17.3.3Sending messages with RabbitTemplate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.4.</span> <span class="toc-text">17.3.4Receiving AMQP messages</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.4.</span> <span class="toc-text">17.4Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Chapter18.Messaging with WebSocket and STOMP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.1.</span> <span class="toc-text">18.1Working with Spring’s low-level WebSocket API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.2.</span> <span class="toc-text">18.2Coping with a lack of WebSocket support</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.3.</span> <span class="toc-text">18.3Working with STOMP messaging</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.3.1.</span> <span class="toc-text">18.3.1Enabling STOMP messaging</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.3.2.</span> <span class="toc-text">18.3.2Handling STOMP messages from the client</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.3.3.</span> <span class="toc-text">18.3.3Sending messages to the client</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.4.</span> <span class="toc-text">18.4Working with user-targeted messages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.5.</span> <span class="toc-text">18.5Handling message exceptions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.6.</span> <span class="toc-text">18.6Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Chapter19.Sending email with Spring</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">Chapter21.Simplifying Spring development with Spring Boot</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.1.</span> <span class="toc-text">21.1Introducing Spring Boot</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.1.1.</span> <span class="toc-text">21.1.1Adding starter dependencies</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.1.2.</span> <span class="toc-text">21.1.2Autoconfiguration</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.1.3.</span> <span class="toc-text">21.1.3The Spring Boot CLI</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.1.4.</span> <span class="toc-text">21.1.4The Actuator</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.2.</span> <span class="toc-text">21.2Building an application with Spring Boot</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.2.1.</span> <span class="toc-text">21.2.1Handling requests</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.2.2.</span> <span class="toc-text">21.2.2Creating the view</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.2.3.</span> <span class="toc-text">21.2.3Adding static artifacts</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.2.4.</span> <span class="toc-text">21.2.4Persisting the data</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.2.5.</span> <span class="toc-text">21.2.5Try it out</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.3.</span> <span class="toc-text">21.3Going Groovy with the Spring Boot CLI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.4.</span> <span class="toc-text">21.4Gaining application insight with the Actuator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.5.</span> <span class="toc-text">21.5Summary</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h1>Chapter15.Working with remote services</h1>
+
+<p>Several remoting technologies are available to you as a Java developer, including these:</p>
+<p>1.Remote Method Invocation (RMI)<br>2.Caucho’s Hessian and Burlap<br>3.Spring’s own HTTP-based remoting<br>4.Web services with JAX-RPC and JAX-WS</p>
+<h3>15.1An overview of Spring remoting</h3>
+
+<p>The conversation between the other applications and Spittr begins with a remote procedure call (<strong>RPC</strong>) from the client applications. On the surface, an RPC is similar to a call to a method on a local object. Both are synchronous operations, blocking execution in the calling code until the called procedure is complete.<br><img src="http://img.blog.csdn.net/20161028135912365" alt=""></p>
+<p>As I mentioned, Spring supports remoting for several different RPC models, including RMI, Caucho’s Hessian and Burlap, and Spring’s HTTP invoker. Table 15.1 outlines each of these models and briefly discusses their usefulness in various situations.<br><img src="http://img.blog.csdn.net/20161028140130087" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20161028140339605" alt=""><br><img src="http://img.blog.csdn.net/20161028140429786" alt=""></p>
+<p>Whether you’ll be developing code that consumes remote services, implements those services, or both, <strong>working with remote services in Spring is purely a matter of configuration</strong>. You won’t have to write any Java code to support remoting. Your service beans don’t have to be aware that they’re involved in an RPC (although any beans passed to or returned from remote calls may need to implement java.io<br>.Serializable).对coder隐藏了RPC细节</p>
+<h3>15.2Working with RMI</h3>
+
+<p>For the Spittr application, I’ll show you how to wire an RMI service into a client application’s Spring application context. But first, let’s see how to use the RMI exporter to publish the SpitterService implementation as an RMI service.</p>
+<h4>15.2.1Exporting an RMI service</h4>
+
+<p><strong>CONFIGURING AN RMI SERVICE IN SPRING</strong></p>
+<p>The RMI service that you’ll create exposes the methods from the SpitterService interface. As a reminder, the following listing shows what that interface looks like.<br>先定义一个接口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//SpitterService: defines the service layer of //the Spittr application</span><br><span class="line">public interface SpitterService &#123;</span><br><span class="line">List&lt;Spittle&gt; getRecentSpittles(int count);</span><br><span class="line">void saveSpittle(Spittle spittle);</span><br><span class="line">void saveSpitter(Spitter spitter);</span><br><span class="line">Spitter getSpitter(long id);</span><br><span class="line">void startFollowing(Spitter follower, Spitter followee);</span><br><span class="line">List&lt;Spittle&gt; getSpittlesForSpitter(Spitter spitter);</span><br><span class="line">List&lt;Spittle&gt; getSpittlesForSpitter(String username);</span><br><span class="line">Spitter getSpitter(String username);</span><br><span class="line">Spittle getSpittleById(long id);</span><br><span class="line">void deleteSpittle(long id);</span><br><span class="line">List&lt;Spitter&gt; getAllSpitters();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>The simplest way to use <strong>RmiServiceExporter</strong> to expose SpitterServiceImpl as an RMI service is to configure it in Spring with the following @Bean method:配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public RmiServiceExporter rmiExporter(SpitterService spitterService) &#123;</span><br><span class="line">RmiServiceExporter rmiExporter = new RmiServiceExporter();</span><br><span class="line">rmiExporter.setService(spitterService);</span><br><span class="line">rmiExporter.setServiceName(&quot;SpitterService&quot;);</span><br><span class="line">rmiExporter.setServiceInterface(SpitterService.class);</span><br><span class="line">return rmiExporter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>By default, RmiServiceExporter attempts to bind to an RMI registry on port 1099 of the local machine. If no RMI registry is found at that port, RmiServiceExporter will start one. If you’d rather bind to an RMI registry at a different port or host, you can specify that with the registryPort and registryHost properties. </p>
+<p>For example, the following RmiServiceExporter attempts to bind to an RMI registry on port 1199 on the host rmi.spitter.com:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public RmiServiceExporter rmiExporter(SpitterService spitterService) &#123;</span><br><span class="line">RmiServiceExporter rmiExporter = new RmiServiceExporter();</span><br><span class="line">rmiExporter.setService(spitterService);</span><br><span class="line">rmiExporter.setServiceName(&quot;SpitterService&quot;);</span><br><span class="line">rmiExporter.setServiceInterface(SpitterService.class);</span><br><span class="line">rmiExporter.setRegistryHost(&quot;rmi.spitter.com&quot;);</span><br><span class="line">rmiExporter.setRegistryPort(1199);</span><br><span class="line">return rmiExporter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20161028142307536" alt=""></p>
+<p>That’s all you need to do to have Spring turn a bean into an RMI service.只需上面两步，可以将bean配置为RMI service。这样就可以让一个client连接它了。</p>
+<p>Let’s switch gears and see how to write <strong>a client of the Spitter RMI service</strong>.</p>
+<h4>15.2.2Wiring an RMI service</h4>
+
+<p>Using DI, any client of SpitterService can be ignorant of where that service comes from.</p>
+<p>Spring’s RmiProxyFactoryBean is a factory bean that creates a proxy to an RMI service. Using RmiProxyFactoryBean to reference an RMI SpitterService is as simple as adding the following @Bean method to the client’s Spring configuration:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public RmiProxyFactoryBean spitterService() &#123;</span><br><span class="line">RmiProxyFactoryBean rmiProxy = new RmiProxyFactoryBean();</span><br><span class="line">rmiProxy.setServiceUrl(&quot;rmi://localhost/SpitterService&quot;);</span><br><span class="line">rmiProxy.setServiceInterface(SpitterService.class);</span><br><span class="line">return rmiProxy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The interaction between the client and the RMI proxy is illustrated in figure 15.5.<br><img src="http://img.blog.csdn.net/20161028143712369" alt=""></p>
+<p><strong>RmiProxyFactoryBean</strong> produces a proxy object that talks to remote RMI services on behalf of the client. The client talks to the proxy through the service’s interface as if the remote service were a local POJO.所以，RmiProxyFactoryBean在RMI 通信中起到了很大的作用。</p>
+<p>Now that you’ve declared the RMI service as a Spring-managed bean, you can wire it as a dependency into another bean just as you would a regular non-remote bean. </p>
+<p>For example, suppose the client needs to use the Spitter service to retrieve a list of Spittles for a given user. You might use @Autowired to wire the service proxy into the client:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">SpitterService spitterService;</span><br><span class="line">public List&lt;Spittle&gt; getSpittles(String userName) &#123;</span><br><span class="line">Spitter spitter = spitterService.getSpitter(userName);</span><br><span class="line">return spitterService.getSpittlesForSpitter(spitter);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>绑定方法跟本地bean是一样的。</p>
+<p>RMI的缺陷：</p>
+<p>RMI is an excellent way to communicate with remote services, but it has some limitations. <strong>1.First, RMI has difficulty working across firewalls</strong>. That’s because RMI uses arbitrary ports for communication something that firewalls typically don’t allow. In an<br>intranet environment, this usually isn’t a concern. But if you’re working on the internet, you’ll probably run into trouble with RMI. Even through RMI has support for tunneling over HTTP (which is usually allowed by firewalls), setting up RMI tunneling can<br>be tricky.</p>
+<p><strong>2.Another thing to consider is that RMI is Java-based</strong>. That means both the client and the service must be written in Java. And <strong>because RMI uses Java serialization, the types of the objects being sent across the network must have the exact same version of the Java runtime on both sides of the call</strong>. These may or may not be issues for your application, but bear them in mind when choosing RMI for remoting.</p>
+<h3>15.3Exposing remote services with Hessian and Burlap</h3>
+
+<p>Let’s look at <strong>Spring’s HTTP invoker</strong>, which offers <strong>RPC over HTTP (like Hessian/Burlap)</strong> while at the same time <strong>using Java serialization of objects (like RMI)</strong>.</p>
+<h3>15.4Using Spring’s HttpInvoker</h3>
+
+<p>The HTTP invoker is a new remoting model created as part of the Spring Framework to perform remoting <strong>across HTTP (to make the firewalls happy)</strong> and <strong>using Java’s serialization (to make programmers happy)</strong>.</p>
+<h4>15.4.1Exposing beans as HTTP services</h4>
+
+<p>To export the Spitter service as an HTTP invoker based service, you need to configure an <strong>HttpInvokerServiceExporter</strong> bean like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public HttpInvokerServiceExporter</span><br><span class="line">httpExportedSpitterService(SpitterService service) &#123;</span><br><span class="line">HttpInvokerServiceExporter exporter =</span><br><span class="line">new HttpInvokerServiceExporter();</span><br><span class="line">exporter.setService(service);</span><br><span class="line">exporter.setServiceInterface(SpitterService.class);</span><br><span class="line">return exporter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>As illustrated in figure 15.8, HttpInvokerServiceExporter works much like<br>HessianServiceExporter and BurlapServiceExporter. It’s a Spring MVC controller that receives requests from a client through <strong>DispatcherServlet</strong> and translates those requests into method calls on the service implementation POJO.通过DispatcherServlet然后它将分发请求到service call method。<br><img src="http://img.blog.csdn.net/20161028150411904" alt=""></p>
+<p>Because HttpInvokerServiceExporter is a Spring MVC controller, you need to set up a URL handler to map an HTTP URL to the service, just like with the Hessian and Burlap exporters:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public HandlerMapping httpInvokerMapping() &#123;</span><br><span class="line">SimpleUrlHandlerMapping mapping = new SimpleUrlHandlerMapping();</span><br><span class="line">Properties mappings = new Properties();</span><br><span class="line">mappings.setProperty(&quot;/spitter.service&quot;,</span><br><span class="line">&quot;httpExportedSpitterService&quot;);</span><br><span class="line">mapping.setMappings(mappings);</span><br><span class="line">return mapping;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4>15.4.2Accessing services via HTTP</h4><br><img src="http://img.blog.csdn.net/20161028152117650" alt=""><br><br>To wire the HTTP invoker–based service into your client’s Spring application context, you must configure a bean that proxies it using <strong>HttpInvokerProxyFactoryBean</strong>, as follows:<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public HttpInvokerProxyFactoryBean spitterService() &#123;</span><br><span class="line">HttpInvokerProxyFactoryBean proxy = new HttpInvokerProxyFactoryBean();</span><br><span class="line">proxy.setServiceUrl(&quot;http://localhost:8080/Spitter/spitter.service&quot;);</span><br><span class="line">proxy.setServiceInterface(SpitterService.class);</span><br><span class="line">return proxy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>HttpInvoker的缺点：<br><br><strong>HttpInvoker</strong> has one significant limitation that you should keep in mind: it’s a remoting solution offered by the Spring Framework only. <strong>1.This means both the client and the service must be Spring-enabled applications</strong>.<br><br>This also implies, at least for now, that both the client and the service must be Java-based. And because Java serialization is being used, <strong>2.both sides must have the same version of the classes as well as the same version of the Java runtime (much like RMI)</strong>.<br><br>Next up, we’ll look at how Spring supports remoting through <strong>SOAP-based web services</strong>.<br><br><h3>15.5Publishing and consuming web services</h3><br><br><br><h3>15.6Summary</h3><br><br>On the client side, Spring provides proxy factory beans that enable you to configure remote services in your Spring application. Regardless of whether you’re using RMI, Hessian, Burlap, Spring’s own HTTP invoker, or web services for remoting, you can wire remote services into your application as if they were POJOs. Spring even catches any RemoteExceptions that are thrown and rethrows runtime RemoteAccessExceptions in their place, freeing your code from having to deal with an exception that it probably can’t recover from.<br><br>Remote services, by their nature, are typically less efficient than local services.所以应该限制RPC调用次数。<br><br>In the next chapter, we’ll look at a different approach to building distributed applications by exposing portions of the application as RESTful resources.<br><br><br><h1>Chapter16.Creating REST APIs with Spring MVC</h1><br><br><br><h3>16.1Getting REST</h3><br><br><h4>16.1.1The fundamentals of REST</h4>
+
+<p>A mistake that’s often made when approaching REST is to think of it as “web services with URLs”—to think of REST as another remote procedure call (RPC) mechanism, like SOAP, but invoked through plain HTTP URLs and without SOAP’s hefty XML namespaces.</p>
+<p>To understand what REST is all about, it helps to break down the acronym into its constituent parts:</p>
+<p>1.<strong>Representational</strong>—REST resources can be represented in virtually any form, including XML, JavaScript Object Notation (JSON), or even HTML—whatever form best suits the consumer of those resources.</p>
+<p>2.<strong>State</strong>—When working with REST, you’re more concerned with the state of a resource than with the actions you can take against resources.</p>
+<p>3.<strong>Transfer</strong>—REST involves transferring resource data, in some representational form, from one application to another.</p>
+<p>Put more succinctly, <strong>REST is about transferring the state of resources</strong>—in a representational form that is most appropriate for the client or server—from a server to a client (or vice versa).</p>
+<p>Resources in REST are identified and located with URLs. Again, the focus is on things, not actions.资源</p>
+<p>That said, there are actions in REST, and they’re defined by HTTP methods.These HTTP methods are often mapped to <strong>CRUD</strong> verbs as follows:动作或行为</p>
+<p>1.Create—POST<br>2.Read—GET<br>3.Update—PUT or PATCH<br>4.Delete—DELETE</p>
+<p>Even though this is the common mapping of HTTP methods to CRUD verbs, it’s not a strict requirement. 上面的method要求并不是严格的。</p>
+<h4>16.1.2How Spring supports REST</h4>
+
+<p>At version 4.0, Spring supports the creation of REST resources in the following ways:</p>
+<p>1.Controllers can handle requests for all HTTP methods, including the four primary REST methods: GET, PUT, DELETE, and POST. Spring 3.2 and higher also supports the PATCH method.<br>2.The <strong>@PathVariable（处理带参数的请求）</strong> annotation enables controllers to handle requests for parameterized URLs (URLs that have variable input as part of their path).<br>3.Resources can be represented in a variety of ways using Spring views and view resolvers, including View implementations for rendering model data as XML, JSON, Atom, and RSS.<br>4.The representation best suited for the client can be chosen using <strong>ContentNegotiatingViewResolver</strong>.<br>5.View-based rendering can be bypassed altogether using the <strong>@ResponseBody</strong> annotation and various <strong>HttpMethodConverter</strong> implementations.<br>6.Similarly, the <strong>@RequestBody</strong> annotation, along with HttpMethodConverter implementations, can convert inbound HTTP data into Java objects passed in to a controller’s handler methods.<br>7.Spring applications can consume REST resources using <strong>RestTemplate</strong>.</p>
+<h3>16.2Creating your first REST endpoint</h3>
+
+<p>It’s important to know that controllers usually don’t concern themselves with how resources are represented. Controllers deal with resources in terms of the Java objects that define them. But it’s not until after the controller has finished its work that the resource is transformed into a form that best suits the client.</p>
+<p>Spring offers two options to transform a resource’s Java representation into the representation that’s shipped to the client:</p>
+<p>1.<strong>Content negotiation</strong>—A view is selected that can render the model into a representation to be served to the client.<br>2.<strong>Message conversion</strong>—A message converter transforms an object returned from the controller into a representation to be served to the client.</p>
+<h4>16.2.1Negotiating resource representation</h4>
+
+<p>Spring’s <strong>ContentNegotiatingViewResolver</strong> is a special view resolver that takes the content type that the client wants into consideration. In it’s simplest possible form, ContentNegotiatingViewResolver can be configured like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public ViewResolver cnViewResolver() &#123;</span><br><span class="line">return new ContentNegotiatingViewResolver();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Understanding how ContentNegotiatingViewResolver works involves getting to know the content-negotiation two-step:</p>
+<p>1.<strong>Determine the requested media type(s)</strong>.<br>2.<strong>Find the best view for the requested media type(s)</strong>.</p>
+<p>You start by figuring out what kind of content the client wants.知道用户需要数据的类型</p>
+<p><strong>DETERMINING THE REQUESTED MEDIA TYPES</strong></p>
+<p><strong>ContentNegotiatingViewResolver</strong> considers the <strong>Accept</strong> header and uses whatever media types it asks for, but only after it first looks at the URL’s file extension. If the URL has a file extension on the end, ContentNegotiatingViewResolver tries to figure out the desired type based on that extension. If the extension is <strong>.json</strong>, then the desired content type must be <strong>application/json</strong>. If it’s <strong>.xml</strong>, then the client is asking for <strong>application/xml</strong>. Of course, an <strong>.html</strong> extension indicates that the client wants the resource represented as <strong>HTML (text/html)</strong> 先看file extension，然后返回对应的数据格式，如果没有，那么就看Accept header，返回对应数据格式。</p>
+<p>In the end, if there is no Accept header and the extension is no help, ContentNegotiatingViewResolver falls back to / as <strong>the default content type</strong>, meaning the client has to take whatever representation the server sends it.如果上面两个都没有帮助，那么就返回默认。</p>
+<p><strong>INFLUENCING HOW MEDIA TYPES ARE CHOSEN</strong></p>
+<p>The media-type selection process, as described so far, outlines the default strategy for determining the requested media types. But you can change how it behaves by giving it a <strong>ContentNegotiationManager（自定义策略）</strong>. A few of the things you can do via a ContentNegotiationManager are as follows:</p>
+<p>1.Specify a default content type to fall back to if a content type can’t be derived from the request.<br>2.Specify a content type via a request parameter.<br>3.Ignore the request’s Accept header.<br>4.Map request extensions to specific media types.<br>5.Use the Java Activation Framework (JAF) as a fallback option for looking up media types from extensions.</p>
+<p>There are three ways to configure a ContentNegotiationManager:三种配置方法</p>
+<p>1.Directly declare a bean whose type is ContentNegotiationManager.<br>2.Create the bean indirectly via ContentNegotiationManagerFactoryBean.<br>3.Override the configureContentNegotiation() method of WebMvcConfigurerAdapter.</p>
+<p>For example, you might configure a ContentNegotiationManager with a default content type of application/ json in XML like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;contentNegotiationManager&quot;</span><br><span class="line">class=&quot;org.springframework.http.ContentNegotiationManagerFactoryBean&quot;</span><br><span class="line">p:defaultContentType=&quot;application/json&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>THE BENEFITS AND LIMITATIONS OF CONTENTNEGOTIATINGVIEWRESOLVER</strong></p>
+<p>The key <strong>benefit</strong> of using ContentNegotiatingViewResolver is that it layers REST resource representation on top of the Spring MVC with no change in controller code.<br><strong>The same controller method that serves human-facing HTML content can also serve JSON or XML to a non-human client</strong>.</p>
+<p>ContentNegotiatingViewResolver also has a serious <strong>limitation</strong>. <strong>As a ViewResolver implementation</strong>, <strong>it only has an opportunity to determine how a resource is rendered to a client</strong>. It has no say in what representations a controller can consume from the client. <strong>If the client is sending JSON or XML, then ContentNegotiatingViewResolver isn’t much help</strong>.</p>
+<p>它还有一个limitation，The View chosen renders the model—not the resourc —to the client.<br>When a client requests a list of Spittle objects in JSON, the client is probably expecting a response that looks something like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">&#123;</span><br><span class="line">&quot;id&quot;: 42,</span><br><span class="line">&quot;latitude&quot;: 28.419489,</span><br><span class="line">&quot;longitude&quot;: -81.581184,</span><br><span class="line">&quot;message&quot;: &quot;Hello World!&quot;,</span><br><span class="line">&quot;time&quot;: 1400389200000</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">&quot;id&quot;: 43,</span><br><span class="line">&quot;latitude&quot;: 28.419136,</span><br><span class="line">&quot;longitude&quot;: -81.577225,</span><br><span class="line">&quot;message&quot;: &quot;Blast off!&quot;,</span><br><span class="line">&quot;time&quot;: 1400475600000</span><br><span class="line">&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>But because the model is a map of key-value pairs, the response looks more like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;spittleList&quot;: [</span><br><span class="line">&#123;</span><br><span class="line">&quot;id&quot;: 42,</span><br><span class="line">&quot;latitude&quot;: 28.419489,</span><br><span class="line">&quot;longitude&quot;: -81.581184,</span><br><span class="line">&quot;message&quot;: &quot;Hello World!&quot;,</span><br><span class="line">&quot;time&quot;: 1400389200000</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">&quot;id&quot;: 43,</span><br><span class="line">&quot;latitude&quot;: 28.419136,</span><br><span class="line">&quot;longitude&quot;: -81.577225,</span><br><span class="line">&quot;message&quot;: &quot;Blast off!&quot;,</span><br><span class="line">&quot;time&quot;: 1400475600000</span><br><span class="line">&#125;</span><br><span class="line">]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Because of these limitations, I generally <strong>prefer not to use ContentNegotiatingViewResolver</strong>. Instead, I lean heavily toward using Spring’s <strong>message converters</strong> for producing resource representations. Let’s see how you can employ Spring’s message converters in your controller methods.</p>
+<h4>16.2.2Working with HTTP message converters</h4>
+
+<p>Message conversion is a more direct way to transform data produced by a controller into a representation that’s served to a client. When using message conversion, DispatcherServlet doesn’t bother with ferrying model data to a view. </p>
+<p>In fact, <strong>there is no model, and there is no view</strong>. <strong>There is only data produced by the controller and a resource representation produced when a message converter transforms that data</strong>.<br><img src="http://img.blog.csdn.net/20161029212437334" alt=""><br><img src="http://img.blog.csdn.net/20161029212504624" alt=""></p>
+<p>For example, suppose the client has indicated via the request’s Accept header that it can accept application/json. Assuming that the Jackson JSON library is in the application’s classpath, the object returned from the handler method is given to MappingJacksonHttpMessageConverter for conversion into a JSON representation to be returned to the client. On the other hand, if the request header indicates that the client prefers text/xml, then Jaxb2RootElementHttpMessageConverter is tasked with producing an XML response to the client.</p>
+<p><strong>RETURNING RESOURCE STATE IN THE RESPONSE BODY</strong></p>
+<p><strong>Normally</strong>, when a handler method returns a <strong>Java object (anything other than String or an implementation of View)</strong>, that object ends up in the model for rendering in the view. <strong>But if you’re going to employ message conversion, you need to tell Spring to skip the normal model/view flow and use a message converter instead</strong>. There are a handful of ways to do this, but the simplest is to annotate the controller method with @ResponseBody.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(method=RequestMethod.GET,</span><br><span class="line">produces=&quot;application/json&quot;)</span><br><span class="line">public @ResponseBody List&lt;Spittle&gt; spittles(</span><br><span class="line">@RequestParam(value=&quot;max&quot;,</span><br><span class="line">defaultValue=MAX_LONG_AS_STRING) long max,</span><br><span class="line">@RequestParam(value=&quot;count&quot;, defaultValue=&quot;20&quot;) int count) &#123;</span><br><span class="line">return spittleRepository.findSpittles(max, count);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>The @ResponseBody annotation tells Spring that you want to send the returned object as a resource to the clien</strong>t, converted into some representational form that the client can accept. More specifically, DispatcherServlet considers the request’s Accept header and looks for a message converter that can give the client the representation it wants.</p>
+<p>Speaking of the Accept header, note spittle()’s @RequestMapping. I’ve added a <strong>produces</strong> attribute to declare that this method will only handle requests where JSON output is expected. That is, this method will only handle requests whose Accept header includes application/json. Any other kind of request, even if it’s a GET request whose URL matches the path specified, won’t be handled by this method. 相当于又增加了一个输出约束。</p>
+<p><strong>RECEIVING RESOURCE STATE IN THE REQUEST BODY</strong></p>
+<p>Just as @ResponseBody tells Spring to employ a message converter when sending data to a client, the <strong>@RequestBody</strong> tells Spring to find a message converter to convert a resource representation coming from a client into an object. </p>
+<p>For example, suppose that you need a way for a client to submit a new Spittle to be saved. You can write the controller method to handle such a request like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(</span><br><span class="line">method=RequestMethod.POST</span><br><span class="line">consumes=&quot;application/json&quot;)</span><br><span class="line">public @ResponseBody</span><br><span class="line">Spittle saveSpittle(@RequestBody Spittle spittle) &#123;</span><br><span class="line">return spittleRepository.save(spittle);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Because the Spittle parameter is annotated with @RequestBody, Spring will look at the <strong>Content-Type header</strong> of the request and try to find a message converter that can convert the request body into a Spittle.</p>
+<p>For example, if the client sent the Spittle data in a JSON representation, then the <strong>Content-Type header</strong> might be set to <strong>application/json</strong>. In that case, DispatcherServlet will look for a message converter that can convert JSON into Java objects. </p>
+<p>Notice that the @RequestMapping has a consumes attribute set to application/ json. The <strong>consumes</strong> attribute works much like the produces attribute, only with regard to the request’s Content-Type header. This tells Spring that this method will only handle POST requests to /spittles if the request’s Content-Type header is application/json.</p>
+<p><strong>DEFAULTING CONTROLLERS FOR MESSAGE CONVERSION</strong></p>
+<p>如果想要REST，那么每个地方都用@ResponseBody或者@RequestBody就显得太繁琐了。</p>
+<p>If you annotate your controller class with <strong>@RestController instead of @Controller</strong>, Spring applies message conversion to all handler methods in the controller. You don’t need to annotate each method with @ResponseBody. SpittleController, as defined thus far, can look like the next listing.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">//Using the @RestController annotation</span><br><span class="line">@RestController//Default to message conversion</span><br><span class="line">@RequestMapping(&quot;/spittles&quot;)</span><br><span class="line">public class SpittleController &#123;</span><br><span class="line">private static final String MAX_LONG_AS_STRING=&quot;9223372036854775807&quot;;</span><br><span class="line">private SpittleRepository spittleRepository;</span><br><span class="line">@Autowired</span><br><span class="line">public SpittleController(SpittleRepository spittleRepository) &#123;</span><br><span class="line">this.spittleRepository = spittleRepository;</span><br><span class="line">&#125;</span><br><span class="line">@RequestMapping(method=RequestMethod.GET)</span><br><span class="line">public List&lt;Spittle&gt; spittles(</span><br><span class="line">@RequestParam(value=&quot;max&quot;,</span><br><span class="line">defaultValue=MAX_LONG_AS_STRING) long max,</span><br><span class="line">@RequestParam(value=&quot;count&quot;, defaultValue=&quot;20&quot;) int count) &#123;</span><br><span class="line">return spittleRepository.findSpittles(max, count);</span><br><span class="line">&#125;</span><br><span class="line">@RequestMapping(</span><br><span class="line">method=RequestMethod.POST</span><br><span class="line">consumes=&quot;application/json&quot;)</span><br><span class="line">public Spittle saveSpittle(@RequestBody Spittle spittle) &#123;</span><br><span class="line">return spittleRepository.save(spittle);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> There are headers and status codes that can also provide useful information<br>about the response to the client. Let’s see how to populate response headers and set the status code when serving resources.</p>
+<h3>16.3Serving more than resources</h3>
+
+<h4>16.3.1Communicating errors to the client</h4>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value=&quot;/&#123;id&#125;&quot;, method=RequestMethod.GET)</span><br><span class="line">public @ResponseBody Spittle spittleById(@PathVariable long id) &#123;</span><br><span class="line">return spittleRepository.findOne(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面这段代码，如果id=null，那么将不会得到结果，但是status code还是200。这不合理啊，所以我们应该需要自定义status code。</p>
+<p>Spring offers a few options for dealing with such scenarios:</p>
+<p>1.Status codes can be specified with the <strong>@ResponseStatus</strong> annotation.<br>2.Controller methods can return a <strong>ResponseEntity</strong> that carries more metadata concerning the response.<br>3.An exception handler can deal with the error cases, leaving the handler methods to focus on the happy path.</p>
+<p><strong>WORKING WITH RESPONSEENTITY</strong></p>
+<p>As an alternative to @ResponseBody, controller methods can return a <strong>ResponseEntity. ResponseEntity（它不仅返回response body，还返回很多metadata）</strong> is an object that carries metadata (such as headers and the<br>status code) about a response in addition to the object to be converted to a resource representation.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value=&quot;/&#123;id&#125;&quot;, method=RequestMethod.GET)</span><br><span class="line">public ResponseEntity&lt;Spittle&gt; spittleById(@PathVariable long id) &#123;</span><br><span class="line">Spittle spittle = spittleRepository.findOne(id);</span><br><span class="line">HttpStatus status = spittle != null ?</span><br><span class="line">HttpStatus.OK : HttpStatus.NOT_FOUND;</span><br><span class="line">return new ResponseEntity&lt;Spittle&gt;(spittle, status);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>HANDLING ERRORS</strong><br>但毕竟是异常，你应该最好像下面这样写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@ExceptionHandler(SpittleNotFoundException.class)</span><br><span class="line">public ResponseEntity&lt;Error&gt; spittleNotFound(</span><br><span class="line">SpittleNotFoundException e) &#123;</span><br><span class="line">long spittleId = e.getSpittleId();</span><br><span class="line">Error error = new Error(4, &quot;Spittle [&quot; + spittleId + &quot;] not found&quot;);</span><br><span class="line">return new ResponseEntity&lt;Error&gt;(error, HttpStatus.NOT_FOUND);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class SpittleNotFoundException extends RuntimeException &#123;</span><br><span class="line">private long spittleId;</span><br><span class="line">public SpittleNotFoundException(long spittleId) &#123;</span><br><span class="line">this.spittleId = spittleId;</span><br><span class="line">&#125;</span><br><span class="line">public long getSpittleId() &#123;</span><br><span class="line">return spittleId;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@RequestMapping(value=&quot;/&#123;id&#125;&quot;, method=RequestMethod.GET)</span><br><span class="line">public ResponseEntity&lt;Spittle&gt; spittleById(@PathVariable long id) &#123;</span><br><span class="line">Spittle spittle = spittleRepository.findOne(id);</span><br><span class="line">if (spittle == null) &#123; throw new SpittleNotFoundException(id); &#125;</span><br><span class="line">return new ResponseEntity&lt;Spittle&gt;(spittle, HttpStatus.OK);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4>16.3.2Setting headers in the response</h4>
+
+<p>如果你提交一个POST创建一个新的资源，那么client不光需要知道status code，应该还需要知道新创建的资源的URL吧。</p>
+<p>When creating a new resource, it’s considered good form to communicate the resource’s URL to the client in the <strong>Location header</strong> of the response. Therefore, you need some way to populate the response headers. Your old friend ResponseEntity can help you with that.</p>
+<p>The following listing shows a new version of saveSpittle() that returns a ResponseEntity to communicate that a new resource was created.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//Setting headers in the response when returning a ResponseEntity</span><br><span class="line">@RequestMapping(</span><br><span class="line">method=RequestMethod.POST</span><br><span class="line">consumes=&quot;application/json&quot;)</span><br><span class="line">public ResponseEntity&lt;Spittle&gt; saveSpittle(</span><br><span class="line">@RequestBody Spittle spittle) &#123;</span><br><span class="line">Spittle spittle = spittleRepository.save(spittle);//Fetch spittle</span><br><span class="line">HttpHeaders headers = new HttpHeaders();//Set the location header</span><br><span class="line">URI locationUri = URI.create(</span><br><span class="line">&quot;http://localhost:8080/spittr/spittles/&quot; + spittle.getId());</span><br><span class="line">headers.setLocation(locationUri);</span><br><span class="line">ResponseEntity&lt;Spittle&gt; responseEntity =//Create a ResponseEntity</span><br><span class="line">new ResponseEntity&lt;Spittle&gt;(</span><br><span class="line">spittle, headers, HttpStatus.CREATED)</span><br><span class="line">return responseEntity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样构造的URL是不是太hard-coded了？</p>
+<p>Rather than construct the URI manually, Spring offers some help in the form of <strong>UriComponentsBuilder</strong>. It’s a builder class that lets you build up a UriComponents instance by specifying the various components of the URI (such as the host, port, path, and query) a piece at a time. From the UriComponents object that UriComponentsBuilder builds, you can obtain a URI suitable for setting the Location header.</p>
+<p>To use a UriComponentsBuilder, all you have to do is ask for it as a parameter to the handler method, as shown next.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//Using a UriComponentsBuilder to construct the location URI</span><br><span class="line">@RequestMapping(</span><br><span class="line">method=RequestMethod.POST</span><br><span class="line">consumes=&quot;application/json&quot;)</span><br><span class="line">public ResponseEntity&lt;Spittle&gt; saveSpittle(</span><br><span class="line">@RequestBody Spittle spittle,</span><br><span class="line">UriComponentsBuilder ucb) &#123;//Given a UriComponentsBuilder …</span><br><span class="line">Spittle spittle = spittleRepository.save(spittle);</span><br><span class="line">HttpHeaders headers = new HttpHeaders();//… calculate the location //URI</span><br><span class="line">URI locationUri =</span><br><span class="line">ucb.path(&quot;/spittles/&quot;)</span><br><span class="line">.path(String.valueOf(spittle.getId()))</span><br><span class="line">.build()</span><br><span class="line">.toUri();</span><br><span class="line">headers.setLocation(locationUri);</span><br><span class="line">ResponseEntity&lt;Spittle&gt; responseEntity =</span><br><span class="line">new ResponseEntity&lt;Spittle&gt;(</span><br><span class="line">spittle, headers, HttpStatus.CREATED)</span><br><span class="line">return responseEntity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The UriComponentsBuilder given to the handler method is <strong>preconfigured</strong> with known information such as the host, port, and servlet content. <strong>It obtains this foundational information from the request that the handler method is serving</strong>. From there, the code builds up the rest of the UriComponents by setting the path.</p>
+<h3>16.4Consuming REST resources</h3><br>写一个client代码来读取REST 资源：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//Fetching a Facebook profile using Apache HTTP Client</span><br><span class="line">public Profile fetchFacebookProfile(String id) &#123;</span><br><span class="line">try &#123;</span><br><span class="line">HttpClient client = HttpClients.createDefault();//Create the client</span><br><span class="line">//create the request</span><br><span class="line">HttpGet request = new HttpGet(&quot;http://graph.facebook.com/&quot; + id);</span><br><span class="line">request.setHeader(&quot;Accept&quot;, &quot;application/json&quot;);</span><br><span class="line">HttpResponse response = client.execute(request);//Execute the</span><br><span class="line">//request</span><br><span class="line">HttpEntity entity = response.getEntity();</span><br><span class="line">//Map response to object</span><br><span class="line">ObjectMapper mapper = new ObjectMapper();</span><br><span class="line">return mapper.readValue(entity.getContent(), Profile.class);</span><br><span class="line">&#125; catch (IOException e) &#123;</span><br><span class="line">throw new RuntimeException(e);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>这上面有很多样板代码，我们可以用RestTemplate来简化它。<br><br>But first, let’s take a high-level survey of all the REST operations that <strong>RestTemplate</strong> offers.<br><br><h4>16.4.1 Exploring RestTemplate’s operations</h4><br><img src="http://img.blog.csdn.net/20161030134626377" alt=""><br><br>With the exception of TRACE, RestTemplate has methods to cover all the HTTP verbs.<br>In addition, <strong>execute()</strong> and <strong>exchange()</strong> offer lower-level, general-purpose methods for using any of the HTTP methods.<br><br>Most of the operations in table 16.2 are overloaded into three method forms:大部分方法都有三种重写形式<br><br>1.One that takes a java.net.URI as the URL specification with no support for parameterized URLs纯URI<br>2.One that takes a String URL specification with URL parameters specified as a Map带参数URI（map）<br>3.One that takes a String URL specification with URL parameters specified as a variable argument list带参数URI（list）<br><br><h4>16.4.2GETting resources</h4><br><br><h4>16.4.3Retrieving resources</h4><br><br>As a simple example of what getForObject() can do, let’s take another stab at implementing fetchFacebookProfile():第一种方法<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public Profile fetchFacebookProfile(String id) &#123;</span><br><span class="line">RestTemplate rest = new RestTemplate();</span><br><span class="line">return rest.getForObject(&quot;http://graph.facebook.com/&#123;spitter&#125;&quot;,</span><br><span class="line">Profile.class, id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>Alternatively, you could place the id parameter into a Map with a key of id and pass in that Map as the last parameter to getForObject():第二种方法<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public Spittle[] fetchFacebookProfile(String id) &#123;</span><br><span class="line">Map&lt;String, String&gt; urlVariables = new HashMap&lt;String, String();</span><br><span class="line">urlVariables.put(&quot;id&quot;, id);</span><br><span class="line">RestTemplate rest = new RestTemplate();</span><br><span class="line">return rest.getForObject(&quot;http://graph.facebook.com/&#123;spitter&#125;&quot;,</span><br><span class="line">Profile.class, urlVariables);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><h4>16.4.4Extracting response metadata</h4><br><br>getForEntity()还能返回header等其他信息。<br>In addition to getLastModified(), HttpHeaders includes the following methods for retrieving header information:<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public List&lt;MediaType&gt; getAccept() &#123; ... &#125;</span><br><span class="line">public List&lt;Charset&gt; getAcceptCharset() &#123; ... &#125;</span><br><span class="line">public Set&lt;HttpMethod&gt; getAllow() &#123; ... &#125;</span><br><span class="line">public String getCacheControl() &#123; ... &#125;</span><br><span class="line">public List&lt;String&gt; getConnection() &#123; ... &#125;</span><br><span class="line">public long getContentLength() &#123; ... &#125;</span><br><span class="line">public MediaType getContentType() &#123; ... &#125;</span><br><span class="line">public long getDate() &#123; ... &#125;</span><br><span class="line">public String getETag() &#123; ... &#125;</span><br><span class="line">public long getExpires() &#123; ... &#125;</span><br><span class="line">public long getIfNotModifiedSince() &#123; ... &#125;</span><br><span class="line">public List&lt;String&gt; getIfNoneMatch() &#123; ... &#125;</span><br><span class="line">public long getLastModified() &#123; ... &#125;</span><br><span class="line">public URI getLocation() &#123; ... &#125;</span><br><span class="line">public String getOrigin() &#123; ... &#125;</span><br><span class="line">public String getPragma() &#123; ... &#125;</span><br><span class="line">public String getUpgrade() &#123; ... &#125;</span><br></pre></td></tr></table></figure><br><br>If you’re interested in the response’s HTTP status code, then you’ll want to call the getStatusCode() method. For example, consider this method that fetches a Spittle:<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public Spittle fetchSpittle(long id) &#123;</span><br><span class="line">RestTemplate rest = new RestTemplate();</span><br><span class="line">ResponseEntity&lt;Spittle&gt; response = rest.getForEntity(</span><br><span class="line">&quot;http://localhost:8080/spittr-api/spittles/&#123;id&#125;&quot;,</span><br><span class="line">Spittle.class, id);</span><br><span class="line">if(response.getStatusCode() == HttpStatus.NOT_MODIFIED) &#123;</span><br><span class="line">throw new NotModifiedException();</span><br><span class="line">&#125;</span><br><span class="line">return response.getBody();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><h4>16.4.5PUTting resources</h4><br><br>用map的put方式：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public void updateSpittle(Spittle spittle) throws SpitterException &#123;</span><br><span class="line">RestTemplate rest = new RestTemplate();</span><br><span class="line">Map&lt;String, String&gt; params = new HashMap&lt;String, String&gt;();</span><br><span class="line">params.put(&quot;id&quot;, spittle.getId());</span><br><span class="line">rest.put(&quot;http://localhost:8080/spittr-api/spittles/&#123;id&#125;&quot;,</span><br><span class="line">spittle, params);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>对于PUT，跟GET都比较类似。<br>关于conent type：<br><br><strong>The content type into which the object will be converted depends largely on the type being passed in to put()（我想GET也同理吧）</strong>. If given a <strong>String</strong> value, the <strong>StringHttpMessageConverter</strong> kicks in: the value is written directly to the body of the request, and the content type is set to <strong>text/plain</strong>. When given a <strong>MultiValueMap<string,string></string,string></strong>, the values in the map are written to the request body in <strong>application/x-www formurlencoded</strong> form by <strong>FormHttpMessageConverter</strong>.<br><br>Because <strong>you’re passing in a Spittle object</strong>, you need a message converter that can work with arbitrary objects. If the Jackson 2 library is in the classpath, then the <strong>MappingJackson2HttpMessageConverter</strong> writes the Spittle to the request as <strong>application/json</strong>.对于上面的代码，是将Spittle这个对象写入，所以如果Jackson在classpath下，将会调用它，并将content type设为application/json。<br><br><h4>14.4.6DELETEing resources</h4><br><br>对于detele就跟简单了，只需要填入需要删除的资源对应的URI即可。<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public void deleteSpittle(long id) &#123;</span><br><span class="line">RestTemplate rest = new RestTemplate();</span><br><span class="line">rest.delete(&quot;http://localhost:8080/spittr-api/spittles/&#123;id&#125;&quot;, id));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><h4>16.4.7POSTing resource data</h4><br><br>Two of those methods have names that look familiar. The <strong>postForObject()</strong> and <strong>postForEntity()</strong> methods work with POST requests in a way that’s similar to how <strong>getForObject()</strong> and <strong>getForEntity()</strong> work for sending GET requests. The other method, <strong>postForLocation()</strong>, is unique for POST requests.<br><br><h4>16.4.8Receiving object responses from POST requests</h4><br><br>Suppose that, in addition to receiving the Spitter resource in return, you’d also like to see the value of the Location header in the response. In that case, you can call postForEntity() like this:<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RestTemplate rest = new RestTemplate();</span><br><span class="line">ResponseEntity&lt;Spitter&gt; response = rest.postForEntity(</span><br><span class="line">&quot;http://localhost:8080/spittr-api/spitters&quot;,</span><br><span class="line">spitter, Spitter.class);</span><br><span class="line">Spitter spitter = response.getBody();</span><br><span class="line">URI url = response.getHeaders().getLocation();</span><br></pre></td></tr></table></figure><br><br><h4>16.4.9Receiving a resource location after a POST request</h4><br><br><h4>16.4.10Exchanging resources</h4><br><br>But what if you want to <strong>set headers on the request sent to the server</strong> That’s what RestTemplate’s <strong>exchange()</strong> methods are good for.例如<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MultiValueMap&lt;String, String&gt; headers =</span><br><span class="line">new LinkedMultiValueMap&lt;String, String&gt;();</span><br><span class="line">headers.add(&quot;Accept&quot;, &quot;application/json&quot;);</span><br><span class="line">HttpEntity&lt;Object&gt; requestEntity = new HttpEntity&lt;Object&gt;(headers);</span><br><span class="line"></span><br><span class="line">ResponseEntity&lt;Spitter&gt; response = rest.exchange(</span><br><span class="line">&quot;http://localhost:8080/spittr-api/spitters/&#123;spitter&#125;&quot;,</span><br><span class="line">HttpMethod.GET, requestEntity, Spitter.class, spitterId);</span><br><span class="line">Spitter spitter = response.getBody();</span><br></pre></td></tr></table></figure><br><br><h3>16.5Summary</h3>
+
+<p>RESTful architecture uses web standards to integrate applications, keeping the interactions simple and natural. <strong>Resources</strong> in a system are identified by URLs, manipulated with <strong>HTTP methods</strong>, and <strong>represented</strong> in one or more forms suitable for the client.</p>
+<h1>Chapter17.Messaging in Spring</h1>
+
+<h3>17.1A brief introduction to asynchronous messaging</h3>
+
+<p>Remoting options such as RMI and Hessian/Burlap are <strong>synchronous</strong>. As<br>illustrated in figure 17.1, when the client invokes a remote method, the client must wait for the method to complete before moving on. Even if the remote method doesn’t return anything to the client, the client is put on hold until the service is done.<br><img src="http://img.blog.csdn.net/20161030150511531" alt=""></p>
+<p>On the other hand, when messages are sent asynchronously, as shown in figure 17.2, the client doesn’t have to wait for the service to process the message or even for the message to be delivered. The client sends its message and then moves along, assuming that the service will eventually receive and process the message.<br><img src="http://img.blog.csdn.net/20161030150706550" alt=""></p>
+<p>异步通信比同步通信有很多优点，我们先看看怎么异步发送消息。</p>
+<h4>17.1.1Sending messages</h4>
+
+<p>Similarly, <strong>indirection is the key to asynchronous messaging</strong>. When one application sends a message to another, <strong>there’s no direct link between the two applications</strong>. Instead, the sending application places the message in the hands of a service that will ensure delivery to the receiving application.</p>
+<p>There are two main actors in asynchronous messaging: <strong>message brokers</strong> and <strong>destinations</strong>. When an application sends a message, it hands it off to a message broker. <strong>A message broker is analogous to the post office</strong>. The message broker ensures that the message is delivered to the specified destination, leaving the sender free to go about other business.</p>
+<p>But unlike mail addresses, which may indicate a specific person or street address, <strong>destinations are less specific</strong>. Destinations are only concerned about <strong>where</strong> messages will be picked up—<strong>not who</strong> will pick them up. In this way, a destination is like sending a letter addressed “To current resident.”</p>
+<p>There are two common types of destinations: <strong>queues</strong> and <strong>topics</strong>. Each of these is associated with a specific messaging model: <strong>either point-to-point (for queues) or publish/subscribe (for topics)</strong>.</p>
+<p><strong>POINT-TO-POINT MESSAGING</strong></p>
+<p>举例，在银行排队请求被处理业务。</p>
+<p>with point-to-point messaging, if multiple receivers are listening to a queue, there’s no way of knowing which one will process a specific message. <strong>This uncertainty is a good thing, because it enables an application to scale up message processing by adding another listener to the queue</strong>.<br><img src="http://img.blog.csdn.net/20161031111014216" alt=""><br><img src="http://img.blog.csdn.net/20161031111433330" alt=""></p>
+<p><strong>PUBLISH-SUBSCRIBE MESSAGING</strong></p>
+<p>The magazine analogy breaks down when you realize that the publisher has no idea who its subscribers are. <strong>The publisher only knows that its message will be published to a particular topic—not who’s listening to that topic</strong>. This also implies that the publisher has no idea how the message will be processed.注意每个subscriber处理的都是一个copy。</p>
+<h4>17.1.2Assessing the benefits of asynchronous messaging</h4>
+
+<p>同步通信的弊端：</p>
+<p>1.Synchronous communication implies waiting.<br>2.The client is coupled to the service through the service’s interface.<br>3.The client is coupled to the service’s location.<br>4.The client is coupled to the service’s availability. </p>
+<p>异步通信的好处：</p>
+<p><strong>1.NO WAITING</strong></p>
+<p><strong>2.MESSAGE ORIENTATION AND DECOUPLING</strong></p>
+<p><strong>3.LOCATION INDEPENDENCE</strong></p>
+<p><strong>4.GUARANTEED DELIVERY</strong></p>
+<h3>17.2Sending messages with JMS</h3>
+
+<p>Spring supports JMS through a template-based abstraction known as <strong>JmsTemplate</strong>. Using JmsTemplate, it’s easy to send messages across <strong>queues</strong> and <strong>topics</strong> from the producer side and also to receive those messages on the consumer side. Spring also supports the notion of message driven POJOs: simple Java objects that react to messages arriving on a queue or topic in an asynchronous fashion.</p>
+<p>Let’s kick off our exploration of Spring JMS by setting up a message broker in Spring.</p>
+<h4>17.2.1Setting up a message broker in Spring</h4>
+
+<p><strong>ActiveMQ</strong> is a great open source <strong>message broker</strong> and a wonderful option for asynchronous messaging with JMS.</p>
+<p>apache网站下载ActiveMQ，将jar包加入classpath，具体流程，用时看。</p>
+<p><strong>CREATING A CONNECTION FACTORY</strong></p>
+<p>Throughout this chapter, you’ll see different ways you can use Spring to both send and receive messages through JMS. <strong>In all cases, you’ll need a JMS connection factory to be able to send messages through the message broker</strong>. Because you’re using ActiveMQ as your message broker, you’ll have to <strong>configure the JMS connection factory so that it knows how to connect to ActiveMQ</strong>. </p>
+<p>ActiveMQConnectionFactory is the JMS connection factory that comes with ActiveMQ. You can configure it in Spring like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;connectionFactory&quot;</span><br><span class="line">class=&quot;org.apache.activemq.spring.ActiveMQConnectionFactory&quot;</span><br><span class="line">//可自定义host和port，默认为61616</span><br><span class="line">p:brokerURL=&quot;tcp://localhost:61616&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p>The URL given to <strong>brokerURL</strong> tells the connection factory to connect to ActiveMQ on the local machine at port 61616 (which is the port that ActiveMQ listens to by default).在URL中配置ActiveMQ 的位置，使factory能够连接它。</p>
+<p><strong>DECLARING AN ACTIVEMQ MESSAGE DESTINATION</strong></p>
+<p><strong>In addition to a connection factory, you need a destination for the messages to be passed to（两要素嘛，broker和location）</strong>. <strong>The destination can be either a queue or a topic</strong>, depending on the needs of the application.目的地可以是queue或者topic。</p>
+<p>For example, the following <code>&lt;bean&gt;</code> declaration declares an ActiveMQ queue:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;queue&quot;</span><br><span class="line">class=&quot;org.apache.activemq.command.ActiveMQQueue&quot;</span><br><span class="line">c:_=&quot;spitter.queue&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>Similarly, the following <code>&lt;bean&gt;</code> declares a topic for ActiveMQ:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;topic&quot;</span><br><span class="line">class=&quot;org.apache.activemq.command.ActiveMQTopic&quot;</span><br><span class="line">c:_=&quot;spitter.queue&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>In either case, the constructor is given the name of the queue, as it’s known to the message broker spitter.topic in this case.</p>
+<h4>17.2.2Using Spring’s JMS template</h4>
+
+<p>不用模板的JMS发送消息代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">//Sending a message using conventional </span><br><span class="line">//(non-Spring) JMS</span><br><span class="line">ConnectionFactory cf =</span><br><span class="line">new ActiveMQConnectionFactory(&quot;tcp://localhost:61616&quot;);</span><br><span class="line">Connection conn = null;</span><br><span class="line">Session session = null;</span><br><span class="line">try &#123;</span><br><span class="line">conn = cf.createConnection();</span><br><span class="line">session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);</span><br><span class="line">Destination destination = new ActiveMQQueue(&quot;spitter.queue&quot;);</span><br><span class="line">MessageProducer producer = session.createProducer(destination);</span><br><span class="line">TextMessage message = session.createTextMessage();</span><br><span class="line">message.setText(&quot;Hello world!&quot;);</span><br><span class="line">producer.send(message);//Send message</span><br><span class="line">&#125; catch (JMSException e) &#123;</span><br><span class="line">// handle exception?</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">try &#123;</span><br><span class="line">if (session != null) &#123;</span><br><span class="line">session.close();</span><br><span class="line">&#125;</span><br><span class="line">if (conn != null) &#123;</span><br><span class="line">conn.close();</span><br><span class="line">&#125;</span><br><span class="line">&#125; catch (JMSException ex) &#123;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不用模板的JMS接收消息代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">//Receiving a message using conventional </span><br><span class="line">//(non-Spring) JMS</span><br><span class="line">ConnectionFactory cf =</span><br><span class="line">new ActiveMQConnectionFactory(&quot;tcp://localhost:61616&quot;);</span><br><span class="line">Connection conn = null;</span><br><span class="line">Session session = null;</span><br><span class="line">try &#123;</span><br><span class="line">conn = cf.createConnection();</span><br><span class="line">conn.start();</span><br><span class="line">session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);</span><br><span class="line">Destination destination =</span><br><span class="line">new ActiveMQQueue(&quot;spitter.queue&quot;);</span><br><span class="line">MessageConsumer consumer = session.createConsumer(destination);</span><br><span class="line">Message message = consumer.receive();</span><br><span class="line">TextMessage textMessage = (TextMessage) message;</span><br><span class="line">System.out.println(&quot;GOT A MESSAGE: &quot; + textMessage.getText());</span><br><span class="line">conn.start();</span><br><span class="line">&#125; catch (JMSException e) &#123;</span><br><span class="line">// handle exception?</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">try &#123;</span><br><span class="line">if (session != null) &#123;</span><br><span class="line">session.close();</span><br><span class="line">&#125;</span><br><span class="line">if (conn != null) &#123;</span><br><span class="line">conn.close();</span><br><span class="line">&#125;</span><br><span class="line">&#125; catch (JMSException ex) &#123;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>WORKING WITH JMS TEMPLATES</strong></p>
+<p><strong>JmsTemplate</strong> is Spring’s answer to verbose and repetitive JMS code. JmsTemplate takes care of <strong>creating a connection</strong>, <strong>obtaining a session</strong>, and <strong>ultimately sending or receiving messages</strong>. This leaves you to focus your development efforts on constructing the message to send or processing messages that are received.</p>
+<p>To use JmsTemplate, you’ll need to declare it as a bean in the Spring configuration file. The following XML should do the trick:为了用JmsTemplate，需要在XML中配置下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;jmsTemplate&quot;</span><br><span class="line">class=&quot;org.springframework.jms.core.JmsTemplate&quot;</span><br><span class="line">c:_-ref=&quot;connectionFactory&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>SENDING MESSAGES</strong></p>
+<p>To support sending spittle alerts asynchronously with the creation of spittles, let’s introduce <strong>AlertService</strong> to the Spittr application:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">package com.habuma.spittr.alerts;</span><br><span class="line">import com.habuma.spittr.domain.Spittle;</span><br><span class="line">public interface AlertService &#123;</span><br><span class="line">void sendSpittleAlert(Spittle spittle);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>AlertServiceImpl</strong>, shown in listing 17.3, is an implementation of the AlertService interface that uses <strong>an injected JmsOperations</strong> (the interface that JmsTemplate implements) to send Spittle objects to a message queue to be processed at some later time.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class AlertServiceImpl implements AlertService &#123;</span><br><span class="line">private JmsOperations jmsOperations;</span><br><span class="line">@Autowired</span><br><span class="line">public AlertServiceImpl(JmsOperations jmsOperatons) &#123;//Inject JMS template</span><br><span class="line">this.jmsOperations = jmsOperations;</span><br><span class="line">&#125;</span><br><span class="line">public void sendSpittleAlert(final Spittle spittle) &#123;</span><br><span class="line">jmsOperations.send(//Send message</span><br><span class="line">&quot;spittle.alert.queue&quot;,//Specify destination</span><br><span class="line">new MessageCreator() &#123;</span><br><span class="line">public Message createMessage(Session session)</span><br><span class="line">throws JMSException &#123;</span><br><span class="line">//Create message</span><br><span class="line">return session.createObjectMessage(spittle);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20161031142919990" alt=""></p>
+<p><strong>SETTING A DEFAULT DESTINATION</strong></p>
+<p>Instead of explicitly specifying a destination each time you send a message, you can opt for wiring a default destination into JmsTemplate:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;jmsTemplate&quot;</span><br><span class="line">class=&quot;org.springframework.jms.core.JmsTemplate&quot;</span><br><span class="line">c:_-ref=&quot;connectionFactory&quot;</span><br><span class="line">p:defaultDestinationName=&quot;spittle.alert.queue&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>Now the call to JmsOperations’ send() method can be simplified slightly by removing the first parameter:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jmsOperations.send(</span><br><span class="line">new MessageCreator() &#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p><strong>CONVERTING MESSAGES WHEN SENDING</strong></p>
+<p><strong>convertAndSend()</strong> uses a built-in message converter to create the message for you.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void sendSpittleAlert(Spittle spittle) &#123;</span><br><span class="line">jmsOperations.convertAndSend(spittle);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20161031143703274" alt=""></p>
+<p>By default, JmsTemplate uses a <strong>SimpleMessageConverter</strong> when sending messages in <strong>convertAndSend()</strong>. But you can override that by declaring the message converter as a<br>bean and injecting it into JmsTemplate’s messageConverter property. For example, if you want to work with JSON messages, you can declare a <strong>MappingJacksonMessageConverter</strong> bean:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;messageConverter&quot;</span><br><span class="line">class=&quot;org.springframework.jms.support.converter.</span><br><span class="line">➥ MappingJacksonMessageConverter&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>Then you can wire it into JmsTemplate like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id=&quot;jmsTemplate&quot;</span><br><span class="line">class=&quot;org.springframework.jms.core.JmsTemplate&quot;</span><br><span class="line">c:_-ref=&quot;connectionFactory&quot;</span><br><span class="line">p:defaultDestinationName=&quot;spittle.alert.queue&quot;</span><br><span class="line">p:messageConverter-ref=&quot;messageConverter&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>CONSUMING MESSAGES</strong></p>
+<p>In fact, it’s even easier to receive messages with JmsTemplate than it is to send them. All you need to do is call JmsOperations’ receive() method, as shown in the following listing.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//Receiving a message using JmsTemplate</span><br><span class="line">public Spittle receiveSpittleAlert() &#123;</span><br><span class="line">try &#123;</span><br><span class="line">ObjectMessage receivedMessage =</span><br><span class="line">//Receive message</span><br><span class="line">(ObjectMessage) jmsOperations.receive();</span><br><span class="line">//Get object</span><br><span class="line">return (Spittle) receivedMessage.getObject();</span><br><span class="line">&#125; catch (JMSException jmsException) &#123;</span><br><span class="line">throw </span><br><span class="line">//Throw converted exception</span><br><span class="line">JmsUtils.convertJmsAccessException(jmsException);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>One thing you can do to clear up the message in receiveSpittleAlert() is to take advantage of a message converter. You’ve seen how message converters can<br>convert objects to Messages in <strong>convertAndSend()</strong>. But they can also be used on the receiving end with JmsTemplate’s <strong>receiveAndConvert()</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public Spittle retrieveSpittleAlert() &#123;</span><br><span class="line">return (Spittle) jmsOperations.receiveAndConvert();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20161031144655732" alt=""></p>
+<p><strong>用JmsTemplate来接收消息的重大弊端</strong>：<br>The big downside of consuming messages with JmsTemplate is that both the receive() and receiveAndConvert() methods are <strong>synchronous</strong>. <strong>This means the receiver must wait patiently for the message to arrive, because those methods will block until a message is available (or until a timeout condition occurs)</strong>. Doesn’t it seem odd to synchronously consume a message that was asynchronously sent?发送是异步的，但是接收确实同步的，好奇怪呦！</p>
+<p>That’s where <strong>message-driven POJOs</strong> come in handy.</p>
+<h4>17.2.3Creating message-driven POJOs</h4>
+
+<p>JmsTemplate’s receive() method is a lot like that aged postal employee. When you call receive(), it goes away and looks for a message in the queue or topic and doesn’t return until a message arrives or until the timeout has passed. Meanwhile, your application is sitting there doing nothing, waiting to see if there’s a message. Wouldn’t it be better if your application could go about its business and be notified when a message arrives?</p>
+<p>Spring 2.0 addresses the need for asynchronous consumption of messages by providing its own form of message-driven bean that’s similar to EJB 3’s MDBs. In this section, you’ll learn how Spring supports asynchronous message consumption <strong>using message-driven POJOs (we’ll call them MDPs, for short)</strong>.</p>
+<p><strong>CREATING A MESSAGE LISTENER</strong></p>
+<p>使用@MessageDriven进行注解，并且实现MessageListener接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@MessageDriven(mappedName=&quot;jms/spittle.alert.queue&quot;)</span><br><span class="line">public class SpittleAlertHandler implements MessageListener &#123;</span><br><span class="line">@Resource</span><br><span class="line">private MessageDrivenContext mdc;</span><br><span class="line">public void onMessage(Message message) &#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>CONFIGURING MESSAGE LISTENERS</strong></p>
+<p><img src="http://img.blog.csdn.net/20161031150912975" alt=""></p>
+<p>A message-listener container listens to a queue/topic. When a message arrives, it’s forwarded to <strong>a message listener (such as a message-driven POJO)</strong>.这说明message-driven POJO只是一类特殊的message listener。</p>
+<h4>17.2.4Using message-based RPC</h4>
+
+<p>JMS has been the go-to messaging solution for Java applications for many years. But JMS isn’t the only messaging choice available to Java and Spring developers. In the past few years, the <strong>Advanced Message Queuing Protocol (AMQP)</strong> has been getting a lot of attention. As it turns out, Spring has support for sending messages with AMQP, as you’ll see next.</p>
+<h3>17.3Messaging with AMQP</h3>
+
+<p>AMQP优点：<br>AMQP is more <strong>1.interoperable</strong> than JMS—not only across different AMQP implementations, but also across languages and platforms.</p>
+<p>Another significant advantage of AMQP over JMS is that AMQP <strong>2.has a much more flexible and transparent messaging model</strong>. </p>
+<p>With JMS, there are only two messaging models to choose from: <strong>1.point-to-point</strong> and <strong>2.publish/subscribe</strong>. 而AMQP有很多这样的messaging models。</p>
+<h4>17.3.1A brief introduction to AMQP</h4>
+
+<p>先回顾下JMS：<br>In JMS, there are just three primary participants: <strong>1.the message producer</strong>, <strong>2.the message consumer(s)</strong>, and <strong>3.a channel (either a queue or a topic)</strong> to carry the message between producers and consumers. These essentials of the JMS messaging model are illustrated in figures 17.3 and 17.4.</p>
+<p><strong>In JMS, the channel helps to decouple the producer from the consumer, but both are still coupled to the channel</strong>. A producer publishes messages to a specific queue or topic, and the consumer receives those message from a specific queue or topic. The channel has the <strong>double duty of relaying messages and determining how those messages will be routed</strong>; <strong>queues route using a point-to-point algorithm, and topics route in publish/subscribe fashion</strong>.</p>
+<p>AMQP的模型：<br>AMQP在message producer和channel之间加了一层exchange层，实现了原来producer与channel之间的解耦。原理如图：<br><img src="http://img.blog.csdn.net/20161101101658918" alt=""></p>
+<p>AMQP defines <strong>four</strong> different types of exchanges, each with a different <strong>routing algorithm</strong> that decides <strong>whether to place a message in a queue</strong>.<br>The four standard types of AMQP exchanges are as follows:</p>
+<p>1.<strong>Direct</strong>—A message will be routed to a queue if its routing key is a direct match for the routing key of the binding.<br>2.<strong>Topic</strong>—A message will be routed to a queue if its routing key is a wildcard match for the routing key of the binding.<br>3.<strong>Headers</strong>—A message will be routed to a queue if the headers and values in its table of arguments match those in the binding’s table of arguments. A special header named x-match can specify whether all values must match or if any can match.<br>4.<strong>Fanout</strong>—A message will be routed to all queues that are bound to the exchange, regardless of the routing key or headers/values in the table of arguments.</p>
+<p><strong>Put simply, producers publish to an exchange with a routing key; consumers retrieve from a queue</strong>.</p>
+<p>You’ll start by seeing some of the <strong>common Spring AMQP configuration</strong> needed for both producers and consumers.</p>
+<h4>17.3.2Configuring Spring for AMQP messaging</h4>
+
+<p>在JMS中，先配置了JMS connection factory，同样在AMQP中需要配置AMQP connection factory。具体来说，需要配置RabbitMQ connection factory。</p>
+<p>RabbitMQ is a popular open source message broker that implements AMQP.</p>
+<p>The easiest way to configure a RabbitMQ connection factory is to use the <strong>rabbit</strong> configuration namespace provided by Spring AMQP. To use it, you need to be sure the schema is declared in your Spring configuration XML:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans:beans xmlns=&quot;http://www.springframework.org/schema/rabbit&quot;</span><br><span class="line">xmlns:beans=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">xsi:schemaLocation=&quot;http://www.springframework.org/schema/rabbit</span><br><span class="line">http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd</span><br><span class="line">http://www.springframework.org/schema/beans</span><br><span class="line">http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line">...</span><br><span class="line">&lt;/beans:beans&gt;</span><br></pre></td></tr></table></figure>
+<p>you’ll probably want to give it a bean ID with the id attribute:<code>&lt;connection-factory id=&quot;connectionFactory&quot; /&gt;</code></p>
+<p><strong>DECLARING QUEUES, EXCHANGES, AND BINDINGS</strong></p>
+<p>The <strong>rabbit</strong> namespace includes several elements to help declare queues, exchanges, and the bindings that tie them together. These elements are listed in table 17.3.<br><img src="http://img.blog.csdn.net/20161101104239605" alt=""><br><img src="http://img.blog.csdn.net/20161101104312294" alt=""></p>
+<h4>17.3.3Sending messages with RabbitTemplate</h4>
+
+<p>The simplest configuration for RabbitTemplate can be done using the <code>&lt;template&gt;</code> element from the rabbit configuration namespace as follows:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;template id=&quot;rabbitTemplate&quot;</span><br><span class="line">connection-factory=&quot;connectionFactory&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>The following listing shows a new version of AlertServiceImpl that uses RabbitTemplate instead of JmsTemplate to send a Spittle alert.跟JmsTemplate代码差不多。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//Sending a Spittle using RabbitTemplate</span><br><span class="line">public class AlertServiceImpl implements AlertService &#123;</span><br><span class="line">private RabbitTemplate rabbit;</span><br><span class="line">@Autowired</span><br><span class="line">public AlertServiceImpl(RabbitTemplate rabbit) &#123;</span><br><span class="line">this.rabbit = rabbit;</span><br><span class="line">&#125;</span><br><span class="line">public void sendSpittleAlert(Spittle spittle) &#123;</span><br><span class="line">rabbit.convertAndSend(&quot;spittle.alert.exchange&quot;,</span><br><span class="line">&quot;spittle.alerts&quot;,</span><br><span class="line">spittle);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>As you can see, the sendSpittleAlert() method now calls the <strong>convertAndSend()</strong> method on the injected RabbitTemplate. It passes in <strong>three parameters</strong>: 1.the name of the exchange, 2.the routing key, and 3.the object to be sent. Notice that what’s <strong>not specified</strong> is 1.how the message will be routed, 2.what queues it will be sent on, or 3.any consumers that are expected to receive the message.<br>或者使用重载方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rabbit.convertAndSend(&quot;spittle.alerts&quot;, spittle);</span><br><span class="line">rabbit.convertAndSend(spittle);</span><br></pre></td></tr></table></figure>
+<p>上述代码中，如果不指定前两项中任一项，那么对应项将使用默认配置。</p>
+<p>You can configure different defaults using the exchange and routing-key attributes on the <code>&lt;template&gt;</code> element:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;template id=&quot;rabbitTemplate&quot;</span><br><span class="line">connection-factory=&quot;connectionFactory&quot;</span><br><span class="line">exchange=&quot;spittle.alert.exchange&quot;</span><br><span class="line">routing-key=&quot;spittle.alerts&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>谈到send()与convertAndSend()的比较，作者引出mesage converter的自定义配置，默认情况使用的是SimpleMessageConverter，跟JMS使用的应该是一样的。</p>
+<h4>17.3.4Receiving AMQP messages</h4>
+
+<p>回顾JMS的receive，从queue中取mssage有两种方法：</p>
+<p>1.同步的方式：使用JmsTemplate<br>2.异步的方式：使用message-driven POJOs</p>
+<p>AMQP也有同样的套路。</p>
+<p><strong>RECEIVING MESSAGES WITH RABBITTEMPLATE</strong><br>这是同步的方式。<br><strong>DEFINING MESSAGE-DRIVEN AMQP POJOS</strong><br>这是异步的方式。</p>
+<h3>17.4Summary</h3>
+
+
+<h1>Chapter18.Messaging with WebSocket and STOMP</h1>
+
+<h3>18.1Working with Spring’s low-level WebSocket API</h3>
+
+<h3>18.2Coping with a lack of WebSocket support</h3>
+
+<h3>18.3Working with STOMP messaging</h3>
+
+<p>Working directly with WebSocket (or SockJS) is a lot like developing a web application using only TCP sockets. Without a higher-level wire protocol, it’s up to you to define the semantics of the messages being sent between applications. And you’d need to be sure that both ends of the connection agreed on those semantics.</p>
+<p>Fortunately, you don’t have to work with raw WebSocket connections. <strong>Just as HTTP layers a request-response model on top of TCP sockets, STOMP layers a frame-based wire format to define messaging semantics on top of WebSocket</strong>.</p>
+<p>At a quick glance, STOMP message frames look very similar in structure to HTTP requests. Much like HTTP requests and responses, STOMP frames are comprised of a command, one or more headers, and a payload. For example, here’s a STOMP frame that sends data.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SEND</span><br><span class="line">destination:/app/marco</span><br><span class="line">content-length:20</span><br><span class="line">&#123;\&quot;message\&quot;:\&quot;Marco!\&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p>In this simple example, the STOMP command is SEND, indicating that something is being sent. It’s followed by two headers: one indicates the destination where the message should be sent, and the other communicates the size of the payload. Following a<br>blank line, the frame concludes with the payload; in this case, a JSON message.</p>
+<h4>18.3.1Enabling STOMP messaging</h4>
+
+<h4>18.3.2Handling STOMP messages from the client</h4>
+
+<h4>18.3.3Sending messages to the client</h4>
+
+<h3>18.4Working with user-targeted messages</h3>
+
+<h3>18.5Handling message exceptions</h3>
+
+<h3>18.6Summary</h3>
+
+<h1>Chapter19.Sending email with Spring</h1>
+
+
+
+<h1>Chapter21.Simplifying Spring development with Spring Boot</h1>
+
+<h3>21.1Introducing Spring Boot</h3>
+
+<p>Spring Boot offers four main features that will change the way you develop Spring applications:</p>
+<p>1.<strong>Spring Boot starters</strong>—Spring Boot starters aggregate(合并) common groupings of dependencies into single dependencies that can be added to a project’s Maven or Gradle build.将常用的依赖合并成一个依赖，然后通过Maven或者Gradle来添加。<br>2.<strong>Autoconfiguration</strong>—Spring Boot’s autoconfiguration feature leverages Spring 4’s support for conditional configuration to make reasonable guesses about the beans your application needs and automatically configure them.自动配置<br>3.<strong>Command-line interface (CLI)</strong>—Spring Boot’s CLI takes advantage of the Groovy programming language along with autoconfiguration to further simplify Spring application development.<br>4.<strong>Actuator</strong>—The Spring Boot Actuator adds certain management features to a Spring Boot application.</p>
+<p>一个一个来看看上面4中feature是怎么简化开发的吧 。</p>
+<h4>21.1.1Adding starter dependencies</h4>
+
+<p>举个实际开发的例子来说：<br>To illustrate, let’s suppose you’re starting a new Spring project from scratch. This will be a web project, so you’ll need Spring MVC. There will also be a REST API, exposing resources as JSON, so you’ll need the Jackson JSON library in your build.</p>
+<p>Because your application will use JDBC to store and fetch data from a relational database, you’ll want to be sure to include Spring’s JDBC module (for JdbcTemplate) and Spring’s transaction module (for declarative transaction support). As for the database itself, the H2 database will do fine.</p>
+<p>And, oh yeah, you want to use Thymeleaf for Spring MVC views. If you’re building your project with Gradle, you’ll need (at least) the following dependencies in build.gradle:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">compile(&quot;org.springframework:spring-web:4.0.6.RELEASE&quot;)</span><br><span class="line">compile(&quot;org.springframework:spring-webmvc:4.0.6.RELEASE&quot;)</span><br><span class="line">compile(&quot;com.fasterxml.jackson.core:jackson-databind:2.2.2&quot;)</span><br><span class="line">compile(&quot;org.springframework:spring-jdbc:4.0.6.RELEASE&quot;)</span><br><span class="line">compile(&quot;org.springframework:spring-tx:4.0.6.RELEASE&quot;)</span><br><span class="line">compile(&quot;com.h2database:h2:1.3.174&quot;)</span><br><span class="line">compile(&quot;org.thymeleaf:thymeleaf-spring4:2.1.2.RELEASE&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>并且随着项目的逐渐增大，管理这些依赖将会越来越有挑战。</p>
+<p>But if you’re using the prepackaged dependencies from Spring Boot starters, the Gradle dependency list can be a little shorter:使用Spring Boot黑科技啦</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">compile(&quot;org.springframework.boot:spring-boot-starter-web:</span><br><span class="line">1.1.4.RELEASE&quot;)</span><br><span class="line">compile(&quot;org.springframework.boot:spring-boot-starter-jdbc:</span><br><span class="line">1.1.4.RELEASE&quot;)</span><br><span class="line">compile(&quot;com.h2database:h2:1.3.174&quot;)</span><br><span class="line">compile(&quot;org.thymeleaf:thymeleaf-spring4:2.1.2.RELEASE&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>作者写书时已经有很多的starter了，如今的starter可以在官网上看。<br><img src="http://img.blog.csdn.net/20161101143957905" alt=""><br><img src="http://img.blog.csdn.net/20161101144052949" alt=""><br><img src="http://img.blog.csdn.net/20161101144153685" alt=""></p>
+<p>这个引入一个达到原来引入多个依赖的技术没什么好神秘的。</p>
+<p>Taking advantage of <strong>Maven’s and Gradle’s transitive dependency resolution</strong>, the starters declare several dependencies in their own pom.xml file. 每个starter在自己的pom.xml中又申明了自己的依赖，所以相当于转了一手而已。</p>
+<p><strong>注意</strong>：很多starter之间是有引用的，这样会减少重复啊，一般认为spring-boot-starter是初始starter。</p>
+<h4>21.1.2Autoconfiguration</h4>
+
+<p><strong>Spring Boot Starter减少了依赖引用的数量，而Autoconfiguration将减少配置的数量</strong>。</p>
+<p>自动配置的原理：It does this by considering <strong>other factors</strong> in your application and <strong>making assumptions</strong> about what Spring configuration you’ll need.</p>
+<p><strong>Spring Boot starters can trigger autoconfiguration</strong>.</p>
+<p>举例来说：<br>For instance, all you need to do to use Spring MVC in your Spring Boot application is to add the web starter as a dependency in the build. When you add the web starter to your project’s build, it will transitively pull in <strong>Spring MVC dependencies</strong>. <strong>When Spring Boot’s web autoconfiguration detects Spring MVC in the classpath, it will automatically configure several beans to support Spring MVC, including view resolvers, resource handlers, and message converters (among others)</strong>. All that’s left for you to do is write the controller classes to handle the requests.这个自动配置也是溜得不行啊！</p>
+<h4>21.1.3The Spring Boot CLI</h4>
+
+<p>我的理解是，安装了它之后，调试和传递变得容易。</p>
+<p>One of the most interesting examples used to illustrate Spring Boot CLI is contained in the following Groovy script:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">class Hi &#123;</span><br><span class="line">@RequestMapping(&quot;/&quot;)</span><br><span class="line">String hi() &#123;</span><br><span class="line">&quot;Hi!&quot;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>If you have the Spring Boot CLI installed, you can run it with the following command line:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ spring run Hi.groovy</span><br></pre></td></tr></table></figure>
+<h4>21.1.4The Actuator</h4>
+
+<p>The Spring Boot Actuator brings a handful of useful features to a Spring Boot project, including:</p>
+<p>1.<strong>Management endpoints（最重要）</strong><br>2.Sensible error handling and a default mapping for an /error endpoint<br>3.An /info endpoint that can communicate information about an application<br>4.An audit events framework when Spring Security is in play</p>
+<h3>21.2Building an application with Spring Boot</h3>
+
+<p>自己动手构造Spring Boot，pom.xml。</p>
+<p>By basing your project’s Maven build on the Spring Boot starter parent, you get the benefit of Maven dependency management, and <strong>you won’t have to explicitly declare version numbers for many of your project dependencies. The versions will be inherited from the parent</strong>.有了parent的方便之处，在其他的dependency中就不必指定version了。</p>
+<p>整个项目结构：<br><img src="http://img.blog.csdn.net/20161101155332392" alt=""></p>
+<h4>21.2.1Handling requests</h4>
+
+<p>Because ContactController is annotated with @Controller, it’s subject to component scanning. Therefore, you won’t have to explicitly configure it as a bean in the Spring application context.</p>
+<p>这样web layer已经差不多了，接下来使用Thymeleaf模板来定义view。</p>
+<h4>21.2.2Creating the view</h4>
+
+<p>先将Thymeleaf加入dependency。</p>
+<h4>21.2.3Adding static artifacts</h4>
+
+<h4>21.2.4Persisting the data</h4>
+
+<p>配置jdbc和h2数据库。</p>
+<p>Because ContactRepository is annotated with @Repository, it will automatically be picked up by component-scanning and created as a bean in the Spring application context.</p>
+<p>Now you just need some way to load this create table SQL and execute it against the H2 database. Fortunately, Spring Boot has this covered, too. If you name this SQL file as schema.sql and place it at the root of the classpath (that is, in src/main/resources in the Maven or Gradle project), <strong>it will be found and loaded when the application starts up</strong>.sql文件只要命名正确和放在对应的位置就能够自动导入并执行。</p>
+<h4>21.2.5Try it out</h4>
+
+<p>You do, however, need a special class that bootstraps the Spring Boot application.</p>
+<p>On its own, Spring doesn’t know anything about autoconfiguration. The Application class in listing 21.7 is a typical example of a Spring Boot bootstrap class.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package contacts;</span><br><span class="line">import org.springframework.boot.autoconfigure.EnableAutoConfiguration;</span><br><span class="line">import org.springframework.boot.SpringApplication;</span><br><span class="line">import org.springframework.context.annotation.ComponentScan;</span><br><span class="line">@ComponentScan</span><br><span class="line">//Enable autoconfiguration</span><br><span class="line">@EnableAutoConfiguration</span><br><span class="line">public class Application &#123;</span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">//Run the application</span><br><span class="line">SpringApplication.run(Application.class, args);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>I’ll admit that Application has a tiny bit of configuration. It’s annotated with <strong>@ComponentScan to enable component scanning</strong>. And it’s annotated with <strong>@EnableAutoConfiguration, which turns on Spring Boot’s autoconfiguration feature</strong>. 只是在Application类中有一点点配置。</p>
+<p>运行与部署：<br>对于集成IDE，比如IDEA，直接运行Application类即可。对于其他情况，用时查。可以打包成JAR或者WAR包。一般打包成WAR包啊。</p>
+<p>Where you work, web applications are deployed as WAR files to a web container. The deployment police at your company won’t like it if you don’t give them a WAR file.</p>
+<p>In the case of a Maven-built project, it’s even easier. Simply change the packaging from “jar” to “war”:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;packaging&gt;war&lt;/packaging&gt;</span><br></pre></td></tr></table></figure>
+<p>As you can see, Spring Boot goes a long way to make developing Spring applications in Java as simple as possible. Spring Boot starters simplify project build dependencies, and autoconfiguration eliminates the need for most explicit Spring configuration. But as you’ll see next, if you add Groovy to the mix, it gets even easier.</p>
+<h3>21.3Going Groovy with the Spring Boot CLI</h3>
+
+<h3>21.4Gaining application insight with the Actuator</h3>
+
+<p>配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt; org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;spring-boot-actuator&lt;/carlsbad&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h3>21.5Summary</h3>
+
+<p>Spring Boot is an exciting new addition to the Spring family of projects. Where Spring aims to make Java development simpler, Spring Boot aims to make Spring itself simpler.</p>
+<p>The End!</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Spring/">Spring</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/10/28/Spring in action--Part4-Integrating Spring/" data-title="Spring in action--Part4-Integrating Spring | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/11/09/Spring Boot实战/" title="Spring Boot实战">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Spring Boot实战</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/10/23/21-并发/"  title="21.并发">
+ <strong>下一篇：</strong><br/> 
+ <span>21.并发
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/10/28/Spring in action--Part4-Integrating Spring/" data-title="Spring in action--Part4-Integrating Spring" data-url="http://yoursite.com/2016/10/28/Spring in action--Part4-Integrating Spring/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Chapter15.Working with remote services</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.1.</span> <span class="toc-text">15.1An overview of Spring remoting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.</span> <span class="toc-text">15.2Working with RMI</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">15.2.1Exporting an RMI service</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">15.2.2Wiring an RMI service</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.3.</span> <span class="toc-text">15.3Exposing remote services with Hessian and Burlap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.4.</span> <span class="toc-text">15.4Using Spring’s HttpInvoker</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.4.1.</span> <span class="toc-text">15.4.1Exposing beans as HTTP services</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.4.2.</span> <span class="toc-text">15.4.2Accessing services via HTTP</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.5.</span> <span class="toc-text">15.5Publishing and consuming web services</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.0.6.</span> <span class="toc-text">15.6Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">Chapter16.Creating REST APIs with Spring MVC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.1.</span> <span class="toc-text">16.1Getting REST</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.1.1.</span> <span class="toc-text">16.1.1The fundamentals of REST</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.1.2.</span> <span class="toc-text">16.1.2How Spring supports REST</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.2.</span> <span class="toc-text">16.2Creating your first REST endpoint</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.2.1.</span> <span class="toc-text">16.2.1Negotiating resource representation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.2.2.</span> <span class="toc-text">16.2.2Working with HTTP message converters</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.3.</span> <span class="toc-text">16.3Serving more than resources</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.3.1.</span> <span class="toc-text">16.3.1Communicating errors to the client</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.3.2.</span> <span class="toc-text">16.3.2Setting headers in the response</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.</span> <span class="toc-text">16.4Consuming REST resources</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.1.</span> <span class="toc-text">16.4.1 Exploring RestTemplate’s operations</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.2.</span> <span class="toc-text">16.4.2GETting resources</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.3.</span> <span class="toc-text">16.4.3Retrieving resources</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.4.</span> <span class="toc-text">16.4.4Extracting response metadata</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.5.</span> <span class="toc-text">16.4.5PUTting resources</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.6.</span> <span class="toc-text">14.4.6DELETEing resources</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.7.</span> <span class="toc-text">16.4.7POSTing resource data</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.8.</span> <span class="toc-text">16.4.8Receiving object responses from POST requests</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.9.</span> <span class="toc-text">16.4.9Receiving a resource location after a POST request</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.4.10.</span> <span class="toc-text">16.4.10Exchanging resources</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.5.</span> <span class="toc-text">16.5Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Chapter17.Messaging in Spring</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.1.</span> <span class="toc-text">17.1A brief introduction to asynchronous messaging</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.1.1.</span> <span class="toc-text">17.1.1Sending messages</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.1.2.</span> <span class="toc-text">17.1.2Assessing the benefits of asynchronous messaging</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.</span> <span class="toc-text">17.2Sending messages with JMS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.1.</span> <span class="toc-text">17.2.1Setting up a message broker in Spring</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.2.</span> <span class="toc-text">17.2.2Using Spring’s JMS template</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.3.</span> <span class="toc-text">17.2.3Creating message-driven POJOs</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.2.4.</span> <span class="toc-text">17.2.4Using message-based RPC</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.</span> <span class="toc-text">17.3Messaging with AMQP</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.1.</span> <span class="toc-text">17.3.1A brief introduction to AMQP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.2.</span> <span class="toc-text">17.3.2Configuring Spring for AMQP messaging</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.3.</span> <span class="toc-text">17.3.3Sending messages with RabbitTemplate</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.3.4.</span> <span class="toc-text">17.3.4Receiving AMQP messages</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.0.4.</span> <span class="toc-text">17.4Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">Chapter18.Messaging with WebSocket and STOMP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.1.</span> <span class="toc-text">18.1Working with Spring’s low-level WebSocket API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.2.</span> <span class="toc-text">18.2Coping with a lack of WebSocket support</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.3.</span> <span class="toc-text">18.3Working with STOMP messaging</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.3.1.</span> <span class="toc-text">18.3.1Enabling STOMP messaging</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.3.2.</span> <span class="toc-text">18.3.2Handling STOMP messages from the client</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.3.3.</span> <span class="toc-text">18.3.3Sending messages to the client</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.4.</span> <span class="toc-text">18.4Working with user-targeted messages</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.5.</span> <span class="toc-text">18.5Handling message exceptions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.0.6.</span> <span class="toc-text">18.6Summary</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Chapter19.Sending email with Spring</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">Chapter21.Simplifying Spring development with Spring Boot</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.1.</span> <span class="toc-text">21.1Introducing Spring Boot</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.1.1.</span> <span class="toc-text">21.1.1Adding starter dependencies</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.1.2.</span> <span class="toc-text">21.1.2Autoconfiguration</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.1.3.</span> <span class="toc-text">21.1.3The Spring Boot CLI</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.1.4.</span> <span class="toc-text">21.1.4The Actuator</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.2.</span> <span class="toc-text">21.2Building an application with Spring Boot</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.2.1.</span> <span class="toc-text">21.2.1Handling requests</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.2.2.</span> <span class="toc-text">21.2.2Creating the view</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.2.3.</span> <span class="toc-text">21.2.3Adding static artifacts</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.2.4.</span> <span class="toc-text">21.2.4Persisting the data</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.2.5.</span> <span class="toc-text">21.2.5Try it out</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.3.</span> <span class="toc-text">21.3Going Groovy with the Spring Boot CLI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.4.</span> <span class="toc-text">21.4Gaining application insight with the Actuator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.0.5.</span> <span class="toc-text">21.5Summary</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 16.67px;">Java编程思想读书笔记</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a> <a href="/tags/TECH/" style="font-size: 11.67px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 18.33px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.67px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 13.33px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

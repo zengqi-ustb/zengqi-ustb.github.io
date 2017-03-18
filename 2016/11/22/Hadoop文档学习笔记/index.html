@@ -1,0 +1,654 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Hadoop文档学习笔记 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="1.Hadoop集群搭建安装
+
+安装Hadoop集群通常要将安装软件解压到集群内的所有机器上。
+通常，集群里的一台机器被指定为 NameNode，另一台不同的机器被指定为JobTracker。这些机器是masters。余下的机器既作为DataNode也作为TaskTracker。这些机器是slaves。
+我们用HADOOP_HOME指代安装的根路径。通常，集群里的所有机器的HADOOP_HOME路">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop文档学习笔记">
+<meta property="og:url" content="http://yoursite.com/2016/11/22/Hadoop文档学习笔记/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="1.Hadoop集群搭建安装
+
+安装Hadoop集群通常要将安装软件解压到集群内的所有机器上。
+通常，集群里的一台机器被指定为 NameNode，另一台不同的机器被指定为JobTracker。这些机器是masters。余下的机器既作为DataNode也作为TaskTracker。这些机器是slaves。
+我们用HADOOP_HOME指代安装的根路径。通常，集群里的所有机器的HADOOP_HOME路">
+<meta property="og:image" content="http://img.blog.csdn.net/20161122201100479">
+<meta property="og:updated_time" content="2017-03-18T14:58:24.842Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hadoop文档学习笔记">
+<meta name="twitter:description" content="1.Hadoop集群搭建安装
+
+安装Hadoop集群通常要将安装软件解压到集群内的所有机器上。
+通常，集群里的一台机器被指定为 NameNode，另一台不同的机器被指定为JobTracker。这些机器是masters。余下的机器既作为DataNode也作为TaskTracker。这些机器是slaves。
+我们用HADOOP_HOME指代安装的根路径。通常，集群里的所有机器的HADOOP_HOME路">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161122201100479">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/11/22/Hadoop文档学习笔记/" title="Hadoop文档学习笔记" itemprop="url">Hadoop文档学习笔记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-11-22T04:30:33.000Z" itemprop="datePublished"> Published 2016-11-22</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Hadoop集群搭建"><span class="toc-number">1.</span> <span class="toc-text">1.Hadoop集群搭建</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">集群配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Hadoop分布式文件系统：架构和设计"><span class="toc-number">1.</span> <span class="toc-text">2.Hadoop分布式文件系统：架构和设计</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">前提和设计目标</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">硬件错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">流式数据访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">大规模数据集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">简单的一致性模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.5.</span> <span class="toc-text">“移动计算比移动数据更划算”</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Namenode 和 Datanode</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">数据复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">副本存放: 最最开始的一步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">副本选择</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">健壮性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">集群均衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">数据完整性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">数据组织</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">数据块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">Staging</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">流水线复制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">存储空间回收</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">文件的删除和恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">减少副本系数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Hadoop分布式文件系统使用指南"><span class="toc-number">1.</span> <span class="toc-text">3.Hadoop分布式文件系统使用指南</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Hadoop-Map-Reduce教程"><span class="toc-number">1.</span> <span class="toc-text">4.Hadoop Map/Reduce教程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">输入与输出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">例子：WordCount v1.0</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">例子：WordCount v2.0</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Hadoop Streaming</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Example: WordCount v1.0</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Example: WordCount v2.0</span></a>
+		
+		</div>
+		
+		<h2 id="1-Hadoop集群搭建"><a href="#1-Hadoop集群搭建" class="headerlink" title="1.Hadoop集群搭建"></a>1.Hadoop集群搭建</h2><h1>安装</h1>
+
+<p>安装Hadoop集群通常要<strong>将安装软件解压到集群内的所有机器上</strong>。</p>
+<p>通常，集群里的<strong>一台机器</strong>被指定为 <strong>NameNode</strong>，<strong>另一台不同的机器</strong>被指定为<strong>JobTracker</strong>。这些机器是<strong>masters</strong>。余下的机器既作为<strong>DataNode</strong>也作为<strong>TaskTracker</strong>。这些机器是<strong>slaves</strong>。</p>
+<p>我们用<strong>HADOOP_HOME</strong>指代安装的根路径。<strong>通常，集群里的所有机器的HADOOP_HOME路径相同</strong>。</p>
+<h1>配置</h1>
+
+<h3>配置文件</h3>
+
+<p>对Hadoop的配置通过conf/目录下的两个重要配置文件完成：</p>
+<p>1.hadoop-default.xml - 只读的默认配置。<br>2.hadoop-site.xml - 集群特有的配置。</p>
+<p>此外，通过设置<strong>conf/hadoop-env.sh</strong>中的变量为集群特有的值，你可以<strong>对bin/目录下的Hadoop脚本进行控制</strong>。</p>
+<h3>集群配置</h3>
+
+<p>要配置Hadoop集群，你需要设置<strong>Hadoop守护进程的运行环境</strong>和<strong>Hadoop守护进程的运行参数</strong>。</p>
+<p>Hadoop守护进程指<strong>NameNode/DataNode</strong> 和<strong>JobTracker/TaskTracker</strong>。</p>
+<p><strong>Slaves</strong>：</p>
+<p>在<strong>conf/slaves</strong>文件中列出所有slave的主机名或者IP地址，一行一个。</p>
+<p><a href="http://hadoop.apache.org/docs/r1.0.4/cn/cluster_setup.html" target="_blank" rel="external">更多集群搭建知识</a></p>
+<h2 id="2-Hadoop分布式文件系统：架构和设计"><a href="#2-Hadoop分布式文件系统：架构和设计" class="headerlink" title="2.Hadoop分布式文件系统：架构和设计"></a>2.Hadoop分布式文件系统：架构和设计</h2><p>Hadoop分布式文件系统(<strong>HDFS</strong>)被设计成适合运行在通用硬件(commodity hardware)上的分布式文件系统。HDFS是一个<strong>高度容错性</strong>的系统，适合部署在廉价的机器上。HDFS能提供<strong>高吞吐量的数据访问</strong>，非常<strong>适合大规模数据集</strong>上的应用。HDFS放宽了一部分POSIX约束，来实现<strong>流式读取文件系统数据</strong>的目的。</p>
+<h1>前提和设计目标</h1>
+
+<h3>硬件错误</h3>
+
+<p><strong>硬件错误是常态而不是异常</strong>。我们面对的现实是构成系统的组件数目是巨大的，而且任一组件都有可能失效，这意味着总是有一部分HDFS的组件是不工作的。因此<strong>错误检测和快速、自动的恢复是HDFS最核心的架构目标</strong>。</p>
+<h3>流式数据访问</h3>
+
+<p>运行在HDFS上的应用和普通的应用不同，<strong>需要流式访问它们的数据集</strong>。HDFS的设计中更多的考虑到了<strong>数据批处理</strong>，<strong>而不是用户交互处理</strong>。</p>
+<p><strong>比之数据访问的低延迟问题，更关键的在于数据访问的高吞吐量</strong>。</p>
+<h3>大规模数据集</h3>
+
+<p>运行在HDFS上的应用具有很大的数据集。HDFS上的一个典型文件大小一般都在<strong>G字节至T字节</strong>。因此，<strong>HDFS被调节以支持大文件存储</strong>。它应该能提供整体上高的数据传输带宽，能在一个集群里扩展到数百个节点。<strong>一个单一的HDFS实例应该能支撑数以千万计的文件</strong>。</p>
+<h3>简单的一致性模型</h3>
+
+<p>HDFS应用需要一个<strong>“一次写入多次读取”的文件访问模型</strong>。<strong>一个文件经过创建、写入和关闭之后就不需要改变</strong>。这一假设<strong>简化了数据一致性问题</strong>，并且<strong>使高吞吐量的数据访问成为可能</strong>。Map/Reduce应用或者网络爬虫应用都非常适合这个模型。</p>
+<h3>“移动计算比移动数据更划算”</h3>
+
+<p><strong>一个应用请求的计算，离它操作的数据越近就越高效</strong>，在数据达到海量级别的时候更是如此。因为这样就能降低网络阻塞的影响，提高系统数据的吞吐量。<strong>将计算移动到数据附近，比之将数据移动到应用所在显然更好</strong>。</p>
+<h1>Namenode 和 Datanode</h1><br>架构图：<br><img src="http://img.blog.csdn.net/20161122201100479" alt=""><br><br><h1>数据复制</h1>
+
+<p>HDFS被设计成能够在一个大集群中跨机器可靠地存储超大文件。它将每个文件存储成一系列的数据块，除了最后一个，所有的数据块都是同样大小的。同时，<strong>为了容错，文件的所有数据块都有副本</strong>。</p>
+<p><strong>Namenode全权管理数据块的复制</strong>，它周期性地从集群中的每个Datanode接收心跳信号和块状态报告(Blockreport)。接收到心跳信号意味着该Datanode节点工作正常。块状态报告包含了一个该Datanode上所有数据块的列表。</p>
+<h3>副本存放: 最最开始的一步</h3>
+
+<p>副本的存放是HDFS可靠性和性能的关键。</p>
+<p><strong>下面是默认的副本策略</strong>：</p>
+<p>在大多数情况下，副本系数是3，HDFS的存放策略是将<strong>一个副本存放在本地机架的节点上</strong>，<strong>一个副本放在同一机架的另一个节点上</strong>，<strong>最后一个副本放在不同机架的节点上</strong>。这种策略减少了机架间的数据传输，这就提高了写操作的效率。机架的错误远远比节点的错误少，所以这个策略不会影响到数据的可靠性和可用性。于此同时，因为数据块只放在两个（不是三个）不同的机架上，所以此策略减少了读取数据时需要的网络传输总带宽。在这种策略下，副本并不是均匀分布在不同的机架上。三分之一的副本在一个节点上，三分之二的副本在一个机架上，其他副本均匀分布在剩下的机架中，<strong>这一策略在不损害数据可靠性和读取性能的情况下改进了写的性能</strong>。</p>
+<h3>副本选择</h3>
+
+<p>为了降低整体的带宽消耗和读取延时，HDFS会尽量<strong>让读取程序读取离它最近的副本</strong>。如果在读取程序的同一个机架上有一个副本，那么就读取该副本。如果一个HDFS集群跨越多个数据中心，那么客户端也将首先读本地数据中心的副本。</p>
+<h1>健壮性</h1>
+
+<h3>集群均衡</h3>
+
+<p>DFS的架构支持数据均衡策略。如果某个Datanode节点上的空闲空间低于特定的临界点，按照均衡策略系统就会自动地将数据从这个Datanode移动到其他空闲的Datanode。当对某个文件的请求突然增加，那么也可能启动一个计划创建该文件新的副本，并且同时重新平衡集群中的其他数据。</p>
+<h3>数据完整性</h3>
+
+<p>从某个Datanode获取的数据块有可能是损坏的，损坏可能是由Datanode的存储设备错误、网络错误或者软件bug造成的。<strong>HDFS客户端软件实现了对HDFS文件内容的校验和(checksum)检查</strong>。当客户端创建一个新的HDFS文件，<strong>会计算这个文件每个数据块的校验和，并将校验和作为一个单独的隐藏文件保存在同一个HDFS名字空间下</strong>。当客户端获取文件内容后，它会检验从Datanode获取的数据跟相应的校验和文件中的校验和是否匹配，如果不匹配，客户端可以选择从其他Datanode获取该数据块的副本。</p>
+<h1>数据组织</h1>
+
+<h3>数据块</h3>
+
+<p>HDFS被设计成支持大文件，适用HDFS的是那些需要处理大规模的数据集的应用。这些应用都是只写入数据一次，但却读取一次或多次，并且读取速度应能满足流式读取的需要。HDFS支持文件的“一次写入多次读取”语义。<strong>一个典型的数据块大小是64MB</strong>。因而，HDFS中的文件总是按照64M被切分成不同的块，<strong>每个块尽可能地存储于不同的Datanode中</strong>。</p>
+<h3>Staging</h3>
+
+<p>客户端创建文件的请求其实并没有立即发送给Namenode，事实上，<strong>在刚开始阶段HDFS客户端会先将文件数据缓存到本地的一个临时文件</strong>。应用程序的写操作被透明地重定向到这个临时文件。<strong>当这个临时文件累积的数据量超过一个数据块的大小，客户端才会联系Namenode</strong>。Namenode将文件名插入文件系统的层次结构中，并且分配一个数据块给它。然后返回Datanode的标识符和目标数据块给客户端。接着客户端将这块数据从本地临时文件上传到指定的Datanode上。当文件关闭时，在临时文件中剩余的没有上传的数据也会传输到指定的Datanode上。然后客户端告诉Namenode文件已经关闭。此时Namenode才将文件创建操作提交到日志里进行存储。如果Namenode在文件关闭前宕机了，则该文件将丢失。</p>
+<h3>流水线复制</h3>
+
+<p>当客户端向HDFS文件写入数据的时候，一开始是写到本地临时文件中。假设该文件的副本系数设置为3，当本地临时文件累积到一个数据块的大小时，客户端会从Namenode获取一个Datanode列表用于存放副本。然后客户端开始向第一个Datanode传输数据，<strong>第一个Datanode一小部分一小部分(4 KB)地接收数据，将每一部分写入本地仓库，并同时传输该部分到列表中第二个Datanode节点</strong>。第二个Datanode也是这样，一小部分一小部分地接收数据，写入本地仓库，并同时传给第三个Datanode。最后，第三个Datanode接收数据并存储在本地。因此，<strong>Datanode能流水线式地从前一个节点接收数据，并在同时转发给下一个节点，数据以流水线的方式从前一个Datanode复制到下一个</strong>。</p>
+<h1>存储空间回收</h1>
+
+<h3>文件的删除和恢复</h3>
+
+<p>当用户或应用程序删除某个文件时，HDFS会将这个文件重命名<strong>转移到/trash目录</strong>。只要文件还在/trash目录中，该文件就可以被迅速地恢复。文件在/trash中保存的时间是可配置的，当超过这个时间时，Namenode就会将该文件从名字空间中删除。删除文件会使得该文件相关的数据块被释放。<strong>注意，从用户删除文件到HDFS空闲空间的增加之间会有一定时间的延迟</strong>。</p>
+<h3>减少副本系数</h3>
+
+<p>当一个文件的副本系数被减小后，Namenode会选择过剩的副本删除。<strong>下次心跳检测时会将该信息传递给Datanode。Datanode遂即移除相应的数据块，集群中的空闲空间加大</strong>。同样，<strong>在调用setReplication API结束和集群中空闲空间增加间会有一定的延迟</strong>。</p>
+<h2 id="3-Hadoop分布式文件系统使用指南"><a href="#3-Hadoop分布式文件系统使用指南" class="headerlink" title="3.Hadoop分布式文件系统使用指南"></a>3.Hadoop分布式文件系统使用指南</h2><h1>概述</h1>
+
+<p>HDFS是Hadoop应用用到的一个最主要的分布式存储系统。一个HDFS集群主要由一个NameNode和很多个Datanode组成：<strong>Namenode管理文件系统的元数据，而Datanode存储了实际的数据</strong>。</p>
+<h2 id="4-Hadoop-Map-Reduce教程"><a href="#4-Hadoop-Map-Reduce教程" class="headerlink" title="4.Hadoop Map/Reduce教程"></a>4.Hadoop Map/Reduce教程</h2><h1>概述</h1>
+
+<p><strong>Hadoop Map/Reduce</strong>是一个使用简易的软件框架，基于它写出来的应用程序能够运行在由上千个商用机器组成的大型集群上，并以一种可靠容错的方式并行处理上T级别的数据集。</p>
+<p><strong>一个Map/Reduce 作业（job） 通常会把输入的数据集切分为若干独立的数据块，由 map任务（task）以完全并行的方式处理它们</strong>。</p>
+<p><strong>框架会对map的输出先进行排序， 然后把结果输入给reduce任务。通常作业的输入和输出都会被存储在文件系统中</strong>。 </p>
+<p><strong>整个框架负责任务的调度和监控，以及重新执行已经失败的任务</strong>。</p>
+<p>通常，<strong>Map/Reduce框架</strong>和<strong>分布式文件系统</strong>是<strong>运行在一组相同的节点上</strong>的，也就是说，<strong>计算节点和存储节点通常在一起</strong>。这种配置允许框架在那些已经存好数据的节点上高效地调度任务，<strong>这可以使整个集群的网络带宽被非常高效地利用</strong>。</p>
+<p>应用程序至少应该指明<strong>输入/输出的位置（路径）</strong>，并通过<strong>实现合适的接口或抽象类提供map和reduce函数</strong>。再加上其他作业的参数，就<strong>构成了作业配置（job configuration）</strong>。然后，Hadoop的 job client提交作业（jar包/可执行程序等）和配置信息给JobTracker，后者负责分发这些软件和配置信息给slave、调度任务并监控它们的执行，同时提供状态和诊断信息给job-client。</p>
+<h1>输入与输出</h1>
+
+<p>Map/Reduce框架运转在<code>&lt;key, value&gt;</code> 键值对上，也就是说， <strong>框架把作业的输入看为是一组<code>&lt;key, value&gt;</code> 键值对，同样也产出一组 <code>&lt;key, value&gt;</code> 键值对做为作业的输出，这两组键值对的类型可能不同</strong>。</p>
+<p><strong>一个Map/Reduce 作业的输入和输出类型如下所示</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(input) &lt;k1, v1&gt; -&gt; map -&gt; &lt;k2, v2&gt; -&gt; combine -&gt; &lt;k2, v2&gt; -&gt; reduce -&gt; &lt;k3, v3&gt; (output)</span><br></pre></td></tr></table></figure>
+<p><strong>强烈注意（看例子前必读）</strong>：</p>
+<p>下面两个例子是版本1.0.4时的例子，所以一些API与程序写法会与现在的hadoop不同，你可以直接跳过这个两个，看hadoop最新版本的WordCount例子，这对你来说没有任何影响，我也推荐你这么做。我之所以还留着这两个“过时的例子”的原因，1.因为我比较懒，不想删代码而已，哈哈哈。2.例子代码后面的代码解释以及用法对于新的版本的例子同样适用。</p>
+<p>所以，我的建议是代码看后面最新版本的，解释再回头来看旧版本的解读。</p>
+<h1>例子：WordCount v1.0</h1>
+
+<p>在MapReduce中，当map生成的数据过大时，带宽就成了瓶颈，怎样精简压缩传给Reduce的数据，有不影响最终的结果呢?</p>
+<p>有一种方法就是使用Combiner，<strong>Combiner号称本地的Reduce，Reduce最终的输入，是Combiner的输出</strong>。</p>
+<p>第一个例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">1.	package org.myorg;</span><br><span class="line">2.	</span><br><span class="line">3.	import java.io.IOException;</span><br><span class="line">4.	import java.util.*;</span><br><span class="line">5.	</span><br><span class="line">6.	import org.apache.hadoop.fs.Path;</span><br><span class="line">7.	import org.apache.hadoop.conf.*;</span><br><span class="line">8.	import org.apache.hadoop.io.*;</span><br><span class="line">9.	import org.apache.hadoop.mapred.*;</span><br><span class="line">10.	import org.apache.hadoop.util.*;</span><br><span class="line">11.	</span><br><span class="line">12.	public class WordCount &#123;</span><br><span class="line">13.	</span><br><span class="line">14.	   public static class Map extends MapReduceBase implements Mapper&lt;LongWritable, Text, Text, IntWritable&gt; &#123;</span><br><span class="line">15.	     private final static IntWritable one = new IntWritable(1);</span><br><span class="line">16.	     private Text word = new Text();</span><br><span class="line">17.	</span><br><span class="line">18.	     public void map(LongWritable key, Text value, OutputCollector&lt;Text, IntWritable&gt; output, Reporter reporter) throws IOException &#123;</span><br><span class="line">19.	       String line = value.toString();</span><br><span class="line">20.	       StringTokenizer tokenizer = new StringTokenizer(line);</span><br><span class="line">21.	       while (tokenizer.hasMoreTokens()) &#123;</span><br><span class="line">22.	         word.set(tokenizer.nextToken());</span><br><span class="line">23.	         output.collect(word, one);</span><br><span class="line">24.	       &#125;</span><br><span class="line">25.	     &#125;</span><br><span class="line">26.	   &#125;</span><br><span class="line">27.	</span><br><span class="line">28.	   public static class Reduce extends MapReduceBase implements Reducer&lt;Text, IntWritable, Text, IntWritable&gt; &#123;</span><br><span class="line">29.	     public void reduce(Text key, Iterator&lt;IntWritable&gt; values, OutputCollector&lt;Text, IntWritable&gt; output, Reporter reporter) throws IOException &#123;</span><br><span class="line">30.	       int sum = 0;</span><br><span class="line">31.	       while (values.hasNext()) &#123;</span><br><span class="line">32.	         sum += values.next().get();</span><br><span class="line">33.	       &#125;</span><br><span class="line">34.	       output.collect(key, new IntWritable(sum));</span><br><span class="line">35.	     &#125;</span><br><span class="line">36.	   &#125;</span><br><span class="line">37.	</span><br><span class="line">38.	   public static void main(String[] args) throws Exception &#123;</span><br><span class="line">39.	     JobConf conf = new JobConf(WordCount.class);</span><br><span class="line">40.	     conf.setJobName(&quot;wordcount&quot;);</span><br><span class="line">41.	</span><br><span class="line">42.	     conf.setOutputKeyClass(Text.class);</span><br><span class="line">43.	     conf.setOutputValueClass(IntWritable.class);</span><br><span class="line">44.	</span><br><span class="line">45.	     conf.setMapperClass(Map.class);</span><br><span class="line">46.	     conf.setCombinerClass(Reduce.class);</span><br><span class="line">47.	     conf.setReducerClass(Reduce.class);</span><br><span class="line">48.	</span><br><span class="line">49.	     conf.setInputFormat(TextInputFormat.class);</span><br><span class="line">50.	     conf.setOutputFormat(TextOutputFormat.class);</span><br><span class="line">51.	</span><br><span class="line">52.	     FileInputFormat.setInputPaths(conf, new Path(args[0]));</span><br><span class="line">53.	     FileOutputFormat.setOutputPath(conf, new Path(args[1]));</span><br><span class="line">54.	</span><br><span class="line">55.	     JobClient.runJob(conf);</span><br><span class="line">57.	   &#125;</span><br><span class="line">58.	&#125;</span><br><span class="line">59.</span><br></pre></td></tr></table></figure>
+<p><strong>解释</strong>：</p>
+<p>Mapper(14-26行)中的map方法(18-25行)<strong>通过指定的 TextInputFormat(49行)一次处理一行</strong>。然后，它通过StringTokenizer 以空格为分隔符将一行切分为若干tokens，之后，输出&lt; <word>, 1&gt; 形式的键值对。</word></p>
+<p>对于示例中的第一个输入，map输出是：<br>&lt; Hello, 1&gt;<br>&lt; World, 1&gt;<br>&lt; Bye, 1&gt;<br>&lt; World, 1&gt;<br>第二个输入，map输出是：<br>&lt; Hello, 1&gt;<br>&lt; Hadoop, 1&gt;<br>&lt; Goodbye, 1&gt;<br>&lt; Hadoop, 1&gt; </p>
+<p>WordCount还指定了一个combiner (46行)。因此，<strong>每次map运行之后，会对输出按照key进行排序，然后把输出传递给本地的combiner（按照作业的配置与Reducer一样），进行本地聚合</strong>。</p>
+<p>第一个map的输出是：<br>&lt; Bye, 1&gt;<br>&lt; Hello, 1&gt;<br>&lt; World, 2&gt;<br>第二个map的输出是：<br>&lt; Goodbye, 1&gt;<br>&lt; Hadoop, 2&gt;<br>&lt; Hello, 1&gt; </p>
+<p>Reducer(28-36行)中的reduce方法(29-35行) 仅是将每个key（本例中就是单词）出现的次数求和。</p>
+<p>因此这个作业的输出就是：<br>&lt; Bye, 1&gt;<br>&lt; Goodbye, 1&gt;<br>&lt; Hadoop, 2&gt;<br>&lt; Hello, 2&gt;<br>&lt; World, 2&gt; </p>
+<h1>例子：WordCount v2.0</h1>
+
+<p>第二个例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line">1.	package org.myorg;</span><br><span class="line">2.	</span><br><span class="line">3.	import java.io.*;</span><br><span class="line">4.	import java.util.*;</span><br><span class="line">5.	</span><br><span class="line">6.	import org.apache.hadoop.fs.Path;</span><br><span class="line">7.	import org.apache.hadoop.filecache.DistributedCache;</span><br><span class="line">8.	import org.apache.hadoop.conf.*;</span><br><span class="line">9.	import org.apache.hadoop.io.*;</span><br><span class="line">10.	import org.apache.hadoop.mapred.*;</span><br><span class="line">11.	import org.apache.hadoop.util.*;</span><br><span class="line">12.	</span><br><span class="line">13.	public class WordCount extends Configured implements Tool &#123;</span><br><span class="line">14.	</span><br><span class="line">15.	   public static class Map extends MapReduceBase implements Mapper&lt;LongWritable, Text, Text, IntWritable&gt; &#123;</span><br><span class="line">16.	</span><br><span class="line">17.	     static enum Counters &#123; INPUT_WORDS &#125;</span><br><span class="line">18.	</span><br><span class="line">19.	     private final static IntWritable one = new IntWritable(1);</span><br><span class="line">20.	     private Text word = new Text();</span><br><span class="line">21.	</span><br><span class="line">22.	     private boolean caseSensitive = true;</span><br><span class="line">23.	     private Set&lt;String&gt; patternsToSkip = new HashSet&lt;String&gt;();</span><br><span class="line">24.	</span><br><span class="line">25.	     private long numRecords = 0;</span><br><span class="line">26.	     private String inputFile;</span><br><span class="line">27.	</span><br><span class="line">28.	     public void configure(JobConf job) &#123;</span><br><span class="line">29.	       caseSensitive = job.getBoolean(&quot;wordcount.case.sensitive&quot;, true);</span><br><span class="line">30.	       inputFile = job.get(&quot;map.input.file&quot;);</span><br><span class="line">31.	</span><br><span class="line">32.	       if (job.getBoolean(&quot;wordcount.skip.patterns&quot;, false)) &#123;</span><br><span class="line">33.	         Path[] patternsFiles = new Path[0];</span><br><span class="line">34.	         try &#123;</span><br><span class="line">35.	           patternsFiles = DistributedCache.getLocalCacheFiles(job);</span><br><span class="line">36.	         &#125; catch (IOException ioe) &#123;</span><br><span class="line">37.	           System.err.println(&quot;Caught exception while getting cached files: &quot; + StringUtils.stringifyException(ioe));</span><br><span class="line">38.	         &#125;</span><br><span class="line">39.	         for (Path patternsFile : patternsFiles) &#123;</span><br><span class="line">40.	           parseSkipFile(patternsFile);</span><br><span class="line">41.	         &#125;</span><br><span class="line">42.	       &#125;</span><br><span class="line">43.	     &#125;</span><br><span class="line">44.	</span><br><span class="line">45.	     private void parseSkipFile(Path patternsFile) &#123;</span><br><span class="line">46.	       try &#123;</span><br><span class="line">47.	         BufferedReader fis = new BufferedReader(new FileReader(patternsFile.toString()));</span><br><span class="line">48.	         String pattern = null;</span><br><span class="line">49.	         while ((pattern = fis.readLine()) != null) &#123;</span><br><span class="line">50.	           patternsToSkip.add(pattern);</span><br><span class="line">51.	         &#125;</span><br><span class="line">52.	       &#125; catch (IOException ioe) &#123;</span><br><span class="line">53.	         System.err.println(&quot;Caught exception while parsing the cached file &apos;&quot; + patternsFile + &quot;&apos; : &quot; + StringUtils.stringifyException(ioe));</span><br><span class="line">54.	       &#125;</span><br><span class="line">55.	     &#125;</span><br><span class="line">56.	</span><br><span class="line">57.	     public void map(LongWritable key, Text value, OutputCollector&lt;Text, IntWritable&gt; output, Reporter reporter) throws IOException &#123;</span><br><span class="line">58.	       String line = (caseSensitive) ? value.toString() : value.toString().toLowerCase();</span><br><span class="line">59.	</span><br><span class="line">60.	       for (String pattern : patternsToSkip) &#123;</span><br><span class="line">61.	         line = line.replaceAll(pattern, &quot;&quot;);</span><br><span class="line">62.	       &#125;</span><br><span class="line">63.	</span><br><span class="line">64.	       StringTokenizer tokenizer = new StringTokenizer(line);</span><br><span class="line">65.	       while (tokenizer.hasMoreTokens()) &#123;</span><br><span class="line">66.	         word.set(tokenizer.nextToken());</span><br><span class="line">67.	         output.collect(word, one);</span><br><span class="line">68.	         reporter.incrCounter(Counters.INPUT_WORDS, 1);</span><br><span class="line">69.	       &#125;</span><br><span class="line">70.	</span><br><span class="line">71.	       if ((++numRecords % 100) == 0) &#123;</span><br><span class="line">72.	         reporter.setStatus(&quot;Finished processing &quot; + numRecords + &quot; records &quot; + &quot;from the input file: &quot; + inputFile);</span><br><span class="line">73.	       &#125;</span><br><span class="line">74.	     &#125;</span><br><span class="line">75.	   &#125;</span><br><span class="line">76.	</span><br><span class="line">77.	   public static class Reduce extends MapReduceBase implements Reducer&lt;Text, IntWritable, Text, IntWritable&gt; &#123;</span><br><span class="line">78.	     public void reduce(Text key, Iterator&lt;IntWritable&gt; values, OutputCollector&lt;Text, IntWritable&gt; output, Reporter reporter) throws IOException &#123;</span><br><span class="line">79.	       int sum = 0;</span><br><span class="line">80.	       while (values.hasNext()) &#123;</span><br><span class="line">81.	         sum += values.next().get();</span><br><span class="line">82.	       &#125;</span><br><span class="line">83.	       output.collect(key, new IntWritable(sum));</span><br><span class="line">84.	     &#125;</span><br><span class="line">85.	   &#125;</span><br><span class="line">86.	</span><br><span class="line">87.	   public int run(String[] args) throws Exception &#123;</span><br><span class="line">88.	     JobConf conf = new JobConf(getConf(), WordCount.class);</span><br><span class="line">89.	     conf.setJobName(&quot;wordcount&quot;);</span><br><span class="line">90.	</span><br><span class="line">91.	     conf.setOutputKeyClass(Text.class);</span><br><span class="line">92.	     conf.setOutputValueClass(IntWritable.class);</span><br><span class="line">93.	</span><br><span class="line">94.	     conf.setMapperClass(Map.class);</span><br><span class="line">95.	     conf.setCombinerClass(Reduce.class);</span><br><span class="line">96.	     conf.setReducerClass(Reduce.class);</span><br><span class="line">97.	</span><br><span class="line">98.	     conf.setInputFormat(TextInputFormat.class);</span><br><span class="line">99.	     conf.setOutputFormat(TextOutputFormat.class);</span><br><span class="line">100.	</span><br><span class="line">101.	     List&lt;String&gt; other_args = new ArrayList&lt;String&gt;();</span><br><span class="line">102.	     for (int i=0; i &lt; args.length; ++i) &#123;</span><br><span class="line">103.	       if (&quot;-skip&quot;.equals(args[i])) &#123;</span><br><span class="line">104.	         DistributedCache.addCacheFile(new Path(args[++i]).toUri(), conf);</span><br><span class="line">105.	         conf.setBoolean(&quot;wordcount.skip.patterns&quot;, true);</span><br><span class="line">106.	       &#125; else &#123;</span><br><span class="line">107.	         other_args.add(args[i]);</span><br><span class="line">108.	       &#125;</span><br><span class="line">109.	     &#125;</span><br><span class="line">110.	</span><br><span class="line">111.	     FileInputFormat.setInputPaths(conf, new Path(other_args.get(0)));</span><br><span class="line">112.	     FileOutputFormat.setOutputPath(conf, new Path(other_args.get(1)));</span><br><span class="line">113.	</span><br><span class="line">114.	     JobClient.runJob(conf);</span><br><span class="line">115.	     return 0;</span><br><span class="line">116.	   &#125;</span><br><span class="line">117.	</span><br><span class="line">118.	   public static void main(String[] args) throws Exception &#123;</span><br><span class="line">119.	     int res = ToolRunner.run(new Configuration(), new WordCount(), args);</span><br><span class="line">120.	     System.exit(res);</span><br><span class="line">121.	   &#125;</span><br><span class="line">122.	&#125;</span><br><span class="line">123.</span><br></pre></td></tr></table></figure>
+<p><strong>运行样例</strong></p>
+<p>输入样例：</p>
+<p>$ bin/hadoop dfs -ls /usr/joe/wordcount/input/<br>/usr/joe/wordcount/input/file01<br>/usr/joe/wordcount/input/file02 </p>
+<p>$ bin/hadoop dfs -cat /usr/joe/wordcount/input/file01<br>Hello World, Bye World! </p>
+<p>$ bin/hadoop dfs -cat /usr/joe/wordcount/input/file02<br>Hello Hadoop, Goodbye to hadoop.</p>
+<p>运行程序：</p>
+<p>$ bin/hadoop jar /usr/joe/wordcount.jar org.myorg.WordCount /usr/joe/wordcount/input /usr/joe/wordcount/output</p>
+<p>输出：</p>
+<p>$ bin/hadoop dfs -cat /usr/joe/wordcount/output/part-00000<br>Bye 1<br>Goodbye 1<br>Hadoop, 1<br>Hello 2<br>World! 1<br>World, 1<br>hadoop. 1<br>to 1 </p>
+<p>现在通过DistributedCache插入一个模式文件，文件中保存了要被忽略的单词模式。</p>
+<p>$ hadoop dfs -cat /user/joe/wordcount/patterns.txt<br>.<br>\,<br>!<br>to </p>
+<p>再运行一次，这次使用更多的选项：</p>
+<p>$ bin/hadoop jar /usr/joe/wordcount.jar org.myorg.WordCount -Dwordcount.case.sensitive=true /usr/joe/wordcount/input /usr/joe/wordcount/output -skip /user/joe/wordcount/patterns.txt</p>
+<p>应该得到这样的输出：</p>
+<p>$ bin/hadoop dfs -cat /usr/joe/wordcount/output/part-00000<br>Bye 1<br>Goodbye 1<br>Hadoop 1<br>Hello 2<br>World 2<br>hadoop 1 </p>
+<p>再运行一次，这一次关闭大小写敏感性（case-sensitivity）：</p>
+<p>$ bin/hadoop jar /usr/joe/wordcount.jar org.myorg.WordCount -Dwordcount.case.sensitive=false /usr/joe/wordcount/input /usr/joe/wordcount/output -skip /user/joe/wordcount/patterns.txt</p>
+<p>输出：</p>
+<p>$ bin/hadoop dfs -cat /usr/joe/wordcount/output/part-00000<br>bye 1<br>goodbye 1<br>hadoop 2<br>hello 2<br>world 2 </p>
+<p><strong>程序要点</strong>：</p>
+<p>通过使用一些Map/Reduce框架提供的功能，WordCount的第二个版本在原始版本基础上有了如下的改进：</p>
+<p>1.展示了应用程序如何在Mapper (和Reducer)中通过configure方法 修改配置参数(28-43行)。</p>
+<p>2.展示了作业如何使用DistributedCache 来分发只读数据。 这里允许用户指定单词的模式，在计数时忽略那些符合模式的单词(104行)。</p>
+<p>3.展示Tool接口和GenericOptionsParser处理Hadoop命令行选项的功能 (87-116, 119行)。</p>
+<p>4.展示了应用程序如何使用Counters(68行)，如何通过传递给map（和reduce） 方法的Reporter实例来设置应用程序的状态信息(72行)。</p>
+<h1>Hadoop Streaming</h1>
+
+<p>Hadoop streaming是Hadoop的一个工具， 它帮助用户创建和运行一类特殊的map/reduce作业， 这些特殊的map/reduce作业是<strong>由一些可执行文件或脚本文件充当mapper或者reducer</strong>。</p>
+<p><strong>最新版本的例子</strong>：</p>
+<h1>Example: WordCount v1.0</h1>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.StringTokenizer;</span><br><span class="line"></span><br><span class="line">import org.apache.hadoop.conf.Configuration;</span><br><span class="line">import org.apache.hadoop.fs.Path;</span><br><span class="line">import org.apache.hadoop.io.IntWritable;</span><br><span class="line">import org.apache.hadoop.io.Text;</span><br><span class="line">import org.apache.hadoop.mapreduce.Job;</span><br><span class="line">import org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line">import org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line">import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line">import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"></span><br><span class="line">public class WordCount &#123;</span><br><span class="line"></span><br><span class="line">  public static class TokenizerMapper</span><br><span class="line">       extends Mapper&lt;Object, Text, Text, IntWritable&gt;&#123;</span><br><span class="line"></span><br><span class="line">    private final static IntWritable one = new IntWritable(1);</span><br><span class="line">    private Text word = new Text();</span><br><span class="line"></span><br><span class="line">    public void map(Object key, Text value, Context context</span><br><span class="line">                    ) throws IOException, InterruptedException &#123;</span><br><span class="line">      StringTokenizer itr = new StringTokenizer(value.toString());</span><br><span class="line">      while (itr.hasMoreTokens()) &#123;</span><br><span class="line">        word.set(itr.nextToken());</span><br><span class="line">        context.write(word, one);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public static class IntSumReducer</span><br><span class="line">       extends Reducer&lt;Text,IntWritable,Text,IntWritable&gt; &#123;</span><br><span class="line">    private IntWritable result = new IntWritable();</span><br><span class="line"></span><br><span class="line">    public void reduce(Text key, Iterable&lt;IntWritable&gt; values,</span><br><span class="line">                       Context context</span><br><span class="line">                       ) throws IOException, InterruptedException &#123;</span><br><span class="line">      int sum = 0;</span><br><span class="line">      for (IntWritable val : values) &#123;</span><br><span class="line">        sum += val.get();</span><br><span class="line">      &#125;</span><br><span class="line">      result.set(sum);</span><br><span class="line">      context.write(key, result);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public static void main(String[] args) throws Exception &#123;</span><br><span class="line">    Configuration conf = new Configuration();</span><br><span class="line">    Job job = Job.getInstance(conf, &quot;word count&quot;);</span><br><span class="line">    job.setJarByClass(WordCount.class);</span><br><span class="line">    job.setMapperClass(TokenizerMapper.class);</span><br><span class="line">    job.setCombinerClass(IntSumReducer.class);</span><br><span class="line">    job.setReducerClass(IntSumReducer.class);</span><br><span class="line">    job.setOutputKeyClass(Text.class);</span><br><span class="line">    job.setOutputValueClass(IntWritable.class);</span><br><span class="line">    FileInputFormat.addInputPath(job, new Path(args[0]));</span><br><span class="line">    FileOutputFormat.setOutputPath(job, new Path(args[1]));</span><br><span class="line">    System.exit(job.waitForCompletion(true) ? 0 : 1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解释与用法同上。</p>
+<h1>Example: WordCount v2.0</h1>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.FileReader;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.net.URI;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.HashSet;</span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.Set;</span><br><span class="line">import java.util.StringTokenizer;</span><br><span class="line"></span><br><span class="line">import org.apache.hadoop.conf.Configuration;</span><br><span class="line">import org.apache.hadoop.fs.Path;</span><br><span class="line">import org.apache.hadoop.io.IntWritable;</span><br><span class="line">import org.apache.hadoop.io.Text;</span><br><span class="line">import org.apache.hadoop.mapreduce.Job;</span><br><span class="line">import org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line">import org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line">import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line">import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line">import org.apache.hadoop.mapreduce.Counter;</span><br><span class="line">import org.apache.hadoop.util.GenericOptionsParser;</span><br><span class="line">import org.apache.hadoop.util.StringUtils;</span><br><span class="line"></span><br><span class="line">public class WordCount2 &#123;</span><br><span class="line"></span><br><span class="line">  public static class TokenizerMapper</span><br><span class="line">       extends Mapper&lt;Object, Text, Text, IntWritable&gt;&#123;</span><br><span class="line"></span><br><span class="line">    static enum CountersEnum &#123; INPUT_WORDS &#125;</span><br><span class="line"></span><br><span class="line">    private final static IntWritable one = new IntWritable(1);</span><br><span class="line">    private Text word = new Text();</span><br><span class="line"></span><br><span class="line">    private boolean caseSensitive;</span><br><span class="line">    private Set&lt;String&gt; patternsToSkip = new HashSet&lt;String&gt;();</span><br><span class="line"></span><br><span class="line">    private Configuration conf;</span><br><span class="line">    private BufferedReader fis;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void setup(Context context) throws IOException,</span><br><span class="line">        InterruptedException &#123;</span><br><span class="line">      conf = context.getConfiguration();</span><br><span class="line">      caseSensitive = conf.getBoolean(&quot;wordcount.case.sensitive&quot;, true);</span><br><span class="line">      if (conf.getBoolean(&quot;wordcount.skip.patterns&quot;, true)) &#123;</span><br><span class="line">        URI[] patternsURIs = Job.getInstance(conf).getCacheFiles();</span><br><span class="line">        for (URI patternsURI : patternsURIs) &#123;</span><br><span class="line">          Path patternsPath = new Path(patternsURI.getPath());</span><br><span class="line">          String patternsFileName = patternsPath.getName().toString();</span><br><span class="line">          parseSkipFile(patternsFileName);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void parseSkipFile(String fileName) &#123;</span><br><span class="line">      try &#123;</span><br><span class="line">        fis = new BufferedReader(new FileReader(fileName));</span><br><span class="line">        String pattern = null;</span><br><span class="line">        while ((pattern = fis.readLine()) != null) &#123;</span><br><span class="line">          patternsToSkip.add(pattern);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; catch (IOException ioe) &#123;</span><br><span class="line">        System.err.println(&quot;Caught exception while parsing the cached file &apos;&quot;</span><br><span class="line">            + StringUtils.stringifyException(ioe));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void map(Object key, Text value, Context context</span><br><span class="line">                    ) throws IOException, InterruptedException &#123;</span><br><span class="line">      String line = (caseSensitive) ?</span><br><span class="line">          value.toString() : value.toString().toLowerCase();</span><br><span class="line">      for (String pattern : patternsToSkip) &#123;</span><br><span class="line">        line = line.replaceAll(pattern, &quot;&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">      StringTokenizer itr = new StringTokenizer(line);</span><br><span class="line">      while (itr.hasMoreTokens()) &#123;</span><br><span class="line">        word.set(itr.nextToken());</span><br><span class="line">        context.write(word, one);</span><br><span class="line">        Counter counter = context.getCounter(CountersEnum.class.getName(),</span><br><span class="line">            CountersEnum.INPUT_WORDS.toString());</span><br><span class="line">        counter.increment(1);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public static class IntSumReducer</span><br><span class="line">       extends Reducer&lt;Text,IntWritable,Text,IntWritable&gt; &#123;</span><br><span class="line">    private IntWritable result = new IntWritable();</span><br><span class="line"></span><br><span class="line">    public void reduce(Text key, Iterable&lt;IntWritable&gt; values,</span><br><span class="line">                       Context context</span><br><span class="line">                       ) throws IOException, InterruptedException &#123;</span><br><span class="line">      int sum = 0;</span><br><span class="line">      for (IntWritable val : values) &#123;</span><br><span class="line">        sum += val.get();</span><br><span class="line">      &#125;</span><br><span class="line">      result.set(sum);</span><br><span class="line">      context.write(key, result);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  public static void main(String[] args) throws Exception &#123;</span><br><span class="line">    Configuration conf = new Configuration();</span><br><span class="line">    GenericOptionsParser optionParser = new GenericOptionsParser(conf, args);</span><br><span class="line">    String[] remainingArgs = optionParser.getRemainingArgs();</span><br><span class="line">    if (!(remainingArgs.length != 2 | | remainingArgs.length != 4)) &#123;</span><br><span class="line">      System.err.println(&quot;Usage: wordcount &lt;in&gt; &lt;out&gt; [-skip skipPatternFile]&quot;);</span><br><span class="line">      System.exit(2);</span><br><span class="line">    &#125;</span><br><span class="line">    Job job = Job.getInstance(conf, &quot;word count&quot;);</span><br><span class="line">    job.setJarByClass(WordCount2.class);</span><br><span class="line">    job.setMapperClass(TokenizerMapper.class);</span><br><span class="line">    job.setCombinerClass(IntSumReducer.class);</span><br><span class="line">    job.setReducerClass(IntSumReducer.class);</span><br><span class="line">    job.setOutputKeyClass(Text.class);</span><br><span class="line">    job.setOutputValueClass(IntWritable.class);</span><br><span class="line"></span><br><span class="line">    List&lt;String&gt; otherArgs = new ArrayList&lt;String&gt;();</span><br><span class="line">    for (int i=0; i &lt; remainingArgs.length; ++i) &#123;</span><br><span class="line">      if (&quot;-skip&quot;.equals(remainingArgs[i])) &#123;</span><br><span class="line">        job.addCacheFile(new Path(remainingArgs[++i]).toUri());</span><br><span class="line">        job.getConfiguration().setBoolean(&quot;wordcount.skip.patterns&quot;, true);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        otherArgs.add(remainingArgs[i]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    FileInputFormat.addInputPath(job, new Path(otherArgs.get(0)));</span><br><span class="line">    FileOutputFormat.setOutputPath(job, new Path(otherArgs.get(1)));</span><br><span class="line"></span><br><span class="line">    System.exit(job.waitForCompletion(true) ? 0 : 1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解释与用法同上。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/后端开发/">后端开发</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/11/22/Hadoop文档学习笔记/" data-title="Hadoop文档学习笔记 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/11/28/大型网站技术架构/" title="大型网站技术架构">
+  <strong>上一篇：</strong><br/>
+  <span>
+  大型网站技术架构</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/11/17/高性能MySQL/"  title="高性能MySQL">
+ <strong>下一篇：</strong><br/> 
+ <span>高性能MySQL
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/11/22/Hadoop文档学习笔记/" data-title="Hadoop文档学习笔记" data-url="http://yoursite.com/2016/11/22/Hadoop文档学习笔记/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Hadoop集群搭建"><span class="toc-number">1.</span> <span class="toc-text">1.Hadoop集群搭建</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">集群配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Hadoop分布式文件系统：架构和设计"><span class="toc-number">1.</span> <span class="toc-text">2.Hadoop分布式文件系统：架构和设计</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">前提和设计目标</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">硬件错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">流式数据访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">大规模数据集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">简单的一致性模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.5.</span> <span class="toc-text">“移动计算比移动数据更划算”</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Namenode 和 Datanode</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">数据复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">副本存放: 最最开始的一步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">副本选择</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">健壮性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">集群均衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">数据完整性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">数据组织</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">数据块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">Staging</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">流水线复制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">存储空间回收</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">文件的删除和恢复</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">减少副本系数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Hadoop分布式文件系统使用指南"><span class="toc-number">1.</span> <span class="toc-text">3.Hadoop分布式文件系统使用指南</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Hadoop-Map-Reduce教程"><span class="toc-number">1.</span> <span class="toc-text">4.Hadoop Map/Reduce教程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">输入与输出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">例子：WordCount v1.0</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">例子：WordCount v2.0</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Hadoop Streaming</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Example: WordCount v1.0</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">Example: WordCount v2.0</span></a>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 16.67px;">Java编程思想读书笔记</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a> <a href="/tags/TECH/" style="font-size: 11.67px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 18.33px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.67px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 13.33px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

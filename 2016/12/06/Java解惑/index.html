@@ -1,0 +1,722 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Java解惑 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="1.递归中的坑之前在leetCode上刷题，问题传送门：Binary Tree Paths，按理说一个很简单的递归方法就能解决啊，为什么会出现问题呢？先po代码：
+123456789101112131415161718public class Solution &amp;#123;public List&amp;lt;String&amp;gt; binaryTreePaths(TreeNode root) &amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java解惑">
+<meta property="og:url" content="http://yoursite.com/2016/12/06/Java解惑/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="1.递归中的坑之前在leetCode上刷题，问题传送门：Binary Tree Paths，按理说一个很简单的递归方法就能解决啊，为什么会出现问题呢？先po代码：
+123456789101112131415161718public class Solution &amp;#123;public List&amp;lt;String&amp;gt; binaryTreePaths(TreeNode root) &amp;#123;">
+<meta property="og:image" content="http://img.blog.csdn.net/20170106111532670?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170106120045059?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170105144923224?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170111204153912?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170111204318879?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170111205454556?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170111204552740?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170111204658732?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170111204837539?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170111204925508?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-03-18T15:00:28.914Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java解惑">
+<meta name="twitter:description" content="1.递归中的坑之前在leetCode上刷题，问题传送门：Binary Tree Paths，按理说一个很简单的递归方法就能解决啊，为什么会出现问题呢？先po代码：
+123456789101112131415161718public class Solution &amp;#123;public List&amp;lt;String&amp;gt; binaryTreePaths(TreeNode root) &amp;#123;">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170106111532670?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/12/06/Java解惑/" title="Java解惑" itemprop="url">Java解惑</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-12-06T04:30:33.000Z" itemprop="datePublished"> Published 2016-12-06</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-递归中的坑"><span class="toc-number">1.</span> <span class="toc-text">1.递归中的坑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Anonymous-Classes"><span class="toc-number">2.</span> <span class="toc-text">2.Anonymous Classes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Lambda-Expressions"><span class="toc-number">3.</span> <span class="toc-text">3.Lambda Expressions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Method-References"><span class="toc-number">4.</span> <span class="toc-text">4.Method References</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Collections类知识汇总"><span class="toc-number">5.</span> <span class="toc-text">5.Collections类知识汇总</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1-overview</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">3-Tutorial</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">4-Java Collections API Design FAQ</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-java传值方式"><span class="toc-number">1.</span> <span class="toc-text">6.java传值方式</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="1-递归中的坑"><a href="#1-递归中的坑" class="headerlink" title="1.递归中的坑"></a>1.递归中的坑</h2><p>之前在leetCode上刷题，<a href="https://leetcode.com/problems/binary-tree-paths/" target="_blank" rel="external">问题传送门：Binary Tree Paths</a>，按理说一个很简单的递归方法就能解决啊，为什么会出现问题呢？先po代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class Solution &#123;</span><br><span class="line">public List&lt;String&gt; binaryTreePaths(TreeNode root) &#123;</span><br><span class="line">    List&lt;String&gt; answer = new ArrayList&lt;String&gt;();</span><br><span class="line">    if (root != null) searchBT(root, &quot;&quot;, answer);</span><br><span class="line">    return answer;</span><br><span class="line">&#125;</span><br><span class="line">private void searchBT(TreeNode root, String path, List&lt;String&gt; answer) &#123;</span><br><span class="line">     if (root.left == null &amp;&amp; root.right == null) answer.add(path + root.val);</span><br><span class="line">     if (root.left != null)&#123;</span><br><span class="line">         path = path + root.val + &quot;-&gt;&quot;;</span><br><span class="line">         searchBT(root.left, path, answer);</span><br><span class="line">     &#125; </span><br><span class="line">     if (root.right != null)&#123;</span><br><span class="line">         path = path + root.val + &quot;-&gt;&quot;;</span><br><span class="line">         searchBT(root.right, path, answer);</span><br><span class="line">     &#125; </span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码就是会出错，通过打log，发现<code>path+=&quot;someString&quot;</code>，虽然结果传递给<code>searchBT</code>方法没有问题，但是却产生了副作用：<strong>path的值也跟着改变了</strong>。这种错误为什么在平时的代码中没有遇到呢？我分析是因为，平常程序很少有递归调用，从而忽略了这个错误。</p>
+<p>关于java的传值方式，我一直都没能搞清楚，请看第6部分内容！</p>
+<p>改成这样就是想要的结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Solution &#123;</span><br><span class="line"> public List&lt;String&gt; binaryTreePaths(TreeNode root) &#123;</span><br><span class="line">    List&lt;String&gt; answer = new ArrayList&lt;String&gt;();</span><br><span class="line">    if (root != null) searchBT(root, &quot;&quot;, answer);</span><br><span class="line">    return answer;</span><br><span class="line">&#125;</span><br><span class="line">private void searchBT(TreeNode root, String path, List&lt;String&gt; answer) &#123;</span><br><span class="line">    if (root.left == null &amp;&amp; root.right == null) answer.add(path + root.val);</span><br><span class="line">    if (root.left != null) searchBT(root.left, path + root.val + &quot;-&gt;&quot;, answer);</span><br><span class="line">    if (root.right != null) searchBT(root.right, path + root.val + &quot;-&gt;&quot;, answer);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>问题解决！</p>
+<h2 id="2-Anonymous-Classes"><a href="#2-Anonymous-Classes" class="headerlink" title="2.Anonymous Classes"></a>2.Anonymous Classes</h2><p>Anonymous classes enable you to <strong>make your code more concise</strong>. They enable you to <strong>declare and instantiate a class at the same time</strong>. They are like local classes except that they do not have a name. <strong>Use them if you need to use a local class only once</strong>.</p>
+<p>Anonymous Classes的语法：an anonymous class is an expression.The syntax of an anonymous class expression is like the invocation（调用） of a constructor, except that there is a class definition contained in a block of code.</p>
+<p>示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//其中HelloWorld是一个interface</span><br><span class="line">HelloWorld frenchGreeting = new HelloWorld() &#123;</span><br><span class="line">            String name = &quot;tout le monde&quot;;</span><br><span class="line">            public void greet() &#123;</span><br><span class="line">                greetSomeone(&quot;tout le monde&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            public void greetSomeone(String someone) &#123;</span><br><span class="line">                name = someone;</span><br><span class="line">                System.out.println(&quot;Salut &quot; + name);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
+<p>关于内部类和内部匿名类如何捕获变量，引用外部类的变量，一直以来感觉都不太好理解，一些注意和为什么请看<a href="https://www.zhihu.com/question/21395848" target="_blank" rel="external">权威R大的答案</a>。</p>
+<h2 id="3-Lambda-Expressions"><a href="#3-Lambda-Expressions" class="headerlink" title="3.Lambda Expressions"></a>3.Lambda Expressions</h2><p>有了匿名内部类的概念，如果我们要实现的匿名类很简单，比如实现的接口只有一个方法，那么专门写一个匿名类就显得很笨重啊，这时候Lambda Expressions就闪亮登场了！</p>
+<p><strong>Lambda expressions let you express instances of single-method classes more compactly</strong>.匿名类一定程度简化了内部类，Lambda expressions一定程度上简化了匿名类。</p>
+<p>一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//Use Aggregate Operations That Accept </span><br><span class="line">//Lambda Expressions as Parameters</span><br><span class="line">roster</span><br><span class="line">    .stream()</span><br><span class="line">    .filter(</span><br><span class="line">        p -&gt; p.getGender() == Person.Sex.MALE</span><br><span class="line">            &amp;&amp; p.getAge() &gt;= 18</span><br><span class="line">            &amp;&amp; p.getAge() &lt;= 25)</span><br><span class="line">    .map(p -&gt; p.getEmailAddress())</span><br><span class="line">    .forEach(email -&gt; System.out.println(email));</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20170106111532670?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p><strong>Aggregate operations</strong> process elements from a <strong>stream</strong>, <strong>not directly from a collection</strong> (which is the reason why the first method invoked in this example is stream).</p>
+<p><strong>Syntax of Lambda Expressions</strong>：</p>
+<p>组成部分：<br>1.A comma-separated list of formal parameters enclosed in parentheses.<br>2.The arrow token, -&gt;<br>3.A body, which consists of a single expression or a statement block.</p>
+<p>Note that a <strong>lambda expression</strong> looks a lot like a <strong>method declaration</strong>; you can consider lambda expressions as <strong>anonymous methods—methods without a name</strong>.</p>
+<p>一个示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class Calculator &#123;</span><br><span class="line"></span><br><span class="line">    interface IntegerMath &#123;</span><br><span class="line">        int operation(int a, int b);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int operateBinary(int a, int b, IntegerMath op) &#123;</span><br><span class="line">        return op.operation(a, b);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String... args) &#123;</span><br><span class="line"></span><br><span class="line">        Calculator myApp = new Calculator();</span><br><span class="line">        IntegerMath addition = (a, b) -&gt; a + b;</span><br><span class="line">        IntegerMath subtraction = (a, b) -&gt; a - b;</span><br><span class="line">        System.out.println(&quot;40 + 2 = &quot; +</span><br><span class="line">                myApp.operateBinary(40, 2, addition));</span><br><span class="line">        System.out.println(&quot;20 - 10 = &quot; +</span><br><span class="line">                myApp.operateBinary(20, 10, subtraction));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The method operateBinary performs a mathematical operation on two integer operands. The operation itself is specified by an instance of IntegerMath. The example defines two operations with lambda expressions, addition and subtraction. The example prints the following:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">40 + 2 = 42</span><br><span class="line">20 - 10 = 10</span><br></pre></td></tr></table></figure>
+<h2 id="4-Method-References"><a href="#4-Method-References" class="headerlink" title="4.Method References"></a>4.Method References</h2><p>Suppose that the members of your social networking application are contained in an array, and you want to sort the array by age. You could use the following code：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Person&gt; roster=new ArrayList&lt;&gt;();</span><br><span class="line">        Person[] rosterAsArray = roster.toArray(new Person[roster.size()]);</span><br><span class="line"></span><br><span class="line">        class PersonAgeComparator implements Comparator&lt;Person&gt; &#123;</span><br><span class="line">            public int compare(Person a, Person b) &#123;</span><br><span class="line">                return a.getBirthday().compareTo(b.getBirthday());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Arrays.sort(rosterAsArray, new PersonAgeComparator());</span><br></pre></td></tr></table></figure>
+<p>如何用Comparator来sort！</p>
+<p>注意到sort方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">static &lt;T&gt; void sort(T[] a, Comparator&lt;? super T&gt; c)</span><br></pre></td></tr></table></figure>
+<p>Notice that the interface <strong>Comparator</strong> is a <strong>functional interface</strong>. Therefore, you could use a lambda expression instead of defining and then creating a new instance of a class that implements Comparator:（对于该类interface可以简化之）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(rosterAsArray,</span><br><span class="line">    (Person a, Person b) -&gt; &#123;</span><br><span class="line">        return a.getBirthday().compareTo(b.getBirthday());</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>However, this method to compare the birth dates of two Person instances already exists as Person.compareByAge. You can invoke this method instead in the body of the lambda expression:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(rosterAsArray,</span><br><span class="line">    (a, b) -&gt; Person.compareByAge(a, b)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>Because this lambda expression invokes an existing method, you can use a <strong>method reference</strong> instead of a lambda expression:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(rosterAsArray, Person::compareByAge);</span><br></pre></td></tr></table></figure>
+<p>这种写法跟上面代码完全等价。</p>
+<p><strong>Kinds of Method References</strong>：</p>
+<p>一共有四种：<br><img src="http://img.blog.csdn.net/20170106120045059?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>1.Reference to a Static Method：<br>上面例子Person::compareByAge就是。<br>2.Reference to an Instance Method of a Particular Object：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class ComparisonProvider &#123;</span><br><span class="line">    public int compareByName(Person a, Person b) &#123;</span><br><span class="line">        return a.getName().compareTo(b.getName());</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    public int compareByAge(Person a, Person b) &#123;</span><br><span class="line">        return a.getBirthday().compareTo(b.getBirthday());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">ComparisonProvider myComparisonProvider = new ComparisonProvider();</span><br><span class="line">Arrays.sort(rosterAsArray, myComparisonProvider::compareByName);</span><br></pre></td></tr></table></figure>
+<p>3.Reference to an Instance Method of an Arbitrary Object of a Particular Type：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String[] stringArray = &#123; &quot;Barbara&quot;, &quot;James&quot;, &quot;Mary&quot;, &quot;John&quot;,</span><br><span class="line">    &quot;Patricia&quot;, &quot;Robert&quot;, &quot;Michael&quot;, &quot;Linda&quot; &#125;;</span><br><span class="line">Arrays.sort(stringArray, String::compareToIgnoreCase);</span><br></pre></td></tr></table></figure>
+<p>4.Reference to a Constructor：</p>
+<h2 id="5-Collections类知识汇总"><a href="#5-Collections类知识汇总" class="headerlink" title="5.Collections类知识汇总"></a>5.Collections类知识汇总</h2><p>官方资料相关：<br><a href="https://docs.oracle.com/javase/7/docs/technotes/guides/collections/index.html" target="_blank" rel="external">The Collections Framework</a> ：</p>
+<p>1.<a href="https://docs.oracle.com/javase/7/docs/technotes/guides/collections/overview.html" target="_blank" rel="external">Overview</a></p>
+<p>2.<a href="https://docs.oracle.com/javase/7/docs/technotes/guides/collections/reference.html" target="_blank" rel="external">Outline of the Collections Framework(API reference)</a></p>
+<p>3.<a href="http://docs.oracle.com/javase/tutorial/collections/index.html" target="_blank" rel="external">Tutorial</a></p>
+<p>4.<a href="https://docs.oracle.com/javase/7/docs/technotes/guides/collections/designfaq.html" target="_blank" rel="external">Design FAQ</a></p>
+<p>一个一个来看：</p>
+<h1>1-overview</h1>
+
+<p>为什么要设计Collections framework呢？它主要有以下几种优点：</p>
+<p>1.<strong>Reduces programming effort</strong> by providing data structures and algorithms so you don’t have to write them yourself.</p>
+<p>2.<strong>Increases performance</strong> by providing high-performance implementations of data structures and algorithms. Because the various implementations of each interface are interchangeable（可相互交换的）, programs can be tuned by switching implementations.</p>
+<p>3.<strong>Provides interoperability（互用性） between unrelated APIs</strong> by establishing a common language to pass collections back and forth.</p>
+<p>4.<strong>Reduces the effort required to learn APIs</strong> by requiring you to learn multiple ad hoc collection APIs.</p>
+<p>5.<strong>Reduces the effort required to design and implement APIs</strong> by not requiring you to produce ad hoc collections APIs.</p>
+<p>6.<strong>Fosters（培养） software reuse</strong> by providing a standard interface for collections and algorithms with which to manipulate them.</p>
+<p>那么这个framework主要由哪些部件组成呢？组成部分：</p>
+<p>1.<strong>Collection interfaces</strong>. Represent different types of collections, <strong>such as sets, lists, and maps</strong>. These interfaces form the basis of the framework.</p>
+<p>2.<strong>General-purpose implementations</strong>. Primary implementations of the collection interfaces.<strong>通用</strong></p>
+<p>3.<strong>Legacy implementations</strong>. The collection classes from earlier releases, Vector and Hashtable, were retrofitted（翻新） to implement the collection interfaces.历史遗留实现，拿Hashtable为例，现在用的不多，更多的是使用HashTable。</p>
+<p>4.<strong>Special-purpose implementations</strong>. Implementations designed for use in special situations. These implementations display nonstandard performance characteristics, usage restrictions, or behavior.<strong>专用</strong></p>
+<p>5.<strong>Concurrent implementations</strong>. Implementations designed for highly concurrent use.<strong>专门针对于多线程的实现</strong></p>
+<p>6.<strong>Wrapper implementations</strong>. Add functionality, such as synchronization, to other implementations.</p>
+<p>7.<strong>Convenience implementations</strong>. High-performance “mini-implementations” of the collection interfaces.</p>
+<p>8.<strong>Abstract implementations</strong>. Partial implementations of the collection interfaces to facilitate custom implementations.实现了Collection接口的一部分功能，Skeletal implementations of the collection interfaces to facilitate custom implementations.</p>
+<p>9.<strong>Algorithms</strong>. Static methods that perform useful functions on collections, such as sorting a list.<strong>例如Collections.sort()</strong></p>
+<p>10.<strong>Infrastructure</strong>. Interfaces that provide essential support for the collection interfaces.</p>
+<p>11.<strong>Array Utilities</strong>. Utility functions for arrays of primitive types and reference objects. Not, strictly speaking, a part of the collections framework, this feature was added to the Java platform at the same time as the collections framework and relies on some of the same infrastructure.</p>
+<p>你是否想问，上述这些部分都是由java中哪些类或者接口组成的呢，有没有例子呢？答案在这里<a href="https://docs.oracle.com/javase/7/docs/technotes/guides/collections/reference.html" target="_blank" rel="external">Outline of the Collections Framework</a> 。这对我们理解Collections framework的构成很重要，一定要认真看该参考答案！</p>
+<p><em>Adapter implementations</em> ：<br>感觉很高级，Implementations that adapt one collections interface to another:</p>
+<p>1.<strong>newSetFromMap(Map)</strong> - Creates a general-purpose Set implementation from a general-purpose Map implementation.<br>2.<strong>asLifoQueue(Deque)</strong> - Returns a view of a Deque as a Last In First Out (LIFO) Queue.</p>
+<p><em>Collection Interfaces</em>：</p>
+<p>分为两部分，<strong>第一部分</strong>（也是最基本的）是在<strong>java.util.Collection</strong>中，他有下列的继承者：</p>
+<p>Set,SortedSet,NavigableSet,Queue,BlockingQueue,TranferQueue,Deque,BlockingDeque.</p>
+<p>第二部分，是以<strong>java.util.Map</strong>为基础来实现的接口，并不是真正意义上的Collections。 但是，这些接口包含了collection-view的操作方式，也就是可以像操作Collections一样操作Map。Map包含下列继承者：</p>
+<p>SortedMap,NavigableMap,ConcurrentMap,ConcurrentNavigableMap.</p>
+<p>从源码中也能看出有这两部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//Collection</span><br><span class="line">public interface Collection&lt;E&gt; extends Iterable&lt;E&gt; &#123;&#125;</span><br><span class="line">//Set</span><br><span class="line">public interface Set&lt;E&gt; extends Collection&lt;E&gt; &#123;&#125;</span><br><span class="line">//List</span><br><span class="line">public interface List&lt;E&gt; extends Collection&lt;E&gt; &#123;&#125;</span><br><span class="line">//Map，单独的一个接口</span><br><span class="line">public interface Map&lt;K,V&gt; &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>Collection接口大部分方法都表明了optional（可选择），意味着在具体实现的时候可以随意选择实现某些方法，如果调用没有实现的方法，将抛出运行时错误UnsupportedOperationException。</p>
+<p><em>Collection Implementations</em>：</p>
+<p>The general purpose implementations（具有通用目的的实现） are summarized in the following table:<br><img src="http://img.blog.csdn.net/20170105144923224?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>官方总结，值得信赖！</p>
+<p>关于general purpose implementations：1.他们都支持Collection interface中的方法（随意才叫通用嘛），2.对于存放在它们中的元素类型没有任何限制，3.它们都不是线程安全的，但是如果你想要它们线程安全的版本的话，Collections有一个静态工厂方法synchronizedCollection，可以改变它们为线程安全的，具体用法还有一些额外要求，请参考<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collections.html#synchronizedCollection%28java.util.Collection%29" target="_blank" rel="external">synchronization wrappers</a> 。</p>
+<p>The <strong>AbstractCollection</strong>, <strong>AbstractSet</strong>, <strong>AbstractList</strong>, <strong>AbstractSequentialList</strong> and <strong>AbstractMap</strong> classes <strong>provide basic implementations of the core collection interfaces, to minimize the effort required to implement them</strong>. The API documentation for these classes describes precisely how each method is implemented so the implementer knows which methods must be overridden, given the performance of the basic operations of a specific implementation.</p>
+<p>我想这些Abstract类的作用是方便我们<a href="https://docs.oracle.com/javase/tutorial/collections/custom-implementations/" target="_blank" rel="external">自定义Collection</a>。</p>
+<p><em>Concurrent Collections</em>：</p>
+<p>多线程interface：</p>
+<p>BlockingQueue,TransferQueue,BlockingDeque,ConcurrentMap,ConcurrentNavigableMap.</p>
+<p>实现了的多线程的类：<br>LinkedBlockingQueue,ArrayBlockingQueue,PriorityBlockingQueue,DelayQueue,SynchronousQueue,LinkedBlockingDeque,LinkedTransferQueue,CopyOnWriteArrayList,CopyOnWriteArraySet,ConcurrentSkipListSet,ConcurrentHashMap,ConcurrentSkipListMap.</p>
+<p><em>Algorithms</em>：</p>
+<p>The Collections class contains these useful static methods.Collections类包含了很多有用的静态方法。</p>
+<p>1.<strong>sort(List)</strong> - Sorts a list using a merge sort algorithm, which provides average case performance comparable to a high quality quicksort, guaranteed O(n*log n) performance (unlike quicksort), and stability (unlike quicksort). A stable sort is one that does not reorder equal elements.</p>
+<p>2.<strong>binarySearch(List, Object)</strong> - Searches for an element in an ordered list using the binary search algorithm.</p>
+<p>3.<strong>reverse(List)</strong> - Reverses the order of the elements in a list.</p>
+<p>4.<strong>shuffle(List)</strong> - Randomly changes the order of the elements in a list.</p>
+<p>5.<strong>fill(List, Object)</strong> - Overwrites every element in a list with the specified value.</p>
+<p>6.<strong>copy(List dest, List src)</strong> - Copies the source list into the destination list.</p>
+<p>7.<strong>min(Collection)</strong> - Returns the minimum element in a collection.</p>
+<p>8.<strong>max(Collection)</strong> - Returns the maximum element in a collection.</p>
+<p>9.<strong>rotate(List list, int distance)</strong> - Rotates all of the elements in the list by the specified distance.</p>
+<p>10.<strong>replaceAll(List list, Object oldVal, Object newVal)</strong> - Replaces all occurrences of one specified value with another.</p>
+<p>11.<strong>indexOfSubList(List source, List target)</strong> - Returns the index of the first sublist of source that is equal to target.</p>
+<p>12.<strong>lastIndexOfSubList(List source, List target)</strong> - Returns the index of the last sublist of source that is equal to target.</p>
+<p>13.<strong>swap(List, int, int)</strong> - Swaps the elements at the specified positions in the specified list.</p>
+<p>14.<strong>frequency(Collection, Object)</strong> - Counts the number of times the specified element occurs in the specified collection.</p>
+<p>15.<strong>disjoint(Collection, Collection)</strong> - Determines whether two collections are disjoint, in other words, whether they contain no elements in common.</p>
+<p>16.<strong>addAll(Collection&lt; super T&gt;, T…)</strong> - Adds all of the elements in the specified array to the specified collection.</p>
+<p><em>关于Comparable和Comparator</em>：</p>
+<p>1.<strong>Comparable</strong> - Imparts a <strong>natural ordering</strong> to classes that implement it. The natural ordering can be used to sort a list or maintain order in a sorted set or map. Many classes were retrofitted to implement this interface.</p>
+<p>2.<strong>Comparator</strong> - Represents an order relation, which can be used to sort a list or maintain order in a sorted set or map. <strong>Can override a type’s natural ordering or order objects of a type that does not implement the Comparable interface</strong>.作用有二：1.可以改变一个type的自然属性2.对于没有实现Comparable接口的type，可以让他们可以被比较，从而有顺序。</p>
+<p><strong>两者比较</strong>：</p>
+<p>In short, there isn’t much difference. They are both ends to similar means. <strong>In general implement comparable for natural order, (natural order definition is obviously open to interpretation), and write a comparator for other sorting or comparison needs</strong>. 一个类实现了Comparable接口的话，那么定义的肯定是它的最常用默认的排序方式嘛，因为这样将顺序已经写死了。而Comparator定义的顺序并不影响该类的自然顺序！</p>
+<p>参考：<a href="In%20short,%20there%20isn%27t%20much%20difference.%20They%20are%20both%20ends%20to%20similar%20means.%20In%20general%20implement%20comparable%20for%20natural%20order,%20%28natural%20order%20definition%20is%20obviously%20open%20to%20interpretation%29,%20and%20write%20a%20comparator%20for%20other%20sorting%20or%20comparison%20needs.">Java : Comparable vs Comparator</a></p>
+<p><em>Runtime exceptions</em>：</p>
+<p>1.<strong>UnsupportedOperationException</strong> - Thrown by collections if an unsupported optional operation is called.</p>
+<p>2.<strong>ConcurrentModificationException</strong> - Thrown by iterators and list iterators if the backing collection is changed unexpectedly while the iteration is in progress. Also thrown by sublist views of lists if the backing list is changed unexpectedly.</p>
+<h1>3-Tutorial</h1>
+
+<p><em>1.Lesson: Introduction to Collections</em></p>
+<p><em>2.Lesson: Interfaces</em>：<br><a href="http://docs.oracle.com/javase/tutorial/collections/interfaces/index.html" target="_blank" rel="external">链接</a>，针对每个interface写的都还行，推荐看看。<a href="http://docs.oracle.com/javase/tutorial/collections/interfaces/summary.html" target="_blank" rel="external">interfaces总结</a> 。</p>
+<p><em>3.Lesson: Aggregate Operations</em>：</p>
+<p>要明白本节的内容，首先需要了解<a href="http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html" target="_blank" rel="external">Lambda Expressions</a>，<a href="http://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html" target="_blank" rel="external">Method References</a>。前面已经讲过。</p>
+<p>For what do you use collections? You don’t simply store objects in a collection and leave them there. <strong>In most cases, you use collections to retrieve items stored in them</strong>.</p>
+<p>常规写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (Person p : roster) &#123;</span><br><span class="line">    System.out.println(p.getName());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用aggregate operation的写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">roster</span><br><span class="line">    .stream()</span><br><span class="line">    .forEach(e -&gt; System.out.println(e.getName());</span><br></pre></td></tr></table></figure>
+<p><strong>Pipelines and Streams</strong>：</p>
+<p>A pipeline is a sequence of aggregate operations.</p>
+<p>A pipeline contains the following components:</p>
+<p>1.<strong>A source</strong>: This could be a <strong>collection</strong>, an <strong>array</strong>, a <strong>generator function</strong>, or an <strong>I/O channel</strong>. In this example, the source is the collection roster.</p>
+<p>2.<strong>Zero or more intermediate operations（中间操作）</strong>. An intermediate operation, such as filter, produces a new stream.</p>
+<p>A stream is a sequence of elements.</p>
+<p>3.<strong>A terminal operation（最终操作）</strong>. A terminal operation, such as <strong>forEach</strong>, produces a <strong>non-stream result</strong>, such as a primitive value (like a double value), a collection, or in the case of forEach, no value at all. In this example, the parameter of the forEach operation is the lambda expression e -&gt; System.out.println(e.getName()), which invokes the method getName on the object e. (The Java runtime and compiler infer that the type of the object e is Person.)</p>
+<p>示例：</p>
+<p>The following example calculates the average age of all male members contained in the collection roster with a pipeline that consists of the aggregate operations filter, mapToInt, and average:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">double average = roster</span><br><span class="line">    .stream()</span><br><span class="line">    .filter(p -&gt; p.getGender() == Person.Sex.MALE)</span><br><span class="line">    .mapToInt(Person::getAge)</span><br><span class="line">    .average()</span><br><span class="line">    .getAsDouble();</span><br></pre></td></tr></table></figure>
+<p><strong>Differences Between Aggregate Operations and Iterators</strong>：</p>
+<p>Aggregate operations, like forEach, appear to be like iterators. However, they have several fundamental differences:</p>
+<p>1.They use <strong>internal iteration</strong><br>2.They process elements from a stream<br>3.They support behavior as parameters</p>
+<p>更多的关于Aggregate Operations的内容：<a href="http://docs.oracle.com/javase/tutorial/collections/streams/reduction.html" target="_blank" rel="external">Reduction</a>，<a href="http://docs.oracle.com/javase/tutorial/collections/streams/parallelism.html" target="_blank" rel="external">Parallelism</a> 。这应该是java自身的并行计算框架啊，跟Spark，Hadoop在并行计算方面的思想很相同。</p>
+<p><em>4.Implementations</em>：</p>
+<p><strong>Summary of Implementations</strong>（<a href="http://docs.oracle.com/javase/tutorial/collections/implementations/summary.html" target="_blank" rel="external">实现总结</a>）：</p>
+<p>The Java Collections Framework provides several <strong>general-purpose implementations</strong> of the core interfaces:</p>
+<p>1.For the Set interface, HashSet is the most commonly used implementation.<br>2.For the List interface, ArrayList is the most commonly used implementation.<br>3.For the Map interface, HashMap is the most commonly used implementation.<br>4.For the Queue interface, LinkedList is the most commonly used implementation.<br>5.For the Deque interface, ArrayDeque is the most commonly used implementation.</p>
+<p><em>5.Lesson: Algorithms</em>：</p>
+<p>它们都在Collections类中作为静态方法存在，大多数算法用在List上，还有一些用于任意的Collection实例上。</p>
+<p><strong>1.Sorting</strong>：</p>
+<p>The sort operation <strong>uses a slightly optimized merge sort algorithm</strong> that is fast and stable：</p>
+<p><strong>Fast</strong>: It is guaranteed to run in <strong>n log(n)</strong> time and runs substantially faster on nearly sorted lists. <strong>Empirical tests showed it to be as fast as a highly optimized quicksort</strong>. A quicksort is generally considered to be faster than a merge sort but isn’t stable and doesn’t guarantee n log(n) performance.（经过改善的merge sort具有stable，还能保证速度，速度方面跟quicksort差不多）</p>
+<p><strong>Stable</strong>: It doesn’t reorder equal elements. This is important if you sort the same list repeatedly on different attributes. If a user of a mail program sorts the inbox by mailing date and then sorts it by sender, the user naturally expects that the now-contiguous list of messages from a given sender will (still) be sorted by mailing date. This is guaranteed only if the second sort was stable.</p>
+<p><strong>2.Shuffling</strong>：</p>
+<p><a href="http://docs.oracle.com/javase/tutorial/collections/interfaces/list.html#shuffle" target="_blank" rel="external">shuffle</a>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//swap</span><br><span class="line">public static void swap(List&lt;E&gt; a, int i, int j) &#123;</span><br><span class="line">    E tmp = a.get(i);</span><br><span class="line">    a.set(i, a.get(j));</span><br><span class="line">    a.set(j, tmp);</span><br><span class="line">&#125;</span><br><span class="line">//shuffle</span><br><span class="line">public static void shuffle(List&lt;?&gt; list, Random rnd) &#123;</span><br><span class="line">    for (int i = list.size(); i &gt; 1; i--)</span><br><span class="line">        swap(list, i - 1, rnd.nextInt(i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>3.Routine Data Manipulation</strong>：</p>
+<p>manipulation：reverse，fill，copy，swap，addAll。</p>
+<p><strong>4.Searching</strong>：</p>
+<p>The binarySearch algorithm searches for a specified element in a sorted List.两种方式调用之，一种是直接传List和search key，但这需要保证List按照自然顺序升序排列，另一种是再多传一个Comparator，在search之前，先按Comparator顺序排序。</p>
+<p><strong>5.Composition</strong>：</p>
+<p>composition：frequency，disjoint。</p>
+<p><em>6.Lesson: Custom Collection Implementations</em>：</p>
+<p>如果要自定义的话，这无疑是最好的<a href="http://docs.oracle.com/javase/tutorial/collections/custom-implementations/index.html" target="_blank" rel="external">官方指导</a>。</p>
+<p>It is fairly easy to do this with the aid of the abstract implementations provided by the Java platform.</p>
+<p>接下来我们来实现下Arrays.asList吧：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public static List&lt;T&gt; asList(T[] a) &#123;</span><br><span class="line">    return new MyArrayList&lt;T&gt;(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private static class MyArrayList&lt;T&gt; extends AbstractList&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">    private final T[] a;</span><br><span class="line"></span><br><span class="line">    MyArrayList(T[] array) &#123;</span><br><span class="line">        a = array;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public T get(int index) &#123;</span><br><span class="line">        return a[index];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public T set(int index, T element) &#123;</span><br><span class="line">        T oldValue = a[index];</span><br><span class="line">        a[index] = element;</span><br><span class="line">        return oldValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int size() &#123;</span><br><span class="line">        return a.length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1>4-Java Collections API Design FAQ</h1>
+
+<p>Q1：Won’t programmers have to surround any code that calls optional operations with a try-catch clause in case they throw an UnsupportedOperationException?</p>
+<p>It was never our intention that programs should catch these exceptions: that’s why they’re unchecked (runtime) exceptions. They should only arise as a result of programming errors, in which case, your program will halt due to the uncaught exception.</p>
+<p>Q2：Why don’t you provide an Iterator.add method?</p>
+<p>The semantics are unclear, given that the contract for Iterator makes no guarantees about the order of iteration. <strong>Note, however, that ListIterator does provide an add operation, as it does guarantee the order of the iteration</strong>.</p>
+<p>Q3：Why doesn’t Map extend Collection?</p>
+<p>This was by design. <strong>We feel that mappings are not collections and collections are not mappings</strong>. Thus, it makes little sense for Map to extend the Collection interface (or vice versa).</p>
+<p>If a Map is a Collection, what are the elements? The only reasonable answer is “Key-value pairs”, but this provides a very limited (and not particularly useful) Map abstraction. You can’t ask what value a given key maps to, nor can you delete the entry for a given key without knowing what value it maps to.</p>
+<p>Collection could be made to extend Map, but this raises the question: what are the keys? There’s no really satisfactory answer, and forcing one leads to an unnatural interface.</p>
+<p>Maps can be viewed as Collections (of keys, values, or pairs), and this fact is reflected in the three “Collection view operations” on Maps (keySet, entrySet, and values). While it is, in principle, possible to view a List as a Map mapping indices to elements, this has the nasty property that deleting an element from the List changes the Key associated with every element before the deleted element. That’s why we don’t have a map view operation on Lists.</p>
+<h2 id="6-java传值方式"><a href="#6-java传值方式" class="headerlink" title="6.java传值方式"></a>6.java传值方式</h2><p>参考：<a href="http://stackoverflow.com/questions/40480/is-java-pass-by-reference-or-pass-by-value?answertab=votes#tab-top" target="_blank" rel="external">Is Java “pass-by-reference” or “pass-by-value”?</a>：</p>
+<p><strong>highest vote 1</strong>:</p>
+<p><strong>Java is always pass-by-value</strong>. Unfortunately, <strong>they decided to call pointers references, thus confusing newbies</strong>. Because those references are passed by value.（因为引用是通过值传递的）。</p>
+<p>为了证明是值传递还是引用传递，请看下面的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public static void main( String[] args )&#123;</span><br><span class="line">    Dog aDog = new Dog(&quot;Max&quot;);</span><br><span class="line">    foo(aDog);</span><br><span class="line"></span><br><span class="line">    if (aDog.getName().equals(&quot;Max&quot;)) &#123; //true</span><br><span class="line">        System.out.println( &quot;Java passes by value.&quot; );</span><br><span class="line"></span><br><span class="line">    &#125; else if (aDog.getName().equals(&quot;Fifi&quot;)) &#123;</span><br><span class="line">        System.out.println( &quot;Java passes by reference.&quot; );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static void foo(Dog d) &#123;</span><br><span class="line">    d.getName().equals(&quot;Max&quot;); // true</span><br><span class="line"></span><br><span class="line">    d = new Dog(&quot;Fifi&quot;);</span><br><span class="line">    d.getName().equals(&quot;Fifi&quot;); // true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>In this example aDog.getName() will still return “Max”</strong>. The value aDog within main is not overwritten in the function foo with the Dog “Fifi” as the object reference is passed by value. <strong>If it were passed by reference, then the aDog.getName() in main would return “Fifi” after the call to foo</strong>.（如果为引用传递，那么在call foo方法后，name会改变，但是并没有！可见为值传递）</p>
+<p>再看下面代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Dog aDog = new Dog(&quot;Max&quot;);</span><br><span class="line">foo(aDog);</span><br><span class="line">aDog.getName().equals(&quot;Fifi&quot;); // true</span><br><span class="line">public void foo(Dog d) &#123;</span><br><span class="line">    d.getName().equals(&quot;Max&quot;); // true</span><br><span class="line">    d.setName(&quot;Fifi&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>In the above example, FiFi is the dog’s name after call to foo(aDog). Any operations that foo performs on d are such that, for all practical purposes, they are performed on aDog itself (except d=new Dog(“Boxer”)).</p>
+<p><strong>highest vote 2</strong>:</p>
+<p>你可以简单地认为java传值的方式是传递reference的内存地址（之所以这样不够准确是因为java传递的不是直接地址（direct address），但差不多）。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Dog myDog = new Dog(&quot;Rover&quot;);</span><br><span class="line">foo(myDog);</span><br></pre></td></tr></table></figure>
+<p><strong>you’re essentially passing the address of the created Dog object to the foo method</strong>.</p>
+<p>(I say essentially because Java pointers aren’t direct addresses, but it’s easiest to think of them that way)</p>
+<p>Suppose the Dog object resides at <strong>memory address 42</strong>. This means we pass 42 to the method.</p>
+<p>Java works exactly like C. You can assign a pointer, pass the pointer to a method, follow the pointer in the method and change the data that was pointed to. <strong>However, you cannot change where that pointer points</strong>（即改变pointer指向的地址）.</p>
+<p>In C++, Ada, Pascal and other languages that support pass-by-reference, you can actually change the variable that was passed.</p>
+<p><strong>highest vote 3</strong>:</p>
+<p>我们通过图能更好地理解java的传值方式。先看下面代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Main&#123;</span><br><span class="line">     public static void main(String[] args)&#123;</span><br><span class="line">          Foo f = new Foo(&quot;f&quot;);</span><br><span class="line">          changeReference(f); // It won&apos;t change the reference!</span><br><span class="line">          modifyReference(f); // It will modify the object that the reference variable &quot;f&quot; refers to!</span><br><span class="line">     &#125;</span><br><span class="line">     public static void changeReference(Foo a)&#123;</span><br><span class="line">          Foo b = new Foo(&quot;b&quot;);</span><br><span class="line">          a = b;</span><br><span class="line">     &#125;</span><br><span class="line">     public static void modifyReference(Foo c)&#123;</span><br><span class="line">          c.setAttribute(&quot;c&quot;);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面按步骤来理解：</p>
+<p>step1：<br>Declaring a reference named f of type Foo and assign it to a new object of type Foo with an attribute “f”.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Foo f = new Foo(&quot;f&quot;);</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20170111204153912?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>step2：<br>From the method side, a reference of type Foo with a name a is declared and it’s initially assigned to null.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static void changeReference(Foo a)</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20170111204318879?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>step3：<br>As you call the method <strong>changeReference</strong>, the reference a will be assigned to the object which is passed as an argument.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">changeReference(f);</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20170111205454556?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>step4：<br>Declaring a reference named b of type Foo and assign it to a new object of type Foo with an attribute “b”.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Foo b = new Foo(&quot;b&quot;);</span><br></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20170111204552740?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>step5：<br><code>a = b</code> is re-assigning the reference <code>a</code> NOT <code>f</code> to the object whose its attribute is “b”.</p>
+<p><img src="http://img.blog.csdn.net/20170111204658732?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>step6：<br>As you call <strong>modifyReference(Foo c)</strong> method, a reference <code>c</code> is created and assigned to the object with attribute “f”.</p>
+<p><img src="http://img.blog.csdn.net/20170111204837539?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>step7：<br>c.setAttribute(“c”); will change the attribute of the object that reference c points to it, and it’s same object that reference f points to it.<br><img src="http://img.blog.csdn.net/20170111204925508?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaGVfd29ybGQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<p>hope you understand now how passing objects as arguments works in Java!</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/12/06/Java解惑/" data-title="Java解惑 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/12/21/算法设计与分析基础/" title="算法设计与分析基础">
+  <strong>上一篇：</strong><br/>
+  <span>
+  算法设计与分析基础</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/11/28/大型网站技术架构/"  title="大型网站技术架构">
+ <strong>下一篇：</strong><br/> 
+ <span>大型网站技术架构
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/12/06/Java解惑/" data-title="Java解惑" data-url="http://yoursite.com/2016/12/06/Java解惑/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-递归中的坑"><span class="toc-number">1.</span> <span class="toc-text">1.递归中的坑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Anonymous-Classes"><span class="toc-number">2.</span> <span class="toc-text">2.Anonymous Classes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Lambda-Expressions"><span class="toc-number">3.</span> <span class="toc-text">3.Lambda Expressions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Method-References"><span class="toc-number">4.</span> <span class="toc-text">4.Method References</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Collections类知识汇总"><span class="toc-number">5.</span> <span class="toc-text">5.Collections类知识汇总</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1-overview</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">3-Tutorial</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">4-Java Collections API Design FAQ</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-java传值方式"><span class="toc-number">1.</span> <span class="toc-text">6.java传值方式</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 16.67px;">Java编程思想读书笔记</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a> <a href="/tags/TECH/" style="font-size: 11.67px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 18.33px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.67px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 13.33px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

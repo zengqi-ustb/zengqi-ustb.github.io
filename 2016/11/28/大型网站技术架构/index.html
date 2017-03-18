@@ -1,0 +1,915 @@
+
+ <!DOCTYPE HTML>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>大型网站技术架构 | 曾先生&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="曾奇">
+    
+
+    
+    <meta name="description" content="第一篇：概述传统的企业应用系统主要面对的技术挑战是处理复杂凌乱、千变万化的所谓业务逻辑，而大型网站主要面对的技术挑战是处理超大量的用户访问和海量的数据处理；前者的挑战来自功能性需求，后者的挑战来自非功能性需求；功能性需求也许还有“人月神话”聊以自慰，通过增加人手解决问题，而非功能需求大多是实实在在的技术难题，无论有多少工程师，做不到就是做不到。
+“好的设计绝对不是模仿、不是生搬硬套某个模式，而是在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大型网站技术架构">
+<meta property="og:url" content="http://yoursite.com/2016/11/28/大型网站技术架构/index.html">
+<meta property="og:site_name" content="曾先生's Blog">
+<meta property="og:description" content="第一篇：概述传统的企业应用系统主要面对的技术挑战是处理复杂凌乱、千变万化的所谓业务逻辑，而大型网站主要面对的技术挑战是处理超大量的用户访问和海量的数据处理；前者的挑战来自功能性需求，后者的挑战来自非功能性需求；功能性需求也许还有“人月神话”聊以自慰，通过增加人手解决问题，而非功能需求大多是实实在在的技术难题，无论有多少工程师，做不到就是做不到。
+“好的设计绝对不是模仿、不是生搬硬套某个模式，而是在">
+<meta property="og:image" content="http://img.blog.csdn.net/20161128110310237">
+<meta property="og:image" content="http://img.blog.csdn.net/20161128110630711">
+<meta property="og:image" content="http://img.blog.csdn.net/20161128111705977">
+<meta property="og:image" content="http://img.blog.csdn.net/20161128112914837">
+<meta property="og:image" content="http://img.blog.csdn.net/20161128113100276">
+<meta property="og:image" content="http://img.blog.csdn.net/20161128113451921">
+<meta property="og:image" content="http://img.blog.csdn.net/20161128114016115">
+<meta property="og:image" content="http://img.blog.csdn.net/20161128114151907">
+<meta property="og:image" content="http://img.blog.csdn.net/20161128114357854">
+<meta property="og:image" content="http://img.blog.csdn.net/20161128114624846">
+<meta property="og:image" content="http://img.blog.csdn.net/20161128115953702">
+<meta property="og:image" content="http://img.blog.csdn.net/20161128145325341">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129112843627">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129113002568">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129113657118">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129135128099">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129142415581">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129143554423">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129144457359">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129150833627">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129151056411">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129151656747">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129152233473">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129152456523">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129160518844">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129160625345">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129163023939">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129163151888">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129165619461">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129170043011">
+<meta property="og:image" content="http://img.blog.csdn.net/20161129170716255">
+<meta property="og:updated_time" content="2017-03-18T14:59:32.458Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="大型网站技术架构">
+<meta name="twitter:description" content="第一篇：概述传统的企业应用系统主要面对的技术挑战是处理复杂凌乱、千变万化的所谓业务逻辑，而大型网站主要面对的技术挑战是处理超大量的用户访问和海量的数据处理；前者的挑战来自功能性需求，后者的挑战来自非功能性需求；功能性需求也许还有“人月神话”聊以自慰，通过增加人手解决问题，而非功能需求大多是实实在在的技术难题，无论有多少工程师，做不到就是做不到。
+“好的设计绝对不是模仿、不是生搬硬套某个模式，而是在">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161128110310237">
+
+    
+    <link rel="alternative" href="/atom.xml" title="曾先生&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="曾先生&#39;s Blog" title="曾先生&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="曾先生&#39;s Blog">曾先生&#39;s Blog</a></h1>
+				<h2 class="blog-motto">飞面神教四川担担面教区主教</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于我</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/11/28/大型网站技术架构/" title="大型网站技术架构" itemprop="url">大型网站技术架构</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="曾奇" target="_blank" itemprop="author">曾奇</a>
+		
+  <p class="article-time">
+    <time datetime="2016-11-28T04:30:33.000Z" itemprop="datePublished"> Published 2016-11-28</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一篇：概述"><span class="toc-number">1.</span> <span class="toc-text">第一篇：概述</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.大型网站架构演化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">1.1大型网站软件系统的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">1.2大型网站架构演化发展历程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">1.4网站架构设计误区</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">2.大型网站架构模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">2.1网站架构模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">2.2架构模式在新浪微博中的应用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">3.大型网站核心架构要素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">3.1性能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">3.2可用性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">3.3伸缩性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">3.4扩展性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.5.</span> <span class="toc-text">3.5安全性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.6.</span> <span class="toc-text">3.6小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二篇：架构"><span class="toc-number">1.</span> <span class="toc-text">第二篇：架构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">4.瞬时响应：网站的高性能架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">4.2Web前端性能优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">4.3应用服务器性能优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">4.4存储性能优化</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">5.万无一失：网站的高可用架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">5.1网站可用性的度量与考核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">5.3高可用的应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">5.4高可用的服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">5.5高可用的数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.5.</span> <span class="toc-text">5.7网站运行监控</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">6.永无止境：网站的伸缩性架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">6.2应用服务器集群的伸缩性设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">6.3分布式缓存集群的伸缩性设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">6.4数据存储服务器集群的伸缩性设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">6.5小结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">7.按需应变：网站的可扩展架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">7.2利用分布式消息队列降低系统耦合性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">7.3利用分布式服务打造可复用的业务平台</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">7.4可扩展的数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">7.6小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三篇：案例"><span class="toc-number">1.</span> <span class="toc-text">第三篇：案例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">10.1Wikipedia网站整体架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">12.1秒杀活动的技术挑战</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.</span> <span class="toc-text">12.2秒杀系统的应对策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.4.</span> <span class="toc-text">13.3高并发情况下锁引发的故障</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第四篇：架构师"><span class="toc-number">2.</span> <span class="toc-text">第四篇：架构师</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="第一篇：概述"><a href="#第一篇：概述" class="headerlink" title="第一篇：概述"></a>第一篇：概述</h2><p><strong>传统的企业应用系统</strong>主要面对的技术挑战是处理复杂凌乱、千变万化的所谓<strong>业务逻辑</strong>，而<strong>大型网站</strong>主要面对的技术挑战是<strong>处理超大量的用户访问和海量的数据处理</strong>；前者的挑战来自功能性需求，后者的挑战来自非功能性需求；功能性需求也许还有“人月神话”聊以自慰，通过增加人手解决问题，而非功能需求大多是实实在在的技术难题，无论有多少工程师，做不到就是做不到。</p>
+<p>“好的设计绝对不是模仿、不是生搬硬套某个模式，而是在对问题深刻理解之上的创造与创新，即使是‘微创新’，也是让人耳目一新的似曾相识。</p>
+<p>京东促销不能购买的<strong>例子</strong>：</p>
+<p>能够正常访问购物车，却不能成功购买，问题应该是出在<strong>订单系统</strong>，B 2C网站生成一个订单需要经历扣减库存、扣减促销资源、更新用户账户等<strong>一系列操作</strong>，<strong>这些操作大多是数据库事务操作，没有办法通过缓存等手段来减轻数据库服务器负载压力，如果事前没有设计好数据库伸缩性架构，那么京东的技术团队将遇到一个大麻烦</strong>。</p>
+<h1>1.大型网站架构演化</h1>
+
+<p>如何打造一个高可用、高性能、易扩展、可伸缩且安全的网站？如何让网站随应用所需灵活变动，即使是山寨他人的产品，也可以山寨的更高、更快、更强，一年时间用户数从零过亿呢？</p>
+<h3>1.1大型网站软件系统的特点</h3>
+
+<p>有以下特点：</p>
+<p>1.高并发，大流量<br>2.高可用：系统24小时不间断服务<br>3.海量数据<br>4.用户分布广泛，网络情况复杂<br>5.安全环境恶劣<br>6.需求快速变更，发布频繁<br>7.渐进式发展</p>
+<h3>1.2大型网站架构演化发展历程</h3>
+
+<p><strong>1.初始阶段的网站架构</strong></p>
+<p><img src="http://img.blog.csdn.net/20161128110310237" alt=""></p>
+<p>应用程序，数据库，文件等所有的资源都在一台服务器上。</p>
+<p><strong>2.应用服务和数据服务分离</strong></p>
+<p>应用和数据分离后整个网站使用三台服务器：应用服务器，文件服务器和数据库服务器。如下图所示：<br><img src="http://img.blog.csdn.net/20161128110630711" alt=""></p>
+<p>这三台服务器对硬件资源的要求各不相同：</p>
+<p>1.<strong>应用服务器</strong>需要处理大量的业务逻辑，因此需要更快更强大的<strong>CPU</strong><br>2.<strong>数据库服务器</strong>需要快速磁盘检索和数据缓存，因此需要<strong>更快的硬盘和更大的内存</strong><br>3.<strong>文件服务器</strong>需要存储大量用户上传的文件，因此需要更大的<strong>磁盘</strong></p>
+<p>随着用户逐渐增多，网站又一次面临挑战：数据库压力太大导致访问延迟，进而影响整个网站的性能，用户体验受到影响。</p>
+<p><strong>3.访问缓存改善网站性能</strong></p>
+<p>网站访问特点和现实世界的财富分配一样遵循二八定律：<strong>80%的业务访问集中在20%的数据上</strong>。</p>
+<p>网站使用的缓存可以分为两种：缓存在<strong>1.应用服务器上的本地缓存</strong>和缓存在专门的<strong>2.分布式缓存服务器上的远程缓存</strong>。本地缓存的访问速度更快一些，但是受应用服务器内存限制，其缓存数据量有限，而且会出现和应用程序争用内存的情况。远程分布式缓存可以使用集群的方式，部署大内存的服务器作为专门的缓存服务器，可以在理论上做到不受内存容量限制的缓存服务，如图：<br><img src="http://img.blog.csdn.net/20161128111705977" alt=""></p>
+<p>使用缓存后，数据访问压力得到有效缓解，但是单一应用服务器能够处理的请求连接有限，在网站高峰期，<strong>应用服务器成为整个网站的瓶颈</strong>。</p>
+<p><strong>4.使用应用服务器集群改善网站的并发处理能力</strong></p>
+<p><strong>使用集群是网站解决高并发、海量数据问题的常用手段</strong>。当一台服务器的处理能力、存储空间不足时，不要企图去换更强大的服务器，对大型网站而言，不管多么强大的服务器，都满足不了网站持续增长的业务需求。这种情况下，更恰当的做法是增加一台服务器分担原有服务器的访问及存储压力。架构如图：<br><img src="http://img.blog.csdn.net/20161128112914837" alt=""></p>
+<p><strong>5.数据库读写分离</strong></p>
+<p>目前大部分的主流数据库都提供<strong>主从热备功能</strong>，通过配置两台数据库主从关系，可以将一台数据库服务器的数据更新同步到另一台服务器上。网站利用数据库的这一功能，实现数据库读写分离，从而改善数据库负载压力。如图：<br><img src="http://img.blog.csdn.net/20161128113100276" alt=""></p>
+<p><strong>6.使用反向代理和CDN加速网站响应</strong></p>
+<p><strong>CDN和反向代理的基本原理都是缓存</strong>，区别在于<strong>CDN部署在网络提供商的机房</strong>，使用户在请求网站服务时，可以从距离自己最近的网络提供商机房获取数据；而<strong>反向代理则部署在网站的中心机房</strong>，当用户请求到达中心机房后，首先访问的服务器是反向代理服务器，如果反向代理服务器中缓存着用户请求的资源，就将其直接返回给用户。架构如图：<br><img src="http://img.blog.csdn.net/20161128113451921" alt=""></p>
+<p>使用CDN和反向代理的目的是尽早返回数据给用户，一方面加快用户访问速度，另一方面也减轻了后端服务器的负载压力。</p>
+<p><strong>7.使用分布式文件系统和分布式数据库系统</strong></p>
+<p><strong>分布式数据库是网站数据库拆分的最后手段</strong>，只有在单表数据规模非常庞大的时候才使用。不到不得已时，<strong>网站更常用的数据库拆分手段是业务分库，将不同业务的数据库部署在不同的物理服务器上</strong>。<br><img src="http://img.blog.csdn.net/20161128114016115" alt=""></p>
+<p><strong>8.使用NoSQL和搜索引擎</strong><br><img src="http://img.blog.csdn.net/20161128114151907" alt=""></p>
+<p><strong>9.业务拆分</strong><br><img src="http://img.blog.csdn.net/20161128114357854" alt=""></p>
+<p><strong>10.分布式服务</strong></p>
+<p>既然每一个应用系统都需要执行<strong>许多相同的业务操作</strong>，比如用户管理、商品管理等，那么可以<strong>将这些共用的业务提取出来</strong>，独立部署。由这些可复用的业务连接数据库，提供共用业务服务，而应用系统只需要管理用户界面，通过分布式服务调用共用业务服务完成具体业务操作，如图：<br><img src="http://img.blog.csdn.net/20161128114624846" alt=""></p>
+<h3>1.4网站架构设计误区</h3>
+
+<p>误区：</p>
+<p>1.一味追随大公司的解决方案<br>2.为了技术而技术<br>3.企图用技术解决所有问题</p>
+<p>比如说12306网站：</p>
+<p><strong>12306真正的问题其实不在于它的技术架构，而在于它的业务架构</strong>：12306根本就不应该在几亿中国人一票难求的情况下以窗口售票的模式在网上售票(零点开始出售若干天后的车票)。12306需要重构的不仅是它的技术架构，更重要的是它的业务架构：调整业务需求，换一种方式卖票，而不要去搞促销秒杀这种噱头式的游戏。</p>
+<p>后来证明12306确实是朝这个方向发展的：<strong>在售票方式上引入了排队机制、整点售票调整为分时段售票</strong>。其实如果能<strong>控制住并发访问的量</strong>，很多棘手的技术问题也就不是什么问题了。</p>
+<h1>2.大型网站架构模式</h1>
+
+<p>关于什么是模式，这个来自建筑学的词汇是这样定义的：“<strong>每一个模式描述了一个在我们周围不断重复发生的问题及该问题解决方案的核心</strong>。这样，你就能一次又一次地使用该方案而不必做重复工作”。<strong>模式的关键在于模式的可重复性，问题与场景的可重复性带来解决方案的可重复使用</strong>。</p>
+<h3>2.1网站架构模式</h3>
+
+<p><strong>1.分层</strong></p>
+<p>分层是企业应用系统中最常见的一种架构模式，<strong>将系统在横向维度上切分成几个部分</strong>，每个部分负责一部分相对比较单一的职责，然后通过上层对下层的依赖和调用组成一个完整的系统。</p>
+<p>分层结构在计算机世界中无处不在，网络的7层通信协议是一种分层结构；计算机硬件、操作系统、应用软件也可以看作是一种分层结构。在大型网站架构中也采用分层结构，将网站软件系统分为<strong>1.应用层</strong>、<strong>2.服务层</strong>、<strong>3.数据层</strong>，如表：<br><img src="http://img.blog.csdn.net/20161128115953702" alt=""></p>
+<p>但是分层架构也有一些挑战，就是<strong>必须合理规划层次边界和接口</strong>，在开发过程中，严格遵循分层架构的约束，<strong>禁止跨层次的调用</strong>(应用层直接调用数据层)及<strong>逆向调用</strong>(数据层调用服务层，或者服务层调用应用层)。</p>
+<p><strong>2.分割</strong></p>
+<p>对软件进行<strong>纵向切分</strong>。</p>
+<p><strong>3.分布式</strong></p>
+<p>对于大型网站，<strong>分层和分割的一个主要目的是为了切分后的模块便于分布式部署，即将不同模块部署在不同的服务器上，通过远程调用协同工作</strong>。分布式意味着可以使用更多的计算机完成同样的功能，计算机越多，CPU、内存、存储资源也就越多，能够处理的并发访问和数据量就越大，进而能够为更多的用户提供服务。</p>
+<p>在网站应用中，常用的分布式方案有如下几种：</p>
+<p>1.分布式应用和服务</p>
+<p>将分层和分割后的应用和服务模块分布式部署，除了可以改善网站性能和并发性、加快开发和发布速度、减少数据库连接资源消耗外；还可以使不同应用复用共同的服务，便于业务功能扩展。</p>
+<p>2.分布式静态资源</p>
+<p>网站的静态资源如JS， CSS， Logo图片等资源独立分布式部署，并采用独立的域名，即人们常说的<strong>动静分离</strong>。静态资源分布式部署可以减轻应用服务器的负载压力；通过使用独立域名加快浏览器并发加载的速度；由负责用户体验的团队进行开发维护有利于网站分工合作，使不同技术工种术业有专攻。</p>
+<p>3.分布式数据和存储</p>
+<p>大型网站需要处理以P为单位的海量数据，单台计算机无法提供如此大的存储空间，这些数据需要分布式存储。除了对传统的关系数据库进行分布式部署外，为网站应用而生的各种<strong>NoSQL产品</strong>几乎都是分布式的。</p>
+<p>4.分布式计算</p>
+<p>目前网站<strong>普遍使用Hadoop及其M apR educe分布式计算框架进行此类批处理计算</strong>，其特点是移动计算而不是移动数据，将计算程序分发到数据所在的位置以加速计算和分布式计算。</p>
+<p><strong>4.集群</strong></p>
+<p><strong>5.缓存</strong></p>
+<p><strong>缓存就是将数据存放在距离计算最近的位置以加快处理速度</strong>。缓存是改善软件性能的第一手段，现代CPU越来越快的一个重要因素就是使用了更多的缓存，在复杂的软件设计中，缓存几乎无处不在。大型网站架构设计在很多方面都使用了缓存设计。</p>
+<p>使用缓存的例子：CDN，反向代理，本地缓存，分布式缓存。</p>
+<p>使用缓存有两个<strong>前提条件</strong>：</p>
+<p>1.数据访问热点不均衡。<br>2.数据在某个时间段内有效，不会很快过期，否则缓存的数据就会因已经失效而产生脏读，影响了结果的正确性。</p>
+<p><strong>6.异步</strong></p>
+<p><strong>7.冗余</strong></p>
+<p><strong>8.自动化</strong></p>
+<p><strong>9.安全</strong></p>
+<h3>2.2架构模式在新浪微博中的应用</h3>
+
+<p>新浪微博的架构在较短的时间内几经重构，最终形成了现在的架构：<br><img src="http://img.blog.csdn.net/20161128145325341" alt=""></p>
+<p>系统分为三个层次，最下层是<strong>基础服务层</strong>，提供数据库，缓存，存储，搜索等数据服务，以及其他一些基础技术服务，这些服务支撑了整个新浪微博的海量数据和高并发访问，是整个系统的技术基础。</p>
+<p>中间层是<strong>平台服务和应用服务层</strong>，新浪微博的核心服务是微博、关系和用户，它们是新浪微博业务大厦的支柱。这些服务被分割为独立的服务模块，通过依赖调用和共享基础数据构成新浪微博的业务基础。</p>
+<p>最上层是<strong>API和新浪微博的业务层</strong>，各种客户端(包括Web网站)和第三方应用，通过调用API集成到新浪微博的系统中，共同组成一个生态系统。</p>
+<p>在新浪微博的早期架构中，微博发布使用<strong>同步推模式</strong>，用户发表微博后系统会立即将这条微博插入到数据库所有粉丝的订阅列表中，当用户量比较大时，特别是明星用户发布微博时，会引起大量的数据库写操作，超出数据库负载，系统性能急剧下降，用户响应延迟加剧。后来新浪微博改用<strong>异步推拉结合的模式</strong>，用户发表微博后系统将微博写入消息队列后立即返回，用户响应迅速，消息队列消费者任务将微博推送给所有当前在线粉丝的订阅列表中，非在线用户登录后再根据关注列表拉取微博订阅列表。</p>
+<h1>3.大型网站核心架构要素</h1>
+
+<p>关于什么是架构，一种比较通俗的说法是“<strong>最高层次的规划，难以改变的决定</strong>”，这些规划和决定奠定了事物未来发展的方向和最终的蓝图。</p>
+<h3>3.1性能</h3>
+
+<p>性能是网站的一个重要指标，除非是没得选择(比如只能到www.12306.cn这一个网站上买火车票)，否则用户无法忍受一个响应缓慢的网站。一个打开缓慢的网站会导致严重的用户流失，很多时候网站性能问题是网站架构升级优化的触发器。可以说性能是网站架构设计的一个重要方面，任何软件架构设计方案都必须考虑可能会带来的性能问题。</p>
+<p>也正是因为性能问题几乎无处不在，所以优化网站性能的手段也非常多，从用户浏览器到数据库，影响用户请求的所有环节都可以进行性能优化。</p>
+<p>在<strong>浏览器端</strong>，可以通过浏览器缓存、使用页面压缩、合理布局页面、减少Cookie传输等手段改善性能。</p>
+<p>还可以使用<strong>CDN</strong>，将网站静态内容分发至离用户最近的网络服务商机房，使用户通过最短访问路径获取数据。可以在网站机房部署反向代理服务器，缓存热点文件，加快请求响应速度，减轻应用服务器负载压力。</p>
+<p>在<strong>应用服务器端</strong>，可以使用服务器本地缓存和分布式缓存，通过缓存在内存中的热点数据处理用户请求，加快请求处理过程，减轻数据库负载压力。</p>
+<p>也可以通过<strong>异步操作</strong>将用户请求发送至消息队列等待后续任务处理，而当前请求直接返回响应给用户。</p>
+<p>在网站有很多用户高并发请求的情况下，可以将多台应用服务器<strong>组成一个集群</strong>共同对外服务，提高整体处理能力，改善性能。</p>
+<p>在<strong>代码层面</strong>，也可以通过使用多线程、改善内存管理等手段优化性能。</p>
+<p>在数据库服务器端，索引、缓存、SQL优化等性能优化手段都已经比较成熟。而方兴未艾的<strong>NoSQL数据库</strong>通过优化数据模型、存储结构、伸缩特性等手段在性能方面的优势也日趋明显。</p>
+<p>衡量网站性能有一系列指标，重要的有<strong>响应时间</strong>、<strong>TPS</strong>、<strong>系统性能计数器</strong>等，通过测试这些指标以确定系统设计是否达到目标。这些指标也是网站监控的重要参数，通过监控这些指标可以分析系统瓶颈，预测网站容量，并对异常指标进行报警，保障系统可用性。</p>
+<h3>3.2可用性</h3>
+
+<p>网站高可用的主要手段是<strong>冗余</strong>，应用部署在多台服务器上同时提供访问，数据存储在多台服务器上互相备份，任何一台服务器宕机都不会影响应用的整体可用，也不会导致数据丢失。</p>
+<p>对于应用服务器而言，多台应用服务器通过负载均衡设备组成一个集群共同对外提供服务，任何一台服务器宕机，只需把请求切换到其他服务器就可实现应用的高可用，<strong>但是一个前提条件是应用服务器上不能保存请求的会话信息。否则服务器宕机，会话丢失，即使将用户请求转发到其他服务器上也无法完成业务处理</strong>。</p>
+<h3>3.3伸缩性</h3>
+
+<p>衡量架构伸缩性的主要标准就是是否可以用多台服务器构建集群，是否容易向集群中添加新的服务器。加入新的服务器后是否可以提供和原来的服务器无差别的服务。集群中可容纳的总的服务器数量是否有限制。</p>
+<h3>3.4扩展性</h3>
+
+<p>不同于其他架构要素主要关注非功能性需求，<strong>网站的扩展性架构直接关注网站的功能需求</strong>。网站快速发展，功能不断扩展，如何设计网站的架构使其能够快速响应需求变化，是网站可扩展架构主要的目的。</p>
+<p>网站可伸缩架构的主要手段是<strong>事件驱动架构</strong>和<strong>分布式服务</strong>。</p>
+<p><strong>事件驱动架构在网站通常利用消息队列实现</strong>，将用户请求和其他业务事件构造成消息发布到消息队列，消息的处理者作为消费者从消息队列中获取消息进行处理。通过这种方式将消息产生和消息处理分离开来，可以透明地增加新的消息生产者任务或者新的消息消费者任务。</p>
+<p><strong>分布式服务则是将业务和可复用服务分离开来，通过分布式服务框架调用</strong>。新增产品可以通过调用可复用的服务实现自身的业务逻辑，而对现有产品没有任何影响。可复用服务升级变更的时候，也可以通过提供多版本服务对应用实现透明升级，不需要强制应用同步变更。</p>
+<h3>3.5安全性</h3>
+
+<h3>3.6小结</h3>
+
+<p><strong>性能</strong>，<strong>可用性</strong>，<strong>伸缩性</strong>，<strong>扩展性</strong>和<strong>安全性</strong>是网站架构最核心的几个要素。</p>
+<h2 id="第二篇：架构"><a href="#第二篇：架构" class="headerlink" title="第二篇：架构"></a>第二篇：架构</h2><h1>4.瞬时响应：网站的高性能架构</h1>
+
+<p>网站性能是客观的指标，可以具体体现到响应时间、吞吐量等技术指标，同时也是主观的感受，而感受则是一种与具体参与者相关的微妙的东西，用户的感受和工程师的感受不同，不同的用户感受也不同。</p>
+<p><strong>2.性能测试指标</strong></p>
+<p>主要指标有响应时间，并发数，吞吐量，性能计数器等：</p>
+<p><strong>1.响应时间</strong></p>
+<p>指应用执行一个操作需要的时间，包括从发出请求开始收到最后响应数据所需要的时间。响应时间是系统最重要的性能指标，直观地反映了系统的“快慢”。</p>
+<p><strong>2.并发数</strong></p>
+<p>指系统能够同时处理请求的数目，这个数字也反映了系统的负载特性。</p>
+<p>注意厘清<strong>数量关系</strong>：</p>
+<p>网站系统用户数&gt;&gt;网站在线用户数&gt;&gt;网站并发用户数</p>
+<p><strong>3.吞吐量</strong></p>
+<p>指单位时间内系统处理的请求数量，体现了系统的整体处理能力。TPS(每秒事务数)是吞吐量的一个常用量化指标，此外还有HPS(每秒HTTP请求数)、QPS(每秒查询数)等。</p>
+<p><strong>系统吞吐量</strong>和<strong>系统并发数</strong>，以及<strong>响应时间</strong>的关系可以形象地理解为高速公路的通行状况：</p>
+<p>吞吐量是每天通过收费站的车辆数目(可以换算成收费站收取的高速费)，并发数是高速公路上的正在行驶的车辆数目，响应时间是车速。</p>
+<p>车辆很少时，车速很快，但是收到的高速费也相应较少；随着高速公路上车辆数目的增多，车速略受影响，但是收到的高速费增加很快；随着车辆的继续增加，车速变得越来越慢，高速公路越来越堵，收费不增反降；如果车流量继续增加，超过某个极限后，任何偶然因素都会导致高速全部瘫痪，车走不动，费当然也收不着，而高速公路成了停车场(资源耗尽)。</p>
+<p><strong>4.性能计数器</strong></p>
+<p>System Load即系统负载，指当前正在被CPU执行和等待被CPU执行的进程数目总和，是反映系统忙闲程度的重要指标。<strong>多核CPU的情况下，完美情况是所有CPU都在使用，没有进程在等待处理，所以Load的理想值是CPU的数目</strong>。当Load值低于CPU数目的时候，表示CPU有空闲，资源存在浪费；当Load值高于CPU数目的时候，表示进程在排队等待CPU调度，表示系统资源不足，影响应用程序的执行性能。在Linux系统中使用top命令查看，该值是三个浮点数，表示最近1分钟，10分钟，15分钟的运行队列平均进程数。</p>
+<p><strong>3.性能测试方法</strong></p>
+<p>性能测试是一个总称，具体可以细分为<strong>性能测试</strong>，<strong>负载测试</strong>，<strong>压力测试</strong>，<strong>稳定性测试</strong>。</p>
+<p><strong>4.性能优化方法</strong></p>
+<p>定位产生性能问题的具体原因后，就需要进行性能优化，根据网站分层架构，可分为<strong>1.Web前端性能优化</strong>、<strong>2.应用服务器性能优化</strong>、<strong>3.存储服务器性能优化</strong>3大类。</p>
+<h3>4.2Web前端性能优化</h3>
+
+<p><strong>1.浏览器访问优化</strong></p>
+<p><em>1.减少http请求</em></p>
+<p><strong>HTTP协议是无状态的应用层协议，意味着每次HTTP请求都需要建立通信链路、进行数据传输，而在服务器端，每个HTTP都需要启动独立的线程去处理</strong>。这些通信和服务的开销都很昂贵，减少HTTP请求的数目可有效提高访问性能。</p>
+<p><strong>减少HTTP的主要手段是合并CSS、合并JavaScript、合并图片</strong>。将浏览器一次访问需要的JavaScript、CSS合并成一个文件，这样浏览器就只需要一次请求。图片也可以合并，多张图片合并成一张，如果每张图片都有不同的超链接，可通过CSS偏移响应鼠标点击操作，构造不同的URL。</p>
+<p><em>2.使用浏览器缓存</em></p>
+<p>对于一个网站而言，CSS，JS，logo，图标这些静态资源文件更新的频率都比较低，而这些文件又几乎是每次HTTP请求都需要的，如果将这些文件缓存在浏览器中，可以极好地改善性能。<strong>通过设置HTTP头中的Cache-Control和Expires的属性，可设定浏览器缓存，缓存时间可以是数天，甚至是几个月</strong>。</p>
+<p><em>3.启用压缩</em></p>
+<p><em>4.CSS放在页面最上面，JS放在页面最下面</em></p>
+<p><em>5.减少Cookie传输</em></p>
+<p>一方面，<strong>Cookie包含在每次请求和响应中</strong>，太大的C ookie会严重影响数据传输，因此哪些数据需要写入C ookie需要慎重考虑，尽量减少C ookie中传输的数据量。另一方面，对于某些静态资源的访问，如CSS、Script等，发送C ookie没有意义，<strong>可以考虑静态资源使用独立域名访问，避免请求静态资源时发送C ookie，减少C ookie传输的次数</strong>。</p>
+<p><strong>2.CDN加速</strong></p>
+<p>CDN能够缓存的一般是<strong>静态资源</strong>，如图片、文件、CSS、Script脚本、静态网页等，但是这些文件访问频度很高，将其缓存在CDN可极大改善网页的打开速度。</p>
+<p><strong>3.反向代理</strong></p>
+<h3>4.3应用服务器性能优化</h3>
+
+<p>应用服务器就是处理网站业务的服务器，网站的业务代码都部署在这里，是网站开发最复杂，变化最多的地方，优化手段主要是缓存，集群，异步等。</p>
+<p><strong>1.分布式缓存</strong></p>
+<p><strong>缓存的基本原理</strong>：</p>
+<p>缓存指将数据存储在相对较高访问速度的存储介质中，以供系统处理。一方面缓存访问速度快，可以减少数据访问的时间，另一方面如果缓存的数据是经过计算处理得到的，那么被缓存的数据无需重复计算即可直接使用，因此缓存还起到减少计算时间的作用。</p>
+<p>不合理使用缓存的例子：</p>
+<p>1.频繁修改的数据</p>
+<p>一般来说，数据的读写比在2:1以上，即写入一次缓存，在数据更新前至少读取两次，缓存才有意义。在实践中，这个比例通常非常高，例如新浪热门微博，缓存以后可能会被读取数百万次。</p>
+<p>2.没有热点的访问</p>
+<p>3.数据不一致与脏读</p>
+<p>一般会对缓存的数据<strong>设置失效时间</strong>，一旦超过失效时间，就要从数据库中重新加载。<strong>因此应用要容忍一定时间的数据不一致</strong>，如卖家已经编辑了商品属性，但是需要过一段时间才能被买家看到。在互联网应用中，这种延迟通常是可以接受的，但是具体应用仍需慎重对待。还有一种策略是数据更新时立即更新缓存，不过这也会带来更多系统开销和事务一致性的问题。</p>
+<p>4.缓存可用性</p>
+<p>通过分布式缓存服务器集群，将缓存数据分布到集群多台服务器上可在一定程度上改善缓存的可用性。当一台缓存服务器宕机的时候，只有部分缓存数据丢失，重新从数据库加载这部分数据不会对数据库产生很大影响。</p>
+<p>5.缓存预热</p>
+<p>缓存中存放的是<strong>热点数据</strong>，热点数据又是缓存系统利用<strong>LRU(最近最久未用算法)</strong>对不断访问的数据筛选淘汰出来的，<strong>这个过程需要花费较长的时间</strong>。新启动的缓存系统如果没有任何数据，在重建缓存数据的过程中，系统的性能和数据库负载都不太好，那么最好在缓存系统启动时就把热点数据加载好，这个缓存预加载手段叫作缓存预热(warm up)。<strong>对于一些元数据如城市地名列表、类目信息，可以在启动时加载数据库中全部数据到缓存进行预热</strong>。</p>
+<p>6.缓存穿透</p>
+<p>如果因为不恰当的业务、或者恶意攻击持续高并发地请求某个不存在的数据，由于缓存没有保存该数据，所有的请求都会落到数据库上，会对数据库造成很大压力，甚至崩溃。<strong>一个简单的对策是将不存在的数据也缓存起来(其value值为null)</strong>。</p>
+<p><strong>分布式缓存架构</strong></p>
+<p>分布式缓存指缓存部署在多个服务器组成的集群中，以集群方式提供缓存服务，其架构方式有两种，<strong>一种是以JBoss C ache为代表的需要更新同步的分布式缓存</strong>，<strong>一种是以Memcached为代表的不互相通信的分布式缓存</strong>。</p>
+<p><strong>Memcached</strong></p>
+<p><strong>2.异步操作</strong></p>
+<p>需要注意的是，由于数据写入消息队列后立即返回给用户，数据在后续的业务校验、写数据库等操作可能失败，因此在使用消息队列进行业务异步处理后，需要适当修改业务流程进行配合，如订单提交后，订单数据写入消息队列，不能立即返回用户订单提交成功，需要在消息队列的订单消费者进程真正处理完该订单，甚至商品出库后，再通过电子邮件或SM S消息通知用户订单成功，以免交易纠纷。</p>
+<p><strong>任何可以晚点做的事情都应该晚点再做</strong>。保证数据的正确性</p>
+<p><strong>3.使用集群</strong></p>
+<p><strong>4.代码优化</strong></p>
+<p><em>1.多线程</em></p>
+<p>从资源利用的角度看，使用多线程的原因主要有两个：<strong>IO阻塞与多CPU</strong>。</p>
+<p>网站的应用程序一般都被Web服务器容器管理，用户请求的多线程也通常被Web服务器容器管理，但不管是Web容器管理的线程，还是应用程序自己创建的线程，一台服务器上启动多少线程合适呢？</p>
+<p>假设服务器上执行的都是相同类型任务，针对该类任务启动的线程数有个简化的估算公式可供参考：</p>
+<p><strong>启动线程数=[任务执行时间/(任务执行时间×IO等待时间)]×CPU内核数</strong></p>
+<p>最佳启动线程数和CPU内核数量成正比，和IO阻塞时间成反比。<strong>如果任务都是CPU计算型任务，那么线程数最多不超过CPU内核数，因为启动再多线程，CPU也来不及调度</strong>；<strong>相反如果是任务需要等待磁盘操作，网络响应，那么多启动线程有助于提高任务并发度，提高系统吞吐能力，改善系统性能</strong>。（看是CPU计算型还是磁盘操作！）</p>
+<p>多线程需要注意线程安全的问题，这也是缺乏经验的网站工程师最容易犯错的地方，而线程安全B ug又难以测试和重现，网站故障中，<strong>许多所谓偶然发生的“灵异事件”都和多线程并发问题有关</strong>。对网站而言，不管有没有进行多线程编程，工程师写的每一行代码都会被多线程执行，因为用户请求是并发提交的，也就是说，所有的资源——对象、内存、文件、数据库，乃至另一个线程都可能被多线程并发访问。</p>
+<p><em>2.资源复用</em></p>
+<p>系统运行时，要尽量减少那些开销很大的系统资源的创建和销毁，比如<strong>数据库连接、网络通信连接、线程、复杂对象</strong>等。从编程角度，资源复用主要有两种模式：<strong>单例(Singleton)</strong>和<strong>对象池(Object Pool)</strong>。</p>
+<p>单例虽然是GoF经典设计模式中较多被诟病的一个模式，但由于<strong>目前Web开发中主要使用贫血模式</strong>，从Service到D ao都是些无状态对象，无需重复创建，使用单例模式也就自然而然了。事实上，<strong>Java开发常用的对象容器Spring默认构造的对象都是单例</strong>(需要注意的是Spring的单例是Spring容器管理的单例，而不是用单例模式构造的单例)。</p>
+<p>前面说过，对于每个Web请求(HTTP Request)， Web应用服务器都需要创建一个独立的线程去处理，这方面，应用服务器也采用线程池(Thread Pool)的方式。<strong>这些所谓的连接池、线程池，本质上都是对象池，即连接、线程都是对象，池管理方式也基本相同</strong>。</p>
+<h3>4.4存储性能优化</h3>
+
+<p>1.机械硬盘VS固态硬盘</p>
+<p>机械硬盘是目前最常用的一种硬盘，通过马达驱动磁头臂，带动磁头到指定的磁盘位置访问数据，由于每次访问数据都需要移动磁头臂，<strong>因此机械硬盘在数据连续访问(要访问的数据存储在连续的磁盘空间上)和随机访问(要访问的数据存储在不连续的磁盘空间)时，由于移动磁头臂的次数相差巨大，性能表现差别也非常大</strong>。</p>
+<p>2.B+树.VS.LSM树</p>
+<p>本书前面提到，由于<strong>传统的机械磁盘具有快速顺序读写、慢速随机读写的访问特性</strong>，这个特性对磁盘存储结构和算法的选择影响甚大。</p>
+<p><strong>通常会对数据排序后存储，加快数据检索速度，这就需要保证数据在不断更新、插入、删除后依然有序，传统关系数据库的做法是使用B+树</strong>。</p>
+<p>目前许多NoSQL产品采用LSM树作为主要数据结构。</p>
+<p>3.RAID.VS.HDFS</p>
+<p>RAID技术可以通过硬件实现，比如专用的RAID卡或者主板直接支持，也可以通过软件实现。RAID技术在传统关系数据库及文件系统中应用比较广泛，但是在大型网站比较喜欢使用的NoSQL，以及分布式文件系统中，RAID技术却遭到冷落。</p>
+<p>现在一般用HDFS，<strong>HDFS配合M apR educe等并行计算框架进行大数据处理时，可以在整个集群上并发读写访问所有的磁盘</strong>，无需RAID支持。</p>
+<h1>5.万无一失：网站的高可用架构</h1>
+
+<h3>5.1网站可用性的度量与考核</h3>
+
+<p>网站的页面能完整呈现在最终用户面前，需要经过很多个环节，任何一个环节出了问题，都可能导致网站页面不可访问。DNS会被劫持、CDN服务可能会挂掉、网站服务器可能会宕机、网络交换机可能会失效、硬盘会损坏、网卡会松掉、甚至机房会停电、空调会失灵、程序会有B ug、黑客会攻击、促销会引来大量访问、第三方合作伙伴的服务会不可用……要保证一个网站永远完全可用几乎是一件不可能完成的使命。</p>
+<p>一个典型的网站设计通常遵循如图所示的基本分层架构模型。<br><img src="http://img.blog.csdn.net/20161129112843627" alt=""></p>
+<p>典型的分层模型是三层，即应用层、服务层、数据层；各层之间具有相对独立性，<strong>应用层主要负责具体业务逻辑处理</strong>；<strong>服务层负责提供可复用的服务</strong>；<strong>数据层负责数据的存储与访问</strong>。中小型网站在具体部署时，通常将应用层和服务层部署在一起，而数据层则另外部署，如图5.3所示(事实上，这也是网站架构演化的第一步)。<br><img src="http://img.blog.csdn.net/20161129113002568" alt=""></p>
+<p>在复杂的大型网站架构中，划分的粒度会更小，更详细，结构更加复杂，但通常还是可以将服务器划分到这三层中。<br><img src="http://img.blog.csdn.net/20161129113657118" alt=""></p>
+<p><strong>应用层</strong>：</p>
+<p>位于应用层的服务器通常<strong>为了应对高并发的访问请求</strong>，会通过负载均衡设备将一组服务器组成一个集群共同对外提供服务，当负载均衡设备通过心跳检测等手段监控到某台应用服务器不可用时，就将其从集群列表中剔除，并将请求分发到集群中其他可用的服务器上，使整个集群保持可用，从而实现应用高可用。</p>
+<p><strong>服务层</strong>：</p>
+<p>位于服务层的服务器情况和应用层的服务器类似，也是通过集群方式实现高可用，只是这些服务器被应用层通过分布式服务调用框架访问，分布式服务调用框架会在应用层客户端程序中实现软件负载均衡，并通过服务注册中心对提供服务的服务器进行心跳检测，发现有服务不可用，立即通知客户端程序修改服务访问列表，剔除不可用的服务器。</p>
+<p><strong>数据层</strong>：</p>
+<p>位于数据层的服务器情况比较特殊，数据服务器上存储着数据，为了保证服务器宕机时数据不丢失，数据访问服务不中断，需要在数据写入时进行数据同步复制，将数据写入多台服务器上，实现数据冗余备份。当数据服务器宕机时，应用程序将访问切换到有备份数据的服务器上。</p>
+<h3>5.3高可用的应用</h3>
+
+<p>应用层主要处理网站应用的业务逻辑，因此有时也称作业务逻辑层，<strong>应用的一个显著特点是应用的无状态性</strong>。</p>
+<p><strong>所谓无状态的应用是指应用服务器不保存业务的上下文信息，而仅根据每次请求提交的数据进行相应的业务逻辑处理，多个服务实例(服务器)之间完全对等，请求提交到任意服务器，处理结果都是完全一样的</strong>。</p>
+<p><em>1.通过负载均衡进行无状态服务的失效转移</em></p>
+<p><em>2.应用服务器集群的Session管理</em></p>
+<p>应用服务器的高可用架构设计主要基于服务无状态这一特性，<strong>但是事实上，业务总是有状态的</strong>，在交易类的电子商务网站，需要有购物车记录用户的购买信息，用户每次购买请求都是向购物车中增加商品；在社交类的网站中，需要记录用户的当前登录状态、最新发布的消息及好友状态等，用户每次刷新页面都需要更新这些信息。</p>
+<p><strong>Web应用中将这些多次请求修改使用的上下文对象称作会话(Session)</strong>，单机情况下，Session可由部署在服务器上的Web容器(如JBoss)管理。在使用负载均衡的集群环境中，由于负载均衡服务器可能会将请求分发到集群任何一台应用服务器上，<strong>所以保证每次请求依然能够获得正确的Session比单机时要复杂很多</strong>。</p>
+<p>集群环境下，Session管理主要有以下几种手段。</p>
+<p><em>1.Session复制</em></p>
+<p>原理很简单，在集群中的几台服务器之间同步Session对象，使得每台服务器上都保存有用户的Session信息，这样任何一台服务器宕机，都可以在其他服务器上找到Session。</p>
+<p>缺点是，大量用户访问的情况下，会出现服务器内存不够Session使用的情况。</p>
+<p>而大型网站的核心应用集群就是数千台服务器，同时在线用户可达千万，因此并不适用这种方案。</p>
+<p><em>2.Session绑定</em></p>
+<p>Session绑定可以利用负载均衡的源地址Hash算法实现，负载均衡服务器总是将来自同一IP的请求分发到同一台服务器上，这种方法又被称作为<strong>会话粘滞</strong>。</p>
+<p>但Session绑定的方案不符合我们的要求，如果一台服务器宕机，那么该服务器上的Session将不存在，用户请求切换后无法完成业务。</p>
+<p>因此虽然大部分负载均衡服务器都提供源地址负载均衡算法，但很少有网站利用这个算法进行Session管理。</p>
+<p><em>3.利用Cookie记录Session</em></p>
+<p>利用Cookie记录Session也有缺点，比如<strong>受Cookie大小限制，能记录的信息有限，每次请求响应都需要传输Cookie，影响性能</strong>；如果用户关闭C ookie，访问就会不正常。但是由于C ookie的简单易用，可用性高，支持应用服务器的线性伸缩，而大部分应用需要记录的Session信息又比较小。<strong>因此事实上，许多网站都或多或少地使用C ookie记录Session</strong>。</p>
+<p><em>4.Session服务器</em></p>
+<p>那么有没有可用性高、伸缩性好、性能也不错，对信息大小又没有限制的服务器集群Session管理方案呢？</p>
+<p>答案就是<strong>Session服务器</strong>。利用独立部署的Session服务器(集群)统一管理S ession，应用服务器每次读写Session时，都访问Session服务器，如图所示。<br><img src="http://img.blog.csdn.net/20161129135128099" alt=""></p>
+<p>这种解决方案事实上是<strong>将应用服务器的状态分离</strong>，<strong>分为无状态的应用服务器和有状态的Session服务器</strong>，然后针对这两种服务器的不同特性分别设计其架构。</p>
+<p>对于有状态的Session服务器，一种比较简单的方法是利用分布式缓存、数据库等，在这些产品的基础上进行包装，使其符合Session的存储和访问要求。如果业务场景对Session管理有比较高的要求，比如利用Session服务集成单点登录(SSO)、用户服务等功能，则需要开发专门的Session服务管理平台。</p>
+<h3>5.4高可用的服务</h3>
+
+<h3>5.5高可用的数据</h3>
+
+<p><strong>保证数据存储高可用的手段主要是1.数据备份和2.失效转移机制</strong>。数据备份是保证数据有多个副本，任意副本的失效都不会导致数据的永久丢失，从而实现数据完全的持久化。而失效转移机制则保证当一个数据副本不可访问时，可以快速切换访问数据的其他副本，保证系统可用。</p>
+<p>关于缓存服务的高可用，在实践中争议很大，一种观点认为缓存已经成为网站数据服务的重要组成部分，事实上承担了业务中绝大多数的数据读取访问服务，缓存服务失效可能会导致数据库负载过高而宕机，进而影响整个网站的可用性，因此缓存服务需要实现和数据存储服务同样的高可用。</p>
+<p>另一种观点认为，缓存服务不是数据存储服务，缓存服务器宕机引起缓存数据丢失导致服务器负载压力过高应该通过其他手段解决，而不是提高缓存服务本身的高可用。</p>
+<p>笔者持后一种观点，对于缓存服务器集群中的单机宕机，如果缓存服务器集群规模较大，那么单机宕机引起的缓存数据丢失比例和数据库负载压力变化都较小，对整个系统影响也较小。<strong>扩大缓存服务器集群规模的一个简单手段就是整个网站共享同一个分布式缓存集群，单独的应用和产品不需要部署自己的缓存服务器，只需要向共享缓存集群申请缓存资源即可</strong>。并且通过逻辑或物理分区的方式将每个应用的缓存部署在多台服务器上，任何一台服务器宕机引起的缓存失效都只影响应用缓存数据的一小部分，不会对应用性能和数据库负载造成太大影响。</p>
+<p><strong>C AP原理</strong>：</p>
+<p>在讨论高可用数据服务架构之前，必须先讨论的一个话题是，<strong>为了保证数据的高可用，网站通常会牺牲另一个也很重要的指标：数据一致性</strong>。也就是说，数据的高可用性跟数据的一致性不可兼得。</p>
+<p>高可用的数据有如下几个层面的含义。</p>
+<p><strong>1.数据持久性</strong></p>
+<p><strong>2.数据的可访问性</strong></p>
+<p><strong>3.数据一致性</strong></p>
+<p>CAP原理认为，一个提供数据服务的存储系统无法同时满足数据一致性(C onsistency)、数据可用性(A vailib ility)、分区耐受性(Patition Tolerance，系统具有跨网络分区的伸缩性)这三个条件，如图。<br><img src="http://img.blog.csdn.net/20161129142415581" alt=""></p>
+<p>在大型网站中，通常会选择强化分布式存储系统的可用性（A）和伸缩性（P），而在某种程度上放弃一致性（C）。</p>
+<p>数据一致性可以分为如下几点：</p>
+<p><strong>1.数据强一致</strong></p>
+<p>各个副本的数据在物理存储中总是一致的，数据更新操作结果和操作响应总是一致的，即操作响应通知更新失败，那么数据一定没有被更新，而不是处于不确定状态。</p>
+<p><strong>2.数据用户一致</strong></p>
+<p>数据在物理存储中的各个副本的数据可能是不一致的，但是终端用户访问时，通过纠错和校验机制，可以确定一个一致的且正确的数据返回给用户。</p>
+<p><strong>3.数据最终一致</strong></p>
+<p>这是数据一致性中较弱的一种，即物理存储的数据可能是不一致的，终端用户访问到的数据可能也是不一致的(同一用户连续访问，结果不同；或者不同用户同时访问，结果不同)，<strong>但系统经过一段时间(通常是一个比较短的时间段)的自我恢复和修正，数据最终会达到一致</strong>。</p>
+<p><strong>关系数据库热备机制就是通常所说的M aster-S lave同步机制</strong>。M aster-S lave机制不但解决了数据备份问题，还改善了数据库系统的性能，实践中，通常使用读写分离的方法访问S lave和M aster数据库，<strong>写操作只访问M aster数据库，读操作只访问S lave数据库</strong>。</p>
+<p><em>关于数据的失效转移：</em></p>
+<p>失效转移操作主要由三部分组成：1.失效确认，2.失效转移，3.数据恢复</p>
+<p><strong>1.失效确认</strong></p>
+<p>判断服务器宕机是系统进行失效转移的第一步，系统确认一台服务器是否宕机的手段有两种：<strong>1.心跳检测</strong>和<strong>2.应用程序访问失败报告</strong>，如图。<br><img src="http://img.blog.csdn.net/20161129143554423" alt=""></p>
+<p><strong>2.访问转移</strong></p>
+<p><strong>3.数据恢复</strong></p>
+<p>网站发布的流程：</p>
+<p>网站发布毕竟是一次提前预知的服务器宕机，所以过程可以更柔和，对用户影响更小。通常使用发布脚本来完成发布，其流程如图。<br><img src="http://img.blog.csdn.net/20161129144457359" alt=""></p>
+<p>目前大部分网站都采用Web自动化测试技术，使用自动测试工具或脚本完成测试。比较流行的Web自动化测试工具是ThoughtW orks开发的<strong>Selenium</strong>。<strong>Selenium运行在浏览器中，模拟用户操作进行测试，因此Selenium可以同时完成Web功能测试和浏览器兼容测试</strong>。</p>
+<p>在网站发布时，并不是把测试通过的代码包直接发布到线上服务器，而是<strong>先发布到预发布机器上</strong>，开发工程师和测试工程师在预发布服务器上进行预发布验证，执行一些典型的业务流程，确认系统没有问题后才正式发布。</p>
+<h3>5.7网站运行监控</h3>
+
+<h1>6.永无止境：网站的伸缩性架构</h1>
+
+<p>所谓网站的伸缩性是指不需要改变网站的软硬件设计，仅仅通过改变部署服务器数量就可以扩大或者缩小网站的服务处理能力。</p>
+<p>回顾网站架构发展历程， <strong>网站架构发展史就是一部不断向网站添加服务器的历史</strong>。只要工程师能向网站的服务器集群中添加新的机器，只要新添加的服务器能线性提高网站的整体服务处理能力，网站就无需为不断增长的用户和访问而焦虑。</p>
+<h3>6.2应用服务器集群的伸缩性设计</h3>
+
+<p><strong>实现负载均衡的主要算法</strong>：</p>
+<p><em>1.HTTP重定向负载均衡</em><br><img src="http://img.blog.csdn.net/20161129150833627" alt=""></p>
+<p>这种负载均衡方案的<strong>优点是比较简单</strong>。<strong>缺点是浏览器需要两次请求服务器才能完成一次访问，性能较差</strong>；重定向服务器自身的处理能力有可能成为瓶颈，整个集群的伸缩性规模有限；<strong>使用HTTP302响应码重定向，有可能使搜索引擎判断为SEO作弊，降低搜索排名</strong>。因此<strong>实践中</strong>使用这种方案进行负载均衡的案例<strong>并不多见</strong>。</p>
+<p><em>2.DNS域名解析负载均衡</em><br><img src="http://img.blog.csdn.net/20161129151056411" alt=""></p>
+<p>在DNS服务器中配置多个A记录，如：www.m ysite.com IN A 114.100.80.1、www.m ysite.com IN A 114.100.80.2、www.m ysite.com IN A 114.100.80.3。<br>每次域名解析请求都会根据负载均衡算法计算一个不同的IP地址返回，这样A记录中配置的多个服务器就构成一个集群，并可以实现负载均衡。</p>
+<p>DNS域名解析负载均衡的<strong>优点是将负载均衡的工作转交给DNS</strong>，省掉了网站管理维护负载均衡服务器的麻烦，同时许多DNS还支持基于地理位置的域名解析，即会将域名解析成距离用户地理最近的一个服务器地址，这样可加快用户访问速度，改善性能。但是DNS域名解析负载均衡也有<strong>缺点</strong>，就是<strong>1.目前的DNS是多级解析</strong>，每一级DNS都可能缓存A记录，当下线某台服务器后，即使修改了DNS的A记录，要使其生效也需要较长时间，这段时间，DNS依然会将域名解析到已经下线的服务器，导致用户访问失败；而且<strong>2.DNS负载均衡的控制权在域名服务商那里</strong>，网站无法对其做更多改善和更强大的管理。</p>
+<p>事实上，<strong>大型网站总是部分使用DNS域名解析，利用域名解析作为第一级负载均衡手段，即域名解析得到的一组服务器并不是实际提供Web服务的物理服务器，而是同样提供负载均衡服务的内部服务器，这组内部负载均衡服务器再进行负载均衡，将请求分发到真实的Web服务器上</strong>。</p>
+<p>大型网站利用DNS域名解析作为第一级的负载均衡手段。</p>
+<p><em>3.反向代理负载均衡</em><br><img src="http://img.blog.csdn.net/20161129151656747" alt=""></p>
+<p>前面我们提到利用反向代理缓存资源，以改善网站性能。实际上，在部署位置上，反向代理服务器处于Web服务器前面(这样才可能缓存Web响应，加速访问)，这个位置也正好是负载均衡服务器的位置，<strong>所以大多数反向代理服务器同时提供负载均衡的功能，管理一组Web服务器，将请求根据负载均衡算法转发到不同Web服务器上</strong>。Web服务器处理完成的响应也需要通过反向代理服务器返回给用户。由于Web服务器不直接对外提供访问，因此Web服务器不需要使用外部IP地址，而<strong>反向代理服务器则需要配置双网卡和内部外部两套IP地址</strong>。</p>
+<p>由于反向代理服务器转发请求在HTTP协议层面，因此也叫<strong>应用层负载均衡</strong>。<strong>其优点是和反向代理服务器功能集成在一起，部署简单</strong>。<strong>缺点是反向代理服务器是所有请求和响应的中转站，其性能可能会成为瓶颈</strong>。</p>
+<p><em>4.IP负载均衡</em></p>
+<p>在网络层通过修改目标地址进行负载均衡。<br><img src="http://img.blog.csdn.net/20161129152233473" alt=""></p>
+<p><em>5.数据链路层负载均衡</em></p>
+<p>顾名思义，数据链路层负载均衡是指在通信协议的数据链路层修改mac地址进行负载均衡。<br><img src="http://img.blog.csdn.net/20161129152456523" alt=""></p>
+<p>这种数据传输方式又称作<strong>三角传输模式</strong>，<strong>负载均衡数据分发过程中不修改IP地址，只修改目的m ac地址</strong>，通过配置真实物理服务器集群所有机器虚拟IP和负载均衡服务器IP地址一致，从而达到不修改数据包的源地址和目的地址就可以进行数据分发的目的，由于实际处理请求的真实物理服务器IP和数据请求目的IP一致，不需要通过负载均衡服务器进行地址转换，可将响应数据包直接返回给用户浏览器，避免负载均衡服务器网卡带宽成为瓶颈。这种负载均衡方式又称作直接路由方式(DR)。</p>
+<p>使用三角传输模式的<strong>链路层负载均衡</strong>是目前大型网站<strong>使用最广的一种负载均衡手段</strong>。在Linux平台上最好的链路层负载均衡开源产品是<strong>LVS</strong>(Linux V irtual Server)。</p>
+<p><em>6.负载均衡算法</em></p>
+<p>负载均衡服务器的实现分成两个部分：</p>
+<p>1.根据负载均衡算法和Web服务器列表计算得到集群中一台Web服务器的地址。<br>2.将请求数据发送到该地址对应的Web服务器上。</p>
+<p>前面描述了如何将请求数据发送到Web服务器上，而具体的负载均衡算法通常有如下几种：</p>
+<p>1.轮询（RR）<br>2.加权轮询（WRR）<br>3.随机（Random）</p>
+<p>4.<strong>最少连接</strong>（Least Connections）<br>记录每个应用服务器正在处理的连接数（请求数），将新到的请求分发到最少连接的服务器上，应该说，<strong>这是最符合负载均衡定义的算法</strong>。同样，最小连接算法也可以实现加权最少连接。</p>
+<p>5.源地址散列（Source Hashing）</p>
+<h3>6.3分布式缓存集群的伸缩性设计</h3>
+
+<p>我们在本书第4章讨论过分布式缓存，不同于应用服务器集群的伸缩性设计，分布式缓存集群的伸缩性不能使用简单的负载均衡手段来实现。</p>
+<p>必须让新上线的缓存服务器对整个分布式缓存集群影响最小，也就是说新加入缓存服务器后应使整个缓存服务器集群中已经缓存的数据尽可能还被访问到，这是分布式缓存集群伸缩性设计的最主要目标。</p>
+<p>1.Memcached分布式缓存集群的访问模型</p>
+<p>如果使用朴素的Hash路由算法，将会出现问题。本来加入新的缓存服务器是为了降低数据库的负载压力，但是操作不当却导致了数据库的崩溃。如果不对问题和解决方案有透彻了解，网站技术总有想不到的陷阱让架构师一脚踩空。遇到这种情况，用某网站一位资深架构师的话说，就是“一股寒气从脚底板窜到了脑门心”。</p>
+<p>能不能通过<strong>改进路由算法</strong>，使得新加入的服务器不影响大部分缓存数据的正确命中呢？目前比较流行的算法是<strong>一致性Hash算法</strong>。</p>
+<p>一致性Hash算法也有小问题。</p>
+<p>计算机领域有句话：计算机的任何问题都可以<strong>通过增加一个虚拟层来解决</strong>。计算机硬件、计算机网络、计算机软件都莫不如此。计算机网络的7层协议，每一层都可以看作是下一层的虚拟层；计算机操作系统可以看作是计算机硬件的虚拟层；Java虚拟机可以看作是操作系统的虚拟层；分层的计算机软件架构事实上也是利用虚拟层的概念。</p>
+<p><strong>解决上述一致性Hash算法带来的负载不均衡问题，也可以通过使用虚拟层的手段</strong>：将每台物理缓存服务器虚拟为一组虚拟缓存服务器，将虚拟服务器的Hash值放置在Hash环上，KEY在环上先找到虚拟服务器节点，再得到物理服务器的信息。</p>
+<h3>6.4数据存储服务器集群的伸缩性设计</h3>
+
+<p><em>1.关系性数据库集群的伸缩性设计</em></p>
+<p>目前网站在线业务应用中比较成熟的支持数据分片的分布式关系数据库产品主要有Cobar。其架构图如下。<br><img src="http://img.blog.csdn.net/20161129160518844" alt=""></p>
+<p>Cobar系统组件模型如图。<br><img src="http://img.blog.csdn.net/20161129160625345" alt=""></p>
+<p>前端通信模块负责和应用程序通信，接收到SQL请求(select <em> from users where userid in (12,22,23))后转交给SQL解析模块，SQL解析模块解析获得SQL中的路由规则查询条件(userid in(12,22,23))再转交给SQL路由模块，SQL路由模块根据路由规则配置(userid为偶数路由至数据库A， userid为奇数路由至数据库B)将应用程序提交的SQL分解成两条SQ L(select </em> from users w here userid in (12,22)；select * from users w here userid in (23)；)转交给SQL执行代理模块，发送至数据库A和数据库B分别执行。</p>
+<p>数据库A和数据库B的执行结果返回至SQL执行模块，通过结果合并模块将两个返回结果集合并成一个结果集，最终返回给应用程序，完成在分布式数据库中的一次访问请求。</p>
+<p><strong>那么Cobar如何做集群的伸缩呢？</strong><br>Cobar的伸缩有两种：<strong>1.Cobar服务器集群的伸缩</strong>和<strong>2.MySQL服务器集群的伸缩</strong>。</p>
+<p><em>2.NoSQL数据库的伸缩性设计</em></p>
+<p>大型网站遇到了关系数据库难以克服的缺陷——糟糕的海量数据处理能力及僵硬的设计约束，局面才有所改善。为了解决上述问题，NoSQL这一概念被提了出来，以弥补关系数据库的不足。</p>
+<p><strong>NoSQL，主要指非关系的、分布式的数据库设计模式</strong>。也有许多专家将NoSQL解读为N ot O nly SQ L，<strong>表示NoSQL只是关系数据库的补充，而不是替代方案</strong>。一般而言，NoSQL数据库产品都放弃了关系数据库的两大重要基础：以关系代数为基础的结构化查询语言(SQL)和事务一致性保证(ACID)。<strong>而强化其他一些大型网站更关注的特性：高可用性和可伸缩性</strong>。</p>
+<p>开源社区有各种N oSQL产品，其支持的数据结构和伸缩特性也各不相同，目前看来，应用最广泛的是<strong>Apache HBase</strong>。</p>
+<h3>6.5小结</h3>
+
+<p><strong>高手定律</strong>：</p>
+<p>这个世界只有遇不到的问题，没有解决不了的问题，高手之所以成为高手，是因为他们遇到了常人很难遇到的问题，并解决了。所以百度有很多广告搜索的高手，淘宝有很多海量数据的高手，Q Q有很多高并发业务的高手，原因大抵如此。一个100万用户的网站，不会遇到1亿用户同时在线的问题；一个拥有100万件商品网站的工程师，可能无法理解一个拥有10亿件商品网站的架构。</p>
+<p><strong>救世主定律</strong>：</p>
+<p>遇到问题，分析问题，最后总能解决问题。如果遇到问题就急匆匆地从外面挖一个高手，然后指望高手如探囊取物般轻松搞定，最后怕是只有彼此抱怨和伤害。许多问题只是看起来一样，具体问题总是要具体对待的，没有银弹，没有救世主。所以这个定律准确地说应该是“没有救世主定律”。</p>
+<h1>7.按需应变：网站的可扩展架构</h1>
+
+<p>网站扩展性架构设计：对现有系统影响最小的情况下，系统功能可持续扩展及提升的能力。</p>
+<p>首先厘清容易混淆的两个概念：</p>
+<p>1.扩展性(Extensibility)：</p>
+<p>指对现有系统影响最小的情况下，系统功能可持续扩展或提升的能力。表现在系统基础设施稳定不需要经常变更，应用之间较少依赖和耦合，对需求变更可以敏捷响应。它是系统架构设计层面的开闭原则(对扩展开放，对修改关闭)，架构设计考虑未来功能扩展，当系统增加新功能时，不需要对现有系统的结构和代码进行修改。</p>
+<p>2.伸缩性(Scalability)：</p>
+<p>指系统能够通过增加(减少)自身资源规模的方式增强(减少)自己计算处理事务的能力。如果这种增减是成比例的，就被称作线性伸缩性。在网站架构中，通常指利用集群的方式增加服务器数量、提高系统的整体事务吞吐能力。</p>
+<h3>7.2利用分布式消息队列降低系统耦合性</h3>
+
+<p>如果模块之间不存在直接调用，那么新增模块或者修改模块就对其他模块影响最小，这样系统的可扩展性无疑更好一些。</p>
+<p><strong>1.事件驱动架构</strong>：</p>
+<p>事件驱动架构(Event Driven Architecture)：通过在低耦合的模块之间传输事件消息，以保持模块的松散耦合，并借助事件消息的通信完成模块间合作，典型的EDA架构就是操作系统中常见的生产者消费者模式。在大型网站架构中，具体实现手段有很多，最常用的是分布式消息队列，如图所示。<br><img src="http://img.blog.csdn.net/20161129163023939" alt=""></p>
+<p><strong>2.分布式消息队列</strong>：<br><img src="http://img.blog.csdn.net/20161129163151888" alt=""></p>
+<p>目前开源的和商业的分布式消息队列产品有很多，比较著名的如<strong>Apache ActiveMQ</strong>等，这些产品除了实现分布式消息队列的一般功能，在可用性、伸缩性、数据一致性、性能和可管理性方面也做了很多改善。</p>
+<h3>7.3利用分布式服务打造可复用的业务平台</h3>
+
+<p>巨无霸的应用系统会带来很多问题：<br>1.编译，部署困难<br>2.代码分支管理困难<br>3.数据库连接耗尽<br>4.新增业务困难</p>
+<p>解决方案就是<strong>拆分</strong>，将模块独立部署，降低系统耦合性。拆分可以分为纵向拆分和横向拆分两种。</p>
+<p>纵向拆分：将一个大应用拆分为多个小应用，如果新增业务较为独立，那么就直接将其设计部署为一个独立的Web应用系统。</p>
+<p>横向拆分：将复用的业务拆分出来，独立部署为分布式服务，新增业务只需要调用这些分布式服务，不需要依赖具体的模块代码，即可快速搭建一个应用系统，而模块内业务逻辑变化的时候，只要接口保持一致就不会影响业务程序和其他模块。</p>
+<p><em>1.Web Service与企业级分布式服务</em></p>
+<p><em>2.大型网站分布式服务的需求和特点</em></p>
+<p>对于大型网站，除了Web Services所提供的服务注册与发现，服务调用等标准功能，还需要分布式服务框架能够支持如下功能。</p>
+<p>1.负载均衡<br>2.失效转移<br>3.高效的远程通信<br>4.整合异构系统<br>5.对应用最少侵入<br>6.版本管理<br>7.实时监控</p>
+<p><em>3.分布式服务框架设计</em></p>
+<p>例如Facebook的Thrift。</p>
+<p>服务消费者程序通过服务接口使用服务，而服务接口通过代理加载具体服务，具体服务可以是本地的代码模块，也可以是远程的服务，因此对应用较少侵入：应用程序只需要调用服务接口，服务框架根据配置自动调用本地或远程实现。</p>
+<p>服务框架客户端模块通过服务注册中心加载服务提供者列表(服务提供者启动后自动向服务注册中心注册自己可提供的服务接口列表)，查找需要的服务接口，并根据配置的负载均衡策略将服务调用请求发送到某台服务提供者服务器。如果服务调用失败，客户端模块会自动从服务提供者列表选择一个可提供同样服务的另一台服务器重新请求服务，实现服务的自动失效转移，保证服务高可用。<br><img src="http://img.blog.csdn.net/20161129165619461" alt=""></p>
+<h3>7.4可扩展的数据结构</h3>
+
+<p>开放平台是网站内部和外部交互的接口，外部需要面对众多的第三方开发者，内部需要面对网站内诸多的业务服务。虽然每个网站的业务场景和需求都各不相同，但是开放平台的架构设计却大同小异，如图所示。<br><img src="http://img.blog.csdn.net/20161129170043011" alt=""></p>
+<p><strong>API接口</strong>：是开放平台暴露给开发者使用的一组API，其形式可以是RESTful、WebService、RPC等各种形式。<br><strong>协议转换</strong>：将各种API输入转换成内部服务可以识别的形式，并将内部服务的返回封装成API的格式。<br><strong>安全</strong>：除了一般应用需要的身份识别、权限控制等安全手段，开放平台还需要分级的访问带宽限制，保证平台资源被第三方应用公平合理使用，也保护网站内部服务不会被外部应用拖垮。<br><strong>审计</strong>：记录第三方应用的访问情况，并进行监控、计费等。<br><strong>路由</strong>：将开放平台的各种访问路由映射到具体的内部服务。<br><strong>流程</strong>：将一组离散的服务组织成一个上下文相关的新服务，隐藏服务细节，提供统一接口供开发者调用。</p>
+<h3>7.6小结</h3>
+
+<p>既然我们知道网站不停上新产品是其生存的本能，谁能更快更好地推出更多的新产品，谁就活得更滋润，那么工程师就要做好准备应付这种局面。马克思的劳动价值理论告诉我们，产品的内在价值在于劳动的时间，劳动的时间不在于个体付出的劳动时间，而在于行业一般劳动时间，资本家只会为行业一般劳动时间买单，如果你的效率低于行业一般劳动时间，对不起，请你自愿加班。反之，如果你有一个更具有扩展性的网站架构，可以更快速地开发新产品，也许你也享受不了只上半天班的福利，但是至少在这个全行业加班的互联网领域，你能够按时下班，陪陪家人，看看星星。</p>
+<h2 id="第三篇：案例"><a href="#第三篇：案例" class="headerlink" title="第三篇：案例"></a>第三篇：案例</h2><h3>10.1Wikipedia网站整体架构</h3>
+
+<p>架构如图。<br><img src="http://img.blog.csdn.net/20161129170716255" alt=""></p>
+<p>Wikipedia架构的主要组成部分如下。<br>GeoDNS：基于开源域名服务器软件BIND(Berkeley Internet Name Domain)的增强版本，可将域名解析到离用户最近的服务器。<br>LVS：基于Linux的开源负载均衡服务器。<br>Squid：基于Linux的开源反向代理服务器。<br>Lighttpd：开源的应用服务器，较主流的Apache服务器更轻量、更快速。实践中，有许多网站使用L ighttpd作为图片服务器。<br>PHP：免费的Web应用程序开发语言，最流行的网站建站语言。<br>Memcached：无中心高性能的开源分布式缓存系统，稳定、可靠、历久弥新，是网站分布式缓存服务必备的。<br>Lucene：由Apache出品，Java开发的开源全文搜索引擎。<br>MySQL：开源的关系数据库管理系统，虽被Oracle收购，但开源社区将其继续开源发展的决心不动摇。</p>
+<p><strong>关于故障</strong>：</p>
+<p>在讨论解决方案之前，我们先对故障进行分类，针对不同故障情况分别对待。对于一个分布式存储系统而言，影响系统整体可用性的故障可以分成以下三类。</p>
+<p><strong>× 瞬时故障</strong>：引起这类故障的主要原因是网络通信瞬时中断、服务器内存垃圾回收或后台线程繁忙停止数据访问操作响应。其特点是故障时间短，在秒级甚至毫秒级系统即可自行恢复正常响应。</p>
+<p><strong>× 临时故障</strong>：引起这类故障的主要原因是交换机宕机、网卡松动等导致的网络通信中断；系统升级、停机维护等一般运维活动引起的服务关闭；内存损坏、CPU过热等硬件原因导致的服务器宕机；这类故障的主要特点是需要人工干预(更换硬件、重启机器等)才能恢复正常。通常持续时间需要几十分钟甚至几小时。故障时间可分为两个阶段：临时故障期间，临时故障恢复期间。</p>
+<p><strong>× 永久故障</strong>：引起这类故障的主要原因只有一个：硬盘损坏，数据丢失。虽然损坏硬盘和损坏内存一样，可以通过更换硬盘来重新启动机器，但是丢失的数据却永远找不回来了，因此其处理策略也和前面两种故障完全不同，恢复系统到正常状态也需要更长的时间。故障时间可分为两个阶段：永久故障期间和永久故障恢复期间。</p>
+<h3>12.1秒杀活动的技术挑战</h3>
+
+<p>1.对现有网站业务造成冲击<br>2.高并发下的应用，数据库负载<br>3.突然增加的网络及服务器带宽<br>4.直接下单</p>
+<h3>12.2秒杀系统的应对策略</h3>
+
+<p>1.秒杀系统独立部署<br>2.秒杀商品页面静态化<br>3.租借秒杀活动网络带宽<br>4.动态生成随机下单页面URL</p>
+<h3>13.3高并发情况下锁引发的故障</h3>
+
+<p>故障现象：某应用服务器不定时地因为响应超时而报警，但是很快又超时解除，恢复正常，如此反复，让运维人员非常苦恼。</p>
+<p>原因分析：程序中某个单例对象(singleton object)中多处使用了synchronized(this)，由于this对象只有一个，所有的并发请求都要排队获得这唯一的一把锁。一般情况下，都是一些简单操作，获得锁，迅速完成操作，释放锁，不会引起线程排队。但是某个需要远程调用的操作也被加了synchronized(this)，这个操作只是偶尔会被执行，但是每次执行都需要较长的时间才能完成，这段时间锁被占用，所有的用户线程都要等待，响应超时，这个操作执行完后释放锁，其他线程迅速执行，超时解除。</p>
+<p>经验教训：<br>× 使用锁操作要谨慎。</p>
+<h2 id="第四篇：架构师"><a href="#第四篇：架构师" class="headerlink" title="第四篇：架构师"></a>第四篇：架构师</h2>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/后端开发/">后端开发</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/11/28/大型网站技术架构/" data-title="大型网站技术架构 | 曾先生&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/12/06/Java解惑/" title="Java解惑">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Java解惑</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/11/22/Hadoop文档学习笔记/"  title="Hadoop文档学习笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>Hadoop文档学习笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/11/28/大型网站技术架构/" data-title="大型网站技术架构" data-url="http://yoursite.com/2016/11/28/大型网站技术架构/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一篇：概述"><span class="toc-number">1.</span> <span class="toc-text">第一篇：概述</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">1.大型网站架构演化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">1.1大型网站软件系统的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">1.2大型网站架构演化发展历程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">1.4网站架构设计误区</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">2.大型网站架构模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">2.1网站架构模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">2.2架构模式在新浪微博中的应用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">3.大型网站核心架构要素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">3.1性能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">3.2可用性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">3.3伸缩性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">3.4扩展性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.5.</span> <span class="toc-text">3.5安全性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.6.</span> <span class="toc-text">3.6小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二篇：架构"><span class="toc-number">1.</span> <span class="toc-text">第二篇：架构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">4.瞬时响应：网站的高性能架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">4.2Web前端性能优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">4.3应用服务器性能优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">4.4存储性能优化</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">5.万无一失：网站的高可用架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">5.1网站可用性的度量与考核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">5.3高可用的应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">5.4高可用的服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">5.5高可用的数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.5.</span> <span class="toc-text">5.7网站运行监控</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">6.永无止境：网站的伸缩性架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">6.2应用服务器集群的伸缩性设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">6.3分布式缓存集群的伸缩性设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">6.4数据存储服务器集群的伸缩性设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">6.5小结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number"></span> <span class="toc-text">7.按需应变：网站的可扩展架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.1.</span> <span class="toc-text">7.2利用分布式消息队列降低系统耦合性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.2.</span> <span class="toc-text">7.3利用分布式服务打造可复用的业务平台</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.3.</span> <span class="toc-text">7.4可扩展的数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">0.4.</span> <span class="toc-text">7.6小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三篇：案例"><span class="toc-number">1.</span> <span class="toc-text">第三篇：案例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">10.1Wikipedia网站整体架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">12.1秒杀活动的技术挑战</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.</span> <span class="toc-text">12.2秒杀系统的应对策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.4.</span> <span class="toc-text">13.3高并发情况下锁引发的故障</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第四篇：架构师"><span class="toc-number">2.</span> <span class="toc-text">第四篇：架构师</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">Tag Cloud</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 13.33px;">Java</a> <a href="/tags/Java编程思想读书笔记/" style="font-size: 16.67px;">Java编程思想读书笔记</a> <a href="/tags/Spring/" style="font-size: 15px;">Spring</a> <a href="/tags/TECH/" style="font-size: 11.67px;">TECH</a> <a href="/tags/后端开发/" style="font-size: 18.33px;">后端开发</a> <a href="/tags/数据结构与算法分析/" style="font-size: 11.67px;">数据结构与算法分析</a> <a href="/tags/机器学习/" style="font-size: 13.33px;">机器学习</a> <a href="/tags/程序人生/" style="font-size: 10px;">程序人生</a> <a href="/tags/程序员修炼之道读书笔记/" style="font-size: 13.33px;">程序员修炼之道读书笔记</a> <a href="/tags/算法4读书笔记/" style="font-size: 15px;">算法4读书笔记</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">Links</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="http://lucida.me/" target="_blank" title="Lucida&#39;s Blog">Lucida&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://hukai.me/" target="_blank" title="Hukai&#39;s Blog">Hukai&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://gank.io/" target="_blank" title="GANK">GANK</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://stormzhang.com/" target="_blank" title="StormZhang&#39;s Blog">StormZhang&#39;s Blog</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://www.trinea.cn/" target="_blank" title="Trinea&#39;s Blog">Trinea&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+  <div class="weiboshow">
+  <p class="asidetitle">Weibo</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=2766fecb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello , I&#39;m Zeng Qi , a Android developer , love Java , ML and Big Data . <br/>
+			This is my blog , hope you will enjoy it . Let&#39;s make this world a better place .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/18600103348" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		<a href="https://github.com/zengqi-ustb" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		<a href="http://www.zhihu.com/people/ceng-qi-29" target="_blank" class="icon-zhihu" title="知乎"></a>
+		
+		
+		
+		<a href="mailto:zengqiustb@163.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		© 2016 
+		
+		<a href="/about" target="_blank" title="曾奇">曾奇</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"zengqi"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
